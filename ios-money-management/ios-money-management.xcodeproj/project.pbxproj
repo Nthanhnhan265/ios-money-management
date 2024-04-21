@@ -17,6 +17,7 @@
 		3F92F06E2BD5375300CCD1D9 /* ios_money_managementTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F92F06D2BD5375300CCD1D9 /* ios_money_managementTests.swift */; };
 		3F92F0782BD5375300CCD1D9 /* ios_money_managementUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F92F0772BD5375300CCD1D9 /* ios_money_managementUITests.swift */; };
 		3F92F07A2BD5375300CCD1D9 /* ios_money_managementUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F92F0792BD5375300CCD1D9 /* ios_money_managementUITestsLaunchTests.swift */; };
+		6476A9D22BD53384009935A8 /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6476A9D12BD53384009935A8 /* WelcomeViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +52,7 @@
 		3F92F0732BD5375300CCD1D9 /* ios-money-managementUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "ios-money-managementUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3F92F0772BD5375300CCD1D9 /* ios_money_managementUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ios_money_managementUITests.swift; sourceTree = "<group>"; };
 		3F92F0792BD5375300CCD1D9 /* ios_money_managementUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ios_money_managementUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		6476A9D12BD53384009935A8 /* WelcomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -142,6 +144,7 @@
 			isa = PBXGroup;
 			children = (
 				3F92F0572BD5375100CCD1D9 /* ViewController.swift */,
+				6476A9D12BD53384009935A8 /* WelcomeViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -278,6 +281,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3F92F0582BD5375100CCD1D9 /* ViewController.swift in Sources */,
+				6476A9D22BD53384009935A8 /* WelcomeViewController.swift in Sources */,
 				3F92F05E2BD5375100CCD1D9 /* ios_money_management.xcdatamodeld in Sources */,
 				3F92F0542BD5375100CCD1D9 /* AppDelegate.swift in Sources */,
 				3F92F0562BD5375100CCD1D9 /* SceneDelegate.swift in Sources */,
