@@ -85,8 +85,23 @@ class SignUpViewController: UIViewController {
     
    
     @IBAction func btn_SignUp_Click(_ sender: UIButton) {
-         
-            
+//        kiểm tra xem giá trị văn bản từ txt_email.text có nil hay không. Nếu nil, câu lệnh sẽ thực thi khối mã else.
+//        guard let name = txt_name.text else {return}
+        guard let email = txt_email.text else {return}
+        guard let password = txt_password.text else {return}
+
+        
+        
+        Auth.auth().createUser(withEmail: email, password: password) { (authResult, error) in
+            if let error = error {
+                // Xử lý lỗi đăng ký
+                print("Registration error: \(error.localizedDescription)")
+            } else if let authResult = authResult {
+               // Đăng ký thành công, lấy ID của người dùng
+                let userId = authResult.user.uid
+                print("User created with ID: \(userId)")
+            }
+        }
 
     }
     

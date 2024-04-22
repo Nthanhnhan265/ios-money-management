@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		3F92F0542BD5375100CCD1D9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F92F0532BD5375100CCD1D9 /* AppDelegate.swift */; };
 		3F92F0562BD5375100CCD1D9 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F92F0552BD5375100CCD1D9 /* SceneDelegate.swift */; };
-		3F92F0582BD5375100CCD1D9 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F92F0572BD5375100CCD1D9 /* ViewController.swift */; };
+		3F92F0582BD5375100CCD1D9 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F92F0572BD5375100CCD1D9 /* LoginViewController.swift */; };
 		3F92F05B2BD5375100CCD1D9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3F92F0592BD5375100CCD1D9 /* Main.storyboard */; };
 		3F92F05E2BD5375100CCD1D9 /* ios_money_management.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 3F92F05C2BD5375100CCD1D9 /* ios_money_management.xcdatamodeld */; };
 		3F92F0602BD5375200CCD1D9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3F92F05F2BD5375200CCD1D9 /* Assets.xcassets */; };
@@ -22,6 +22,7 @@
 		646B64CE2BD5B145004049FB /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 646B64CD2BD5B145004049FB /* FirebaseFirestore */; };
 		646B64D02BD5B145004049FB /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 646B64CF2BD5B145004049FB /* FirebaseFirestoreSwift */; };
 		646B64D22BD5B145004049FB /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 646B64D12BD5B145004049FB /* FirebaseStorage */; };
+		646B64D42BD667C7004049FB /* ForgotPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 646B64D32BD667C7004049FB /* ForgotPasswordViewController.swift */; };
 		6476A9D22BD53384009935A8 /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6476A9D12BD53384009935A8 /* WelcomeViewController.swift */; };
 		6476A9DA2BD57228009935A8 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6476A9D92BD57228009935A8 /* SignUpViewController.swift */; };
 /* End PBXBuildFile section */
@@ -47,7 +48,7 @@
 		3F92F0502BD5375100CCD1D9 /* ios-money-management.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "ios-money-management.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3F92F0532BD5375100CCD1D9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3F92F0552BD5375100CCD1D9 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		3F92F0572BD5375100CCD1D9 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		3F92F0572BD5375100CCD1D9 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		3F92F05A2BD5375100CCD1D9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		3F92F05D2BD5375100CCD1D9 /* ios_money_management.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ios_money_management.xcdatamodel; sourceTree = "<group>"; };
 		3F92F05F2BD5375200CCD1D9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -59,6 +60,7 @@
 		3F92F0772BD5375300CCD1D9 /* ios_money_managementUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ios_money_managementUITests.swift; sourceTree = "<group>"; };
 		3F92F0792BD5375300CCD1D9 /* ios_money_managementUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ios_money_managementUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		646B64C32BD5A151004049FB /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		646B64D32BD667C7004049FB /* ForgotPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordViewController.swift; sourceTree = "<group>"; };
 		6476A9D12BD53384009935A8 /* WelcomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
 		6476A9D92BD57228009935A8 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -156,9 +158,10 @@
 		3F92F0872BD5400300CCD1D9 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				3F92F0572BD5375100CCD1D9 /* ViewController.swift */,
+				3F92F0572BD5375100CCD1D9 /* LoginViewController.swift */,
 				6476A9D12BD53384009935A8 /* WelcomeViewController.swift */,
 				6476A9D92BD57228009935A8 /* SignUpViewController.swift */,
+				646B64D32BD667C7004049FB /* ForgotPasswordViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -305,7 +308,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				6476A9DA2BD57228009935A8 /* SignUpViewController.swift in Sources */,
-				3F92F0582BD5375100CCD1D9 /* ViewController.swift in Sources */,
+				646B64D42BD667C7004049FB /* ForgotPasswordViewController.swift in Sources */,
+				3F92F0582BD5375100CCD1D9 /* LoginViewController.swift in Sources */,
 				6476A9D22BD53384009935A8 /* WelcomeViewController.swift in Sources */,
 				3F92F05E2BD5375100CCD1D9 /* ios_money_management.xcdatamodeld in Sources */,
 				3F92F0542BD5375100CCD1D9 /* AppDelegate.swift in Sources */,
