@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="cyG-ok-p0K">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="hJc-JF-Saq">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
@@ -71,7 +71,7 @@ of your money</string>
                                     <color key="baseForegroundColor" red="0.46274507050000002" green="0.25098040700000002" blue="0.96470588450000005" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 </buttonConfiguration>
                                 <connections>
-                                    <segue destination="BYZ-38-t0r" kind="show" id="MZd-Vq-CbZ"/>
+                                    <segue destination="BYZ-38-t0r" kind="show" id="ADL-mg-STh"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -181,6 +181,9 @@ of your money</string>
                                 <buttonConfiguration key="configuration" style="plain" title="Forgot Password?">
                                     <color key="baseForegroundColor" red="0.46666666870000001" green="0.25490197539999998" blue="0.96470588450000005" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 </buttonConfiguration>
+                                <connections>
+                                    <segue destination="hJc-JF-Saq" kind="show" id="72M-5j-oIG"/>
+                                </connections>
                             </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
@@ -216,7 +219,103 @@ of your money</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-793.12977099236639" y="806.33802816901414"/>
+            <point key="canvasLocation" x="-793" y="827"/>
+        </scene>
+        <!--Forgot Password View Controller-->
+        <scene sceneID="8hP-NS-nVK">
+            <objects>
+                <viewController id="hJc-JF-Saq" customClass="ForgotPasswordViewController" customModule="ios_money_management" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="XAl-d9-sGy">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pLX-yo-Zek">
+                                <rect key="frame" x="25" y="177" width="343" height="116"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="116" id="G8M-Mz-bHD"/>
+                                </constraints>
+                                <string key="text">Don’t worry. 
+Enter your email and we’ll send you a link to reset your password.</string>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="23"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="QEb-XG-Yfm">
+                                <rect key="frame" x="25" y="339" width="343" height="56"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="56" id="o0n-yt-cvD"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vjB-6z-dD6">
+                                <rect key="frame" x="271" y="339" width="97" height="56"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="56" id="aEh-c9-4rL"/>
+                                </constraints>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="Sent OTP">
+                                    <backgroundConfiguration key="background">
+                                        <color key="backgroundColor" red="0.46666666870000001" green="0.25490197539999998" blue="0.96470588450000005" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                    </backgroundConfiguration>
+                                    <color key="baseForegroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </buttonConfiguration>
+                                <connections>
+                                    <action selector="btn_SentOTP_tapped:" destination="hJc-JF-Saq" eventType="touchUpInside" id="nio-He-DG5"/>
+                                </connections>
+                            </button>
+                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="OTP" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="67I-H1-0CD">
+                                <rect key="frame" x="25" y="419" width="343" height="56"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="56" id="0Ju-Ma-UV3"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BAm-0d-rGb">
+                                <rect key="frame" x="25" y="545" width="343" height="56"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="56" id="zcy-ZT-uEu"/>
+                                </constraints>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="Continue">
+                                    <backgroundConfiguration key="background">
+                                        <color key="backgroundColor" red="0.46666666870000001" green="0.25490197539999998" blue="0.96470588450000005" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                    </backgroundConfiguration>
+                                    <color key="baseForegroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </buttonConfiguration>
+                            </button>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="ppZ-Ib-jZd"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="ppZ-Ib-jZd" firstAttribute="trailing" secondItem="QEb-XG-Yfm" secondAttribute="trailing" constant="25" id="1U9-gg-mjC"/>
+                            <constraint firstItem="ppZ-Ib-jZd" firstAttribute="trailing" secondItem="BAm-0d-rGb" secondAttribute="trailing" constant="25" id="1bJ-Gw-4QI"/>
+                            <constraint firstItem="67I-H1-0CD" firstAttribute="top" secondItem="QEb-XG-Yfm" secondAttribute="bottom" constant="24" id="3CE-v5-pmj"/>
+                            <constraint firstItem="vjB-6z-dD6" firstAttribute="top" secondItem="pLX-yo-Zek" secondAttribute="bottom" constant="46" id="41K-i9-Mve"/>
+                            <constraint firstItem="QEb-XG-Yfm" firstAttribute="leading" secondItem="ppZ-Ib-jZd" secondAttribute="leading" constant="25" id="CY2-t8-iwh"/>
+                            <constraint firstItem="QEb-XG-Yfm" firstAttribute="top" secondItem="pLX-yo-Zek" secondAttribute="bottom" constant="46" id="GgO-A1-B7Y"/>
+                            <constraint firstItem="pLX-yo-Zek" firstAttribute="top" secondItem="ppZ-Ib-jZd" secondAttribute="top" constant="74" id="JLz-Ty-GTe"/>
+                            <constraint firstItem="ppZ-Ib-jZd" firstAttribute="trailing" secondItem="67I-H1-0CD" secondAttribute="trailing" constant="25" id="N0N-Yg-cv9"/>
+                            <constraint firstItem="ppZ-Ib-jZd" firstAttribute="trailing" secondItem="pLX-yo-Zek" secondAttribute="trailing" constant="25" id="OSa-mg-OQJ"/>
+                            <constraint firstItem="pLX-yo-Zek" firstAttribute="leading" secondItem="ppZ-Ib-jZd" secondAttribute="leading" constant="25" id="PjO-zT-Vju"/>
+                            <constraint firstItem="BAm-0d-rGb" firstAttribute="top" secondItem="67I-H1-0CD" secondAttribute="bottom" constant="70" id="bnI-OO-lod"/>
+                            <constraint firstItem="ppZ-Ib-jZd" firstAttribute="trailing" secondItem="vjB-6z-dD6" secondAttribute="trailing" constant="25" id="hlC-fd-xF3"/>
+                            <constraint firstItem="BAm-0d-rGb" firstAttribute="leading" secondItem="ppZ-Ib-jZd" secondAttribute="leading" constant="25" id="jbk-v6-jHi"/>
+                            <constraint firstItem="67I-H1-0CD" firstAttribute="leading" secondItem="ppZ-Ib-jZd" secondAttribute="leading" constant="25" id="p98-tb-mP9"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="S8l-3h-Zbs"/>
+                    <connections>
+                        <outlet property="btn_Continue" destination="BAm-0d-rGb" id="x60-rU-z61"/>
+                        <outlet property="btn_SentOTP" destination="vjB-6z-dD6" id="ngY-t2-JCk"/>
+                        <outlet property="txt_email" destination="QEb-XG-Yfm" id="45U-IZ-R29"/>
+                        <outlet property="txt_otp" destination="67I-H1-0CD" id="Awc-kV-vNy"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="utd-Cu-i59" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="64.885496183206101" y="826.76056338028172"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="Jid-mH-EHY">
@@ -277,7 +376,7 @@ of your money</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9pe-Bv-id6" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1794.6564885496182" y="-27.464788732394368"/>
+            <point key="canvasLocation" x="2425" y="436"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="hmg-U7-6Xg">
@@ -376,7 +475,7 @@ of your money</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aoJ-aG-L8G" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="912" y="590"/>
+            <point key="canvasLocation" x="3567" y="436"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="XOY-Qs-llR">
@@ -477,7 +576,7 @@ of your money</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kdq-U3-zXn" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3191.6030534351144" y="-27.464788732394368"/>
+            <point key="canvasLocation" x="4813" y="-830"/>
         </scene>
         <!--Sign Up View Controller-->
         <scene sceneID="pCO-e2-MLz">
