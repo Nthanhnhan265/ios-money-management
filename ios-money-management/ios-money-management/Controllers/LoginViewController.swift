@@ -40,6 +40,9 @@ class LoginViewController: UIViewController {
     }
 //    Hàm đăng nhập
     @IBAction func btn_login(_ sender: UIButton) {
+        
+      
+        
         //        kiểm tra xem giá trị văn bản từ txt_email.text có nil hay không. Nếu nil, câu lệnh sẽ thực thi khối mã else.
         //        guard let name = txt_name.text else {return}
                 guard let email = txt_username.text else {return}
@@ -54,8 +57,11 @@ class LoginViewController: UIViewController {
                        // Đăng nhập thành công, lấy ID của người dùng
                         let userId = authResult.user.uid
                         print("User login with ID: \(userId)")
+                        
                     }
                 }
+        
+        
     }
     
 
