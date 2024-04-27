@@ -14,8 +14,6 @@ class HomeViewController: UIViewController {
     
     
     @IBOutlet weak var btn_income: UIButton!
-    @IBOutlet weak var bg_yellow: UIVisualEffectView!
-    
     @IBOutlet weak var menu_wallets: UIButton!
     
     override func viewDidLoad() {
@@ -29,17 +27,15 @@ class HomeViewController: UIViewController {
         
     }
     func setWallets() {
-        let optionClosure = {(action: UIAction) in
-            print(action.title)
-            
-        }
-        
+        let optionClosure = { (action: UIAction) in
+             print(action.title)
+           }
+
         menu_wallets.menu = UIMenu(children: [
-            UIAction(title: "Tổng cộng", state: .on, handler: optionClosure),
-            UIAction(title: "MB Bank", handler: optionClosure),
-            UIAction(title: "Tiền mặt", handler: optionClosure),
-            
-        ])
+             UIAction(title: "Tổng cộng", state: .on, handler: optionClosure),
+             UIAction(title: "MB Bank", handler: optionClosure),
+             UIAction(title: "Tiền mặt", handler: optionClosure),
+           ])
     }
 
 

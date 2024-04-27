@@ -40,15 +40,12 @@ class LoginViewController: UIViewController {
     }
 //    Hàm đăng nhập
     @IBAction func btn_login(_ sender: UIButton) {
-        
-      
-        
         //        kiểm tra xem giá trị văn bản từ txt_email.text có nil hay không. Nếu nil, câu lệnh sẽ thực thi khối mã else.
         //        guard let name = txt_name.text else {return}
                 guard let email = txt_username.text else {return}
                 guard let password = txt_password.text else {return}
 
-                
+
                 Auth.auth().signIn(withEmail: email, password: password) { (authResult, error) in
                     if let error = error {
                         // Xử lý lỗi đăng nhập
@@ -57,13 +54,23 @@ class LoginViewController: UIViewController {
                        // Đăng nhập thành công, lấy ID của người dùng
                         let userId = authResult.user.uid
                         print("User login with ID: \(userId)")
-                        
+
+
+
+                        // Navigate to HomeViewController after successful login
+//                        Dòng code này tạo một instance UIStoryboard có tên "Main". Nó cho code biết tìm và tải file storyboard có tên "Main.storyboard" trong project của bạn.
+//                        Tham số bundle: nil nghĩa là code sẽ sử dụng bundle chính của project.
+
+                                let storyBoard = UIStoryboard(name: "Main", bundle: nil)
+                                let homeViewController = storyBoard.instantiateViewController(withIdentifier: "Home") as! HomeViewController
+                                self.navigationController?.pushViewController(homeViewController, animated: true)
+                              }
                     }
                 }
-        
+
         
     }
     
 
-}
+
 

@@ -20,5 +20,53 @@
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "A7E8DC58-1E2A-4D01-A539-31DB7D6827B9"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ios-money-management/Controllers/LoginViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "45"
+            endingLineNumber = "45"
+            landmarkName = "btn_login(_:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "A7E8DC58-1E2A-4D01-A539-31DB7D6827B9 - fc65d8d1e4d493f8"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ios_money_management.LoginViewController.btn_login(__C.UIButton) -&gt; ()"
+                  moduleName = "ios-money-management"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Volumes/DATA/iOS-2024/github/ios-money-management/ios-money-management/ios-money-management/Controllers/LoginViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "49"
+                  endingLineNumber = "49"
+                  offsetFromSymbolStart = "92">
+               </Location>
+               <Location
+                  uuid = "A7E8DC58-1E2A-4D01-A539-31DB7D6827B9 - fc65d8d1e4d493f8"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ios_money_management.LoginViewController.btn_login(__C.UIButton) -&gt; ()"
+                  moduleName = "ios-money-management"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Volumes/DATA/iOS-2024/github/ios-money-management/ios-money-management/ios-money-management/Controllers/LoginViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "49"
+                  endingLineNumber = "49"
+                  offsetFromSymbolStart = "296">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
    </Breakpoints>
 </Bucket>

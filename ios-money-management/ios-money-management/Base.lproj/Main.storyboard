@@ -225,7 +225,7 @@ of your money</string>
         <!--Home View Controller-->
         <scene sceneID="TzD-8l-Dt4">
             <objects>
-                <viewController id="zge-d4-KaM" customClass="HomeViewController" customModule="ios_money_management" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="Home" useStoryboardIdentifierAsRestorationIdentifier="YES" id="zge-d4-KaM" customClass="HomeViewController" customModule="ios_money_management" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="OJ0-nZ-nUH">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -332,7 +332,7 @@ of your money</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ud5-7F-cgb" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="110.68702290076335" y="1487.323943661972"/>
+            <point key="canvasLocation" x="-1544" y="827"/>
         </scene>
         <!--Transaction Table View Controller-->
         <scene sceneID="utT-uK-WqW">
@@ -402,7 +402,7 @@ of your money</string>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7pW-al-7vK" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1090.8396946564885" y="1486.6197183098593"/>
+            <point key="canvasLocation" x="3796.1832061068699" y="1588.7323943661972"/>
         </scene>
         <!--Forgot Password View Controller-->
         <scene sceneID="8hP-NS-nVK">
@@ -923,24 +923,6 @@ Enter your email and we’ll send you a link to reset your password.</string>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="KRd-B9-z1d" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-793" y="-829"/>
-        </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="c1F-K3-qR8">
-            <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="JcR-fk-VKV" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="mAb-rD-n1B">
-                        <rect key="frame" x="0.0" y="59" width="393" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="zge-d4-KaM" kind="relationship" relationship="rootViewController" id="V4P-ju-HDc"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="ISK-xc-Bo7" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-816.03053435114498" y="1487.323943661972"/>
         </scene>
     </scenes>
     <resources>
