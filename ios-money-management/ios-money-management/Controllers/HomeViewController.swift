@@ -21,6 +21,8 @@ class HomeViewController: UIViewController {
 
         print("Vào HomeViewController")
         setWallets()
+        
+        self.navigationItem.title = "title"
 
         
     

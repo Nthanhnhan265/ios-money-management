@@ -24,6 +24,10 @@ class LoginViewController: UIViewController {
         
 //        set title cho navigation
         self.navigationItem.title = "Login"
+        
+//        Set up trước tài khoản và mật khẩu
+        txt_username.text = "123@gmail.com"
+        txt_password.text = "123@gmail.com"
     }
     
     @IBAction func btn_password_tapped(_ sender: UIButton) {
@@ -62,8 +66,12 @@ class LoginViewController: UIViewController {
 //                        Tham số bundle: nil nghĩa là code sẽ sử dụng bundle chính của project.
 
                                 let storyBoard = UIStoryboard(name: "Main", bundle: nil)
-                                let homeViewController = storyBoard.instantiateViewController(withIdentifier: "Home") as! HomeViewController
-                                self.navigationController?.pushViewController(homeViewController, animated: true)
+                                let homeViewController = storyBoard.instantiateViewController(withIdentifier: "TabBarHomeController") as! TabHomeViewController
+//                        let homeViewController = storyBoard.instantiateViewController(withIdentifier: "Home") as! HomeViewController
+
+                        self.navigationController?.pushViewController(homeViewController, animated: true)
+
+                        
                               }
                     }
                 }
