@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3F49B7842BDD948C0061CE46 /* NewExpenseController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F49B7832BDD948C0061CE46 /* NewExpenseController.swift */; };
+		3F91F9542BDE8AAF00D53E19 /* NewIncomeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F91F9532BDE8AAF00D53E19 /* NewIncomeController.swift */; };
 		3F92F0542BD5375100CCD1D9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F92F0532BD5375100CCD1D9 /* AppDelegate.swift */; };
 		3F92F0562BD5375100CCD1D9 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F92F0552BD5375100CCD1D9 /* SceneDelegate.swift */; };
 		3F92F0582BD5375100CCD1D9 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F92F0572BD5375100CCD1D9 /* LoginViewController.swift */; };
@@ -45,6 +47,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		3F49B7832BDD948C0061CE46 /* NewExpenseController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewExpenseController.swift; sourceTree = "<group>"; };
+		3F91F9532BDE8AAF00D53E19 /* NewIncomeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewIncomeController.swift; sourceTree = "<group>"; };
 		3F92F0502BD5375100CCD1D9 /* ios-money-management.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "ios-money-management.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3F92F0532BD5375100CCD1D9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3F92F0552BD5375100CCD1D9 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -162,6 +166,8 @@
 				6476A9D12BD53384009935A8 /* WelcomeViewController.swift */,
 				6476A9D92BD57228009935A8 /* SignUpViewController.swift */,
 				646B64D32BD667C7004049FB /* ForgotPasswordViewController.swift */,
+				3F49B7832BDD948C0061CE46 /* NewExpenseController.swift */,
+				3F91F9532BDE8AAF00D53E19 /* NewIncomeController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -307,9 +313,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3F91F9542BDE8AAF00D53E19 /* NewIncomeController.swift in Sources */,
 				6476A9DA2BD57228009935A8 /* SignUpViewController.swift in Sources */,
 				646B64D42BD667C7004049FB /* ForgotPasswordViewController.swift in Sources */,
 				3F92F0582BD5375100CCD1D9 /* LoginViewController.swift in Sources */,
+				3F49B7842BDD948C0061CE46 /* NewExpenseController.swift in Sources */,
 				6476A9D22BD53384009935A8 /* WelcomeViewController.swift in Sources */,
 				3F92F05E2BD5375100CCD1D9 /* ios_money_management.xcdatamodeld in Sources */,
 				3F92F0542BD5375100CCD1D9 /* AppDelegate.swift in Sources */,
@@ -655,8 +663,8 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/firebase/firebase-ios-sdk.git";
 			requirement = {
-				kind = exactVersion;
-				version = 10.24.0;
+				kind = upToNextMajorVersion;
+				minimumVersion = 10.24.0;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
