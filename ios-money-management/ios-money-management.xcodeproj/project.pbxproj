@@ -7,9 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3F49B7842BDD948C0061CE46 /* NewExpenseController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F49B7832BDD948C0061CE46 /* NewExpenseController.swift */; };
+		3F91F9542BDE8AAF00D53E19 /* NewIncomeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F91F9532BDE8AAF00D53E19 /* NewIncomeController.swift */; };
 		3F92F0542BD5375100CCD1D9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F92F0532BD5375100CCD1D9 /* AppDelegate.swift */; };
 		3F92F0562BD5375100CCD1D9 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F92F0552BD5375100CCD1D9 /* SceneDelegate.swift */; };
-		3F92F0582BD5375100CCD1D9 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F92F0572BD5375100CCD1D9 /* ViewController.swift */; };
+		3F92F0582BD5375100CCD1D9 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F92F0572BD5375100CCD1D9 /* LoginViewController.swift */; };
 		3F92F05B2BD5375100CCD1D9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3F92F0592BD5375100CCD1D9 /* Main.storyboard */; };
 		3F92F05E2BD5375100CCD1D9 /* ios_money_management.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 3F92F05C2BD5375100CCD1D9 /* ios_money_management.xcdatamodeld */; };
 		3F92F0602BD5375200CCD1D9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3F92F05F2BD5375200CCD1D9 /* Assets.xcassets */; };
@@ -17,6 +19,14 @@
 		3F92F06E2BD5375300CCD1D9 /* ios_money_managementTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F92F06D2BD5375300CCD1D9 /* ios_money_managementTests.swift */; };
 		3F92F0782BD5375300CCD1D9 /* ios_money_managementUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F92F0772BD5375300CCD1D9 /* ios_money_managementUITests.swift */; };
 		3F92F07A2BD5375300CCD1D9 /* ios_money_managementUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F92F0792BD5375300CCD1D9 /* ios_money_managementUITestsLaunchTests.swift */; };
+		646B64C42BD5A151004049FB /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 646B64C32BD5A151004049FB /* GoogleService-Info.plist */; };
+		646B64CC2BD5B145004049FB /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 646B64CB2BD5B145004049FB /* FirebaseAuth */; };
+		646B64CE2BD5B145004049FB /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 646B64CD2BD5B145004049FB /* FirebaseFirestore */; };
+		646B64D02BD5B145004049FB /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 646B64CF2BD5B145004049FB /* FirebaseFirestoreSwift */; };
+		646B64D22BD5B145004049FB /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 646B64D12BD5B145004049FB /* FirebaseStorage */; };
+		646B64D42BD667C7004049FB /* ForgotPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 646B64D32BD667C7004049FB /* ForgotPasswordViewController.swift */; };
+		6476A9D22BD53384009935A8 /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6476A9D12BD53384009935A8 /* WelcomeViewController.swift */; };
+		6476A9DA2BD57228009935A8 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6476A9D92BD57228009935A8 /* SignUpViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -37,10 +47,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		3F49B7832BDD948C0061CE46 /* NewExpenseController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewExpenseController.swift; sourceTree = "<group>"; };
+		3F91F9532BDE8AAF00D53E19 /* NewIncomeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewIncomeController.swift; sourceTree = "<group>"; };
 		3F92F0502BD5375100CCD1D9 /* ios-money-management.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "ios-money-management.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3F92F0532BD5375100CCD1D9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3F92F0552BD5375100CCD1D9 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		3F92F0572BD5375100CCD1D9 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		3F92F0572BD5375100CCD1D9 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		3F92F05A2BD5375100CCD1D9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		3F92F05D2BD5375100CCD1D9 /* ios_money_management.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ios_money_management.xcdatamodel; sourceTree = "<group>"; };
 		3F92F05F2BD5375200CCD1D9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -51,6 +63,10 @@
 		3F92F0732BD5375300CCD1D9 /* ios-money-managementUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "ios-money-managementUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3F92F0772BD5375300CCD1D9 /* ios_money_managementUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ios_money_managementUITests.swift; sourceTree = "<group>"; };
 		3F92F0792BD5375300CCD1D9 /* ios_money_managementUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ios_money_managementUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		646B64C32BD5A151004049FB /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		646B64D32BD667C7004049FB /* ForgotPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordViewController.swift; sourceTree = "<group>"; };
+		6476A9D12BD53384009935A8 /* WelcomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
+		6476A9D92BD57228009935A8 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +74,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				646B64CC2BD5B145004049FB /* FirebaseAuth in Frameworks */,
+				646B64D22BD5B145004049FB /* FirebaseStorage in Frameworks */,
+				646B64CE2BD5B145004049FB /* FirebaseFirestore in Frameworks */,
+				646B64D02BD5B145004049FB /* FirebaseFirestoreSwift in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -101,6 +121,7 @@
 		3F92F0522BD5375100CCD1D9 /* ios-money-management */ = {
 			isa = PBXGroup;
 			children = (
+				646B64C32BD5A151004049FB /* GoogleService-Info.plist */,
 				3F92F0872BD5400300CCD1D9 /* Controllers */,
 				3F92F0862BD53FA800CCD1D9 /* System files */,
 				3F92F0592BD5375100CCD1D9 /* Main.storyboard */,
@@ -141,7 +162,12 @@
 		3F92F0872BD5400300CCD1D9 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				3F92F0572BD5375100CCD1D9 /* ViewController.swift */,
+				3F92F0572BD5375100CCD1D9 /* LoginViewController.swift */,
+				6476A9D12BD53384009935A8 /* WelcomeViewController.swift */,
+				6476A9D92BD57228009935A8 /* SignUpViewController.swift */,
+				646B64D32BD667C7004049FB /* ForgotPasswordViewController.swift */,
+				3F49B7832BDD948C0061CE46 /* NewExpenseController.swift */,
+				3F91F9532BDE8AAF00D53E19 /* NewIncomeController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -162,6 +188,12 @@
 			dependencies = (
 			);
 			name = "ios-money-management";
+			packageProductDependencies = (
+				646B64CB2BD5B145004049FB /* FirebaseAuth */,
+				646B64CD2BD5B145004049FB /* FirebaseFirestore */,
+				646B64CF2BD5B145004049FB /* FirebaseFirestoreSwift */,
+				646B64D12BD5B145004049FB /* FirebaseStorage */,
+			);
 			productName = "ios-money-management";
 			productReference = 3F92F0502BD5375100CCD1D9 /* ios-money-management.app */;
 			productType = "com.apple.product-type.application";
@@ -234,6 +266,9 @@
 				Base,
 			);
 			mainGroup = 3F92F0472BD5375000CCD1D9;
+			packageReferences = (
+				646B64CA2BD5B145004049FB /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+			);
 			productRefGroup = 3F92F0512BD5375100CCD1D9 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -251,6 +286,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3F92F0632BD5375200CCD1D9 /* LaunchScreen.storyboard in Resources */,
+				646B64C42BD5A151004049FB /* GoogleService-Info.plist in Resources */,
 				3F92F0602BD5375200CCD1D9 /* Assets.xcassets in Resources */,
 				3F92F05B2BD5375100CCD1D9 /* Main.storyboard in Resources */,
 			);
@@ -277,7 +313,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3F92F0582BD5375100CCD1D9 /* ViewController.swift in Sources */,
+				3F91F9542BDE8AAF00D53E19 /* NewIncomeController.swift in Sources */,
+				6476A9DA2BD57228009935A8 /* SignUpViewController.swift in Sources */,
+				646B64D42BD667C7004049FB /* ForgotPasswordViewController.swift in Sources */,
+				3F92F0582BD5375100CCD1D9 /* LoginViewController.swift in Sources */,
+				3F49B7842BDD948C0061CE46 /* NewExpenseController.swift in Sources */,
+				6476A9D22BD53384009935A8 /* WelcomeViewController.swift in Sources */,
 				3F92F05E2BD5375100CCD1D9 /* ios_money_management.xcdatamodeld in Sources */,
 				3F92F0542BD5375100CCD1D9 /* AppDelegate.swift in Sources */,
 				3F92F0562BD5375100CCD1D9 /* SceneDelegate.swift in Sources */,
@@ -616,6 +657,40 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		646B64CA2BD5B145004049FB /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 10.24.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		646B64CB2BD5B145004049FB /* FirebaseAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 646B64CA2BD5B145004049FB /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAuth;
+		};
+		646B64CD2BD5B145004049FB /* FirebaseFirestore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 646B64CA2BD5B145004049FB /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFirestore;
+		};
+		646B64CF2BD5B145004049FB /* FirebaseFirestoreSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 646B64CA2BD5B145004049FB /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFirestoreSwift;
+		};
+		646B64D12BD5B145004049FB /* FirebaseStorage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 646B64CA2BD5B145004049FB /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseStorage;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		3F92F05C2BD5375100CCD1D9 /* ios_money_management.xcdatamodeld */ = {
