@@ -285,12 +285,9 @@ Enter your email and we’ll send you a link to reset your password.</string>
                                     </backgroundConfiguration>
                                     <color key="baseForegroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </buttonConfiguration>
-<<<<<<< HEAD
-=======
                                 <connections>
                                     <segue destination="qm1-FI-i0v" kind="show" id="BcM-7w-N2l"/>
                                 </connections>
->>>>>>> bebf8390ad28c57a29debb41a65e48d8fd6f56a8
                             </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="ppZ-Ib-jZd"/>
@@ -383,11 +380,8 @@ Enter your email and we’ll send you a link to reset your password.</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9pe-Bv-id6" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-<<<<<<< HEAD
             <point key="canvasLocation" x="2425" y="436"/>
-=======
-            <point key="canvasLocation" x="837" y="827"/>
->>>>>>> bebf8390ad28c57a29debb41a65e48d8fd6f56a8
+            <!-- <point key="canvasLocation" x="837" y="827"/> -->
         </scene>
         <!--View Controller-->
         <scene sceneID="hmg-U7-6Xg">
@@ -486,11 +480,8 @@ Enter your email and we’ll send you a link to reset your password.</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aoJ-aG-L8G" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-<<<<<<< HEAD
             <point key="canvasLocation" x="3567" y="436"/>
-=======
-            <point key="canvasLocation" x="2828" y="466"/>
->>>>>>> bebf8390ad28c57a29debb41a65e48d8fd6f56a8
+            <!-- <point key="canvasLocation" x="2828" y="466"/> -->
         </scene>
         <!--View Controller-->
         <scene sceneID="XOY-Qs-llR">
@@ -591,11 +582,8 @@ Enter your email and we’ll send you a link to reset your password.</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kdq-U3-zXn" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-<<<<<<< HEAD
             <point key="canvasLocation" x="4813" y="-830"/>
-=======
-            <point key="canvasLocation" x="2827" y="-271"/>
->>>>>>> bebf8390ad28c57a29debb41a65e48d8fd6f56a8
+            <!-- <point key="canvasLocation" x="2827" y="-271"/> -->
         </scene>
         <!--Sign Up View Controller-->
         <scene sceneID="pCO-e2-MLz">
@@ -759,8 +747,6 @@ Enter your email and we’ll send you a link to reset your password.</string>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="KRd-B9-z1d" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-793" y="-829"/>
-<<<<<<< HEAD
-=======
         </scene>
         <!--Expense-->
         <scene sceneID="c0X-x2-eZu">
@@ -1199,7 +1185,6 @@ Enter your email and we’ll send you a link to reset your password.</string>
                 <exit id="Gi3-mp-n6x" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="125.95419847328243" y="1619.7183098591549"/>
->>>>>>> bebf8390ad28c57a29debb41a65e48d8fd6f56a8
         </scene>
     </scenes>
     <resources>
@@ -1209,10 +1194,7 @@ Enter your email and we’ll send you a link to reset your password.</string>
         <image name="eye-slash-solid" width="17.5" height="14"/>
         <image name="eye-solid" width="15.75" height="14"/>
         <image name="flat-color-icons_google" width="21.333333969116211" height="21.333333969116211"/>
-<<<<<<< HEAD
-=======
         <image name="photo.on.rectangle.fill" catalog="system" width="128" height="98"/>
->>>>>>> bebf8390ad28c57a29debb41a65e48d8fd6f56a8
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

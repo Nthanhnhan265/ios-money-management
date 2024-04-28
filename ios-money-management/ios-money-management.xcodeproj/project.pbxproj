@@ -166,11 +166,8 @@
 				6476A9D12BD53384009935A8 /* WelcomeViewController.swift */,
 				6476A9D92BD57228009935A8 /* SignUpViewController.swift */,
 				646B64D32BD667C7004049FB /* ForgotPasswordViewController.swift */,
-<<<<<<< HEAD
-=======
 				3F49B7832BDD948C0061CE46 /* NewExpenseController.swift */,
 				3F91F9532BDE8AAF00D53E19 /* NewIncomeController.swift */,
->>>>>>> bebf8390ad28c57a29debb41a65e48d8fd6f56a8
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -316,17 +313,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-<<<<<<< HEAD
-				6476A9DA2BD57228009935A8 /* SignUpViewController.swift in Sources */,
-				646B64D42BD667C7004049FB /* ForgotPasswordViewController.swift in Sources */,
-				3F92F0582BD5375100CCD1D9 /* LoginViewController.swift in Sources */,
-=======
 				3F91F9542BDE8AAF00D53E19 /* NewIncomeController.swift in Sources */,
 				6476A9DA2BD57228009935A8 /* SignUpViewController.swift in Sources */,
 				646B64D42BD667C7004049FB /* ForgotPasswordViewController.swift in Sources */,
 				3F92F0582BD5375100CCD1D9 /* LoginViewController.swift in Sources */,
 				3F49B7842BDD948C0061CE46 /* NewExpenseController.swift in Sources */,
->>>>>>> bebf8390ad28c57a29debb41a65e48d8fd6f56a8
 				6476A9D22BD53384009935A8 /* WelcomeViewController.swift in Sources */,
 				3F92F05E2BD5375100CCD1D9 /* ios_money_management.xcdatamodeld in Sources */,
 				3F92F0542BD5375100CCD1D9 /* AppDelegate.swift in Sources */,
@@ -672,13 +663,8 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/firebase/firebase-ios-sdk.git";
 			requirement = {
-<<<<<<< HEAD
 				kind = exactVersion;
 				version = 10.24.0;
-=======
-				kind = upToNextMajorVersion;
-				minimumVersion = 10.24.0;
->>>>>>> bebf8390ad28c57a29debb41a65e48d8fd6f56a8
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
