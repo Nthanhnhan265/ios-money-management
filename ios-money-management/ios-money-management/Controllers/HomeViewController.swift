@@ -27,7 +27,7 @@ class HomeViewController: UIViewController {
         table_view.delegate = self
         table_view.register(TransactionTableViewCell.nib(), forCellReuseIdentifier: TransactionTableViewCell.identifier)
         
-       
+        
        
     
         
