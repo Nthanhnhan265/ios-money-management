@@ -301,6 +301,21 @@
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" title="See All"/>
                             </button>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="Q7c-1N-GMV">
+                                <rect key="frame" x="0.0" y="445" width="393" height="407"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="cell" id="Uob-Lr-Zgc">
+                                        <rect key="frame" x="0.0" y="50" width="393" height="43.666667938232422"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Uob-Lr-Zgc" id="Jes-aD-B7L">
+                                            <rect key="frame" x="0.0" y="0.0" width="393" height="43.666667938232422"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="hEB-WZ-QYG"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -326,11 +341,44 @@
                     <connections>
                         <outlet property="btn_income" destination="3og-Q0-dqb" id="03E-q5-aKA"/>
                         <outlet property="menu_wallets" destination="HqJ-wz-rOd" id="u4k-wx-yLz"/>
+                        <outlet property="table_view" destination="Q7c-1N-GMV" id="Jxv-hf-GtF"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ud5-7F-cgb" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1408" y="2996"/>
+            <point key="canvasLocation" x="-1408.3969465648854" y="2995.7746478873241"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="ceC-Ux-OiR">
+            <objects>
+                <viewController storyboardIdentifier="detail_transaction" id="OeB-mm-N4A" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="DOb-Mk-ALF">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Chi tiết giao dịch" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ugN-vP-pmg">
+                                <rect key="frame" x="20" y="109" width="353" height="299"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" translatesAutoresizingMaskIntoConstraints="NO" id="d8e-XE-CjL">
+                                <rect key="frame" x="0.0" y="364" width="393" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="d8e-XE-CjL" id="UrS-c7-eNU">
+                                    <rect key="frame" x="0.0" y="0.0" width="393" height="44"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="Gr3-Yj-sSg"/>
+                        <color key="backgroundColor" systemColor="systemGray4Color"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="9lp-mk-uI1" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1408.3969465648854" y="3640.8450704225352"/>
         </scene>
         <!--Transaction Table View Controller-->
         <scene sceneID="utT-uK-WqW">
@@ -341,7 +389,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="TransactionTableViewCell" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="TransactionTableViewCell" rowHeight="90" id="3Ez-cu-hxx" customClass="TransactionTableViewCell" customModule="ios_money_management" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="TransactionTableViewCell" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="TransactionTableViewCell" rowHeight="90" id="3Ez-cu-hxx" customClass="Transaction_TEMP_TableViewCell" customModule="ios_money_management" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="50" width="393" height="90"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="3Ez-cu-hxx" id="zmN-hc-e8a">
@@ -1442,6 +1490,9 @@
         </systemColor>
         <systemColor name="systemCyanColor">
             <color red="0.19607843137254902" green="0.67843137254901964" blue="0.90196078431372551" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemGray4Color">
+            <color red="0.81960784313725488" green="0.81960784313725488" blue="0.83921568627450982" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

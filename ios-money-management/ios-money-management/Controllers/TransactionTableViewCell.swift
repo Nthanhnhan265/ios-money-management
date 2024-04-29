@@ -2,21 +2,28 @@
 //  TransactionTableViewCell.swift
 //  ios-money-management
 //
-//  Created by AnNguyen on 27/04/2024.
+//  Created by AnNguyen on 29/04/2024.
 //
 
 import UIKit
 
 class TransactionTableViewCell: UITableViewCell {
 
-    @IBOutlet weak var transaction_des: UILabel!
-    @IBOutlet weak var transaction_time: UILabel!
     @IBOutlet weak var transaction_balance: UILabel!
-    @IBOutlet weak var transaction_title: UILabel!
-    @IBOutlet weak var transaction_image: UIImageView!
+    @IBOutlet weak var transaction_name: UILabel!
+    @IBOutlet weak var transaction_time: UILabel!
+    @IBOutlet weak var transaction_description: UILabel!
+    @IBOutlet weak var transaction_img: UIImageView!
+    
+    
+    static let identifier = "TransactionTableViewCell"
+    static func nib() -> UINib{
+        return UINib(nibName: "TransactionTableViewCell", bundle: nil)
+    }
     override func awakeFromNib() {
         super.awakeFromNib()
-        print("Vào TransactionTableViewCell")
+        // Initialization code
+        selectionStyle = .none
         
     }
 
@@ -25,5 +32,5 @@ class TransactionTableViewCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
-
+    
 }
