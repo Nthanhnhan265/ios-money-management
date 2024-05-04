@@ -26,8 +26,8 @@ class LoginViewController: UIViewController {
         self.navigationItem.title = "Login"
         
 //        Set up trước tài khoản và mật khẩu
-        txt_username.text = "123@gmail.com"
-        txt_password.text = "123@gmail.com"
+        txt_username.text = "admin@gmail.com"
+        txt_password.text = "admin@gmail.com"
     }
     
     @IBAction func btn_password_tapped(_ sender: UIButton) {
@@ -64,7 +64,7 @@ class LoginViewController: UIViewController {
                         // Navigate to HomeViewController after successful login
 //                        Dòng code này tạo một instance UIStoryboard có tên "Main". Nó cho code biết tìm và tải file storyboard có tên "Main.storyboard" trong project của bạn.
 //                        Tham số bundle: nil nghĩa là code sẽ sử dụng bundle chính của project.
-
+                        self.navigationController?.navigationBar.isHidden = true
                                 let storyBoard = UIStoryboard(name: "Main", bundle: nil)
                                 let homeViewController = storyBoard.instantiateViewController(withIdentifier: "TabBarHomeController") as! TabHomeViewController
 //                        let homeViewController = storyBoard.instantiateViewController(withIdentifier: "Home") as! HomeViewController
