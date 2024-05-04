@@ -34,6 +34,7 @@ class HomeViewController: UIViewController {
         super.viewDidLoad()
 //debug
         print("Vào HomeViewController")
+
 //        Set dữ liệu giả
         setWallets()
         setTransactions()
@@ -50,6 +51,14 @@ class HomeViewController: UIViewController {
         activeButton = btn_today
         
     }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        print("Load lại HomeViewController")
+        self.tabBarController?.tabBar.isHidden = false
+
+        
+            }
+
     func setWallets() {
         let optionClosure = { (action: UIAction) in
              print(action.title)

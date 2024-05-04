@@ -15,6 +15,7 @@ class NewExpenseController: UIViewController {
     @IBOutlet weak var textFieldDes: UITextField!
     override func viewDidLoad() {
         super.viewDidLoad()
+        print("Vào NewExpenseController")
         //set title cho navigation controller
         self.navigationController?.navigationBar.barTintColor = UIColor.white
         //button custom
