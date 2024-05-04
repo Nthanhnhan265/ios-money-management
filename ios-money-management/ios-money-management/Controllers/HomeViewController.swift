@@ -10,10 +10,25 @@ import UIKit
 class HomeViewController: UIViewController {
 //    Dữ liệu giả
     var datas = [Transaction]()
-    
     @IBOutlet weak var table_view: UITableView!
+    
+//    các button: Today, Week, Month, Year
+    @IBOutlet weak var btn_week: UIButton!
+    @IBOutlet weak var btn_today: UIButton!
+    @IBOutlet weak var btn_year: UIButton!
+    @IBOutlet weak var btn_month: UIButton!
+    
+//    Button nhập xuất
+    @IBOutlet weak var btn_Expenses: UIButton!
     @IBOutlet weak var btn_income: UIButton!
+    
+//    Pop up button chọn ví
     @IBOutlet weak var menu_wallets: UIButton!
+    
+//    Biến lưu button nào đang active (Today, Week, Month, Year)
+    var activeButton: UIButton?
+
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,15 +36,18 @@ class HomeViewController: UIViewController {
         print("Vào HomeViewController")
 //        Set dữ liệu giả
         setWallets()
-        HashData()
-//
+        setTransactions()
+//        Kết nối table view với các hàm để load dữ liệu
         table_view.dataSource = self
         table_view.delegate = self
         table_view.register(TransactionTableViewCell.nib(), forCellReuseIdentifier: TransactionTableViewCell.identifier)
         
-        
-       
-    
+//        Set mặc định button Today được active
+        btn_today.layer.cornerRadius = 20
+        btn_today.clipsToBounds = true
+        btn_today.backgroundColor = UIColor(red: 252/255, green: 238/255, blue: 212/255, alpha: 1.0)
+        btn_today.setTitleColor(UIColor(red: 255/255, green: 255/255, blue: 255/255, alpha: 1.0), for: .normal)
+        activeButton = btn_today
         
     }
     func setWallets() {
@@ -43,7 +61,19 @@ class HomeViewController: UIViewController {
              UIAction(title: "Tiền mặt", handler: optionClosure),
            ])
     }
-    func HashData() {
+    @IBAction func btn_expenses(_ sender: UIButton) {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let view_controller = storyboard.instantiateViewController(withIdentifier: "Expense") as! NewExpenseController
+        view_controller.navigationItem.title = "Expense"
+        navigationController?.pushViewController(view_controller, animated: true)
+    }
+    @IBAction func btn_income_click(_ sender: UIButton) {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let view_controller = storyboard.instantiateViewController(withIdentifier: "Income") as! NewIncomeController
+        view_controller.navigationItem.title = "Income"
+        navigationController?.pushViewController(view_controller, animated: true)
+    }
+    func setTransactions() {
         if let data1 = Transaction(name: "Shopping", img: UIImage(named: "Frame1"), balance: 120000, time: "10:20AM", des: "Mua 5 cái quần xì"){
             datas += [data1]
         }
@@ -56,9 +86,79 @@ class HomeViewController: UIViewController {
         
 
     }
- 
+// click btn week
+    @IBAction func btn_week_click(_ sender: UIButton) {
+//        Trả active button cũ về trạng thái ban đầu
+        if activeButton != nil{
+            activeButton?.layer.cornerRadius = 0
+            activeButton?.clipsToBounds = false
+            activeButton?.backgroundColor = UIColor(red: 255/255, green: 255/255, blue: 255/255, alpha: 1.0)
+            activeButton?.setTitleColor(UIColor(red: 252/255, green: 172/255, blue: 18/255, alpha: 1.0), for: .normal)
+        }
+        activeButton = btn_week
+        activeButton?.layer.cornerRadius = 20
+        activeButton?.clipsToBounds = true
+        activeButton?.backgroundColor = UIColor(red: 252/255, green: 238/255, blue: 212/255, alpha: 1.0)
+        activeButton?.setTitleColor(UIColor(red: 252/255, green: 172/255, blue: 18/255, alpha: 1.0), for: .normal)
+        
+        
+        
+    }
+    // click btn today
+    @IBAction func btn_today_clik(_ sender: UIButton) {
+        //        Trả active button cũ về trạng thái ban đầu
+                if activeButton != nil{
+                    activeButton?.layer.cornerRadius = 0
+                    activeButton?.clipsToBounds = false
+                    activeButton?.backgroundColor = UIColor(red: 255/255, green: 255/255, blue: 255/255, alpha: 1.0)
+                    activeButton?.setTitleColor(UIColor(red: 252/255, green: 172/255, blue: 18/255, alpha: 1.0), for: .normal)
+                }
+                activeButton = btn_today
+                activeButton?.layer.cornerRadius = 20
+                activeButton?.clipsToBounds = true
+                activeButton?.backgroundColor = UIColor(red: 252/255, green: 238/255, blue: 212/255, alpha: 1.0)
+                activeButton?.setTitleColor(UIColor(red: 252/255, green: 172/255, blue: 18/255, alpha: 1.0), for: .normal)
+                
+                
+                
 
+    }
+    // click btn month
 
+    @IBAction func btn_month_click(_ sender: UIButton) {
+        //        Trả active button cũ về trạng thái ban đầu
+                if activeButton != nil{
+                    activeButton?.layer.cornerRadius = 0
+                    activeButton?.clipsToBounds = false
+                    activeButton?.backgroundColor = UIColor(red: 255/255, green: 255/255, blue: 255/255, alpha: 1.0)
+                    activeButton?.setTitleColor(UIColor(red: 252/255, green: 172/255, blue: 18/255, alpha: 1.0), for: .normal)
+                }
+                activeButton = btn_month
+                activeButton?.layer.cornerRadius = 20
+                activeButton?.clipsToBounds = true
+                activeButton?.backgroundColor = UIColor(red: 252/255, green: 238/255, blue: 212/255, alpha: 1.0)
+                activeButton?.setTitleColor(UIColor(red: 252/255, green: 172/255, blue: 18/255, alpha: 1.0), for: .normal)
+                
+                
+    }
+    // click btn year
+    @IBAction func btn_year_click(_ sender: UIButton) {
+        //        Trả active button cũ về trạng thái ban đầu
+                if activeButton != nil{
+                    activeButton?.layer.cornerRadius = 0
+                    activeButton?.clipsToBounds = false
+                    activeButton?.backgroundColor = UIColor(red: 255/255, green: 255/255, blue: 255/255, alpha: 1.0)
+                    activeButton?.setTitleColor(UIColor(red: 252/255, green: 172/255, blue: 18/255, alpha: 1.0), for: .normal)
+                }
+                activeButton = btn_year
+                activeButton?.layer.cornerRadius = 20
+                activeButton?.clipsToBounds = true
+                activeButton?.backgroundColor = UIColor(red: 252/255, green: 238/255, blue: 212/255, alpha: 1.0)
+                activeButton?.setTitleColor(UIColor(red: 252/255, green: 172/255, blue: 18/255, alpha: 1.0), for: .normal)
+                
+                
+
+    }
 }
 
 extension HomeViewController: UITableViewDataSource, UITableViewDelegate{

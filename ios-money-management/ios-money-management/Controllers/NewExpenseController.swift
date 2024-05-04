@@ -45,6 +45,10 @@ class NewExpenseController: UIViewController {
   
         self.setPopupCategoryButton()
         self.setPopupWalletButton()
+        
+        //        Xoá navigation bottom
+                self.tabBarController?.tabBar.isHidden = true
+
     }
     
     
