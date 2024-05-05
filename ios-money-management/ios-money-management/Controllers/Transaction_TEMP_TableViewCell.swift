@@ -16,7 +16,7 @@ class Transaction_TEMP_TableViewCell: UITableViewCell {
     @IBOutlet weak var transaction_image: UIImageView!
     override func awakeFromNib() {
         super.awakeFromNib()
-        print("Vào TransactionTableViewCell")
+        print("Vào Transaction_TEMP_TableViewCell")
         
     }
 

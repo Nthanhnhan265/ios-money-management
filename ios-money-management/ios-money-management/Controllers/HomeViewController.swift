@@ -192,13 +192,13 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate{
         print("Nội dung: ", String(datas[indexPath.row].transactionName))
         print("Hàng thứ: " + String(indexPath.row))
         
-//Lấy main.storyboard
+        //Lấy main.storyboard
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-//        Lấy màn hình cần chuyển qua
+        //        Lấy màn hình cần chuyển qua
         let view_controller = storyboard.instantiateViewController(withIdentifier: "detail_transaction")
-//        set title cho navigation
+        //        set title cho navigation
         view_controller.navigationItem.title = datas[indexPath.row].transactionName
-//        Đẩy màn hình vào hàng đợi... (chuyển màn hình)
+        //        Đẩy màn hình vào hàng đợi... (chuyển màn hình)
         navigationController?.pushViewController(view_controller, animated: true)
     }
     

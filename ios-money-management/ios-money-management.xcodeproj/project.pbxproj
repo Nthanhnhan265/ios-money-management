@@ -19,6 +19,7 @@
 		3F92F06E2BD5375300CCD1D9 /* ios_money_managementTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F92F06D2BD5375300CCD1D9 /* ios_money_managementTests.swift */; };
 		3F92F0782BD5375300CCD1D9 /* ios_money_managementUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F92F0772BD5375300CCD1D9 /* ios_money_managementUITests.swift */; };
 		3F92F07A2BD5375300CCD1D9 /* ios_money_managementUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F92F0792BD5375300CCD1D9 /* ios_money_managementUITestsLaunchTests.swift */; };
+		6436505E2BE804950019A04B /* TransactionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6436505D2BE804950019A04B /* TransactionViewController.swift */; };
 		643C040E2BD7CC28008E105E /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 643C040D2BD7CC28008E105E /* HomeViewController.swift */; };
 		643C04172BDCB17A008E105E /* Transaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 643C04162BDCB17A008E105E /* Transaction.swift */; };
 		646B64C42BD5A151004049FB /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 646B64C32BD5A151004049FB /* GoogleService-Info.plist */; };
@@ -70,6 +71,7 @@
 		3F92F0732BD5375300CCD1D9 /* ios-money-managementUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "ios-money-managementUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3F92F0772BD5375300CCD1D9 /* ios_money_managementUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ios_money_managementUITests.swift; sourceTree = "<group>"; };
 		3F92F0792BD5375300CCD1D9 /* ios_money_managementUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ios_money_managementUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		6436505D2BE804950019A04B /* TransactionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionViewController.swift; sourceTree = "<group>"; };
 		643C040D2BD7CC28008E105E /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		643C04162BDCB17A008E105E /* Transaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Transaction.swift; sourceTree = "<group>"; };
 		646B64C32BD5A151004049FB /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -189,6 +191,7 @@
 				3F91F9532BDE8AAF00D53E19 /* NewIncomeController.swift */,
 				646E4C9A2BDFB148004DCCF2 /* TransactionTableViewCell.swift */,
 				646E4C9B2BDFB148004DCCF2 /* TransactionTableViewCell.xib */,
+				6436505D2BE804950019A04B /* TransactionViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -358,6 +361,7 @@
 				64B9EFE62BDD0163007055B8 /* TransactionTableViewController.swift in Sources */,
 				3F92F0542BD5375100CCD1D9 /* AppDelegate.swift in Sources */,
 				3F92F0562BD5375100CCD1D9 /* SceneDelegate.swift in Sources */,
+				6436505E2BE804950019A04B /* TransactionViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
