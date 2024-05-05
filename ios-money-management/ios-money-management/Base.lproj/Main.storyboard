@@ -440,7 +440,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9lp-mk-uI1" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1408.3969465648854" y="3640.8450704225352"/>
+            <point key="canvasLocation" x="-1408" y="3839"/>
         </scene>
         <!--Transaction Table View Controller-->
         <scene sceneID="utT-uK-WqW">
@@ -1307,7 +1307,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8dJ-Tm-tzZ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <exit id="v2w-oz-9iw" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="2444" y="1618"/>
+            <point key="canvasLocation" x="34" y="2996"/>
         </scene>
         <!--Income-->
         <scene sceneID="jIE-0f-Nts">
@@ -1529,7 +1529,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="njz-k6-Rg8" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <exit id="Gi3-mp-n6x" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="1152" y="1618"/>
+            <point key="canvasLocation" x="-636" y="2996"/>
         </scene>
     </scenes>
     <resources>
