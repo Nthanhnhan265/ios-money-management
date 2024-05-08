@@ -16,10 +16,10 @@ class TransactionTableViewController: UITableViewController {
         print("Vào TransactionTableViewController")
         
 //        Tạo giao dịch
-        if let transaction = Transaction(name: "Shopping", img: UIImage(named: "Frame1"), balance: 123456, time: "10:00 AM", des: "MUA QUẦN SHOPPE"){
-            transactions += [transaction]
-            transactions += [transaction]
-        }
+        let transaction = Transaction(name: "Shopping", img: UIImage(named: "Frame1"), balance: 123456, time: Date(), des: "MUA QUẦN SHOPPE")
+        transactions += [transaction]
+        transactions += [transaction] // Adding it twice
+
     }
 
     // MARK: - Table view data source
@@ -49,7 +49,13 @@ class TransactionTableViewController: UITableViewController {
         cell.transaction_balance.text = String(transaction.transactionBalance)
         cell.transaction_image.image = transaction.transactionImage
         cell.transaction_des.text = (transaction.transactionDes)
-        cell.transaction_time.text = String(transaction.transactionTime)
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd/MM/yyyy HH:mm:ss"
+        let currentDate = Date()
+        let formattedDate = dateFormatter.string(from: currentDate)
+        cell.transaction_time.text = formattedDate
+        
         cell.transaction_title.text = String(transaction.transactionName)
 
         return cell

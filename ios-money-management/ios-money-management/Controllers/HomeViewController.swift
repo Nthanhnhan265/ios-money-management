@@ -83,15 +83,14 @@ class HomeViewController: UIViewController {
         navigationController?.pushViewController(view_controller, animated: true)
     }
     func setTransactions() {
-        if let data1 = Transaction(name: "Shopping", img: UIImage(named: "Frame1"), balance: 120000, time: "10:20AM", des: "Mua 5 cái quần xì"){
+         let data1 = Transaction(name: "Shopping", img: UIImage(named: "Frame1"), balance: 120000, time: Date(), des: "Mua 5 cái quần xì")
             datas += [data1]
-        }
-        if let data2 = Transaction(name: "Massage", img: UIImage(named: "Frame1"), balance: 1200000, time: "22:22AM", des: "Massage Phụng Thuỷ"){
+                 let data2 = Transaction(name: "Massage", img: UIImage(named: "Frame1"), balance: 1200000, time: Date(), des: "Massage Phụng Thuỷ")
             datas += [data2]
-        }
-        if let data3 = Transaction(name: "Food", img: UIImage(named: "Frame1"), balance: 90000, time: "10:20AM", des: "Ăn sáng dưới gầm cầu"){
+        
+         let data3 = Transaction(name: "Food", img: UIImage(named: "Frame1"), balance: 90000, time: Date(), des: "Ăn sáng dưới gầm cầu")
             datas += [data3]
-        }
+        
         
 
     }
@@ -179,7 +178,15 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate{
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: TransactionTableViewCell.identifier, for: indexPath) as! TransactionTableViewCell
         cell.transaction_img.image = datas[indexPath.row].transactionImage
-        cell.transaction_time.text = datas[indexPath.row].transactionTime
+        
+        // Assuming cell.transaction_time is a UILabel
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd/MM/yyyy HH:mm:ss"
+        let currentDate = Date()
+        let formattedDate = dateFormatter.string(from: currentDate)
+        cell.transaction_time.text = formattedDate
+        
+        
         cell.transaction_balance.text = "-"+String(datas[indexPath.row].transactionBalance)+"VND"
         cell.transaction_name.text = datas[indexPath.row].transactionName
         cell.transaction_description.text = datas[indexPath.row].transactionDes
