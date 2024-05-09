@@ -8,18 +8,19 @@
 import UIKit
 
 class TransactionViewController: UIViewController {
-    
-   
     @IBOutlet weak var tableview: UITableView!
-// Date
-    
-    
-    
     //    Dữ liệu giả
     private var datas = [Transaction]()
-    
-   
-  
+    var sections: [Section] = [
+        Section(date: Date(), transactions: [
+            Transaction(name: "Shopping", img: UIImage(named: "Frame1"), balance: 120000, time: Date(), des: ""),
+            Transaction(name: "Shopping", img: UIImage(named: "Frame1"), balance: 120000, time: Date(), des: "") ,
+        ]),
+        Section(date: Date().addingTimeInterval(-24 * 60 * 60), transactions: [
+            Transaction(name: "Shopping", img: UIImage(named: "Frame1"), balance: 120000, time: Date().addingTimeInterval(-24 * 60 * 60), des: ""),
+            Transaction(name: "Shopping", img: UIImage(named: "Frame1"), balance: 120000, time: Date().addingTimeInterval(-24 * 60 * 60), des: ""),
+        ]),
+    ]
 
     
     override func viewDidLoad() {
@@ -30,22 +31,12 @@ class TransactionViewController: UIViewController {
         tableview.dataSource = self
         tableview.delegate = self
         tableview.register(TransactionTableViewCell.nib(), forCellReuseIdentifier: TransactionTableViewCell.identifier)
-       
-       
         
-        
-        
-        
-        
-        
-//        if let customDate = date.date(from: customDateString) {
-//            print(customDate)
-//            self.datas.append(Transaction(name: "Test", img: UIImage(named: "Frame1"), balance: 1, time: customDate, des: ""))
-//        }
+        setDataTransaction()
     }
 
     
-    
+    /// Hàm chuyển đồ từ Date sang String
     func DateToString(_ date:Date) -> String{
         //      Lấy ra 1 biến Date ở thời gian hiện tại
         let currentDateAndTime = date
@@ -69,6 +60,7 @@ class TransactionViewController: UIViewController {
         
         return dateFormatter.string(from: currentDateAndTime)
     }
+    /// Hàm Chuyển đổi từ String sang Date
     func StringToDate(_ str_date:String) -> Date? {
        let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "dd/MM/yyyy"
@@ -88,6 +80,16 @@ class TransactionViewController: UIViewController {
             return Date.now
         }
     }
+//    Hàm set dữ liệu giả cho ví
+    func setDataTransaction() {
+        for i in 10..<30{
+            if let time = StringToDate("\(i)/05/2024"){
+                datas.append( Transaction(name: "Shopping", img: UIImage(named: "Frame1"), balance: 120000, time: time, des: ""))
+            }
+        }
+        
+        
+    }
 
 
     
@@ -96,37 +98,32 @@ class TransactionViewController: UIViewController {
 extension TransactionViewController: UITableViewDataSource, UITableViewDelegate{
 //    UITableViewDataSource
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
-        return datas.count
-        
+//        return datas.count
+        return sections[section].transactions.count
     }
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return sections.count
+    }
+
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableview.dequeueReusableCell(withIdentifier: TransactionTableViewCell.identifier, for: indexPath) as! TransactionTableViewCell
-//
         let item = datas[indexPath.row]
 
 //Bỏ thông tin vào các UI của cell
         cell.transaction_name.text = item.transactionName
         cell.transaction_img.image = item.transactionImage
         cell.transaction_description.text = item.transactionDes
-        cell.transaction_balance.text = String(12345)
-        
-        // Assuming cell.transaction_time is a UILabel
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "dd/MM/yyyy HH:mm:ss"
-        let currentDate = Date()
-        let formattedDate = dateFormatter.string(from: currentDate)
-        cell.transaction_time.text = formattedDate
+        cell.transaction_balance.text = String(-12345)
+        cell.transaction_time.text = DateToString(item.transactionTime!)
+            
         return cell
     }
 //    Hàm set title TODAY, YESTERDAY...
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        let date = Date(timeIntervalSince1970: TimeInterval(section))
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd"
-
-        return dateFormatter.string(from: date)
+            dateFormatter.dateFormat = "dd/MM/yyyy"
+            return dateFormatter.string(from: sections[section].date)
     }
 
     
@@ -145,4 +142,8 @@ extension TransactionViewController: UITableViewDataSource, UITableViewDelegate{
         //        Đẩy màn hình vào hàng đợi... (chuyển màn hình)
         navigationController?.pushViewController(view_controller, animated: true)
     }
+}
+struct Section {
+    let date: Date
+    let transactions: [Transaction]
 }
