@@ -35,10 +35,12 @@
 		646B64D02BD5B145004049FB /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 646B64CF2BD5B145004049FB /* FirebaseFirestoreSwift */; };
 		646B64D22BD5B145004049FB /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 646B64D12BD5B145004049FB /* FirebaseStorage */; };
 		646B64D42BD667C7004049FB /* ForgotPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 646B64D32BD667C7004049FB /* ForgotPasswordViewController.swift */; };
+		646E4C9C2BDFB148004DCCF2 /* TransactionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 646E4C9A2BDFB148004DCCF2 /* TransactionTableViewCell.swift */; };
+		646E4C9D2BDFB148004DCCF2 /* TransactionTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 646E4C9B2BDFB148004DCCF2 /* TransactionTableViewCell.xib */; };
 		6476A9D22BD53384009935A8 /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6476A9D12BD53384009935A8 /* WelcomeViewController.swift */; };
 		6476A9DA2BD57228009935A8 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6476A9D92BD57228009935A8 /* SignUpViewController.swift */; };
 		64B9EFE62BDD0163007055B8 /* TransactionTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64B9EFE52BDD0163007055B8 /* TransactionTableViewController.swift */; };
-		64B9EFE82BDD01FA007055B8 /* TransactionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64B9EFE72BDD01FA007055B8 /* TransactionTableViewCell.swift */; };
+		64B9EFE82BDD01FA007055B8 /* Transaction_TEMP_TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64B9EFE72BDD01FA007055B8 /* Transaction_TEMP_TableViewCell.swift */; };
 		64B9EFEE2BDD4FDC007055B8 /* TabHomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64B9EFED2BDD4FDC007055B8 /* TabHomeViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -88,10 +90,12 @@
 		643C04162BDCB17A008E105E /* Transaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Transaction.swift; sourceTree = "<group>"; };
 		646B64C32BD5A151004049FB /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		646B64D32BD667C7004049FB /* ForgotPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordViewController.swift; sourceTree = "<group>"; };
+		646E4C9A2BDFB148004DCCF2 /* TransactionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionTableViewCell.swift; sourceTree = "<group>"; };
+		646E4C9B2BDFB148004DCCF2 /* TransactionTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TransactionTableViewCell.xib; sourceTree = "<group>"; };
 		6476A9D12BD53384009935A8 /* WelcomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
 		6476A9D92BD57228009935A8 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		64B9EFE52BDD0163007055B8 /* TransactionTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionTableViewController.swift; sourceTree = "<group>"; };
-		64B9EFE72BDD01FA007055B8 /* TransactionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionTableViewCell.swift; sourceTree = "<group>"; };
+		64B9EFE72BDD01FA007055B8 /* Transaction_TEMP_TableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Transaction_TEMP_TableViewCell.swift; sourceTree = "<group>"; };
 		64B9EFED2BDD4FDC007055B8 /* TabHomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabHomeViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -196,7 +200,7 @@
 				646B64D32BD667C7004049FB /* ForgotPasswordViewController.swift */,
 				643C040D2BD7CC28008E105E /* HomeViewController.swift */,
 				64B9EFE52BDD0163007055B8 /* TransactionTableViewController.swift */,
-				64B9EFE72BDD01FA007055B8 /* TransactionTableViewCell.swift */,
+				64B9EFE72BDD01FA007055B8 /* Transaction_TEMP_TableViewCell.swift */,
 				64B9EFED2BDD4FDC007055B8 /* TabHomeViewController.swift */,
 				3F49B7832BDD948C0061CE46 /* NewExpenseController.swift */,
 				3F91F9532BDE8AAF00D53E19 /* NewIncomeController.swift */,
@@ -204,6 +208,9 @@
 				3FA1F5F42BE81DA20010C22D /* DetailIncomeViewController.swift */,
 				3F9E5FBD2BEC394900E6A36B /* AddWalletViewController.swift */,
 				3F9E5FBF2BEC39E700E6A36B /* EditWalletViewController.swift */,
+				3F3FD14C2BE9CEF30060AFD8 /* ImageCell.swift */,
+				646E4C9A2BDFB148004DCCF2 /* TransactionTableViewCell.swift */,
+				646E4C9B2BDFB148004DCCF2 /* TransactionTableViewCell.xib */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -340,6 +347,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				646E4C9D2BDFB148004DCCF2 /* TransactionTableViewCell.xib in Resources */,
 				3F92F0632BD5375200CCD1D9 /* LaunchScreen.storyboard in Resources */,
 				646B64C42BD5A151004049FB /* GoogleService-Info.plist in Resources */,
 				3F92F0602BD5375200CCD1D9 /* Assets.xcassets in Resources */,
@@ -371,8 +379,9 @@
 				3FA1F5F52BE81DA20010C22D /* DetailIncomeViewController.swift in Sources */,
 				3FB951D82BE79EDB00F71B73 /* DetailExpenseViewController.swift in Sources */,
 				643C04172BDCB17A008E105E /* Transaction.swift in Sources */,
+				646E4C9C2BDFB148004DCCF2 /* TransactionTableViewCell.swift in Sources */,
 				64B9EFEE2BDD4FDC007055B8 /* TabHomeViewController.swift in Sources */,
-				64B9EFE82BDD01FA007055B8 /* TransactionTableViewCell.swift in Sources */,
+				64B9EFE82BDD01FA007055B8 /* Transaction_TEMP_TableViewCell.swift in Sources */,
 				6476A9DA2BD57228009935A8 /* SignUpViewController.swift in Sources */,
 				3FC287FE2BEBBA6500B3C841 /* ImageCell.swift in Sources */,
 				646B64D42BD667C7004049FB /* ForgotPasswordViewController.swift in Sources */,

@@ -21,6 +21,7 @@ class NewExpenseController: UIViewController, PHPickerViewControllerDelegate, UI
     //MARK: viewDidLoad()
     override func viewDidLoad() {
         super.viewDidLoad()
+
         //set title cho navigation controller
         self.navigationController?.navigationBar.barTintColor = UIColor.white
         //button custom
@@ -49,6 +50,10 @@ class NewExpenseController: UIViewController, PHPickerViewControllerDelegate, UI
   
         self.setPopupCategoryButton()
         self.setPopupWalletButton()
+        
+        //        Xoá navigation bottom
+                self.tabBarController?.tabBar.isHidden = true
+
     }
     
     //MARK: setup button
