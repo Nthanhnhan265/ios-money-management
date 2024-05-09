@@ -20,8 +20,7 @@ class NewExpenseController: UIViewController {
     var selectedImages = [UIImage]()
     override func viewDidLoad() {
         super.viewDidLoad()
-        collectionImagesView.register(ImageCell.self, forCellWithReuseIdentifier: "ImageCell")
-          
+
         //set title cho navigation controller
         self.navigationController?.navigationBar.barTintColor = UIColor.white
         //button custom
@@ -52,6 +51,10 @@ class NewExpenseController: UIViewController {
   
         self.setPopupCategoryButton()
         self.setPopupWalletButton()
+        
+        //        Xoá navigation bottom
+                self.tabBarController?.tabBar.isHidden = true
+
     }
     
     

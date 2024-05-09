@@ -15,6 +15,7 @@ class NewIncomeController: UIViewController {
     @IBOutlet weak var popupCategoryButton: UIButton!
     override func viewDidLoad() {
         super.viewDidLoad()
+        print("Vào NewIncomeController")
         //button custom
         // Thiết lập tiêu đề của nut
               let attributedTitleCategory = NSAttributedString(string: "Category")
@@ -40,6 +41,10 @@ class NewIncomeController: UIViewController {
   
         self.setPopupCategoryButton()
         self.setPopupWalletButton()
+        
+//        Xoá navigation bottom
+        self.tabBarController?.tabBar.isHidden = true
+
     }
     
     

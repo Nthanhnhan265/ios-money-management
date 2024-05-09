@@ -39,7 +39,7 @@ class TransactionTableViewController: UITableViewController {
         let cellIdentifier = "TransactionTableViewCell"
         
         guard let cell = tableView.dequeueReusableCell(withIdentifier:
-        cellIdentifier, for: indexPath) as? TransactionTableViewCell else {
+        cellIdentifier, for: indexPath) as? Transaction_TEMP_TableViewCell else {
         fatalError("Can not create the Cell!")
         }
         
