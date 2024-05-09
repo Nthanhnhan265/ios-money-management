@@ -17,7 +17,7 @@ class TransactionViewController: UIViewController {
     private var datas = [Transaction]()
     var sections: [Section] = [
         Section(date: Date(), transactions: [
-            Transaction(name: "Shopping", img: UIImage(named: "Frame1"), balance: 120000, time: Date(), des: ""),
+            Transaction(name: "Shopping", img: UIImage(named: "Frame1"), balance: 120000, time: Date(), des: "123"),
             Transaction(name: "Shopping", img: UIImage(named: "Frame1"), balance: 120000, time: Date(), des: "") ,
         ]),
         Section(date: Date().addingTimeInterval(-24 * 60 * 60), transactions: [
