@@ -66,7 +66,7 @@ class HomeViewController: UIViewController {
 
         menu_wallets.menu = UIMenu(children: [
              UIAction(title: "Tổng cộng", state: .on, handler: optionClosure),
-             UIAction(title: "MB Bank", handler: optionClosure),
+             UIAction(title: "MB Bank", image: UIImage(named: "Frame1"), handler: optionClosure),
              UIAction(title: "Tiền mặt", handler: optionClosure),
            ])
     }

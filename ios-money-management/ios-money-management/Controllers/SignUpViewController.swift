@@ -17,6 +17,7 @@ class SignUpViewController: UIViewController {
     @IBOutlet weak var btn_google: UIButton!
     
 
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 //        Debug
@@ -45,8 +46,11 @@ class SignUpViewController: UIViewController {
         btn_google.layer.cornerRadius = 5.0
         
 
-      
-        
+        let optionClosure = { (action: UIAction) in
+             print(action.title)
+           }
+
+       
 
         
    
