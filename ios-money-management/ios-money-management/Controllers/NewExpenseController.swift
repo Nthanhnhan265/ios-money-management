@@ -8,20 +8,19 @@
 import UIKit
 import PhotosUI
 
-class NewExpenseController: UIViewController {
-    
+class NewExpenseController: UIViewController, PHPickerViewControllerDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout  {
+    //MARK: Properties
     //tham chieu den CollectionView
     @IBOutlet weak var collectionImagesView: UICollectionView!
     @IBOutlet weak var textFieldValue: UITextField!
-    @IBOutlet weak var addImageButton: UIButton!
     @IBOutlet weak var popupCategoryButton: UIButton!
     @IBOutlet weak var popupWalletButton: UIButton!
     @IBOutlet weak var textFieldDes: UITextField!
     var selectedImages = [UIImage]()
+    
+    //MARK: viewDidLoad()
     override func viewDidLoad() {
         super.viewDidLoad()
-        collectionImagesView.register(ImageCell.self, forCellWithReuseIdentifier: "ImageCell")
-          
         //set title cho navigation controller
         self.navigationController?.navigationBar.barTintColor = UIColor.white
         //button custom
@@ -46,15 +45,13 @@ class NewExpenseController: UIViewController {
                popupWalletButton.layer.borderWidth = 1
                popupWalletButton.layer.cornerRadius = 16
                
-               addImageButton.layer.borderColor = UIColor(red: 241/255, green: 241/255, blue: 250/255, alpha: 1).cgColor
-               addImageButton.layer.borderWidth = 1
-               addImageButton.layer.cornerRadius = 16
+              
   
         self.setPopupCategoryButton()
         self.setPopupWalletButton()
     }
     
-    
+    //MARK: setup button
     func setPopupCategoryButton() {
         //thay doi title moi khi chon
         let optionClosure = {(action: UIAction) in
@@ -79,7 +76,7 @@ class NewExpenseController: UIViewController {
          
             self.popupWalletButton.setAttributedTitle(attributedTitle, for: .normal)
         }
-        //hien thi ra option
+        //hien thi ra optionr
         popupWalletButton.menu = UIMenu(children: [
             UIAction(title: "option 1", handler: optionClosure),
             UIAction(title: "option 2", handler: optionClosure),
@@ -88,7 +85,9 @@ class NewExpenseController: UIViewController {
         popupWalletButton.showsMenuAsPrimaryAction = true
         popupWalletButton.changesSelectionAsPrimaryAction = true
     }
-    @IBAction func addImageTapped(_ sender: UIButton) {
+ 
+    //MARK: event
+    @IBAction func addImageTapped(_ sender: Any) {
         //oject chua thong tin ve cau hinh cua PHPickerViewController
         var phconfig = PHPickerConfiguration()
         phconfig.selectionLimit = 5
@@ -96,23 +95,11 @@ class NewExpenseController: UIViewController {
         let phPickerVC = PHPickerViewController(configuration: phconfig)
         phPickerVC.delegate = self
         self.present(phPickerVC,animated: true)
-        
     }
     
-    
-// Handle cancel button tap
-    @objc func cancelButtonTapped(_ sender: UIButton) {
-        let index = sender.tag
-        selectedImages.remove(at: index)
-        collectionImagesView.reloadData()
-    }
 
 
- 
-
-}
-extension NewExpenseController: PHPickerViewControllerDelegate{
-    
+    //MARK: implement classes
     //sau khi chon xong anh thi thuc hien hanh dong tai day
     func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
         dismiss(animated: true)
@@ -132,26 +119,41 @@ extension NewExpenseController: PHPickerViewControllerDelegate{
                
             }
         }
-       
-    
     }
-}
-extension NewExpenseController: UICollectionViewDataSource {
-     
-    //implement cac phuon thuc cho UICollecitonView
+    
     //phuong thuc tra ve so luong
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return selectedImages.count
     }
     
+    //tai su dung ImageCell
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ImageCell", for: indexPath) as? ImageCell else {
-            return UICollectionViewCell()
-        }
-        print(cell)
-        cell.imageView.image = selectedImages[indexPath.row]
-//        cell.cancelButton.addTarget(self, action: #selector(cancelButtonTapped(_ :)), for: .touchUpInside)
+        let reuse = "ImageCell"
+        if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuse, for: indexPath) as? ImageCell {
+            //image
+            cell.imgView.image = selectedImages[indexPath.row]
+
+            //cancel button
+            cell.cancelButton.addTarget(self, action: #selector(cancelButtonTapped(_ :)), for: .touchUpInside)
+            cell.cancelButton.tag = indexPath.row
+            
             return cell
+        }
+        fatalError("khong the return");
+    }
+    
+    // Handle cancel button tap
+        @objc func cancelButtonTapped(_ sender: UIButton) {
+            selectedImages.remove(at: sender.tag)
+            collectionImagesView.reloadData()
+        }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: collectionView.frame.size.width / 3 - 10 , height: 128 - 10)
     }
    
+   
+    
+
 }
+
