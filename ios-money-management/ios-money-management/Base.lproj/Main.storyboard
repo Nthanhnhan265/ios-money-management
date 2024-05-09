@@ -1369,7 +1369,7 @@
                                             <action selector="btn_login:" destination="BYZ-38-t0r" eventType="touchUpInside" id="XTe-X8-REA"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ixg-xB-u6K">
+                                    <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ixg-xB-u6K">
                                         <rect key="frame" x="20" y="218" width="353" height="56"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="56" id="Q7G-Om-m0E"/>
@@ -1807,13 +1807,13 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="$0" textAlignment="natural" adjustsFontForContentSizeCategory="YES" minimumFontSize="64" translatesAutoresizingMaskIntoConstraints="NO" id="5mz-6U-8P9">
-                                <rect key="frame" x="25" y="258" width="343" height="78"/>
+                                <rect key="frame" x="25" y="191" width="343" height="78"/>
                                 <color key="textColor" red="0.98823529409999999" green="0.98823529409999999" blue="0.98823529409999999" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="64"/>
                                 <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                             </textField>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8AZ-gG-9O7">
-                                <rect key="frame" x="0.0" y="356" width="393" height="462"/>
+                                <rect key="frame" x="0.0" y="289" width="393" height="529"/>
                                 <subviews>
                                     <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" showsMenuAsPrimaryAction="YES" contentHorizontalAlignment="left" contentVerticalAlignment="fill" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" changesSelectionAsPrimaryAction="YES" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="YKs-Eb-23t">
                                         <rect key="frame" x="20" y="20" width="353" height="56"/>
@@ -1874,7 +1874,7 @@
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UJo-fm-R9e">
-                                        <rect key="frame" x="25" y="401" width="343" height="56"/>
+                                        <rect key="frame" x="25" y="468" width="343" height="56"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="56" id="MAU-q6-RlA"/>
                                         </constraints>
@@ -1944,7 +1944,7 @@
                                         </connections>
                                     </button>
                                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="XVF-Fi-SDJ">
-                                        <rect key="frame" x="10" y="218" width="373" height="239"/>
+                                        <rect key="frame" x="10" y="218" width="373" height="240"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="Mpz-T4-LCT">
                                             <size key="itemSize" width="128" height="128"/>
@@ -2480,6 +2480,7 @@
         <image name="eye-solid" width="15.75" height="14"/>
         <image name="flat-color-icons_google" width="21.333333969116211" height="21.333333969116211"/>
         <image name="home_active" width="32" height="32"/>
+        <image name="photo.on.rectangle.fill" catalog="system" width="128" height="98"/>
         <image name="pie-chart_active" width="32" height="32"/>
         <image name="transaction_active" width="36" height="35"/>
         <image name="trash" catalog="system" width="117" height="128"/>
