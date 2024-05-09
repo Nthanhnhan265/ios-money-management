@@ -10,6 +10,10 @@ import UIKit
 class TransactionViewController: UIViewController {
     @IBOutlet weak var tableview: UITableView!
     //    Dữ liệu giả
+    @IBOutlet weak var popup_time: UIButton!
+    @IBOutlet weak var view_rangeTime: UIView!
+    @IBOutlet weak var popup_cate: UIButton!
+    @IBOutlet weak var view_filter: UIView!
     private var datas = [Transaction]()
     var sections: [Section] = [
         Section(date: Date(), transactions: [
@@ -33,9 +37,36 @@ class TransactionViewController: UIViewController {
         tableview.register(TransactionTableViewCell.nib(), forCellReuseIdentifier: TransactionTableViewCell.identifier)
         
         setDataTransaction()
+        setCategory()
+        setTimeline()
     }
+    func setTimeline()  {
+        let optionClosure = { (action: UIAction) in
+             print(action.title)
+           }
 
+        popup_time.menu = UIMenu(children: [
+             UIAction(title: "Tháng", state: .on, handler: optionClosure),
+             UIAction(title: "Ngày", handler: optionClosure),
+             UIAction(title: "Năm", handler: optionClosure),
+           ])
+    }
     
+    @IBAction func btn_rangeTime_Tapped(_ sender: UIBarButtonItem) {
+        view_rangeTime.isHidden = !view_rangeTime.isHidden
+        
+    }
+    func setCategory()  {
+        let optionClosure = { (action: UIAction) in
+             print(action.title)
+           }
+
+        popup_cate.menu = UIMenu(children: [
+             UIAction(title: "Tổng cộng", state: .on, handler: optionClosure),
+             UIAction(title: "MB Bank", handler: optionClosure),
+             UIAction(title: "Tiền mặt", handler: optionClosure),
+           ])
+    }
     /// Hàm chuyển đồ từ Date sang String
     func DateToString(_ date:Date) -> String{
         //      Lấy ra 1 biến Date ở thời gian hiện tại
@@ -91,7 +122,10 @@ class TransactionViewController: UIViewController {
         
     }
 
-
+    @IBAction func btn_filter_tapped(_ sender: UIBarButtonItem) {
+        view_filter.isHidden = !view_filter.isHidden
+    }
+    
     
     
 }
