@@ -530,32 +530,8 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="QEb-XG-Yfm">
-                                <rect key="frame" x="25" y="339" width="343" height="56"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="56" id="o0n-yt-cvD"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vjB-6z-dD6">
-                                <rect key="frame" x="271" y="339" width="97" height="56"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="56" id="aEh-c9-4rL"/>
-                                </constraints>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" title="Sent OTP">
-                                    <backgroundConfiguration key="background">
-                                        <color key="backgroundColor" red="0.46666666870000001" green="0.25490197539999998" blue="0.96470588450000005" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                    </backgroundConfiguration>
-                                    <color key="baseForegroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                </buttonConfiguration>
-                                <connections>
-                                    <action selector="btn_SentOTP_tapped:" destination="hJc-JF-Saq" eventType="touchUpInside" id="nio-He-DG5"/>
-                                </connections>
-                            </button>
                             <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="OTP" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="67I-H1-0CD">
-                                <rect key="frame" x="25" y="419" width="343" height="56"/>
+                                <rect key="frame" x="25" y="323" width="343" height="56"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="56" id="0Ju-Ma-UV3"/>
                                 </constraints>
@@ -563,7 +539,7 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BAm-0d-rGb">
-                                <rect key="frame" x="25" y="545" width="343" height="56"/>
+                                <rect key="frame" x="25" y="449" width="343" height="56"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="56" id="zcy-ZT-uEu"/>
                                 </constraints>
@@ -582,18 +558,13 @@
                         <viewLayoutGuide key="safeArea" id="ppZ-Ib-jZd"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="ppZ-Ib-jZd" firstAttribute="trailing" secondItem="QEb-XG-Yfm" secondAttribute="trailing" constant="25" id="1U9-gg-mjC"/>
                             <constraint firstItem="ppZ-Ib-jZd" firstAttribute="trailing" secondItem="BAm-0d-rGb" secondAttribute="trailing" constant="25" id="1bJ-Gw-4QI"/>
-                            <constraint firstItem="67I-H1-0CD" firstAttribute="top" secondItem="QEb-XG-Yfm" secondAttribute="bottom" constant="24" id="3CE-v5-pmj"/>
-                            <constraint firstItem="vjB-6z-dD6" firstAttribute="top" secondItem="pLX-yo-Zek" secondAttribute="bottom" constant="46" id="41K-i9-Mve"/>
-                            <constraint firstItem="QEb-XG-Yfm" firstAttribute="leading" secondItem="ppZ-Ib-jZd" secondAttribute="leading" constant="25" id="CY2-t8-iwh"/>
-                            <constraint firstItem="QEb-XG-Yfm" firstAttribute="top" secondItem="pLX-yo-Zek" secondAttribute="bottom" constant="46" id="GgO-A1-B7Y"/>
                             <constraint firstItem="pLX-yo-Zek" firstAttribute="top" secondItem="ppZ-Ib-jZd" secondAttribute="top" constant="74" id="JLz-Ty-GTe"/>
                             <constraint firstItem="ppZ-Ib-jZd" firstAttribute="trailing" secondItem="67I-H1-0CD" secondAttribute="trailing" constant="25" id="N0N-Yg-cv9"/>
                             <constraint firstItem="ppZ-Ib-jZd" firstAttribute="trailing" secondItem="pLX-yo-Zek" secondAttribute="trailing" constant="25" id="OSa-mg-OQJ"/>
                             <constraint firstItem="pLX-yo-Zek" firstAttribute="leading" secondItem="ppZ-Ib-jZd" secondAttribute="leading" constant="25" id="PjO-zT-Vju"/>
+                            <constraint firstItem="67I-H1-0CD" firstAttribute="top" secondItem="pLX-yo-Zek" secondAttribute="bottom" constant="30" id="ao8-Zz-AZ1"/>
                             <constraint firstItem="BAm-0d-rGb" firstAttribute="top" secondItem="67I-H1-0CD" secondAttribute="bottom" constant="70" id="bnI-OO-lod"/>
-                            <constraint firstItem="ppZ-Ib-jZd" firstAttribute="trailing" secondItem="vjB-6z-dD6" secondAttribute="trailing" constant="25" id="hlC-fd-xF3"/>
                             <constraint firstItem="BAm-0d-rGb" firstAttribute="leading" secondItem="ppZ-Ib-jZd" secondAttribute="leading" constant="25" id="jbk-v6-jHi"/>
                             <constraint firstItem="67I-H1-0CD" firstAttribute="leading" secondItem="ppZ-Ib-jZd" secondAttribute="leading" constant="25" id="p98-tb-mP9"/>
                         </constraints>
@@ -601,8 +572,6 @@
                     <navigationItem key="navigationItem" id="S8l-3h-Zbs"/>
                     <connections>
                         <outlet property="btn_Continue" destination="BAm-0d-rGb" id="x60-rU-z61"/>
-                        <outlet property="btn_SentOTP" destination="vjB-6z-dD6" id="ngY-t2-JCk"/>
-                        <outlet property="txt_email" destination="QEb-XG-Yfm" id="45U-IZ-R29"/>
                         <outlet property="txt_otp" destination="67I-H1-0CD" id="Awc-kV-vNy"/>
                     </connections>
                 </viewController>

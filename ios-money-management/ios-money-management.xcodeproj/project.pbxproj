@@ -198,6 +198,12 @@
 		3F92F0872BD5400300CCD1D9 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				3FC287FD2BEBBA6500B3C841 /* ImageCell.swift */,
+				3FC287FF2BEBCDF100B3C841 /* IncomeImageCell.swift */,
+				3FA748EC2BEC59A900F7FD76 /* IconCell.swift */,
+				3FA748EE2BEC778100F7FD76 /* AddIconWalletCell.swift */,
+				3F8A83D52BED2BD700638962 /* WalletCell.swift */,
+				3F8A83D62BED2BD700638962 /* WalletCell.xib */,
 				3F92F0572BD5375100CCD1D9 /* LoginViewController.swift */,
 				6476A9D12BD53384009935A8 /* WelcomeViewController.swift */,
 				6476A9D92BD57228009935A8 /* SignUpViewController.swift */,
@@ -229,12 +235,6 @@
 			isa = PBXGroup;
 			children = (
 				643C04162BDCB17A008E105E /* Transaction.swift */,
-				3FC287FD2BEBBA6500B3C841 /* ImageCell.swift */,
-				3FC287FF2BEBCDF100B3C841 /* IncomeImageCell.swift */,
-				3FA748EC2BEC59A900F7FD76 /* IconCell.swift */,
-				3FA748EE2BEC778100F7FD76 /* AddIconWalletCell.swift */,
-				3F8A83D52BED2BD700638962 /* WalletCell.swift */,
-				3F8A83D62BED2BD700638962 /* WalletCell.xib */,
 			);
 			path = Models;
 			sourceTree = "<group>";
