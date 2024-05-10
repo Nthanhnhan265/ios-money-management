@@ -2415,6 +2415,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2bN-hD-9n8" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="4923" y="1649"/>
+        </scene>
         <!--Transaction-->
         <scene sceneID="Ewf-7I-xbT">
             <objects>
