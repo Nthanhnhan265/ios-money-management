@@ -12,14 +12,23 @@ class Transaction  {
     var transactionName: String
     var transactionImage: UIImage?
     var transactionBalance: Int
-    var transactionTime: String
+//    var transactionTime: String
+    var transactionTime: Date?
     var transactionDes: String
 //    MARK: Initialization
-    init?(name: String, img: UIImage?, balance: Int, time: String, des: String) {
+    init(name: String, img: UIImage? , balance: Int, time: Date? , des: String) {
         self.transactionName = name
-        self.transactionImage = img
-        self.transactionBalance = balance
-        self.transactionTime = time
-        self.transactionDes = des
+                self.transactionImage = img
+                self.transactionBalance = balance
+                self.transactionTime = time
+                self.transactionDes = des
     }
+//    init?(name: String, img: UIImage?, balance: Int, time: String, des: String) {
+//        self.transactionName = name
+//        self.transactionImage = img
+//        self.transactionBalance = balance
+//        self.transactionTime = time
+//        self.transactionDes = des
+//    }
+    
 }

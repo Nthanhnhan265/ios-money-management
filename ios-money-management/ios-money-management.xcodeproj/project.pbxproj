@@ -29,6 +29,7 @@
 		3FB951D82BE79EDB00F71B73 /* DetailExpenseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FB951D72BE79EDB00F71B73 /* DetailExpenseViewController.swift */; };
 		3FC287FE2BEBBA6500B3C841 /* ImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FC287FD2BEBBA6500B3C841 /* ImageCell.swift */; };
 		3FC288002BEBCDF100B3C841 /* IncomeImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FC287FF2BEBCDF100B3C841 /* IncomeImageCell.swift */; };
+		6436505E2BE804950019A04B /* TransactionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6436505D2BE804950019A04B /* TransactionViewController.swift */; };
 		643C040E2BD7CC28008E105E /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 643C040D2BD7CC28008E105E /* HomeViewController.swift */; };
 		643C04172BDCB17A008E105E /* Transaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 643C04162BDCB17A008E105E /* Transaction.swift */; };
 		646B64C42BD5A151004049FB /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 646B64C32BD5A151004049FB /* GoogleService-Info.plist */; };
@@ -90,6 +91,7 @@
 		3FB951D72BE79EDB00F71B73 /* DetailExpenseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailExpenseViewController.swift; sourceTree = "<group>"; };
 		3FC287FD2BEBBA6500B3C841 /* ImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCell.swift; sourceTree = "<group>"; };
 		3FC287FF2BEBCDF100B3C841 /* IncomeImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IncomeImageCell.swift; sourceTree = "<group>"; };
+		6436505D2BE804950019A04B /* TransactionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionViewController.swift; sourceTree = "<group>"; };
 		643C040D2BD7CC28008E105E /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		643C04162BDCB17A008E105E /* Transaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Transaction.swift; sourceTree = "<group>"; };
 		646B64C32BD5A151004049FB /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -220,6 +222,7 @@
 				3F9E5FBF2BEC39E700E6A36B /* EditWalletViewController.swift */,
 				646E4C9A2BDFB148004DCCF2 /* TransactionTableViewCell.swift */,
 				646E4C9B2BDFB148004DCCF2 /* TransactionTableViewCell.xib */,
+				6436505D2BE804950019A04B /* TransactionViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -406,6 +409,7 @@
 				3F92F0542BD5375100CCD1D9 /* AppDelegate.swift in Sources */,
 				3F92F0562BD5375100CCD1D9 /* SceneDelegate.swift in Sources */,
 				3F9E5FBE2BEC394900E6A36B /* AddWalletViewController.swift in Sources */,
+				6436505E2BE804950019A04B /* TransactionViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
