@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ProfileViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class ProfileViewController: UIViewController, UITableViewDelegate {
 
     
 //MARK: Properties
@@ -32,8 +32,8 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
         imageView.layer.cornerRadius = imageView.frame.height/2
 
         image.layer.cornerRadius = image.frame.height/2
-        settingTableView.dataSource = self
-        settingTableView.delegate = self 
+//        settingTableView.dataSource = self
+//        settingTableView.delegate = self
         
         cornerTable.layer.cornerRadius = 16
         cornerTable.layer.masksToBounds = true
@@ -44,22 +44,23 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
         print ("selected: \(indexPath.row)")
     }
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return settings.count
-    }
+//    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+//        return settings.count
+//    }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let reuse = "SettingCell"
-        if let cell = tableView.dequeueReusableCell(withIdentifier: reuse, for: indexPath) as? SettingCell {
-            if let imgStr = settings[indexPath.row]["setting_icon"], let nameStr = settings[indexPath.row]["setting_name"] {
-                cell.selectionStyle = .none
-                cell.settingImage.image = UIImage(named: imgStr as! String)
-                cell.settingName.text = nameStr as? String
-                return cell
-            }
-        }
-        fatalError("Khong the return")
-    }
+//    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+//        let reuse = "SettingCell"
+//        if let cell = tableView.dequeueReusableCell(withIdentifier: reuse, for: indexPath) as? SettingCell {
+//            if let imgStr = settings[indexPath.row]["setting_icon"], let nameStr = settings[indexPath.row]["setting_name"] {
+//                cell.selectionStyle = .none
+//                cell.settingImage.image = UIImage(named: imgStr as! String)
+//                cell.settingName.text = nameStr as? String
+//                return cell
+//            }
+//        }
+//        fatalError("Khong the return")
+        
+//    }
 
     /*
     // MARK: - Navigation

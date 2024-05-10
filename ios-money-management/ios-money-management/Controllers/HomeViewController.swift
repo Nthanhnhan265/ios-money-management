@@ -202,7 +202,7 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate{
         //Lấy main.storyboard
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         //        Lấy màn hình cần chuyển qua
-        let view_controller = storyboard.instantiateViewController(withIdentifier: "detail_transaction")
+        let view_controller = storyboard.instantiateViewController(withIdentifier: "detail_transaction_Expenses")
         //        set title cho navigation
         view_controller.navigationItem.title = datas[indexPath.row].transactionName
         //        Đẩy màn hình vào hàng đợi... (chuyển màn hình)
