@@ -19,31 +19,29 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Welcome" translatesAutoresizingMaskIntoConstraints="NO" id="tab-JN-QoS">
-                                <rect key="frame" x="31" y="120" width="312" height="312"/>
+                                <rect key="frame" x="59" y="118" width="312" height="312"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" secondItem="tab-JN-QoS" secondAttribute="height" multiplier="1:1" id="2z6-XZ-uJk"/>
-                                    <constraint firstAttribute="width" constant="312" id="JQc-rO-SN5"/>
-                                    <constraint firstAttribute="height" constant="312" id="Ppo-Eg-bZ0"/>
+                                    <constraint firstAttribute="width" constant="312" id="1r8-h0-0AP"/>
+                                    <constraint firstAttribute="height" constant="312" id="Hqc-z6-Y6j"/>
+                                    <constraint firstAttribute="width" secondItem="tab-JN-QoS" secondAttribute="height" multiplier="1:1" id="g2x-RI-3HO"/>
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Gain total control of your money" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Tr-vI-rzq">
-                                <rect key="frame" x="49" y="473" width="277" height="74"/>
+                                <rect key="frame" x="77" y="475" width="276" height="74"/>
                                 <fontDescription key="fontDescription" type="system" weight="black" pointSize="31"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Become your own money manager and make every cent count" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uf0-yZ-xnf">
-                                <rect key="frame" x="51" y="568" width="272" height="36"/>
+                                <rect key="frame" x="79" y="574" width="272" height="36"/>
                                 <fontDescription key="fontDescription" type="system" weight="light" pointSize="15"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oeU-Kq-ZhE">
-                                <rect key="frame" x="20" y="722" width="343" height="56"/>
+                                <rect key="frame" x="44" y="720" width="342" height="56"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" secondItem="oeU-Kq-ZhE" secondAttribute="height" multiplier="49:8" id="f3W-sg-hWj"/>
-                                    <constraint firstAttribute="width" constant="343" id="oge-sV-9Xt"/>
-                                    <constraint firstAttribute="height" constant="56" id="zW6-ZQ-shI"/>
+                                    <constraint firstAttribute="height" constant="56" id="BLV-2w-GZA"/>
                                 </constraints>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" title="Sign Up">
@@ -57,11 +55,9 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vF7-uu-3iQ">
-                                <rect key="frame" x="20" y="794" width="343" height="56"/>
+                                <rect key="frame" x="44" y="805" width="342" height="56"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" secondItem="vF7-uu-3iQ" secondAttribute="height" multiplier="49:8" id="ayb-Nd-5eJ"/>
-                                    <constraint firstAttribute="width" constant="343" id="etN-J7-jQ4"/>
-                                    <constraint firstAttribute="height" constant="56" id="hBH-Lm-YBs"/>
+                                    <constraint firstAttribute="height" constant="56" id="8fC-cB-IYP"/>
                                 </constraints>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" title="Login">
@@ -78,21 +74,21 @@
                         <viewLayoutGuide key="safeArea" id="noW-hi-udr"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="vF7-uu-3iQ" firstAttribute="leading" secondItem="noW-hi-udr" secondAttribute="leading" constant="20" id="732-8Z-5qR"/>
-                            <constraint firstItem="vF7-uu-3iQ" firstAttribute="top" secondItem="oeU-Kq-ZhE" secondAttribute="bottom" constant="16" id="9Df-fZ-OWE"/>
-                            <constraint firstItem="noW-hi-udr" firstAttribute="trailing" secondItem="tab-JN-QoS" secondAttribute="trailing" constant="50" id="AmK-UN-4Oj"/>
-                            <constraint firstItem="oeU-Kq-ZhE" firstAttribute="leading" secondItem="noW-hi-udr" secondAttribute="leading" constant="20" id="NdQ-ty-QjL"/>
-                            <constraint firstItem="noW-hi-udr" firstAttribute="trailing" secondItem="0Tr-vI-rzq" secondAttribute="trailing" constant="67" id="WhP-dJ-0ql"/>
-                            <constraint firstItem="0Tr-vI-rzq" firstAttribute="leading" secondItem="noW-hi-udr" secondAttribute="leading" constant="49" id="ePl-of-Clg"/>
-                            <constraint firstItem="uf0-yZ-xnf" firstAttribute="top" secondItem="0Tr-vI-rzq" secondAttribute="bottom" constant="21" id="feK-sZ-79u"/>
-                            <constraint firstItem="noW-hi-udr" firstAttribute="bottom" secondItem="vF7-uu-3iQ" secondAttribute="bottom" constant="48" id="fzk-gJ-7yb"/>
-                            <constraint firstItem="tab-JN-QoS" firstAttribute="top" secondItem="noW-hi-udr" secondAttribute="top" constant="17" id="hwG-gP-OkE"/>
-                            <constraint firstItem="noW-hi-udr" firstAttribute="trailing" secondItem="oeU-Kq-ZhE" secondAttribute="trailing" constant="30" id="iga-g5-V2q"/>
-                            <constraint firstItem="noW-hi-udr" firstAttribute="trailing" secondItem="vF7-uu-3iQ" secondAttribute="trailing" constant="30" id="jZS-jt-gb5"/>
-                            <constraint firstItem="noW-hi-udr" firstAttribute="trailing" secondItem="uf0-yZ-xnf" secondAttribute="trailing" constant="70" id="pVb-fa-m22"/>
-                            <constraint firstItem="tab-JN-QoS" firstAttribute="leading" secondItem="noW-hi-udr" secondAttribute="leading" constant="31" id="q2o-nN-1Pc"/>
-                            <constraint firstItem="0Tr-vI-rzq" firstAttribute="top" secondItem="tab-JN-QoS" secondAttribute="bottom" constant="41" id="vSm-8q-2fx"/>
-                            <constraint firstItem="uf0-yZ-xnf" firstAttribute="leading" secondItem="noW-hi-udr" secondAttribute="leading" constant="51" id="vTP-JE-W3f"/>
+                            <constraint firstItem="uf0-yZ-xnf" firstAttribute="leading" secondItem="noW-hi-udr" secondAttribute="leading" constant="79" id="0Qr-6e-cmL"/>
+                            <constraint firstItem="tab-JN-QoS" firstAttribute="top" secondItem="noW-hi-udr" secondAttribute="top" constant="15" id="6E1-DA-lz8"/>
+                            <constraint firstItem="uf0-yZ-xnf" firstAttribute="top" secondItem="0Tr-vI-rzq" secondAttribute="bottom" constant="25" id="7qK-u9-JqS"/>
+                            <constraint firstItem="noW-hi-udr" firstAttribute="trailing" secondItem="vF7-uu-3iQ" secondAttribute="trailing" constant="44" id="ASw-RJ-0tk"/>
+                            <constraint firstItem="oeU-Kq-ZhE" firstAttribute="leading" secondItem="noW-hi-udr" secondAttribute="leading" constant="44" id="ElO-Jw-zbk"/>
+                            <constraint firstItem="noW-hi-udr" firstAttribute="trailing" secondItem="tab-JN-QoS" secondAttribute="trailing" constant="59" id="GKP-H0-c2i"/>
+                            <constraint firstItem="vF7-uu-3iQ" firstAttribute="leading" secondItem="noW-hi-udr" secondAttribute="leading" constant="44" id="JsG-Ow-LOJ"/>
+                            <constraint firstItem="noW-hi-udr" firstAttribute="trailing" secondItem="uf0-yZ-xnf" secondAttribute="trailing" constant="79" id="RUL-uM-MsS"/>
+                            <constraint firstItem="noW-hi-udr" firstAttribute="trailing" secondItem="0Tr-vI-rzq" secondAttribute="trailing" constant="77" id="U0U-nb-YWI"/>
+                            <constraint firstItem="noW-hi-udr" firstAttribute="trailing" secondItem="oeU-Kq-ZhE" secondAttribute="trailing" constant="44" id="Z3G-ov-3jT"/>
+                            <constraint firstItem="tab-JN-QoS" firstAttribute="leading" secondItem="noW-hi-udr" secondAttribute="leading" constant="59" id="kTH-bI-Qyw"/>
+                            <constraint firstItem="0Tr-vI-rzq" firstAttribute="leading" secondItem="noW-hi-udr" secondAttribute="leading" constant="77" id="mw3-lq-EfQ"/>
+                            <constraint firstItem="oeU-Kq-ZhE" firstAttribute="top" secondItem="uf0-yZ-xnf" secondAttribute="bottom" constant="110" id="n41-hI-F6K"/>
+                            <constraint firstItem="0Tr-vI-rzq" firstAttribute="top" secondItem="tab-JN-QoS" secondAttribute="bottom" constant="45" id="pjL-uR-cCV"/>
+                            <constraint firstItem="vF7-uu-3iQ" firstAttribute="top" secondItem="oeU-Kq-ZhE" secondAttribute="bottom" constant="29" id="zZZ-es-MBX"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="IdF-G1-d6z"/>
@@ -1751,7 +1747,7 @@
                                 <rect key="frame" x="0.0" y="88" width="1262" height="240"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zZi-Gn-d2D">
-                                        <rect key="frame" x="33" y="127.33333333333331" width="1196" height="19.333333333333314"/>
+                                        <rect key="frame" x="33" y="127.33333333333333" width="1196" height="19.333333333333329"/>
                                         <attributedString key="attributedText">
                                             <fragment content="Buy some grocery">
                                                 <attributes>
@@ -2259,7 +2255,7 @@
                                 <rect key="frame" x="0.0" y="44" width="1262" height="240"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ymg-t9-Ome">
-                                        <rect key="frame" x="33" y="127.33333333333331" width="1196" height="19.333333333333314"/>
+                                        <rect key="frame" x="33" y="127.33333333333333" width="1196" height="19.333333333333329"/>
                                         <attributedString key="attributedText">
                                             <fragment content="Salary for July">
                                                 <attributes>
