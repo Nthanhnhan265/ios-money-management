@@ -23,7 +23,7 @@ class AccountWalletsViewController: UIViewController {
 //        Kết nối table view với các hàm để load dữ liệu
         tbv_wallets.dataSource = self
         tbv_wallets.delegate = self
-        tbv_wallets.register(TransactionTableViewCell.nib(), forCellReuseIdentifier: TransactionTableViewCell.identifier)
+        tbv_wallets.register(WalletTableViewCell.nib(), forCellReuseIdentifier: WalletTableViewCell.identifier)
         
         setWallets()
         
@@ -32,6 +32,20 @@ class AccountWalletsViewController: UIViewController {
     
 //    Hàm set data giả
     func setWallets()  {
+        wallets.append(Wallet(walletName: "Wallet", walletImg: UIImage(named: "Frame1"), walletBalance: 400))
+        
+        wallets.append(Wallet(walletName: "Chase", walletImg: UIImage(named: "Frame1"), walletBalance: 1000))
+        
+        wallets.append(Wallet(walletName: "City", walletImg: UIImage(named: "Frame1"), walletBalance: 6000))
+        
+        wallets.append(Wallet(walletName: "Paypal", walletImg: UIImage(named: "Frame1"), walletBalance: 2000))
+        wallets.append(Wallet(walletName: "Wallet", walletImg: UIImage(named: "Frame1"), walletBalance: 400))
+        
+        wallets.append(Wallet(walletName: "Chase", walletImg: UIImage(named: "Frame1"), walletBalance: 1000))
+        
+        wallets.append(Wallet(walletName: "City", walletImg: UIImage(named: "Frame1"), walletBalance: 6000))
+        
+        wallets.append(Wallet(walletName: "Paypal", walletImg: UIImage(named: "Frame1"), walletBalance: 2000))
         wallets.append(Wallet(walletName: "Wallet", walletImg: UIImage(named: "Frame1"), walletBalance: 400))
         
         wallets.append(Wallet(walletName: "Chase", walletImg: UIImage(named: "Frame1"), walletBalance: 1000))
@@ -56,7 +70,7 @@ extension AccountWalletsViewController: UITableViewDelegate, UITableViewDataSour
 //        Đổ dữ liệu vào cell
         cell.Wallet_name.text = wallets[indexPath.row].walletName
         cell.Wallet_img.image = wallets[indexPath.row].walletImg
-        cell.Wallet_balace.text = String(wallets[indexPath.row].walletBalance)
+        cell.Wallet_balace.text = "$"+String(wallets[indexPath.row].walletBalance)
         
         return cell
     }

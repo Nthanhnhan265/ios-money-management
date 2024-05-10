@@ -40,6 +40,7 @@
 		644E04712BED2985004D2AFB /* WalletTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 644E046F2BED2985004D2AFB /* WalletTableViewCell.swift */; };
 		644E04722BED2985004D2AFB /* WalletTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 644E04702BED2985004D2AFB /* WalletTableViewCell.xib */; };
 		644E04742BED2B35004D2AFB /* Wallet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 644E04732BED2B35004D2AFB /* Wallet.swift */; };
+		644E04782BEDC1AF004D2AFB /* DetailWalletViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 644E04772BEDC1AF004D2AFB /* DetailWalletViewController.swift */; };
 		646B64C42BD5A151004049FB /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 646B64C32BD5A151004049FB /* GoogleService-Info.plist */; };
 		646B64CC2BD5B145004049FB /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 646B64CB2BD5B145004049FB /* FirebaseAuth */; };
 		646B64CE2BD5B145004049FB /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 646B64CD2BD5B145004049FB /* FirebaseFirestore */; };
@@ -110,6 +111,7 @@
 		644E046F2BED2985004D2AFB /* WalletTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletTableViewCell.swift; sourceTree = "<group>"; };
 		644E04702BED2985004D2AFB /* WalletTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WalletTableViewCell.xib; sourceTree = "<group>"; };
 		644E04732BED2B35004D2AFB /* Wallet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Wallet.swift; sourceTree = "<group>"; };
+		644E04772BEDC1AF004D2AFB /* DetailWalletViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailWalletViewController.swift; sourceTree = "<group>"; };
 		646B64C32BD5A151004049FB /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		646B64D32BD667C7004049FB /* ForgotPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordViewController.swift; sourceTree = "<group>"; };
 		646E4C9A2BDFB148004DCCF2 /* TransactionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionTableViewCell.swift; sourceTree = "<group>"; };
@@ -242,6 +244,7 @@
 				644E046D2BED276A004D2AFB /* AccountWalletsViewController.swift */,
 				644E046F2BED2985004D2AFB /* WalletTableViewCell.swift */,
 				644E04702BED2985004D2AFB /* WalletTableViewCell.xib */,
+				644E04772BEDC1AF004D2AFB /* DetailWalletViewController.swift */,
 				3F7F7D4C2BEE38B700AF4867 /* ProfileViewController.swift */,
 				3F7F7D4E2BEE4F5E00AF4867 /* EditProfileViewController.swift */,
 				3F7F7D502BEE54B100AF4867 /* SettingCell.swift */,
@@ -414,6 +417,7 @@
 				3FA1F5F52BE81DA20010C22D /* DetailIncomeViewController.swift in Sources */,
 				3FB951D82BE79EDB00F71B73 /* DetailExpenseViewController.swift in Sources */,
 				643C04172BDCB17A008E105E /* Transaction.swift in Sources */,
+				644E04782BEDC1AF004D2AFB /* DetailWalletViewController.swift in Sources */,
 				646E4C9C2BDFB148004DCCF2 /* TransactionTableViewCell.swift in Sources */,
 				64B9EFEE2BDD4FDC007055B8 /* TabHomeViewController.swift in Sources */,
 				64B9EFE82BDD01FA007055B8 /* Transaction_TEMP_TableViewCell.swift in Sources */,

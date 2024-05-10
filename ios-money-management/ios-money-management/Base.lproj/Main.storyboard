@@ -447,10 +447,10 @@
             </objects>
             <point key="canvasLocation" x="-1408" y="3839"/>
         </scene>
-        <!--Account Wallets View Controller-->
+        <!--View Controller-->
         <scene sceneID="D0H-Ss-RiA">
             <objects>
-                <viewController id="qHn-iS-NSq" customClass="AccountWalletsViewController" customModule="ios_money_management" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="qHn-iS-NSq" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="KNd-td-Xx1">
                         <rect key="frame" x="0.0" y="0.0" width="430" height="932"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -509,7 +509,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ypL-j7-d74" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-161.06870229007632" y="3850.7042253521126"/>
+            <point key="canvasLocation" x="-146" y="3887"/>
         </scene>
         <!--Transaction Table View Controller-->
         <scene sceneID="utT-uK-WqW">
@@ -1120,7 +1120,7 @@
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </view>
-                            <view contentMode="scaleToFill" id="nQS-9x-zfB">
+                            <view hidden="YES" contentMode="scaleToFill" id="nQS-9x-zfB">
                                 <rect key="frame" x="0.0" y="478" width="393" height="298"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
@@ -2656,7 +2656,7 @@
         <!--Accounts-->
         <scene sceneID="H9n-rt-rm4">
             <objects>
-                <viewController id="KQH-aP-mJf" sceneMemberID="viewController">
+                <viewController id="KQH-aP-mJf" customClass="AccountWalletsViewController" customModule="ios_money_management" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="CGt-3l-9s9">
                         <rect key="frame" x="0.0" y="0.0" width="430" height="932"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -2698,6 +2698,16 @@
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="uzz-kC-Oss">
                                 <rect key="frame" x="20" y="306" width="390" height="523"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="cell" rowHeight="90" id="wRa-uA-HK5">
+                                        <rect key="frame" x="0.0" y="50" width="353" height="90"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="wRa-uA-HK5" id="y3S-Ja-Tch">
+                                            <rect key="frame" x="0.0" y="0.0" width="353" height="90"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
                             </tableView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Qlz-DC-liZ">
                                 <rect key="frame" x="25" y="851" width="380" height="56"/>
@@ -2739,6 +2749,9 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Accounts" style="browser" id="4zi-hv-b1C"/>
+                    <connections>
+                        <outlet property="tbv_wallets" destination="uzz-kC-Oss" id="fS0-Hy-kOZ"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VbR-Rl-bzP" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -2915,7 +2928,7 @@
         <!--Detail Accout-->
         <scene sceneID="mkj-2L-DgJ">
             <objects>
-                <viewController id="NhX-5M-ATR" sceneMemberID="viewController">
+                <viewController id="NhX-5M-ATR" customClass="DetailWalletViewController" customModule="ios_money_management" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="H1I-qb-faz">
                         <rect key="frame" x="0.0" y="0.0" width="430" height="932"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -2936,6 +2949,16 @@
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="MnH-VL-yqA">
                                 <rect key="frame" x="20" y="293" width="390" height="605"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="cell" rowHeight="90" id="b7z-kZ-wAj">
+                                        <rect key="frame" x="0.0" y="50" width="353" height="90"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="b7z-kZ-wAj" id="npp-Gx-9U9">
+                                            <rect key="frame" x="0.0" y="0.0" width="353" height="90"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
                             </tableView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Paypal" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="exC-jb-Yal">
                                 <rect key="frame" x="25" y="190" width="380" height="29"/>
@@ -2964,6 +2987,9 @@
                     <navigationItem key="navigationItem" title="Detail Accout" style="editor" id="NpH-EK-L9q">
                         <barButtonItem key="rightBarButtonItem" systemItem="compose" id="dLI-hl-RQM"/>
                     </navigationItem>
+                    <connections>
+                        <outlet property="tableview" destination="MnH-VL-yqA" id="Hlg-x0-OCV"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eKI-N8-ewx" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
