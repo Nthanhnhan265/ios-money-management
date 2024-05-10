@@ -12,7 +12,10 @@ class HomeViewController: UIViewController {
     var datas = [Transaction]()
     @IBOutlet weak var table_view: UITableView!
     
-//    các button: Today, Week, Month, Year
+    @IBOutlet weak var borderAvatar: UIView!
+    @IBOutlet weak var avatar: UIImageView!
+    
+    //    các button: Today, Week, Month, Year
     @IBOutlet weak var btn_week: UIButton!
     @IBOutlet weak var btn_today: UIButton!
     @IBOutlet weak var btn_year: UIButton!
@@ -49,6 +52,14 @@ class HomeViewController: UIViewController {
         btn_today.backgroundColor = UIColor(red: 252/255, green: 238/255, blue: 212/255, alpha: 1.0)
         btn_today.setTitleColor(UIColor(red: 255/255, green: 255/255, blue: 255/255, alpha: 1.0), for: .normal)
         activeButton = btn_today
+        
+        //custom avatar va border
+        avatar.layer.cornerRadius = avatar.frame.height/2
+        
+        borderAvatar.layer.borderWidth = 2
+        borderAvatar.layer.masksToBounds = true
+        borderAvatar.layer.borderColor = CGColor(red: 173/255, green: 0/255, blue: 255/255, alpha: 1)
+        borderAvatar.layer.cornerRadius = borderAvatar.frame.height/2
         
     }
     override func viewWillAppear(_ animated: Bool) {

@@ -26,7 +26,7 @@ class EditProfileViewController: UIViewController, UIImagePickerControllerDelega
     }
     //nhan de mo uiimagepicker
     @IBAction func imageTapped(_ sender: Any) {
-        var imagePicker = UIImagePickerController()
+        let imagePicker = UIImagePickerController()
         imagePicker.sourceType = .photoLibrary
         imagePicker.delegate = self
         present(imagePicker, animated: true)
