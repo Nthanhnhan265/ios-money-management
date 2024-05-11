@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="7DN-pM-Wlc">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="4vh-5c-P8M">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
@@ -2815,8 +2815,9 @@
                                 <color key="textColor" red="0.98823529409999999" green="0.98823529409999999" blue="0.98823529409999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="$2400" placeholder="$0" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="0XK-Lu-77f">
+                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="$0" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="0XK-Lu-77f">
                                 <rect key="frame" x="25" y="278" width="343" height="78"/>
+                                <color key="tintColor" red="0.96470588239999999" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="64"/>
                                 <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
@@ -2841,7 +2842,7 @@
                                         </userDefinedRuntimeAttributes>
                                     </textField>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gla-Pj-qj0">
-                                        <rect key="frame" x="25" y="304" width="343" height="56"/>
+                                        <rect key="frame" x="25" y="357.66666666666663" width="343" height="56"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="56" id="gFt-gx-wY0"/>
                                             <constraint firstAttribute="height" constant="56" id="z4C-kj-3sn"/>
@@ -2860,6 +2861,7 @@
                                         </userDefinedRuntimeAttributes>
                                         <connections>
                                             <action selector="btn_login:" destination="BYZ-38-t0r" eventType="touchUpInside" id="eXy-gY-rFe"/>
+                                            <action selector="newWalletTapped:" destination="4vh-5c-P8M" eventType="touchUpInside" id="Kaf-Kz-IHQ"/>
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Icons" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gcT-Vh-QVm">
@@ -2895,6 +2897,7 @@
                                                                 <constraint firstAttribute="width" constant="80" id="51d-gu-0d8"/>
                                                                 <constraint firstAttribute="height" constant="40" id="voe-wT-hdT"/>
                                                             </constraints>
+                                                            <inset key="titleEdgeInsets" minX="0.0" minY="5" maxX="0.0" maxY="5"/>
                                                             <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                             <state key="normal" title="Button"/>
                                                         </button>
@@ -2924,12 +2927,12 @@
                                     <constraint firstAttribute="height" constant="433.67000000000002" id="E89-LA-kMP"/>
                                     <constraint firstAttribute="trailing" secondItem="gla-Pj-qj0" secondAttribute="trailing" constant="25" id="JzM-cV-jP7"/>
                                     <constraint firstItem="TrU-vH-H3n" firstAttribute="top" secondItem="Spl-W5-JZz" secondAttribute="top" constant="20" id="L9Z-Zl-W5h"/>
+                                    <constraint firstAttribute="bottom" secondItem="gla-Pj-qj0" secondAttribute="bottom" constant="20" id="NxX-Cu-eYQ"/>
                                     <constraint firstItem="gcT-Vh-QVm" firstAttribute="leading" secondItem="Spl-W5-JZz" secondAttribute="leading" constant="25" id="OFX-LM-LGH"/>
                                     <constraint firstItem="gla-Pj-qj0" firstAttribute="leading" secondItem="Spl-W5-JZz" secondAttribute="leading" constant="25" id="PiO-Fm-88J"/>
                                     <constraint firstAttribute="trailing" secondItem="TrU-vH-H3n" secondAttribute="trailing" constant="25" id="QOI-wa-dER"/>
                                     <constraint firstItem="gcT-Vh-QVm" firstAttribute="top" secondItem="TrU-vH-H3n" secondAttribute="bottom" constant="20" id="TzN-9b-cRW"/>
                                     <constraint firstItem="TrU-vH-H3n" firstAttribute="leading" secondItem="Spl-W5-JZz" secondAttribute="leading" constant="25" id="VhC-Pb-fgN"/>
-                                    <constraint firstItem="gla-Pj-qj0" firstAttribute="top" secondItem="11F-hm-K0e" secondAttribute="bottom" constant="10" id="hPx-GH-bcr"/>
                                     <constraint firstItem="11F-hm-K0e" firstAttribute="leading" secondItem="Spl-W5-JZz" secondAttribute="leading" constant="20" id="xfs-xL-OH5"/>
                                     <constraint firstItem="11F-hm-K0e" firstAttribute="top" secondItem="gcT-Vh-QVm" secondAttribute="bottom" constant="10" id="zi1-kV-Jad"/>
                                 </constraints>
@@ -2960,6 +2963,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="balanceTextField" destination="0XK-Lu-77f" id="lr2-sg-V9y"/>
                         <outlet property="collectionIconsView" destination="11F-hm-K0e" id="uMp-MJ-OiD"/>
                         <outlet property="walletName" destination="TrU-vH-H3n" id="71i-5r-IUZ"/>
                     </connections>
