@@ -7,6 +7,7 @@
 
 import UIKit
 import FirebaseAuth
+import FirebaseFirestore
 class SignUpViewController: UIViewController {
 //input
     @IBOutlet weak var txt_name: UITextField!
@@ -103,6 +104,8 @@ class SignUpViewController: UIViewController {
             } else if let authResult = authResult {
                // Đăng ký thành công, lấy ID của người dùng
                 let userId = authResult.user.uid
+                
+
                 print("User created with ID: \(userId)")
             }
         }

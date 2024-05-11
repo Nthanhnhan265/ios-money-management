@@ -8,12 +8,36 @@
 import Foundation
 import UIKit
 class Wallet {
-    var walletName: String
-    var walletImg: UIImage?
-    var walletBalance: Int
-    init(walletName: String, walletImg: UIImage?, walletBalance: Int) {
-        self.walletName = walletName
-        self.walletImg = walletImg
-        self.walletBalance = walletBalance
+    private let ID:String
+    private var Name: String
+    private var Balance: Int
+    private  var Image: UIImage?
+    
+    init(ID: String, Name: String, Balance: Int, Image: UIImage? ) {
+        self.ID = ID
+        self.Name = Name
+        self.Balance = Balance
+        self.Image = Image
+    }
+    var getUID:String{
+        get{
+            return ID
+            
+        }
+    }
+    var getName:String{
+        get{
+            return Name
+        }
+    }
+    var getBalance:Int{
+        get{
+            return Balance
+        }
+    }
+    var getImage:UIImage?{
+        get{
+            return Image
+        }
     }
 }
