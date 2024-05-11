@@ -1,17 +1,18 @@
 //
-//  WelcomeViewController.swift
+//  WelcomeNavigation_Controller.swift
 //  ios-money-management
 //
-//  Created by AnNguyen on 21/04/2024.
+//  Created by AnNguyen on 10/05/2024.
 //
 
 import UIKit
 
-class WelcomeViewController: UIViewController {
+class WelcomeNavigation_Controller: UINavigationController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        // Do any additional setup after loading the view.
     }
     
 
