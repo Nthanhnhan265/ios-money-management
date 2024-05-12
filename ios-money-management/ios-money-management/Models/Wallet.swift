@@ -95,7 +95,7 @@ class Wallet {
     }
     
     // lay tat ca du lieu trong vi
-    static func getAllWallets(UID: String, completion: @escaping ([Wallet])->Void ) {
+    static func getAllWallets(UID: String, completion: @escaping ([Wallet], _ totalBalnce:Int)->Void ) {
         let db = Firestore.firestore()
         let userRef = db.collection("Profile").document(UID)
         let walletRef = userRef.collection("Wallets")
@@ -105,9 +105,10 @@ class Wallet {
             query, error in
             if let error = error {
                 print("Error getting documents: \(error)")
-                completion([])
+                completion([],0)
                 return
             }
+            var total:Int = 0 
             if let documents = query?.documents, !documents.isEmpty {
                 for wallet in documents {
                     let data = wallet.data()
@@ -121,6 +122,7 @@ class Wallet {
                     }
                     if let balance = data["Balance"] as? Int {
                         walletBalance = balance
+                        total += balance
                     }
                     if let image = data["Image"] as? String {
                         walletImage = image
@@ -128,13 +130,14 @@ class Wallet {
                     if let id = data["ID"] as? String {
                         walletId = id
                     }
+                    
                     arrWalletObjects.append(Wallet(ID: walletId ?? "", Name: walletName ?? "", Balance: walletBalance ?? 0, Image: UIImage(named: walletImage ?? "error")))
                      
                 }
-                completion(arrWalletObjects)
+                completion(arrWalletObjects,total)
             } else {
                 print("document not found")
-                completion([])
+                completion([],0)
             }
         }
     }

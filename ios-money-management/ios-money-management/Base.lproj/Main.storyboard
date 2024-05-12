@@ -2783,6 +2783,7 @@
                     <navigationItem key="navigationItem" title="Accounts" style="browser" id="4zi-hv-b1C"/>
                     <connections>
                         <outlet property="tbv_wallets" destination="uzz-kC-Oss" id="fS0-Hy-kOZ"/>
+                        <outlet property="totalBalance" destination="kWp-qf-2iR" id="uNZ-cF-2vA"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VbR-Rl-bzP" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -3126,7 +3127,7 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="604" y="5428"/>
+            <point key="canvasLocation" x="604" y="6016"/>
         </scene>
         <!--Item-->
         <scene sceneID="tZZ-cP-qbp">

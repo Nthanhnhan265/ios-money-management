@@ -12,18 +12,19 @@ class AccountWalletsViewController: UIViewController {
     let UID = UserDefaults.standard.string(forKey: "UID")
     
     @IBOutlet weak var tbv_wallets: UITableView!
-    
+    @IBOutlet weak var totalBalance: UILabel!
     override func viewDidLoad() {
         super.viewDidLoad()
         print("Vào AccountWalletsViewController")
         
         
        Wallet.getAllWallets(UID: UID!){
-            arrWallets in
+            arrWallets, totalBalance in
            if !arrWallets.isEmpty {
                self.wallets = arrWallets
+               self.totalBalance.text = "$\(totalBalance)"
                self.tbv_wallets.reloadData()
-            }
+           }
         }
         self.navigationItem.title = "Wallets"
 //        Kết nối table view với các hàm để load dữ liệu
