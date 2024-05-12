@@ -16,13 +16,15 @@ class AddWalletViewController: UIViewController, UICollectionViewDataSource {
     @IBOutlet weak var balanceTextField: UITextField!
     
     
+
+    
     var icons:[String] = [
         "heart","Envelope","money","hospital","basket","book","meal"
     ]//string cac images trong asset
     var preSelectedButton:UIButton?
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         navigationController?.navigationBar.tintColor = .white
         navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
         navigationController?.navigationBar.backgroundColor = UIColor(red: 127/255, green: 61/255, blue: 255/255, alpha: 1)
@@ -32,34 +34,34 @@ class AddWalletViewController: UIViewController, UICollectionViewDataSource {
         
     }
     //MARK: events
-  
-// chua hoan thanh
-//    func getAllWallet(UID: String) {
-//        let db = Firestore.firestore()
-//        let userRef = db.collection("Profile").document(UID)
-//        let walletRef = userRef.collection("Wallets")
-//        walletRef.getDocuments {
-//            query, error in
-//            if let error = error {
-//                print("Error getting documents: \(error)")
-//                return
-//            }
-//            if let documents = query?.documents, !documents.isEmpty {
-//                for wallet in documents {
-//                    let data = wallet.data()
-//                    if let name = data["Name"] as? String {
-//                        print("name : \(name)")
-//                    }
-//                    else {
-//                        print("Null")
-//                    }
-//                }
-//            } else {
-//                print("document not found")
-//            }
-//
-//        }
-//    }
+    
+    // chua hoan thanh
+    //    func getAllWallet(UID: String) {
+    //        let db = Firestore.firestore()
+    //        let userRef = db.collection("Profile").document(UID)
+    //        let walletRef = userRef.collection("Wallets")
+    //        walletRef.getDocuments {
+    //            query, error in
+    //            if let error = error {
+    //                print("Error getting documents: \(error)")
+    //                return
+    //            }
+    //            if let documents = query?.documents, !documents.isEmpty {
+    //                for wallet in documents {
+    //                    let data = wallet.data()
+    //                    if let name = data["Name"] as? String {
+    //                        print("name : \(name)")
+    //                    }
+    //                    else {
+    //                        print("Null")
+    //                    }
+    //                }
+    //            } else {
+    //                print("document not found")
+    //            }
+    //
+    //        }
+    //    }
     
     //tao vi moi
     func createNewWallet(_ UID: String, _ walletDictionary:[String:Any])->Void {
@@ -69,11 +71,11 @@ class AddWalletViewController: UIViewController, UICollectionViewDataSource {
         if walletDictionary.count != 0 {
             walletRef.addDocument(data: walletDictionary) { error in
                 if let error = error {
-                  print("Error adding wallet: \(error)")
-                  return
+                    print("Error adding wallet: \(error)")
+                    return
                 }
                 print("Wallet created successfully!")
-              }
+            }
         }
     }
     //cap nhat vi
@@ -84,11 +86,11 @@ class AddWalletViewController: UIViewController, UICollectionViewDataSource {
         if walletDictionary.count != 0 {
             walletDoc.updateData(walletDictionary) { error in
                 if let error = error {
-                  print("Error adding wallet: \(error)")
-                  return
+                    print("Error adding wallet: \(error)")
+                    return
                 }
                 print("Wallet updated successfully!")
-              }
+            }
         }
     }
     //xoa vi
@@ -110,19 +112,21 @@ class AddWalletViewController: UIViewController, UICollectionViewDataSource {
     
     @IBAction func newWalletTapped(_ sender: UIButton) {
         if let balance = balanceTextField.text, let name = walletName.text, !name.isEmpty{
-            //          let icon:String = icons[preSelectedButton?.tag ?? 0]
+            let icon = icons[preSelectedButton?.tag ?? 0]
             if let balanceDouble = Double(balance.isEmpty ? "0" : balance) {
-                let UID = "siOIdhoJsgZCVlsJsZ4cHjr8cSn2"
+                let UID = UserDefaults.standard.string(forKey: "userId") ?? ""
                 let walletDic = [
                     "Name": name,
-                    "Balance": balanceDouble
+                    "Balance": balanceDouble,
+                    "Image": icon
                 ] as [String : Any]
                 createNewWallet(UID, _: walletDic)
+                navigationController?.popViewController(animated: true)
             }
         } else {
             print("error, name is empty")
         }
-//        deleteAWallet("siOIdhoJsgZCVlsJsZ4cHjr8cSn2", "ydSWhPZGYCFOBtDkCmRi")
+        //        deleteAWallet("siOIdhoJsgZCVlsJsZ4cHjr8cSn2", "ydSWhPZGYCFOBtDkCmRi")
     }
     
     
@@ -162,3 +166,5 @@ class AddWalletViewController: UIViewController, UICollectionViewDataSource {
     }
     
 }
+
+

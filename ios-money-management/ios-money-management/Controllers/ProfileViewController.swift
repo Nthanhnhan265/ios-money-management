@@ -36,6 +36,20 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
     //MARK: implementing classes
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print ("selected: \(indexPath.row)")
+        
+//        Chuyển màn hình khi nhấn account wallet
+        if indexPath.row == 0{
+            //Lấy main.storyboard
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            //        Lấy màn hình cần chuyển qua
+            let view_controller = storyboard.instantiateViewController(withIdentifier: "AccountWallets")
+            //        set title cho navigation
+            view_controller.navigationItem.title = "Account"
+            //        Đẩy màn hình vào hàng đợi... (chuyển màn hình)
+            navigationController?.pushViewController(view_controller, animated: true)
+            //        self.present(view_controller, animated: true)
+            
+        }
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

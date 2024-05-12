@@ -59,24 +59,24 @@ class LoginViewController: UIViewController {
                 // Đăng nhập thành công, lấy ID của người dùng
                 let userId = authResult.user.uid
                 print("User login with ID: \(userId)")
-//                Sử dụng UserDefault để gán UID cho người dùng
+                //                Sử dụng UserDefault để gán UID cho người dùng
                 UserDefaults.standard.set(userId, forKey: "UID")
-
                 
                 
                 
-//                Lấy màn hình main storyboard
+                
+                //                Lấy màn hình main storyboard
                 let storyBoard = UIStoryboard(name: "Main", bundle: nil)
-//                Lấy controller TabHomeController
+                //                Lấy controller TabHomeController
                 let homeViewController = storyBoard.instantiateViewController(withIdentifier: "TabBarHomeController") as! TabHomeViewController
                 
-//                Cho màn hình Home full màn hình
+                //                Cho màn hình Home full màn hình
                 homeViewController.modalPresentationStyle = .fullScreen
-//
+                //
                 self.present(homeViewController, animated: true )
                 
-//                self.navigationController?.navigationBar.isHidden = true
-//                 self.navigationController?.pushViewController(homeViewController, animated: true)
+                //                self.navigationController?.navigationBar.isHidden = true
+                //                 self.navigationController?.pushViewController(homeViewController, animated: true)
                 
                 
                 

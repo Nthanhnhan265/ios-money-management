@@ -32,27 +32,25 @@ class AccountWalletsViewController: UIViewController {
     
 //    Hàm set data giả
     func setWallets()  {
-//        wallets.append(Wallet(walletName: "Wallet", walletImg: UIImage(named: "Frame1"), walletBalance: 400))
-//
-//        wallets.append(Wallet(walletName: "Chase", walletImg: UIImage(named: "Frame1"), walletBalance: 1000))
-//
-//        wallets.append(Wallet(walletName: "City", walletImg: UIImage(named: "Frame1"), walletBalance: 6000))
-//
-//        wallets.append(Wallet(walletName: "Paypal", walletImg: UIImage(named: "Frame1"), walletBalance: 2000))
-//        wallets.append(Wallet(walletName: "Wallet", walletImg: UIImage(named: "Frame1"), walletBalance: 400))
-//
-//        wallets.append(Wallet(walletName: "Chase", walletImg: UIImage(named: "Frame1"), walletBalance: 1000))
-//
-//        wallets.append(Wallet(walletName: "City", walletImg: UIImage(named: "Frame1"), walletBalance: 6000))
-//
-//        wallets.append(Wallet(walletName: "Paypal", walletImg: UIImage(named: "Frame1"), walletBalance: 2000))
-//        wallets.append(Wallet(walletName: "Wallet", walletImg: UIImage(named: "Frame1"), walletBalance: 400))
-//
-//        wallets.append(Wallet(walletName: "Chase", walletImg: UIImage(named: "Frame1"), walletBalance: 1000))
-//
-//        wallets.append(Wallet(walletName: "City", walletImg: UIImage(named: "Frame1"), walletBalance: 6000))
-//
-//        wallets.append(Wallet(walletName: "Paypal", walletImg: UIImage(named: "Frame1"), walletBalance: 2000))
+        wallets.append(Wallet(ID: "1", Name: "MBB", Balance: 100000, Image: UIImage(named: "Frame1")))
+        wallets.append(Wallet(ID: "1", Name: "MBB", Balance: 100000, Image: UIImage(named: "Frame1")))
+        wallets.append(Wallet(ID: "1", Name: "MBB", Balance: 100000, Image: UIImage(named: "Frame1")))
+        wallets.append(Wallet(ID: "1", Name: "MBB", Balance: 100000, Image: UIImage(named: "Frame1")))
+        wallets.append(Wallet(ID: "1", Name: "MBB", Balance: 100000, Image: UIImage(named: "Frame1")))
+
+       
+    }
+//    MARK: Add new wallet
+    @IBAction func btn_NewWallet_Tapped(_ sender: UIButton) {
+        //Lấy main.storyboard
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        //        Lấy màn hình cần chuyển qua
+        let view_controller = storyboard.instantiateViewController(withIdentifier: "NewWallet")
+        //        set title cho navigation
+        view_controller.navigationItem.title = "New Wallet"
+        //        Đẩy màn hình vào hàng đợi... (chuyển màn hình)
+        navigationController?.pushViewController(view_controller, animated: true)
+        //        self.present(view_controller, animated: true)
     }
     
 

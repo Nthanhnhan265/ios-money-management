@@ -46,6 +46,15 @@ class HomeViewController: UIViewController {
         
         //debug
         print("Vào HomeViewController - \(UID)")
+        UserProfile.getUserProfine(UID: UID) { [self] userProfile in
+            if let userProfile = userProfile {
+                self.avatar.image = (userProfile.getAvatar!)
+
+                txt_balance.text = String(setWallets(wallets: userProfile.Wallets))
+            } else {
+                print("ERROR - Home")
+            }
+        }
         
        
 
@@ -64,15 +73,7 @@ class HomeViewController: UIViewController {
         table_view.register(TransactionTableViewCell.nib(), forCellReuseIdentifier: TransactionTableViewCell.identifier)
         
         
-        UserProfile.getUserProfine(UID: UID) { [self] userProfile in
-            if let userProfile = userProfile {
-                self.avatar.image = (userProfile.getAvatar!)
-
-                txt_balance.text = String(setWallets(wallets: userProfile.Wallets))
-            } else {
-                print("ERROR - Home")
-            }
-        }
+        
 
 //        UserProfile.getUserProfine(UID: UID) { userProfile in
 //            if let userProfile = userProfile {
@@ -161,10 +162,7 @@ class HomeViewController: UIViewController {
         borderAvatar.layer.borderColor = CGColor(red: 173/255, green: 0/255, blue: 255/255, alpha: 1)
         borderAvatar.layer.cornerRadius = borderAvatar.frame.height/2
         
-        //Set màu mặc định cho navigation
-        self.navigationController?.navigationBar.backgroundColor = .white
-        self.navigationController?.navigationBar.tintColor = UIColor.black
-        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
+
         
         //        Set mặc định button Today được active
         btn_today.layer.cornerRadius = 20

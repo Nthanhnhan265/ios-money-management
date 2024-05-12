@@ -196,5 +196,53 @@
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "CE067639-34EC-41DB-8EB2-92336D7F53BF"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ios-money-management/Controllers/AddWalletViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "115"
+            endingLineNumber = "115"
+            landmarkName = "newWalletTapped(_:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "CE067639-34EC-41DB-8EB2-92336D7F53BF - f46ce52b301ced95"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ios_money_management.AddWalletViewController.newWalletTapped(__C.UIButton) -&gt; ()"
+                  moduleName = "ios-money-management"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Volumes/DATA/iOS-2024/github/ios-money-management/ios-money-management/ios-money-management/Controllers/AddWalletViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "114"
+                  endingLineNumber = "114"
+                  offsetFromSymbolStart = "888">
+               </Location>
+               <Location
+                  uuid = "CE067639-34EC-41DB-8EB2-92336D7F53BF - f46ce52b301ced95"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ios_money_management.AddWalletViewController.newWalletTapped(__C.UIButton) -&gt; ()"
+                  moduleName = "ios-money-management"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Volumes/DATA/iOS-2024/github/ios-money-management/ios-money-management/ios-money-management/Controllers/AddWalletViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "114"
+                  endingLineNumber = "114"
+                  offsetFromSymbolStart = "1036">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
    </Breakpoints>
 </Bucket>
