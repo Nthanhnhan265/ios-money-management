@@ -42,7 +42,7 @@ class HomeViewController: UIViewController {
         super.viewDidLoad()
         
         //       Lấy UID
-        let UID = UserDefaults.standard.string(forKey: "userId") ?? ""
+        let UID = UserDefaults.standard.string(forKey: "UID") ?? ""
         
         //debug
         print("Vào HomeViewController - \(UID)")
