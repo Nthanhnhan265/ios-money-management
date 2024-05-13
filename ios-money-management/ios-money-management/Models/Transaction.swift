@@ -8,27 +8,20 @@
 import Foundation
 import UIKit
 class Transaction  {
-// MARK: Props
-    var transactionName: String
-    var transactionImage: UIImage?
-    var transactionBalance: Int
-//    var transactionTime: String
-    var transactionTime: Date?
-    var transactionDes: String
-//    MARK: Initialization
-    init(name: String, img: UIImage? , balance: Int, time: Date? , des: String) {
-        self.transactionName = name
-                self.transactionImage = img
-                self.transactionBalance = balance
-                self.transactionTime = time
-                self.transactionDes = des
-    }
-//    init?(name: String, img: UIImage?, balance: Int, time: String, des: String) {
-//        self.transactionName = name
-//        self.transactionImage = img
-//        self.transactionBalance = balance
-//        self.transactionTime = time
-//        self.transactionDes = des
-//    }
+    private let ID:String
+    private var Description:String
+    private var Balance: Int
+    private let Category_ID: String
+    private let CreateAt:Date
     
+    init(ID: String, Description: String, Balance: Int, Category_ID: String, CreateAt: Date) {
+        self.ID = ID
+        self.Description = Description
+        self.Balance = Balance
+        self.Category_ID = Category_ID
+        self.CreateAt = CreateAt
+    }
+    public static func WriteTransaction(UID:String, Wallet_ID:String,transaction:Transaction ){
+        
+    }
 }

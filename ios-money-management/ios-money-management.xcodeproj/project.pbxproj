@@ -40,6 +40,7 @@
 		644E04782BEDC1AF004D2AFB /* DetailWalletViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 644E04772BEDC1AF004D2AFB /* DetailWalletViewController.swift */; };
 		644E047A2BEE567E004D2AFB /* WelcomeNavigation_Controller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 644E04792BEE567E004D2AFB /* WelcomeNavigation_Controller.swift */; };
 		644E047C2BEF2A7B004D2AFB /* UserProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 644E047B2BEF2A7B004D2AFB /* UserProfile.swift */; };
+		6467B9122BF0772300373C8B /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6467B9112BF0772300373C8B /* Category.swift */; };
 		646B64C42BD5A151004049FB /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 646B64C32BD5A151004049FB /* GoogleService-Info.plist */; };
 		646B64CC2BD5B145004049FB /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 646B64CB2BD5B145004049FB /* FirebaseAuth */; };
 		646B64CE2BD5B145004049FB /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 646B64CD2BD5B145004049FB /* FirebaseFirestore */; };
@@ -110,6 +111,7 @@
 		644E04772BEDC1AF004D2AFB /* DetailWalletViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailWalletViewController.swift; sourceTree = "<group>"; };
 		644E04792BEE567E004D2AFB /* WelcomeNavigation_Controller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeNavigation_Controller.swift; sourceTree = "<group>"; };
 		644E047B2BEF2A7B004D2AFB /* UserProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfile.swift; sourceTree = "<group>"; };
+		6467B9112BF0772300373C8B /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
 		646B64C32BD5A151004049FB /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		646B64D32BD667C7004049FB /* ForgotPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordViewController.swift; sourceTree = "<group>"; };
 		646E4C9A2BDFB148004DCCF2 /* TransactionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionTableViewCell.swift; sourceTree = "<group>"; };
@@ -254,6 +256,7 @@
 				643C04162BDCB17A008E105E /* Transaction.swift */,
 				644E04732BED2B35004D2AFB /* Wallet.swift */,
 				644E047B2BEF2A7B004D2AFB /* UserProfile.swift */,
+				6467B9112BF0772300373C8B /* Category.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -412,6 +415,7 @@
 				6476A9DA2BD57228009935A8 /* SignUpViewController.swift in Sources */,
 				3FC287FE2BEBBA6500B3C841 /* ImageCell.swift in Sources */,
 				3F7F7D4F2BEE4F5E00AF4867 /* EditProfileViewController.swift in Sources */,
+				6467B9122BF0772300373C8B /* Category.swift in Sources */,
 				646B64D42BD667C7004049FB /* ForgotPasswordViewController.swift in Sources */,
 				644E04742BED2B35004D2AFB /* Wallet.swift in Sources */,
 				644E047A2BEE567E004D2AFB /* WelcomeNavigation_Controller.swift in Sources */,

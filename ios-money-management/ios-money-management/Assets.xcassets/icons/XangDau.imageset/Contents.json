@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "iftar (1) 2.png",
+      "filename" : "oil.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "iftar (1) 1.png",
+      "filename" : "oil 1.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "iftar (1).png",
+      "filename" : "oil 2.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

@@ -14,8 +14,8 @@
             filePath = "ios-money-management/Controllers/LoginViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "35"
-            endingLineNumber = "35"
+            startingLineNumber = "37"
+            endingLineNumber = "37"
             landmarkName = "btn_password_tapped(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -30,13 +30,13 @@
             filePath = "ios-money-management/Controllers/LoginViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "50"
-            endingLineNumber = "50"
+            startingLineNumber = "52"
+            endingLineNumber = "52"
             landmarkName = "btn_login(_:)"
             landmarkType = "7">
             <Locations>
                <Location
-                  uuid = "A7E8DC58-1E2A-4D01-A539-31DB7D6827B9 - fc65d8d1e4d493f8"
+                  uuid = "A7E8DC58-1E2A-4D01-A539-31DB7D6827B9 - fc65d8d1e4d49319"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -46,12 +46,12 @@
                   urlString = "file:///Volumes/DATA/iOS-2024/github/ios-money-management/ios-money-management/ios-money-management/Controllers/LoginViewController.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "49"
-                  endingLineNumber = "49"
-                  offsetFromSymbolStart = "92">
+                  startingLineNumber = "50"
+                  endingLineNumber = "50"
+                  offsetFromSymbolStart = "108">
                </Location>
                <Location
-                  uuid = "A7E8DC58-1E2A-4D01-A539-31DB7D6827B9 - fc65d8d1e4d493f8"
+                  uuid = "A7E8DC58-1E2A-4D01-A539-31DB7D6827B9 - fc65d8d1e4d49319"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -61,9 +61,9 @@
                   urlString = "file:///Volumes/DATA/iOS-2024/github/ios-money-management/ios-money-management/ios-money-management/Controllers/LoginViewController.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "49"
-                  endingLineNumber = "49"
-                  offsetFromSymbolStart = "296">
+                  startingLineNumber = "50"
+                  endingLineNumber = "50"
+                  offsetFromSymbolStart = "312">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -119,86 +119,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "8EB6F1C0-99A2-4726-955C-C52F36F0BB4B"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "ios-money-management/Models/UserProfile.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "83"
-            endingLineNumber = "83"
-            landmarkName = "getUserProfine(UID:completion:)"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "8EB6F1C0-99A2-4726-955C-C52F36F0BB4B - 87d7b0cb104a1001"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (Swift.Optional&lt;__C.FIRDocumentSnapshot&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in static ios_money_management.UserProfile.getUserProfine(UID: Swift.String, completion: (Swift.Optional&lt;ios_money_management.UserProfile&gt;) -&gt; ()) -&gt; ()"
-                  moduleName = "ios-money-management"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Volumes/DATA/iOS-2024/github/ios-money-management/ios-money-management/ios-money-management/Models/UserProfile.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "83"
-                  endingLineNumber = "83"
-                  offsetFromSymbolStart = "332">
-               </Location>
-               <Location
-                  uuid = "8EB6F1C0-99A2-4726-955C-C52F36F0BB4B - 7d3cfe1897e53a43"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (Swift.Optional&lt;__C.FIRQuerySnapshot&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in closure #1 (Swift.Optional&lt;__C.FIRDocumentSnapshot&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in static ios_money_management.UserProfile.getUserProfine(UID: Swift.String, completion: (Swift.Optional&lt;ios_money_management.UserProfile&gt;) -&gt; ()) -&gt; ()"
-                  moduleName = "ios-money-management"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Volumes/DATA/iOS-2024/github/ios-money-management/ios-money-management/ios-money-management/Models/UserProfile.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "84"
-                  endingLineNumber = "84"
-                  offsetFromSymbolStart = "224">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "64A5457B-FA5B-4EC0-A9FB-3E6D1BE1C88B"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "ios-money-management/Models/UserProfile.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "91"
-            endingLineNumber = "91"
-            landmarkName = "getUserProfine(UID:completion:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "95351FD5-297B-4193-A66B-8A1CA0C25EB6"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "ios-money-management/Models/UserProfile.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "92"
-            endingLineNumber = "92"
-            landmarkName = "getUserProfine(UID:completion:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "CE067639-34EC-41DB-8EB2-92336D7F53BF"
             shouldBeEnabled = "No"
             ignoreCount = "0"
@@ -242,6 +162,163 @@
                   offsetFromSymbolStart = "1036">
                </Location>
             </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "F1CC0A67-EB23-4821-B339-791A92936F23"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ios-money-management/Models/Category.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "112"
+            endingLineNumber = "112"
+            landmarkName = "Category"
+            landmarkType = "3">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "3EEE632F-9A16-4533-BD2E-2726D68576B2"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ios-money-management/Controllers/HomeViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "182"
+            endingLineNumber = "182"
+            landmarkName = "setProfile(UID:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "7BBF256A-FA9F-4151-B50C-7F7DD7A89454"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ios-money-management/Controllers/LoginViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "62"
+            endingLineNumber = "62"
+            landmarkName = "btn_login(_:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "E44F277A-9466-44B4-9E54-8853FF7F2F00"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ios-money-management/Models/UserProfile.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "57"
+            endingLineNumber = "57"
+            landmarkName = "getUserProfine(UID:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "E44F277A-9466-44B4-9E54-8853FF7F2F00 - f63a0942fe0f53d1"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(1) suspend resume partial function for static ios_money_management.UserProfile.getUserProfine(UID: Swift.String) async -&gt; Swift.Optional&lt;ios_money_management.UserProfile&gt;"
+                  moduleName = "ios-money-management"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Volumes/DATA/iOS-2024/github/ios-money-management/ios-money-management/ios-money-management/Models/UserProfile.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "57"
+                  endingLineNumber = "57"
+                  offsetFromSymbolStart = "180">
+               </Location>
+               <Location
+                  uuid = "E44F277A-9466-44B4-9E54-8853FF7F2F00 - 860c60576e066fd3"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(3) suspend resume partial function for static ios_money_management.UserProfile.getUserProfine(UID: Swift.String) async -&gt; Swift.Optional&lt;ios_money_management.UserProfile&gt;"
+                  moduleName = "ios-money-management"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Volumes/DATA/iOS-2024/github/ios-money-management/ios-money-management/ios-money-management/Models/UserProfile.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "57"
+                  endingLineNumber = "57"
+                  offsetFromSymbolStart = "188">
+               </Location>
+               <Location
+                  uuid = "E44F277A-9466-44B4-9E54-8853FF7F2F00 - 17e67fabde7d3bd5"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(5) suspend resume partial function for static ios_money_management.UserProfile.getUserProfine(UID: Swift.String) async -&gt; Swift.Optional&lt;ios_money_management.UserProfile&gt;"
+                  moduleName = "ios-money-management"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Volumes/DATA/iOS-2024/github/ios-money-management/ios-money-management/ios-money-management/Models/UserProfile.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "57"
+                  endingLineNumber = "57"
+                  offsetFromSymbolStart = "3496">
+               </Location>
+               <Location
+                  uuid = "E44F277A-9466-44B4-9E54-8853FF7F2F00 - efd34226167851d4"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(6) suspend resume partial function for static ios_money_management.UserProfile.getUserProfine(UID: Swift.String) async -&gt; Swift.Optional&lt;ios_money_management.UserProfile&gt;"
+                  moduleName = "ios-money-management"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Volumes/DATA/iOS-2024/github/ios-money-management/ios-money-management/ios-money-management/Models/UserProfile.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "57"
+                  endingLineNumber = "57"
+                  offsetFromSymbolStart = "136">
+               </Location>
+               <Location
+                  uuid = "E44F277A-9466-44B4-9E54-8853FF7F2F00 - a7b856a04e74f7d7"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(7) suspend resume partial function for static ios_money_management.UserProfile.getUserProfine(UID: Swift.String) async -&gt; Swift.Optional&lt;ios_money_management.UserProfile&gt;"
+                  moduleName = "ios-money-management"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Volumes/DATA/iOS-2024/github/ios-money-management/ios-money-management/ios-money-management/Models/UserProfile.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "57"
+                  endingLineNumber = "57"
+                  offsetFromSymbolStart = "208">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "CED847B3-470B-478F-B8ED-4A753F18FA54"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ios-money-management/Controllers/NewIncomeController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "101"
+            endingLineNumber = "101"
+            landmarkName = "setCategoryExpenses()"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

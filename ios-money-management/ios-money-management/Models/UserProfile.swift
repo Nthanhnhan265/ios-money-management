@@ -14,7 +14,7 @@ class UserProfile {
     private let UID: String
     private var Fullname: String
     private var Avatar: UIImage?
-    public var Wallets = [Wallet]()
+    private var Wallets = [Wallet]()
     //    MARK: Firestore
     //        Tạo một tham chiếu đến cơ sở dữ liệu Firestore
     
@@ -39,79 +39,68 @@ class UserProfile {
             return Avatar
         }
     }
+    var getWallets:[Wallet]{
+        get{
+            return Wallets
+        }
+    }
     
     
     //    MARK: Querry Database Firestore
     
     
-//    public static func getUserProfine(UID: String, completion: @escaping (UserProfile?) -> Void)  {
-//        let db = Firestore.firestore()
-//
-//
-//
-//        let ProfileRef = db.collection("Profile").document(UID)
-//        ProfileRef.getDocument { (document, error) in
-//            if let document = document, document.exists {
-//                let data = document.data()
-//
-//                let userProfile = UserProfile(
-//                    UID: UID,
-//                    Fullname: data?["Fullname"] as? String ?? "",
-//                    Avatar: UIImage(named: data?["Avatar"] as? String ?? "")
-//
-//                )
-//
-//
-//                // Truyền UserProfile đến completion handler
-//                completion(userProfile)
-//            } else {
-//                completion(nil) // Truyền nil nếu có lỗi hoặc không có tài liệu
-//            }
-//        }
-//    }
-    public static func getUserProfine(UID: String, completion: @escaping (UserProfile?) -> Void) {
+    
+    
+    //------___---___--___-_____---__
+    public static func getUserProfine(UID: String) async -> UserProfile? {
         let db = Firestore.firestore()
-
         let profileRef = db.collection("Profile").document(UID)
-
-        // Lấy thông tin Profile trước
-        profileRef.getDocument { (profileDocument, error) in
-            if let profileDocument = profileDocument, profileDocument.exists {
-                let profileData = profileDocument.data()
-
-                // Bây giờ, truy vấn collection "Wallets"
-                profileRef.collection("Wallets").getDocuments { (walletQuerySnapshot, walletError) in
-                    if let walletError = walletError {
-                        print("Error getting wallets: \(walletError)")
-                        completion(nil) // Hoặc có thể xử lý lỗi khác
-                        return
-                    }
-
-                    var wallets = [Wallet]()
-                    for walletDocument in walletQuerySnapshot!.documents {
-                        let walletData = walletDocument.data()
-                        let wallet = Wallet(
-                            ID: walletDocument.documentID, // Lấy ID từ documentID
-                            Name: walletData["Name"] as? String ?? "",
-                            Balance: walletData["Balance"] as? Int ?? 0,
-                            Image: nil // Hoặc lấy hình ảnh nếu có trường tương ứng
-                        )
-                        wallets.append(wallet)
-                    }
-
-                    let userProfile = UserProfile(
-                        UID: UID,
-                        Fullname: profileData?["Fullname"] as? String ?? "",
-                        Avatar: UIImage(named: profileData?["Avatar"] as? String ?? ""),
-                        Wallets: wallets
-                    )
-
-                    completion(userProfile) // Truyền UserProfile (đã có mảng wallets)
-                }
-            } else {
-                completion(nil)
+        
+        do {
+            // 1. Lấy thông tin Profile
+            let profileDocument = try await profileRef.getDocument()
+            if !profileDocument.exists { return nil }
+            
+            // 2. Lấy dữ liệu từ Profile
+            guard let profileData = profileDocument.data() else { return nil }
+            
+            // 3. Truy vấn collection "Wallets"
+            let walletQuerySnapshot = try await profileRef.collection("Wallets").getDocuments()
+            
+            // 4. Tạo mảng wallets
+            var wallets = [Wallet]()
+            for walletDocument in walletQuerySnapshot.documents {
+                let walletData = walletDocument.data()
+                let wallet = Wallet(
+                    ID: walletDocument.documentID,
+                    Name: walletData["Name"] as? String ?? "",
+                    Balance: walletData["Balance"] as? Int ?? 0,
+                    Image: nil // Hoặc lấy hình ảnh nếu có trường tương ứng
+                )
+                wallets.append(wallet)
             }
+            
+            // 5. Trả về UserProfile (đã có mảng wallets)
+            return UserProfile(
+                UID: UID,
+                Fullname: profileData["Fullname"] as? String ?? "",
+                Avatar: UIImage(named: profileData["Avatar"] as? String ?? ""),
+                Wallets: wallets
+            )
+            
+        } catch {
+            print("Error getting user profile: \(error)")
+            return nil // Xử lý lỗi bằng cách trả về nil
         }
     }
-
+    public func ToString(){
+        
+        
+        print("---------")
+        print("User: \(UID) - \(Fullname)")
+        for i in Wallets{
+            print(i.ToString())
+        }
+        print("---------")
+    }
 }

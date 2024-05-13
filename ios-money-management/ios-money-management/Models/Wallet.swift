@@ -7,6 +7,9 @@
 
 import Foundation
 import UIKit
+
+import FirebaseCore
+import FirebaseFirestore
 class Wallet {
     private let ID:String
     private var Name: String
@@ -19,7 +22,7 @@ class Wallet {
         self.Balance = Balance
         self.Image = Image
     }
-    var getUID:String{
+    var getID:String{
         get{
             return ID
             
@@ -39,5 +42,8 @@ class Wallet {
         get{
             return Image
         }
+    }
+    public func ToString(){
+        print("Wallet: \(ID) - \(Name) - \(Balance)")
     }
 }

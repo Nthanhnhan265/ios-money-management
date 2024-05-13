@@ -21,25 +21,25 @@ class TransactionViewController: UIViewController {
     private var datas = [Transaction]()
     var sections: [Section] = [
         Section(date: Date(), transactions: [
-            Transaction(name: "Shopping", img: UIImage(named: "Frame1"), balance: 120000, time: Date(), des: "123"),
-            Transaction(name: "Shopping", img: UIImage(named: "Frame1"), balance: 120000, time: Date(), des: "") ,
-            Transaction(name: "Shopping", img: UIImage(named: "Frame1"), balance: 120000, time: Date(), des: "123"),
-            Transaction(name: "Shopping", img: UIImage(named: "Frame1"), balance: 120000, time: Date(), des: "") ,
-            Transaction(name: "Shopping", img: UIImage(named: "Frame1"), balance: 120000, time: Date(), des: "123"),
-            Transaction(name: "Shopping", img: UIImage(named: "Frame1"), balance: 120000, time: Date(), des: "") ,
-            Transaction(name: "Shopping", img: UIImage(named: "Frame1"), balance: 120000, time: Date(), des: "123"),
-            Transaction(name: "Shopping", img: UIImage(named: "Frame1"), balance: 120000, time: Date(), des: "") ,
+//            Transaction(name: "Shopping", img: UIImage(named: "Frame1"), balance: 120000, time: Date(), des: "123"),
+//            Transaction(name: "Shopping", img: UIImage(named: "Frame1"), balance: 120000, time: Date(), des: "") ,
+//            Transaction(name: "Shopping", img: UIImage(named: "Frame1"), balance: 120000, time: Date(), des: "123"),
+//            Transaction(name: "Shopping", img: UIImage(named: "Frame1"), balance: 120000, time: Date(), des: "") ,
+//            Transaction(name: "Shopping", img: UIImage(named: "Frame1"), balance: 120000, time: Date(), des: "123"),
+//            Transaction(name: "Shopping", img: UIImage(named: "Frame1"), balance: 120000, time: Date(), des: "") ,
+//            Transaction(name: "Shopping", img: UIImage(named: "Frame1"), balance: 120000, time: Date(), des: "123"),
+//            Transaction(name: "Shopping", img: UIImage(named: "Frame1"), balance: 120000, time: Date(), des: "") ,
             
         ]),
         Section(date: Date().addingTimeInterval(-24 * 60 * 60), transactions: [
-            Transaction(name: "Shopping", img: UIImage(named: "Frame1"), balance: 120000, time: Date().addingTimeInterval(-24 * 60 * 60), des: ""),
-            Transaction(name: "Shopping", img: UIImage(named: "Frame1"), balance: 120000, time: Date().addingTimeInterval(-24 * 60 * 60), des: ""),
-            Transaction(name: "Shopping", img: UIImage(named: "Frame1"), balance: 120000, time: Date(), des: "123"),
-            Transaction(name: "Shopping", img: UIImage(named: "Frame1"), balance: 120000, time: Date(), des: "") ,
-            Transaction(name: "Shopping", img: UIImage(named: "Frame1"), balance: 120000, time: Date(), des: "123"),
-            Transaction(name: "Shopping", img: UIImage(named: "Frame1"), balance: 120000, time: Date(), des: "") ,
-            Transaction(name: "Shopping", img: UIImage(named: "Frame1"), balance: 120000, time: Date(), des: "123"),
-            Transaction(name: "Shopping", img: UIImage(named: "Frame1"), balance: 120000, time: Date(), des: "") ,
+//            Transaction(name: "Shopping", img: UIImage(named: "Frame1"), balance: 120000, time: Date().addingTimeInterval(-24 * 60 * 60), des: ""),
+//            Transaction(name: "Shopping", img: UIImage(named: "Frame1"), balance: 120000, time: Date().addingTimeInterval(-24 * 60 * 60), des: ""),
+//            Transaction(name: "Shopping", img: UIImage(named: "Frame1"), balance: 120000, time: Date(), des: "123"),
+//            Transaction(name: "Shopping", img: UIImage(named: "Frame1"), balance: 120000, time: Date(), des: "") ,
+//            Transaction(name: "Shopping", img: UIImage(named: "Frame1"), balance: 120000, time: Date(), des: "123"),
+//            Transaction(name: "Shopping", img: UIImage(named: "Frame1"), balance: 120000, time: Date(), des: "") ,
+//            Transaction(name: "Shopping", img: UIImage(named: "Frame1"), balance: 120000, time: Date(), des: "123"),
+//            Transaction(name: "Shopping", img: UIImage(named: "Frame1"), balance: 120000, time: Date(), des: "") ,
             
         ]),
     ]
@@ -133,7 +133,7 @@ class TransactionViewController: UIViewController {
     func setDataTransaction() {
         for i in 10..<30{
             if let time = StringToDate("\(i)/05/2024"){
-                datas.append( Transaction(name: "Shopping", img: UIImage(named: "Frame1"), balance: 120000, time: time, des: ""))
+//                datas.append( Transaction(name: "Shopping", img: UIImage(named: "Frame1"), balance: 120000, time: time, des: ""))
             }
         }
         
@@ -163,11 +163,11 @@ extension TransactionViewController: UITableViewDataSource, UITableViewDelegate{
         let item = datas[indexPath.row]
 
 //Bỏ thông tin vào các UI của cell
-        cell.transaction_name.text = item.transactionName
-        cell.transaction_img.image = item.transactionImage
-        cell.transaction_description.text = item.transactionDes
-        cell.transaction_balance.text = String(-12345)
-        cell.transaction_time.text = DateToString(item.transactionTime!)
+//        cell.transaction_name.text = item.transactionName
+//        cell.transaction_img.image = item.transactionImage
+//        cell.transaction_description.text = item.transactionDes
+//        cell.transaction_balance.text = String(-12345)
+//        cell.transaction_time.text = DateToString(item.transactionTime!)
             
         return cell
     }

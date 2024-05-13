@@ -16,9 +16,9 @@ class TransactionTableViewController: UITableViewController {
         print("Vào TransactionTableViewController")
         
 //        Tạo giao dịch
-        let transaction = Transaction(name: "Shopping", img: UIImage(named: "Frame1"), balance: 123456, time: Date(), des: "MUA QUẦN SHOPPE")
-        transactions += [transaction]
-        transactions += [transaction] // Adding it twice
+//        let transaction = Transaction(name: "Shopping", img: UIImage(named: "Frame1"), balance: 123456, time: Date(), des: "MUA QUẦN SHOPPE")
+//        transactions += [transaction]
+//        transactions += [transaction] // Adding it twice
 
     }
 
@@ -46,9 +46,9 @@ class TransactionTableViewController: UITableViewController {
         // Fetches the appropriate meal for the data source layout
         let transaction = transactions[indexPath.row]
         
-        cell.transaction_balance.text = String(transaction.transactionBalance)
-        cell.transaction_image.image = transaction.transactionImage
-        cell.transaction_des.text = (transaction.transactionDes)
+//        cell.transaction_balance.text = String(transaction.transactionBalance)
+//        cell.transaction_image.image = transaction.transactionImage
+//        cell.transaction_des.text = (transaction.transactionDes)
         
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "dd/MM/yyyy HH:mm:ss"
@@ -56,7 +56,7 @@ class TransactionTableViewController: UITableViewController {
         let formattedDate = dateFormatter.string(from: currentDate)
         cell.transaction_time.text = formattedDate
         
-        cell.transaction_title.text = String(transaction.transactionName)
+//        cell.transaction_title.text = String(transaction.transactionName)
 
         return cell
     }
