@@ -9,6 +9,7 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
     @IBOutlet weak var imageView: UIView!
     @IBOutlet weak var cornerTable: UIView!
     @IBOutlet weak var image: UIImageView!
+    @IBOutlet weak var fullname: UILabel!
     var settings:[[String:Any]] = [
         ["setting_name": "Account", "setting_icon": "iconWallet"],
         ["setting_name": "Setting", "setting_icon": "iconSetting"],
@@ -31,8 +32,26 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
         
         cornerTable.layer.cornerRadius = 16
         cornerTable.layer.masksToBounds = true
-    } 
-    
+        setUserInfo()
+    }
+    func setUserInfo () {
+        if let UID = UserDefaults.standard.string(forKey: "UID") {
+            UserProfile.getUserProfine(UID: UID){
+                userObject in
+                self.image.image = userObject?.getAvatar
+                self.fullname.text = userObject?.getFullname
+                
+            }
+        }
+        
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        navigationController?.navigationBar.tintColor = .black
+        navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.black]
+        navigationController?.navigationBar.backgroundColor = UIColor(red: 248/255, green: 248/255, blue: 248/255, alpha: 1)
+        
+        tabBarController?.tabBar.isHidden = false 
+    }
     //MARK: implementing classes
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print ("selected: \(indexPath.row)")

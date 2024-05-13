@@ -43,7 +43,9 @@ class HomeViewController: UIViewController {
         
         //       Lấy UID
         let UID = UserDefaults.standard.string(forKey: "UID") ?? ""
+
         print("Home - \(UID)")
+
         
         //debug
         print("Vào HomeViewController - \(UID)")
