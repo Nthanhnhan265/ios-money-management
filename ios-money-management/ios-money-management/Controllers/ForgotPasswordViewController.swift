@@ -11,8 +11,6 @@ import Firebase
 class ForgotPasswordViewController: UIViewController {
 
     @IBOutlet weak var btn_Continue: UIButton!
-    @IBOutlet weak var btn_SentOTP: UIButton!
-    @IBOutlet weak var txt_otp: UITextField!
     @IBOutlet weak var txt_email: UITextField!
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,9 +22,8 @@ class ForgotPasswordViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
     
-    @IBAction func btn_SentOTP_tapped(_ sender: UIButton) {
-        
-        
+    
+    @IBAction func continueTapped(_ sender: Any) {
         guard let email = txt_email.text else{return}
         Auth.auth().sendPasswordReset(withEmail: email) { (error) in
             if error == nil {
@@ -39,7 +36,6 @@ class ForgotPasswordViewController: UIViewController {
                 print(error)
             }
         }
-        
         
     }
     
