@@ -27,8 +27,10 @@ class LoginViewController: UIViewController {
         self.navigationItem.title = "Login"
         
         // Set up trước tài khoản và mật khẩu
-        txt_username.text = "admin@gmail.com"
+//        txt_username.text = "ngthanhnhan265.xb@gmail.com"
+//        txt_password.text = "nhannhan"
         txt_password.text = "admin@gmail.com"
+        txt_username.text = "admin@gmail.com"
     }
     
     @IBAction func btn_password_tapped(_ sender: UIButton) {
@@ -59,8 +61,9 @@ class LoginViewController: UIViewController {
                 // Đăng nhập thành công, lấy ID của người dùng
                 let userId = authResult.user.uid
                 print("User login with ID: \(userId)")
-                //                Sử dụng UserDefault để gán UID cho người dùng
                 UserDefaults.standard.set(userId, forKey: "UID")
+                
+                
                 
                 
                 
@@ -72,6 +75,7 @@ class LoginViewController: UIViewController {
                 
                 //                Cho màn hình Home full màn hình
                 homeViewController.modalPresentationStyle = .fullScreen
+                
                 //
                 self.present(homeViewController, animated: true )
                 
@@ -81,6 +85,8 @@ class LoginViewController: UIViewController {
                 
                 
                 
+
+                    
             }
         }
     }

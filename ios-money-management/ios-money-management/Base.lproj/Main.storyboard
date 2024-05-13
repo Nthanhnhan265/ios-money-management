@@ -2118,6 +2118,11 @@
                                                 <integer key="value" value="16"/>
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
+
+                                        <connections>
+                                            <action selector="NewIncome_Tapped:" destination="1nl-eU-kWX" eventType="touchUpInside" id="rSs-nj-xcv"/>
+                                        </connections>
+
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" showsMenuAsPrimaryAction="YES" contentHorizontalAlignment="leading" contentVerticalAlignment="center" lineBreakMode="middleTruncation" changesSelectionAsPrimaryAction="YES" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JE3-NA-JFL">
                                         <rect key="frame" x="20" y="152" width="353" height="56"/>
@@ -2270,6 +2275,7 @@
                         <outlet property="popupCategoryButton" destination="YKs-Eb-23t" id="gT2-4q-i7Q"/>
                         <outlet property="popupWalletButton" destination="JE3-NA-JFL" id="zAe-PQ-bbq"/>
                         <outlet property="textFieldValue" destination="5mz-6U-8P9" id="VI2-R8-5pO"/>
+                        <outlet property="txt_des" destination="gCo-HR-umf" id="hcW-LH-nBe"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="njz-k6-Rg8" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
