@@ -12,7 +12,7 @@ import FirebaseFirestore
 class HomeViewController: UIViewController {
     
     //    MARK: Dữ liệu giả
-    var datas = [Transaction]()
+    var transactions = [Transaction]()
     
     //    MARK: @IBOutlet
     @IBOutlet weak var table_view: UITableView!
@@ -43,34 +43,42 @@ class HomeViewController: UIViewController {
         
         //       Lấy UID
         let UID = UserDefaults.standard.string(forKey: "UID") ?? ""
-
-        print("Home - \(UID)")
-
+        
+        
         
         //debug
         print("Vào HomeViewController - \(UID)")
-//        UserProfile.getUserProfine(UID: UID) { [self] userProfile in
-//            if let userProfile = userProfile {
-//                self.avatar.image = (userProfile.getAvatar!)
-//
-//                txt_balance.text = String(setWallets(wallets: userProfile.Wallets))
-//            } else {
-//                print("ERROR - Home")
-//            }
-//        }
+        Task{
+            if let userProfile = await UserProfile.getUserProfine(UID: UID){
+                print(userProfile)
+                setProfile(userProfile: userProfile)
+                txt_balance.text =  String(setWallets(wallets: userProfile.getWallets ))
+                
+                
+                //                Set transactions
+                for wallet in userProfile.getWallets{
+                    let trans = wallet.getTransactions
+                    print(trans)
+                    setTransactions(data: wallet.getTransactions)
+                    
+                }
+                // Reload table view on main thread
+                await MainActor.run {
+                    table_view.reloadData()
+                }
+            }
+            
+        }
         
-       
-
         
-        //        Set dữ liệu giả
-//        setWallets()
-        setTransactions()
+        
+        
+        
+        
         
         //        Set thiết kế giao diện
         setFrontEnd()
         
-//        set profile user
-         setProfile(UID: UID)
         
         
         //        Kết nối table view với các hàm để load dữ liệu
@@ -80,20 +88,10 @@ class HomeViewController: UIViewController {
         
         
         
-//        UserProfile.getUserProfine(UID: UID) { userProfile in
-//            if let userProfile = userProfile {
-//                // Hồ sơ người dùng đã được lấy thành công
-//
-//                self.avatar.image = (userProfile.getAvatar!)
-//
-//            } else {
-//                // Không tìm thấy hồ sơ người dùng hoặc có lỗi xảy ra
-//                // ... (Xử lý lỗi)
-//            }
-//        }
         
-       
-
+        
+        
+        
         
         
         
@@ -167,7 +165,7 @@ class HomeViewController: UIViewController {
         borderAvatar.layer.borderColor = CGColor(red: 173/255, green: 0/255, blue: 255/255, alpha: 1)
         borderAvatar.layer.cornerRadius = borderAvatar.frame.height/2
         
-
+        
         
         //        Set mặc định button Today được active
         btn_today.layer.cornerRadius = 20
@@ -177,23 +175,24 @@ class HomeViewController: UIViewController {
         activeButton = btn_today
         
     }
-    func setProfile(UID:String)   {
-        Task{
-            let userProfile = await UserProfile.getUserProfine(UID: UID)
-            
-//            set avatar
-            avatar.image = userProfile?.getAvatar
-            
-            txt_balance.text = String(setWallets(wallets: userProfile!.getWallets))
-
-        }
+    func setProfile(userProfile:UserProfile)   {
+        
+        
+        //            set avatar
+        avatar.image = userProfile.getAvatar
+        
+        
+        
     }
-    func setTransactions() {
-        for i in 10..<30{
-            if let time = StringToDate("\(i)/05/2024"){
-//                datas.append( Transaction(name: "Shopping", img: UIImage(named: "Frame1"), balance: 120000, time: time, des: ""))
-            }
+    func setTransactions(data: [Transaction]) {
+        for i in data{
+            transactions.append(i)
         }
+        //        for i in 10..<30{
+        //            if let time = StringToDate("\(i)/05/2024"){
+        //                datas.append()
+        //            }
+        //        }
         
         
         
@@ -204,56 +203,56 @@ class HomeViewController: UIViewController {
             total_balance += i.getBalance
         }
         
-//        let optionClosure = { (action: UIAction) in
-//            print(action.title)
-//
-//        }
+        //        let optionClosure = { (action: UIAction) in
+        //            print(action.title)
+        //
+        //        }
         let optionClosure = {
             [weak self] (action: UIAction) in
-                // [weak self] để tránh retain cycle
-
-                // Tìm ví được chọn dựa trên title của UIAction
-                guard let selectedWallet = wallets.first(where: { $0.getName == action.title }) else {
-                    if action.title == "Tổng cộng" {
-                        self!.txt_balance.text = String(total_balance)
-                    } else {
-                        // Xử lý trường hợp không tìm thấy ví
-                        print("Không tìm thấy ví")
-                    }
-                    return
+            // [weak self] để tránh retain cycle
+            
+            // Tìm ví được chọn dựa trên title của UIAction
+            guard let selectedWallet = wallets.first(where: { $0.getName == action.title }) else {
+                if action.title == "Tổng cộng" {
+                    self!.txt_balance.text = String(total_balance)
+                } else {
+                    // Xử lý trường hợp không tìm thấy ví
+                    print("Không tìm thấy ví")
                 }
-
-                // Cập nhật txt_balance.text
-                self?.txt_balance.text = String(selectedWallet.getBalance)
-
-                // Bạn có thể thực hiện thêm các hành động khác ở đây (ví dụ: cập nhật giao diện)
+                return
             }
-//        menu_wallets.menu = UIMenu(children: [
-//            UIAction(title: "Tổng cộng", state: .on, handler: optionClosure)
-//            UIAction(title: "Tiền mặt", handler: optionClosure)
-//
-//        ])
+            
+            // Cập nhật txt_balance.text
+            self?.txt_balance.text = String(selectedWallet.getBalance)
+            
+            // Bạn có thể thực hiện thêm các hành động khác ở đây (ví dụ: cập nhật giao diện)
+        }
+        //        menu_wallets.menu = UIMenu(children: [
+        //            UIAction(title: "Tổng cộng", state: .on, handler: optionClosure)
+        //            UIAction(title: "Tiền mặt", handler: optionClosure)
+        //
+        //        ])
         
         // Tạo các UIAction từ wallets
         let walletActions = wallets.map { wallet in
             UIAction(title: wallet.getName, image: wallet.getImage,  handler: optionClosure)
         }
-       
         
-//        menu_wallets.menu = UIMenu(children: [
-//            UIAction(title: "Tổng cộng", state: .on, handler: optionClosure)
-//        ] + walletActions) // Nối mảng walletActions vào mảng children
-       
+        
+        //        menu_wallets.menu = UIMenu(children: [
+        //            UIAction(title: "Tổng cộng", state: .on, handler: optionClosure)
+        //        ] + walletActions) // Nối mảng walletActions vào mảng children
+        
         
         menu_wallets.menu = UIMenu(children: [
-                UIAction(title: "Tổng cộng", state: .on, handler: optionClosure),
-                // ... (phần còn lại của children giữ nguyên)
-            ] + walletActions)
-
-       
+            UIAction(title: "Tổng cộng", state: .on, handler: optionClosure),
+            // ... (phần còn lại của children giữ nguyên)
+        ] + walletActions)
+        
+        
         return total_balance
     }
-
+    
     //    MARK: @IBAction
     @IBAction func btn_expenses(_ sender: UIButton) {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
@@ -267,8 +266,8 @@ class HomeViewController: UIViewController {
     }
     @IBAction func btn_income_click(_ sender: UIButton) {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            let viewController = storyboard.instantiateViewController(withIdentifier: "Income") as! NewIncomeController
-
+        let viewController = storyboard.instantiateViewController(withIdentifier: "Income") as! NewIncomeController
+        
         Task {
             if let userProfile = await UserProfile.getUserProfine(UID: UserDefaults.standard.string(forKey: "UID") ?? "") {
                 viewController.wallets = userProfile.getWallets
@@ -281,31 +280,31 @@ class HomeViewController: UIViewController {
             }
         }
         //----
-//        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-//        let view_controller = storyboard.instantiateViewController(withIdentifier: "Income") as! NewIncomeController
-//
-//
-//        view_controller.navigationItem.title = "Income"
-//        navigationController?.pushViewController(view_controller, animated: true)
+        //        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        //        let view_controller = storyboard.instantiateViewController(withIdentifier: "Income") as! NewIncomeController
+        //
+        //
+        //        view_controller.navigationItem.title = "Income"
+        //        navigationController?.pushViewController(view_controller, animated: true)
         
         
         //-----
-//        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-//            let viewController = storyboard.instantiateViewController(withIdentifier: "Income") as! NewIncomeController
-//
-//            // Lấy danh sách wallets từ UserProfile hoặc nguồn dữ liệu khác
-//            Task {
-//                if let userProfile =  await UserProfile.getUserProfine(UID: UserDefaults.standard.string(forKey: "userId") ?? "") {
-//                    viewController.wallets = userProfile.getWallets
-//                    viewController.test = "123123"
-//
-//
-//                }
-//            }
-//
-//            viewController.navigationItem.title = "Income"
-//            navigationController?.pushViewController(viewController, animated: true)
-        }
+        //        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        //            let viewController = storyboard.instantiateViewController(withIdentifier: "Income") as! NewIncomeController
+        //
+        //            // Lấy danh sách wallets từ UserProfile hoặc nguồn dữ liệu khác
+        //            Task {
+        //                if let userProfile =  await UserProfile.getUserProfine(UID: UserDefaults.standard.string(forKey: "userId") ?? "") {
+        //                    viewController.wallets = userProfile.getWallets
+        //                    viewController.test = "123123"
+        //
+        //
+        //                }
+        //            }
+        //
+        //            viewController.navigationItem.title = "Income"
+        //            navigationController?.pushViewController(viewController, animated: true)
+    }
     // click btn week
     @IBAction func btn_week_click(_ sender: UIButton) {
         //        Trả active button cũ về trạng thái ban đầu
@@ -380,55 +379,58 @@ class HomeViewController: UIViewController {
     }
     
     //    MARK: Querry Database Firestore
-//    func getWallets(UID: String, completion: @escaping (UserProfile?) -> Void) {
-//        let ProfileRef = db.collection("Profile").document(UID)
-//
-//        ProfileRef.getDocument { (document, error) in
-//            if let document = document, document.exists {
-//                let data = document.data()
-//
-//                let userProfile = UserProfile(
-//                    UID: UID,
-//                    Fullname: data?["Fullname"] as? String ?? "",
-//                    Avatar: UIImage(named: data?["Avatar"] as? String ?? "")
-//                )
-//
-//                completion(userProfile) // Truyền UserProfile đến completion handler
-//            } else {
-//                completion(nil) // Truyền nil nếu có lỗi hoặc không có tài liệu
-//            }
-//        }
-//    }
+    //    func getWallets(UID: String, completion: @escaping (UserProfile?) -> Void) {
+    //        let ProfileRef = db.collection("Profile").document(UID)
+    //
+    //        ProfileRef.getDocument { (document, error) in
+    //            if let document = document, document.exists {
+    //                let data = document.data()
+    //
+    //                let userProfile = UserProfile(
+    //                    UID: UID,
+    //                    Fullname: data?["Fullname"] as? String ?? "",
+    //                    Avatar: UIImage(named: data?["Avatar"] as? String ?? "")
+    //                )
+    //
+    //                completion(userProfile) // Truyền UserProfile đến completion handler
+    //            } else {
+    //                completion(nil) // Truyền nil nếu có lỗi hoặc không có tài liệu
+    //            }
+    //        }
+    //    }
 }
 
 extension HomeViewController: UITableViewDataSource, UITableViewDelegate{
     // MARK:     UITableViewDataSource
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return datas.count
+        return transactions.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: TransactionTableViewCell.identifier, for: indexPath) as! TransactionTableViewCell
-//        cell.transaction_img.image = datas[indexPath.row].transactionImage
+
         
-        // Assuming cell.transaction_time is a UILabel
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "dd/MM/yyyy HH:mm:ss"
-        let currentDate = Date()
-        let formattedDate = dateFormatter.string(from: currentDate)
-        cell.transaction_time.text = formattedDate
+//        Đổ dữ liệu lên cell
+        cell.transaction_img.image = self.transactions[indexPath.row].getCategory.getImage
+        cell.transaction_name.text = self.transactions[indexPath.row].getCategory.getName
+        cell.transaction_balance.text = String(self.transactions[indexPath.row].getBalance)
+        cell.transaction_time.text = DateToString(self.transactions[indexPath.row].getCreateAt)
+        cell.transaction_description.text = self.transactions[indexPath.row].getDescription
         
         
-//        cell.transaction_balance.text = "-"+String(datas[indexPath.row].transactionBalance)+"VND"
-//        cell.transaction_name.text = datas[indexPath.row].transactionName
-//        cell.transaction_description.text = datas[indexPath.row].transactionDes
+       
+        
+        
+
+        
+ 
         return cell
     }
     
     //   MARK: UITableViewDelegate
     //    làm 1 hành động nào đó khi click vào 1 đối tượng
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        print("Nội dung: ", String(datas[indexPath.row].transactionName))
+        //        print("Nội dung: ", String(datas[indexPath.row].transactionName))
         print("Hàng thứ: " + String(indexPath.row))
         
         //Lấy main.storyboard
@@ -436,11 +438,11 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate{
         //        Lấy màn hình cần chuyển qua
         let view_controller = storyboard.instantiateViewController(withIdentifier: "detail_transaction_Expenses")
         //        set title cho navigation
-//        view_controller.navigationItem.title = datas[indexPath.row].transactionName
+        //        view_controller.navigationItem.title = datas[indexPath.row].transactionName
         //        Đẩy màn hình vào hàng đợi... (chuyển màn hình)
         navigationController?.pushViewController(view_controller, animated: true)
         //        self.present(view_controller, animated: true)
         
     }
-   
+    
 }

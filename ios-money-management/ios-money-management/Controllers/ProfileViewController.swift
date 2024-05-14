@@ -35,12 +35,13 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
         setUserInfo()
     }
     func setUserInfo () {
-        if let UID = UserDefaults.standard.string(forKey: "UID") {
-            UserProfile.getUserProfine(UID: UID){
-                userObject in
-                self.image.image = userObject?.getAvatar
-                self.fullname.text = userObject?.getFullname
-                
+        Task{
+            if let UID = UserDefaults.standard.string(forKey: "UID") {
+                if let user =  await UserProfile.getUserProfine(UID: UID){
+                    self.image.image = user.getAvatar
+                    self.fullname.text = user.getFullname
+                    
+                }
             }
         }
         
