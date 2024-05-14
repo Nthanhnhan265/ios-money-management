@@ -42,6 +42,21 @@ class Category{
             return Image
         }
     }
+    public static func getCategory(Category_ID:String) async -> Category?{
+        let db = Firestore.firestore()
+        let categoryRef = db.collection("Category").document(Category_ID)
+        
+        do{
+            let snapshot = try await categoryRef.getDocument() // Lấy tất cả documents
+            guard let data = snapshot.data() else { return nil } // Không tìm thấy hồ sơ
+            
+            return  Category(ID: data["ID"] as! String, Name: data["Name"] as! String , Image: UIImage(named: data["Image"] as! String), inCome: data["isIncome"] as! Bool)
+
+        }
+        catch{
+            print("Lỗi truy vấn - getCategory: \(error)")
+            return nil        }
+    }
     public static func getExpenses() async -> [Category] {
         let db = Firestore.firestore()
         let cateRef = db.collection("Category").whereField("isIncome", isEqualTo: false)

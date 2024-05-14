@@ -16,12 +16,14 @@ class Wallet {
     private var Name: String
     private var Balance: Int
     private  var Image: UIImage?
-    
-    init(ID: String, Name: String, Balance: Int, Image: UIImage? ) {
+    private var Transactions = [Transaction]()
+
+    init(ID: String, Name: String, Balance: Int, Image: UIImage? = nil, Transaction: [Transaction]) {
         self.ID = ID
         self.Name = Name
         self.Balance = Balance
         self.Image = Image
+        self.Transactions = Transaction
     }
     var getID:String{
         get{
@@ -44,11 +46,44 @@ class Wallet {
             return Image
         }
     }
-
+    var getTransactions:[Transaction]{
+        get{
+            return Transactions
+        }
+    }
+    
     public func ToString(){
         print("Wallet: \(ID) - \(Name) - \(Balance)")
     }
-
+    public static func getMyWallets(UID:String) async -> [Wallet]?{
+        let db = Firestore.firestore()
+        let walletRef = db.collection("Wallets").document(UID).collection("Wallet")
+        var myWallets = [Wallet]()
+        
+        do {
+            let snapshot = try await walletRef.getDocuments() // Lấy tất cả documents
+            
+            for i in snapshot.documents{
+//                print("ID VÍ: \(i.documentID)")
+                
+                await myWallets.append(
+                    Wallet(
+                        ID: i["ID"] as! String,
+                        Name: i["Name"] as! String,
+                        Balance:i["Balance"] as! Int,
+                        Image: UIImage(named: i["Image"] as! String),
+                        Transaction: Transaction.getAllMyTransactions(WalletID: i.documentID)!
+                    )
+                )
+                
+            }
+            return myWallets
+        } catch {
+            print("Lỗi truy vấn - getMyWallets: \(error)")
+            return nil
+        }
+    }
+    
     
     
     //tao vi moi
@@ -116,7 +151,7 @@ class Wallet {
                 completion([],0)
                 return
             }
-            var total:Int = 0 
+            var total:Int = 0
             if let documents = query?.documents, !documents.isEmpty {
                 for wallet in documents {
                     let data = wallet.data()
@@ -139,8 +174,9 @@ class Wallet {
                         walletId = id
                     }
                     
-                    arrWalletObjects.append(Wallet(ID: walletId ?? "", Name: walletName ?? "", Balance: walletBalance ?? 0, Image: UIImage(named: walletImage ?? "error")))
-                     
+                    arrWalletObjects.append(
+                        Wallet(ID: walletId ?? "", Name: walletName ?? "", Balance: walletBalance ?? 0, Image: UIImage(named: walletImage ?? "error"), Transaction: []))
+                    
                 }
                 completion(arrWalletObjects,total)
             } else {
