@@ -8,39 +8,25 @@
 import UIKit
 
 class TransactionViewController: UIViewController {
+//    Cấu trúc để chia giao dịch theo ngày
     struct Section {
         let date: Date
         let transactions: [Transaction]
     }
+//    MARK: Properties
     @IBOutlet weak var tableview: UITableView!
-    //    Dữ liệu giả
     @IBOutlet weak var popup_time: UIButton!
     @IBOutlet weak var view_rangeTime: UIView!
     @IBOutlet weak var popup_cate: UIButton!
     @IBOutlet weak var view_filter: UIView!
-    var datas = [Transaction]()
+    
+    //    Dữ liệu
+    private var datas = [Transaction]()
+    private var wallets = [Wallet]()
     var sections: [Section] = [
         Section(date: Date(), transactions: [
-//            Transaction(name: "Shopping", img: UIImage(named: "Frame1"), balance: 120000, time: Date(), des: "123"),
-//            Transaction(name: "Shopping", img: UIImage(named: "Frame1"), balance: 120000, time: Date(), des: "") ,
-//            Transaction(name: "Shopping", img: UIImage(named: "Frame1"), balance: 120000, time: Date(), des: "123"),
-//            Transaction(name: "Shopping", img: UIImage(named: "Frame1"), balance: 120000, time: Date(), des: "") ,
-//            Transaction(name: "Shopping", img: UIImage(named: "Frame1"), balance: 120000, time: Date(), des: "123"),
-//            Transaction(name: "Shopping", img: UIImage(named: "Frame1"), balance: 120000, time: Date(), des: "") ,
-//            Transaction(name: "Shopping", img: UIImage(named: "Frame1"), balance: 120000, time: Date(), des: "123"),
-//            Transaction(name: "Shopping", img: UIImage(named: "Frame1"), balance: 120000, time: Date(), des: "") ,
-            
         ]),
         Section(date: Date().addingTimeInterval(-24 * 60 * 60), transactions: [
-//            Transaction(name: "Shopping", img: UIImage(named: "Frame1"), balance: 120000, time: Date().addingTimeInterval(-24 * 60 * 60), des: ""),
-//            Transaction(name: "Shopping", img: UIImage(named: "Frame1"), balance: 120000, time: Date().addingTimeInterval(-24 * 60 * 60), des: ""),
-//            Transaction(name: "Shopping", img: UIImage(named: "Frame1"), balance: 120000, time: Date(), des: "123"),
-//            Transaction(name: "Shopping", img: UIImage(named: "Frame1"), balance: 120000, time: Date(), des: "") ,
-//            Transaction(name: "Shopping", img: UIImage(named: "Frame1"), balance: 120000, time: Date(), des: "123"),
-//            Transaction(name: "Shopping", img: UIImage(named: "Frame1"), balance: 120000, time: Date(), des: "") ,
-//            Transaction(name: "Shopping", img: UIImage(named: "Frame1"), balance: 120000, time: Date(), des: "123"),
-//            Transaction(name: "Shopping", img: UIImage(named: "Frame1"), balance: 120000, time: Date(), des: "") ,
-            
         ]),
     ]
 
@@ -49,16 +35,38 @@ class TransactionViewController: UIViewController {
         super.viewDidLoad()
         print("Vào TransactionViewController")
         
+        //       Lấy UID
+        let UID = UserDefaults.standard.string(forKey: "UID") ?? ""
+        
+//        Đọc toàn bộ user profile
+        Task{
+            if let userProfile = await UserProfile.getUserProfine(UID: UID){
+                
+                
+                //                Set transactions
+                for wallet in userProfile.getWallets{
+                    setDataTransaction(transactions: wallet.getTransactions)
+                    
+                    
+                }
+                // Reload table view on main thread
+                await MainActor.run {
+                    tableview.reloadData()
+                }
+            }
+          
+            
+        }
+
+
         //        Setting cho table view
         tableview.dataSource = self
         tableview.delegate = self
         tableview.register(TransactionTableViewCell.nib(), forCellReuseIdentifier: TransactionTableViewCell.identifier)
         
-        setDataTransaction()
-        setCategory()
-        setTimeline()
-        print(datas)
-       
+//        setDataTransaction()
+//        setCategory()
+//        setTimeline()
     }
     func setTimeline()  {
         let optionClosure = { (action: UIAction) in
@@ -132,9 +140,11 @@ class TransactionViewController: UIViewController {
         }
     }
 //    Hàm set dữ liệu giả cho ví
-    func setDataTransaction() {
-//        datas.append(<#T##newElement: Transaction##Transaction#>)
-        
+    func setDataTransaction(transactions: [Transaction]) {
+      
+        for i in transactions{
+            datas.append(i)
+        }
         
     }
 
@@ -148,8 +158,8 @@ class TransactionViewController: UIViewController {
 extension TransactionViewController: UITableViewDataSource, UITableViewDelegate{
 //    UITableViewDataSource
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        return datas.count
-        return sections[section].transactions.count
+        return datas.count
+//        return sections[section].transactions.count
     }
     func numberOfSections(in tableView: UITableView) -> Int {
         return sections.count
@@ -161,11 +171,11 @@ extension TransactionViewController: UITableViewDataSource, UITableViewDelegate{
         let item = datas[indexPath.row]
 
 //Bỏ thông tin vào các UI của cell
-//        cell.transaction_name.text = item.transactionName
-//        cell.transaction_img.image = item.transactionImage
-//        cell.transaction_description.text = item.transactionDes
-//        cell.transaction_balance.text = String(-12345)
-//        cell.transaction_time.text = DateToString(item.transactionTime!)
+        cell.transaction_name.text = self.datas[indexPath.row].getCategory.getName
+        cell.transaction_img.image = self.datas[indexPath.row].getCategory.getImage
+        cell.transaction_description.text = self.datas[indexPath.row].getDescription
+        cell.transaction_balance.text = String(self.datas[indexPath.row].getBalance)
+        cell.transaction_time.text = DateToString(self.datas[indexPath.row].getCreateAt)
             
         return cell
     }

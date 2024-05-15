@@ -51,7 +51,8 @@ class HomeViewController: UIViewController {
         table_view.dataSource = self
         table_view.delegate = self
         table_view.register(TransactionTableViewCell.nib(), forCellReuseIdentifier: TransactionTableViewCell.identifier)
-        
+        table_view.register(IncomeCell.nib(), forCellReuseIdentifier: IncomeCell.identifier)
+
         
         //debug
         print("Vào HomeViewController - \(UID)")
@@ -85,11 +86,6 @@ class HomeViewController: UIViewController {
                 await MainActor.run {
                     table_view.reloadData()
                 }
-                let storyBoard = UIStoryboard(name: "Main", bundle: nil)
-                let homeViewController = storyBoard.instantiateViewController(withIdentifier: "Transaction") as! TransactionViewController
-                
-                homeViewController.datas  = self.transactions
-                
             }
           
             
@@ -427,24 +423,34 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate{
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: TransactionTableViewCell.identifier, for: indexPath) as! TransactionTableViewCell
+//        Màu đỏ
+        if !(self.transactions[indexPath.row].getCategory.getinCome){
+            let cell = tableView.dequeueReusableCell(withIdentifier: TransactionTableViewCell.identifier, for: indexPath) as! TransactionTableViewCell
 
-        
-//        Đổ dữ liệu lên cell
-        cell.transaction_img.image = self.transactions[indexPath.row].getCategory.getImage
-        cell.transaction_name.text = self.transactions[indexPath.row].getCategory.getName
-        cell.transaction_balance.text = String(self.transactions[indexPath.row].getBalance)
-        cell.transaction_time.text = DateToString(self.transactions[indexPath.row].getCreateAt)
-        cell.transaction_description.text = self.transactions[indexPath.row].getDescription
-        
-        
-       
-        
-        
+            
+    //        Đổ dữ liệu lên cell
+            cell.transaction_img.image = self.transactions[indexPath.row].getCategory.getImage
+            cell.transaction_name.text = self.transactions[indexPath.row].getCategory.getName
+            cell.transaction_balance.text = String(self.transactions[indexPath.row].getBalance)
+            cell.transaction_time.text = DateToString(self.transactions[indexPath.row].getCreateAt)
+            cell.transaction_description.text = self.transactions[indexPath.row].getDescription
+            
+            return cell
+        }
+        else{
+            let cell = tableView.dequeueReusableCell(withIdentifier: IncomeCell.identifier, for: indexPath) as! IncomeCell
 
+            
+    //        Đổ dữ liệu lên cell
+            cell.trans_income_image.image = self.transactions[indexPath.row].getCategory.getImage
+            cell.trans_income_name.text = self.transactions[indexPath.row].getCategory.getName
+            cell.trans_income_balance.text = String(self.transactions[indexPath.row].getBalance)
+            cell.trans_income_time.text = DateToString(self.transactions[indexPath.row].getCreateAt)
+            cell.trans_income_des.text = self.transactions[indexPath.row].getDescription
+            
+            return cell
+        }
         
- 
-        return cell
     }
     
     //   MARK: UITableViewDelegate
