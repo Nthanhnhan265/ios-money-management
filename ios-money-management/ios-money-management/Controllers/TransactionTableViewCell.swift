@@ -15,7 +15,6 @@ class TransactionTableViewCell: UITableViewCell {
     @IBOutlet weak var transaction_description: UILabel!
     @IBOutlet weak var transaction_img: UIImageView!
     
-    
     static let identifier = "TransactionTableViewCell"
     static func nib() -> UINib{
         return UINib(nibName: "TransactionTableViewCell", bundle: nil)
