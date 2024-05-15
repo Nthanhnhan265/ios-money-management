@@ -51,6 +51,7 @@ class TransactionViewController: UIViewController {
                 }
                 // Reload table view on main thread
                 await MainActor.run {
+                    datas.sort{ $0.getCreateAt > $1.getCreateAt }
                     tableview.reloadData()
                 }
             }
@@ -63,6 +64,7 @@ class TransactionViewController: UIViewController {
         tableview.dataSource = self
         tableview.delegate = self
         tableview.register(TransactionTableViewCell.nib(), forCellReuseIdentifier: TransactionTableViewCell.identifier)
+        tableview.register(IncomeCell.nib(), forCellReuseIdentifier: IncomeCell.identifier)
         
 //        setDataTransaction()
 //        setCategory()
@@ -167,17 +169,33 @@ extension TransactionViewController: UITableViewDataSource, UITableViewDelegate{
 
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableview.dequeueReusableCell(withIdentifier: TransactionTableViewCell.identifier, for: indexPath) as! TransactionTableViewCell
-        let item = datas[indexPath.row]
+//        Màu đỏ
+        if !(self.datas[indexPath.row].getCategory.getinCome){
+            let cell = tableview.dequeueReusableCell(withIdentifier: TransactionTableViewCell.identifier, for: indexPath) as! TransactionTableViewCell
+            let item = datas[indexPath.row]
 
-//Bỏ thông tin vào các UI của cell
-        cell.transaction_name.text = self.datas[indexPath.row].getCategory.getName
-        cell.transaction_img.image = self.datas[indexPath.row].getCategory.getImage
-        cell.transaction_description.text = self.datas[indexPath.row].getDescription
-        cell.transaction_balance.text = String(self.datas[indexPath.row].getBalance)
-        cell.transaction_time.text = DateToString(self.datas[indexPath.row].getCreateAt)
-            
-        return cell
+    //Bỏ thông tin vào các UI của cell
+            cell.transaction_name.text = self.datas[indexPath.row].getCategory.getName
+            cell.transaction_img.image = self.datas[indexPath.row].getCategory.getImage
+            cell.transaction_description.text = self.datas[indexPath.row].getDescription
+            cell.transaction_balance.text = String(self.datas[indexPath.row].getBalance)
+            cell.transaction_time.text = DateToString(self.datas[indexPath.row].getCreateAt)
+            return cell
+        }
+        else{
+            let cell = tableview.dequeueReusableCell(withIdentifier: IncomeCell.identifier, for: indexPath) as! IncomeCell
+            let item = datas[indexPath.row]
+
+    //Bỏ thông tin vào các UI của cell
+            cell.trans_income_name.text = self.datas[indexPath.row].getCategory.getName
+            cell.trans_income_image.image = self.datas[indexPath.row].getCategory.getImage
+            cell.trans_income_des.text = self.datas[indexPath.row].getDescription
+            cell.trans_income_balance.text = String(self.datas[indexPath.row].getBalance)
+            cell.trans_income_time.text = DateToString(self.datas[indexPath.row].getCreateAt)
+                
+            return cell
+        }
+        
     }
 //    Hàm set title TODAY, YESTERDAY...
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {

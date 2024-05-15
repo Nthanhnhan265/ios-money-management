@@ -22,21 +22,21 @@ class NewIncomeController: UIViewController, UICollectionViewDelegateFlowLayout,
     var selectedImages = [UIImage]()
     var wallets: [Wallet] = []
     var categoryID = ""
-    var walletID = ""
-    
+    var wallet:Wallet? = nil
+    var UID = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
         print("Vào NewIncomeController")
         //       Lấy UID
-        
+        UID = UserDefaults.standard.string(forKey: "UID") ?? ""
         //button custom
         setFrontEnd()
         
         //        Đổ category vào pop up category
         setCategoryExpenses()
         
-        setWalletsExpenses(wallets: wallets)
+        setWallets(wallets: wallets)
         
         
     }
@@ -116,7 +116,7 @@ class NewIncomeController: UIViewController, UICollectionViewDelegateFlowLayout,
             }
         }
     }
-    func setWalletsExpenses(wallets:[Wallet])  {
+    func setWallets(wallets:[Wallet])  {
         // Tạo các UIAction từ danh sách Wallet
         let actions = wallets.map { wallet in
             UIAction(title: wallet.getName, image: wallet.getImage) { [weak self] action in
@@ -125,7 +125,7 @@ class NewIncomeController: UIViewController, UICollectionViewDelegateFlowLayout,
                 // Cập nhật giao diện của popup button (tùy chọn)
                 self.popupWalletButton.setAttributedTitle(NSAttributedString(string: wallet.getName), for: .normal)
                 self.popupWalletButton.setImage(wallet.getImage, for: .normal) // Đặt lại ảnh
-                self.walletID = wallet.getID
+                self.wallet = wallet
                 // Xử lý khi người dùng chọn một ví
                 // Gọi hàm xử lý đã chọn ví (đã được khai báo ở đâu đó trong ViewController)
                 //                    self.handleWalletSelection(wallet: wallet)
@@ -165,14 +165,18 @@ class NewIncomeController: UIViewController, UICollectionViewDelegateFlowLayout,
     @IBAction func NewIncome_Tapped(_ sender: UIButton)  {
         if let balanceString = textFieldValue.text,
            let balance = Int(balanceString),
-           let description = txt_des.text
+           let description = txt_des.text,
+           let wallet = wallet
         {
 //            Gọi hàm tạo giao dịch
             Transaction.addTransaction(
-                    wallet_id: walletID,
+                wallet_id: wallet.getID,
                     balance: balance,
                     category_id: categoryID,
                     des: description)
+            
+//            Cộng tiền vào ví
+            Wallet.set_updateWallet(UID: UID, wallet: Wallet(ID: wallet.getID, Name: wallet.getName, Balance: wallet.getBalance + balance, Transaction: wallet.getTransactions))
            
             
         } else {

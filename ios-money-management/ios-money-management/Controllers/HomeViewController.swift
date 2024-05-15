@@ -435,6 +435,7 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate{
             cell.transaction_time.text = DateToString(self.transactions[indexPath.row].getCreateAt)
             cell.transaction_description.text = self.transactions[indexPath.row].getDescription
             
+            
             return cell
         }
         else{

@@ -17,7 +17,7 @@ class Wallet {
     private var Balance: Int
     private  var Image: UIImage?
     private var Transactions = [Transaction]()
-
+    
     init(ID: String, Name: String, Balance: Int, Image: UIImage? = nil, Transaction: [Transaction]) {
         self.ID = ID
         self.Name = Name
@@ -28,6 +28,12 @@ class Wallet {
     var getID:String{
         get{
             return ID
+            
+        }
+    }
+    var getImageName:String{
+        get{
+            return Image?.imageAsset?.value(forKey: "assetName") as! String
             
         }
     }
@@ -64,7 +70,7 @@ class Wallet {
             let snapshot = try await walletRef.getDocuments() // Lấy tất cả documents
             
             for i in snapshot.documents{
-//                print("ID VÍ: \(i.documentID)")
+                //                print("ID VÍ: \(i.documentID)")
                 
                 await myWallets.append(
                     Wallet(
@@ -135,6 +141,30 @@ class Wallet {
                 print("Wallet deleted successfully")
             }
         }
+    }
+    // MARK: Tâm An - Cập nhật ví
+    static func set_updateWallet(UID:String, wallet: Wallet){
+        let db = Firestore.firestore()
+        let walletRef = db.collection("Wallets").document(UID)
+        
+        let walletDoc = walletRef.collection("Wallet").document(wallet.getID)
+        
+        // Dữ liệu mới của ví
+            let walletData: [String: Any] = [
+                "Name": wallet.getName,
+                "Balance": wallet.getBalance,
+                "ID": wallet.getID,
+            ]
+
+            // Cập nhật dữ liệu ví trên Firestore
+            walletDoc.updateData(walletData) { error in
+                if let error = error {
+                    print("Error updating wallet: \(error)")
+                } else {
+                    print("Wallet updated successfully!")
+                }
+            }
+
     }
     
     // lay tat ca du lieu trong vi
