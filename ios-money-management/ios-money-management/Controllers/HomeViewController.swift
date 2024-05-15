@@ -31,7 +31,7 @@ class HomeViewController: UIViewController {
     @IBOutlet weak var menu_wallets: UIButton!
     //    Biến lưu button nào đang active (Today, Week, Month, Year)
     var activeButton: UIButton?
-    
+    var wallets = [Wallet]()
     
     //    MARK: Firestore
     //        Tạo một tham chiếu đến cơ sở dữ liệu Firestore
@@ -44,47 +44,60 @@ class HomeViewController: UIViewController {
         //       Lấy UID
         let UID = UserDefaults.standard.string(forKey: "UID") ?? ""
         
+        //        Set thiết kế giao diện
+        setFrontEnd()
+        
+        //        Kết nối table view với các hàm để load dữ liệu
+        table_view.dataSource = self
+        table_view.delegate = self
+        table_view.register(TransactionTableViewCell.nib(), forCellReuseIdentifier: TransactionTableViewCell.identifier)
         
         
         //debug
         print("Vào HomeViewController - \(UID)")
+        
+        
+        
+      
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
         Task{
             if let userProfile = await UserProfile.getUserProfine(UID: UID){
-                print(userProfile)
                 setProfile(userProfile: userProfile)
                 txt_balance.text =  String(setWallets(wallets: userProfile.getWallets ))
                 
                 
                 //                Set transactions
                 for wallet in userProfile.getWallets{
-                    let trans = wallet.getTransactions
-                    print(trans)
                     setTransactions(data: wallet.getTransactions)
+                    self.wallets.append(wallet)
                     
                 }
                 // Reload table view on main thread
                 await MainActor.run {
                     table_view.reloadData()
                 }
+                let storyBoard = UIStoryboard(name: "Main", bundle: nil)
+                let homeViewController = storyBoard.instantiateViewController(withIdentifier: "Transaction") as! TransactionViewController
+                
+                homeViewController.datas  = self.transactions
+                
             }
+          
             
         }
         
         
         
         
-        
-        
-        
-        //        Set thiết kế giao diện
-        setFrontEnd()
-        
-        
-        
-        //        Kết nối table view với các hàm để load dữ liệu
-        table_view.dataSource = self
-        table_view.delegate = self
-        table_view.register(TransactionTableViewCell.nib(), forCellReuseIdentifier: TransactionTableViewCell.identifier)
         
         
         
@@ -258,27 +271,34 @@ class HomeViewController: UIViewController {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let view_controller = storyboard.instantiateViewController(withIdentifier: "Expense") as! NewExpenseController
         view_controller.navigationItem.title = "Expense"
+        view_controller.wallets = wallets
         navigationController?.pushViewController(view_controller, animated: true)
         
-        
+       
+      
         
         
     }
     @IBAction func btn_income_click(_ sender: UIButton) {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let viewController = storyboard.instantiateViewController(withIdentifier: "Income") as! NewIncomeController
+        viewController.wallets = wallets
+        navigationController?.pushViewController(viewController, animated: true)
         
-        Task {
-            if let userProfile = await UserProfile.getUserProfine(UID: UserDefaults.standard.string(forKey: "UID") ?? "") {
-                viewController.wallets = userProfile.getWallets
-                
-                
-                // Chuyển màn hình sau khi đã có dữ liệu và trên main thread
-                await MainActor.run {
-                    navigationController?.pushViewController(viewController, animated: true)
-                }
-            }
-        }
+        
+        
+        //----
+//        Task {
+//            if let userProfile = await UserProfile.getUserProfine(UID: UserDefaults.standard.string(forKey: "UID") ?? "") {
+//                viewController.wallets = userProfile.getWallets
+//
+//
+//                // Chuyển màn hình sau khi đã có dữ liệu và trên main thread
+//                await MainActor.run {
+//                    navigationController?.pushViewController(viewController, animated: true)
+//                }
+//            }
+//        }
         //----
         //        let storyboard = UIStoryboard(name: "Main", bundle: nil)
         //        let view_controller = storyboard.instantiateViewController(withIdentifier: "Income") as! NewIncomeController

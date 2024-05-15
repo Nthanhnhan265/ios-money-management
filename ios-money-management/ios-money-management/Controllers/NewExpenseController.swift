@@ -16,12 +16,26 @@ class NewExpenseController: UIViewController, PHPickerViewControllerDelegate, UI
     @IBOutlet weak var popupCategoryButton: UIButton!
     @IBOutlet weak var popupWalletButton: UIButton!
     @IBOutlet weak var textFieldDes: UITextField!
+    
     var selectedImages = [UIImage]()
+    var wallets: [Wallet] = []
+    var categoryID = ""
+    var walletID = ""
     
     //MARK: viewDidLoad()
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        setFrontEnd()
+        
+        //        Đổ category vào pop up category
+        setCategoryExpenses()
+        
+        setWalletsExpenses(wallets: wallets)
+    }
+    
+    //MARK: setup button
+    func setFrontEnd(){
         //set title cho navigation controller
         self.navigationController?.navigationBar.barTintColor = UIColor.white
         //button custom
@@ -53,10 +67,7 @@ class NewExpenseController: UIViewController, PHPickerViewControllerDelegate, UI
         
         //        Xoá navigation bottom
                 self.tabBarController?.tabBar.isHidden = true
-
     }
-    
-    //MARK: setup button
     func setPopupCategoryButton() {
         //thay doi title moi khi chon
         let optionClosure = {(action: UIAction) in
@@ -74,6 +85,24 @@ class NewExpenseController: UIViewController, PHPickerViewControllerDelegate, UI
         popupCategoryButton.changesSelectionAsPrimaryAction = true
     }
     
+    @IBAction func btn_expenses_tapped(_ sender: UIButton) {
+        if let balanceString = textFieldValue.text,
+           let balance = Int(balanceString),
+           let description = textFieldDes.text
+        {
+//            Gọi hàm tạo giao dịch
+            Transaction.addTransaction(
+                    wallet_id: walletID,
+                    balance: balance,
+                    category_id: categoryID,
+                    des: description)
+           
+            
+        } else {
+            // Xử lý trường hợp UID hoặc walletID không tồn tại
+            print("Error: UID or walletID is missing")
+        }
+    }
     func setPopupWalletButton() {
         //thay doi title moi khi chon
         let optionClosure = {(action: UIAction) in
@@ -90,7 +119,45 @@ class NewExpenseController: UIViewController, PHPickerViewControllerDelegate, UI
         popupWalletButton.showsMenuAsPrimaryAction = true
         popupWalletButton.changesSelectionAsPrimaryAction = true
     }
- 
+    func setWalletsExpenses(wallets:[Wallet])  {
+        // Tạo các UIAction từ danh sách Wallet
+        let actions = wallets.map { wallet in
+            UIAction(title: wallet.getName, image: wallet.getImage) { [weak self] action in
+                guard let self = self else { return }
+                
+                // Cập nhật giao diện của popup button (tùy chọn)
+                self.popupWalletButton.setAttributedTitle(NSAttributedString(string: wallet.getName), for: .normal)
+                self.popupCategoryButton.setImage(wallet.getImage, for: .normal) // Đặt lại ảnh
+                self.walletID = wallet.getID
+                // Xử lý khi người dùng chọn một ví
+                // Gọi hàm xử lý đã chọn ví (đã được khai báo ở đâu đó trong ViewController)
+                //                    self.handleWalletSelection(wallet: wallet)
+            }
+        }
+        
+        // Tạo UIMenu từ các UIAction và gán cho popup button
+        popupWalletButton.menu = UIMenu(children: actions)
+        popupWalletButton.showsMenuAsPrimaryAction = true
+    }
+    func setCategoryExpenses() {
+        Task {
+            let expenses = await Category.getExpenses()
+            
+            let actions = expenses.map { category in
+                UIAction(title: category.getName, image: category.getImage) { [weak self] action in
+                    guard let self = self else { return } // Tránh strong reference cycle
+                    self.categoryID = category.getID
+                    self.popupCategoryButton.setAttributedTitle(NSAttributedString(string: action.title), for: .normal)
+                    self.popupCategoryButton.setImage(action.image, for: .normal)
+                }
+            }
+            
+            await MainActor.run {
+                popupCategoryButton.menu = UIMenu(children: actions)
+                popupCategoryButton.showsMenuAsPrimaryAction = true
+            }
+        }
+    }
     //MARK: event
     @IBAction func addImageTapped(_ sender: Any) {
         //oject chua thong tin ve cau hinh cua PHPickerViewController

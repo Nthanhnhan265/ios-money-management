@@ -57,8 +57,7 @@ class Transaction  {
         do {
             let snapshot = try await walletRef.getDocuments() // Lấy tất cả documents
             for transaction in snapshot.documents{
-//                print("Transaction ID: \(transaction.documentID)")
-                print(transaction["Description"] as! String)
+                //                print("Transaction ID: \(transaction.documentID)")
                 await myTransactions.append(
                     Transaction(
                         id: transaction["ID"] as! String,
@@ -76,5 +75,29 @@ class Transaction  {
             print("Lỗi truy vấn - getMyWallets: \(error)")
             return nil
         }
+    }
+    public static func addTransaction(wallet_id:String, balance:Int, category_id:String, des:String ){
+        let db = Firestore.firestore()
+        
+        // Tạo một DocumentReference để lấy ID sau khi document được tạo
+        let transactionRef = db.collection("Transactions").document(wallet_id).collection("Transaction").document()
+        
+        let transactionData: [String: Any] = [
+            "Balance": balance,
+            "Category_ID": category_id,
+            "Description": des,
+            "CreateAt": Date()
+        ]
+        // Sử dụng transactionRef để thêm document
+        transactionRef.setData(transactionData) { error in
+            if let error = error {
+                print("Error adding transaction: \(error)")
+            } else {
+                // Cập nhật lại document với trường ID
+                transactionRef.updateData(["ID": transactionRef.documentID])
+                print("Transaction added successfully!")
+            }
+        }
+        
     }
 }

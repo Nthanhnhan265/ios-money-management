@@ -51,27 +51,45 @@ class Category{
             guard let data = snapshot.data() else { return nil } // Không tìm thấy hồ sơ
             
             return  Category(ID: data["ID"] as! String, Name: data["Name"] as! String , Image: UIImage(named: data["Image"] as! String), inCome: data["isIncome"] as! Bool)
-
+            
         }
         catch{
             print("Lỗi truy vấn - getCategory: \(error)")
-            return nil        }
+            return nil
+            
+        }
     }
-    public static func getExpenses() async -> [Category] {
+    public static func getIncome() async -> [Category] {
         let db = Firestore.firestore()
-        let cateRef = db.collection("Category").whereField("isIncome", isEqualTo: false)
-        var incomes = [Category]()
+        let cateRef = db.collection("Category").whereField("isIncome", isEqualTo: true)
+        var income = [Category]()
         do {
             let querySnapshot = try await cateRef.getDocuments()
             for document in querySnapshot.documents {
                 let data = document.data()
-                incomes.append(Category(ID: data["ID"] as! String, Name: data["Name"] as! String, Image: UIImage(named: data["Image"] as! String), inCome: true))
+                income.append(Category(ID: data["ID"] as! String, Name: data["Name"] as! String, Image: UIImage(named: data["Image"] as! String), inCome: true))
             }
         } catch {
             print("Lỗi khi truy vấn: \(error)")
             // Xử lý lỗi tại đây
         }
-        return incomes
+        return income
+    }
+    public static func getExpenses() async -> [Category] {
+        let db = Firestore.firestore()
+        let cateRef = db.collection("Category").whereField("isIncome", isEqualTo: false)
+        var expenses = [Category]()
+        do {
+            let querySnapshot = try await cateRef.getDocuments()
+            for document in querySnapshot.documents {
+                let data = document.data()
+                expenses.append(Category(ID: data["ID"] as! String, Name: data["Name"] as! String, Image: UIImage(named: data["Image"] as! String), inCome: false))
+            }
+        } catch {
+            print("Lỗi khi truy vấn: \(error)")
+            // Xử lý lỗi tại đây
+        }
+        return expenses
         
         //        let db = Firestore.firestore()
         //        let cateRef = db.collection("Category")

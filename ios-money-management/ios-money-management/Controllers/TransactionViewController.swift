@@ -18,7 +18,7 @@ class TransactionViewController: UIViewController {
     @IBOutlet weak var view_rangeTime: UIView!
     @IBOutlet weak var popup_cate: UIButton!
     @IBOutlet weak var view_filter: UIView!
-    private var datas = [Transaction]()
+    var datas = [Transaction]()
     var sections: [Section] = [
         Section(date: Date(), transactions: [
 //            Transaction(name: "Shopping", img: UIImage(named: "Frame1"), balance: 120000, time: Date(), des: "123"),
@@ -57,6 +57,8 @@ class TransactionViewController: UIViewController {
         setDataTransaction()
         setCategory()
         setTimeline()
+        print(datas)
+       
     }
     func setTimeline()  {
         let optionClosure = { (action: UIAction) in
@@ -131,11 +133,7 @@ class TransactionViewController: UIViewController {
     }
 //    Hàm set dữ liệu giả cho ví
     func setDataTransaction() {
-        for i in 10..<30{
-            if let time = StringToDate("\(i)/05/2024"){
-//                datas.append( Transaction(name: "Shopping", img: UIImage(named: "Frame1"), balance: 120000, time: time, des: ""))
-            }
-        }
+//        datas.append(<#T##newElement: Transaction##Transaction#>)
         
         
     }
