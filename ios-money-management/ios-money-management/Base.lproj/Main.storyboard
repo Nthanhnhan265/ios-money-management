@@ -1501,7 +1501,7 @@
         <!--Home-->
         <scene sceneID="Uiz-ue-Xe3">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="7DN-pM-Wlc" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="HomeNavigationViewController" automaticallyAdjustsScrollViewInsets="NO" id="7DN-pM-Wlc" customClass="HomeNavigationViewController" customModule="ios_money_management" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Home" image="home_active" selectedImage="home_active" id="c7Q-tG-7Dg"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="N4g-Hz-lh6">
@@ -1615,6 +1615,9 @@
                                                 <integer key="value" value="16"/>
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="btn_expenses_tapped:" destination="qm1-FI-i0v" eventType="touchUpInside" id="1Sl-ID-suf"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" showsMenuAsPrimaryAction="YES" contentHorizontalAlignment="leading" contentVerticalAlignment="center" lineBreakMode="middleTruncation" changesSelectionAsPrimaryAction="YES" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="b6V-H7-Fdd">
                                         <rect key="frame" x="20" y="152" width="353" height="56"/>
@@ -2118,11 +2121,9 @@
                                                 <integer key="value" value="16"/>
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
-
                                         <connections>
                                             <action selector="NewIncome_Tapped:" destination="1nl-eU-kWX" eventType="touchUpInside" id="rSs-nj-xcv"/>
                                         </connections>
-
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" showsMenuAsPrimaryAction="YES" contentHorizontalAlignment="leading" contentVerticalAlignment="center" lineBreakMode="middleTruncation" changesSelectionAsPrimaryAction="YES" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JE3-NA-JFL">
                                         <rect key="frame" x="20" y="152" width="353" height="56"/>

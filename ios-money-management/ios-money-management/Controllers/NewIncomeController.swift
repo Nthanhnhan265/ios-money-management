@@ -29,10 +29,9 @@ class NewIncomeController: UIViewController, UICollectionViewDelegateFlowLayout,
         super.viewDidLoad()
         print("Vào NewIncomeController")
         //       Lấy UID
-        let UID = UserDefaults.standard.string(forKey: "userId") ?? ""
         
         //button custom
-        setFrontEnd(UID: UID)
+        setFrontEnd()
         
         //        Đổ category vào pop up category
         setCategoryExpenses()
@@ -100,9 +99,9 @@ class NewIncomeController: UIViewController, UICollectionViewDelegateFlowLayout,
     }
     func setCategoryExpenses() {
         Task {
-            let expenses = await Category.getExpenses()
+            let income = await Category.getIncome()
             
-            let actions = expenses.map { category in
+            let actions = income.map { category in
                 UIAction(title: category.getName, image: category.getImage) { [weak self] action in
                     guard let self = self else { return } // Tránh strong reference cycle
                     self.categoryID = category.getID
@@ -164,38 +163,18 @@ class NewIncomeController: UIViewController, UICollectionViewDelegateFlowLayout,
     }
     
     @IBAction func NewIncome_Tapped(_ sender: UIButton)  {
-        
         if let balanceString = textFieldValue.text,
-           let balance = Double(balanceString),
-           let description = txt_des.text,
-           let UID = UserDefaults.standard.string(forKey: "UID")
-           { // Kiểm tra UID và walletID
-
-            let db = Firestore.firestore()
-
-            // Tạo một DocumentReference để lấy ID sau khi document được tạo
-            let transactionRef = db.collection("Profile").document(UID).collection("Wallets").document(walletID).collection("Transactions").document()
-
-            let transactionData: [String: Any] = [
-                "Balance": balance,
-                "Category_ID": "LIPnYA7chBdULsILWOG8",
-                "Description": description,
-                "CreateAt": Date()
-            ]
-
-            // Sử dụng transactionRef để thêm document
-            transactionRef.setData(transactionData) { error in
-                if let error = error {
-                    print("Error adding transaction: \(error)")
-                } else {
-                    // Cập nhật lại document với trường ID
-                    transactionRef.updateData(["ID": transactionRef.documentID])
-                    print("Transaction added successfully!")
-                }
-            }
+           let balance = Int(balanceString),
+           let description = txt_des.text
+        {
+//            Gọi hàm tạo giao dịch
+            Transaction.addTransaction(
+                    wallet_id: walletID,
+                    balance: balance,
+                    category_id: categoryID,
+                    des: description)
+           
             
-            // Vẫn in ra thông tin transaction để kiểm tra
-            print("Tạo transaction: \(UID) - \(description) - \(balance) - \(categoryID) - \(walletID)")
         } else {
             // Xử lý trường hợp UID hoặc walletID không tồn tại
             print("Error: UID or walletID is missing")
@@ -223,7 +202,7 @@ class NewIncomeController: UIViewController, UICollectionViewDelegateFlowLayout,
         
         
     }
-    func setFrontEnd(UID:String)  {
+    func setFrontEnd()  {
         // Thiết lập tiêu đề của nut
         let attributedTitleCategory = NSAttributedString(string: "Category")
         popupCategoryButton.setAttributedTitle(attributedTitleCategory, for: .normal)
