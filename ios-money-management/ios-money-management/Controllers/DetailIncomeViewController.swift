@@ -8,7 +8,8 @@
 import UIKit
 
 class DetailIncomeViewController: UIViewController {
-  
+    var detailExpense:Transaction?
+    var delegate: TransactionDetailDelegate? 
     
     @IBOutlet weak var borderView: UIView!
     override func viewDidLoad() {

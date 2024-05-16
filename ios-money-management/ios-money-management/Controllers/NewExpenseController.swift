@@ -35,7 +35,9 @@ class NewExpenseController: UIViewController, PHPickerViewControllerDelegate, UI
         //        Đổ category vào pop up category
         setCategoryExpenses()
         
+
         setWallets(wallets: wallets)
+
     }
     
     //MARK: setup button
@@ -65,12 +67,17 @@ class NewExpenseController: UIViewController, PHPickerViewControllerDelegate, UI
                popupWalletButton.layer.cornerRadius = 16
                
               
-  
+        setNavbar()
         self.setPopupCategoryButton()
         self.setPopupWalletButton()
         
         //        Xoá navigation bottom
                 self.tabBarController?.tabBar.isHidden = true
+    }
+    func setNavbar() {
+        self.navigationController?.navigationBar.backgroundColor = UIColor(red: 255/255, green: 86/255, blue: 92/255, alpha: 1);
+        self.navigationController?.navigationBar.tintColor = UIColor.white
+        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
     }
     func setPopupCategoryButton() {
         //thay doi title moi khi chon
