@@ -11,6 +11,8 @@ import FirebaseFirestore
 
 class HomeViewController: UIViewController {
     
+    
+    
     //    MARK: Dữ liệu giả
     var transactions = [Transaction]()
     
@@ -46,6 +48,8 @@ class HomeViewController: UIViewController {
         
         //        Set thiết kế giao diện
         setFrontEnd()
+        btn_income.setTitle("Income \(0.getVNDFormat())", for: .normal)
+        btn_Expenses.setTitle("Income \(0.getVNDFormat())", for: .normal)
         
         //        Kết nối table view với các hàm để load dữ liệu
         table_view.dataSource = self
@@ -73,7 +77,7 @@ class HomeViewController: UIViewController {
         Task{
             if let userProfile = await UserProfile.getUserProfine(UID: UID){
                 setProfile(userProfile: userProfile)
-                txt_balance.text =  String(setWallets(wallets: userProfile.getWallets ))
+                txt_balance.text =  String(setWallets(wallets: userProfile.getWallets ).getVNDFormat())
                 
                 
                 //                Set transactions
@@ -223,7 +227,7 @@ class HomeViewController: UIViewController {
             // Tìm ví được chọn dựa trên title của UIAction
             guard let selectedWallet = wallets.first(where: { $0.getName == action.title }) else {
                 if action.title == "Tổng cộng" {
-                    self!.txt_balance.text = String(total_balance)
+                    self!.txt_balance.text = String(total_balance.getVNDFormat())
                 } else {
                     // Xử lý trường hợp không tìm thấy ví
                     print("Không tìm thấy ví")
@@ -232,7 +236,7 @@ class HomeViewController: UIViewController {
             }
             
             // Cập nhật txt_balance.text
-            self?.txt_balance.text = String(selectedWallet.getBalance)
+            self?.txt_balance.text = String(selectedWallet.getBalance.getVNDFormat())
             
             // Bạn có thể thực hiện thêm các hành động khác ở đây (ví dụ: cập nhật giao diện)
         }
@@ -416,7 +420,11 @@ class HomeViewController: UIViewController {
     //    }
 }
 
-extension HomeViewController: UITableViewDataSource, UITableViewDelegate{
+extension HomeViewController: UITableViewDataSource,TransactionDetailDelegate,  UITableViewDelegate{
+    func didUpdateTransaction(transaction: Transaction) {
+        print("got data! wow")
+    }
+    
     // MARK:     UITableViewDataSource
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return transactions.count
@@ -431,10 +439,10 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate{
     //        Đổ dữ liệu lên cell
             cell.transaction_img.image = self.transactions[indexPath.row].getCategory.getImage
             cell.transaction_name.text = self.transactions[indexPath.row].getCategory.getName
-            cell.transaction_balance.text = String(self.transactions[indexPath.row].getBalance)
+            cell.transaction_balance.text = String(self.transactions[indexPath.row].getBalance.getVNDFormat())
             cell.transaction_time.text = DateToString(self.transactions[indexPath.row].getCreateAt)
             cell.transaction_description.text = self.transactions[indexPath.row].getDescription
-            
+            cell.tag = 0; //0 la chi tieu
             return cell
         }
         else{
@@ -444,10 +452,10 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate{
     //        Đổ dữ liệu lên cell
             cell.trans_income_image.image = self.transactions[indexPath.row].getCategory.getImage
             cell.trans_income_name.text = self.transactions[indexPath.row].getCategory.getName
-            cell.trans_income_balance.text = String(self.transactions[indexPath.row].getBalance)
+            cell.trans_income_balance.text = String(self.transactions[indexPath.row].getBalance.getVNDFormat())
             cell.trans_income_time.text = DateToString(self.transactions[indexPath.row].getCreateAt)
             cell.trans_income_des.text = self.transactions[indexPath.row].getDescription
-            
+            cell.tag = 1; //1 la thu nhap
             return cell
         }
         
@@ -458,17 +466,59 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate{
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         //        print("Nội dung: ", String(datas[indexPath.row].transactionName))
         print("Hàng thứ: " + String(indexPath.row))
+        // can sua lai khi gop TransactionTableViewCell va IncomeCell
+
+        //kiem tra xem ep kieu co duoc khong
+        if let cell = tableView.cellForRow(at: indexPath) as? TransactionTableViewCell {
+            let transactionCell = transactions[indexPath.row]
+            //Lấy main.storyboard
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            
+            //kiem tra tag de chuyen man hinh thu nhap (1) hoac chi tieu (0)
+            if cell.tag == 1 {
+                //        Lấy màn hình cần chuyển qua
+                if let view_controller = storyboard.instantiateViewController(withIdentifier: "detail_transaction_Income") as? DetailIncomeViewController  {
+                    //        set title cho navigation
+                    //        view_controller.navigationItem.title = datas[indexPath.row].transactionName
+                    view_controller.delegate = self
+                    //        Đẩy màn hình vào hàng đợi... (chuyển màn hình)
+                    navigationController?.pushViewController(view_controller, animated: true)
+                } else {
+                    fatalError("nil")
+                }
+            }
+            else {
+                //        Lấy màn hình cần chuyển qua
+                if let view_controller = storyboard.instantiateViewController(withIdentifier: "detail_transaction_Expenses") as? DetailExpenseViewController {
+                    //        set title cho navigation
+                    //        view_controller.navigationItem.title = datas[indexPath.row].transactionName
+                    //        Đẩy màn hình vào hàng đợi... (chuyển màn hình)
+                    navigationController?.pushViewController(view_controller, animated: true)
+                }
+               
+            }
+            //
+        }
         
-        //Lấy main.storyboard
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        //        Lấy màn hình cần chuyển qua
-        let view_controller = storyboard.instantiateViewController(withIdentifier: "detail_transaction_Expenses")
-        //        set title cho navigation
-        //        view_controller.navigationItem.title = datas[indexPath.row].transactionName
-        //        Đẩy màn hình vào hàng đợi... (chuyển màn hình)
-        navigationController?.pushViewController(view_controller, animated: true)
-        //        self.present(view_controller, animated: true)
         
     }
     
+}
+
+extension Int {
+    func getVNDFormat()->String {
+        let balance = self
+        let formatter = NumberFormatter()
+        formatter.locale = Locale(identifier: "vi_VN")
+        formatter.numberStyle = .currency
+        if let formatterBalance = formatter.string(from: NSNumber(value: balance))
+        {
+            return formatterBalance;
+        }
+        return "-1";
+    }
+}
+//dinh nghia protocol lay du lieu khi edit xong
+protocol TransactionDetailDelegate: AnyObject {
+    func didUpdateTransaction(transaction: Transaction)
 }

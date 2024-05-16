@@ -12,6 +12,9 @@ import UIKit
 
 class DetailExpenseViewController: UIViewController {
 
+    //MARK: properties
+   
+    
     @IBOutlet weak var borderView: UIView!
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,6 +27,7 @@ class DetailExpenseViewController: UIViewController {
         self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
         //custom border of UIVIew
         borderView.layer.borderColor = CGColor(red: 241/250, green: 241/250, blue: 250/250, alpha: 1)
+        self.tabBarController?.tabBar.isHidden = true
     }
     
     @IBAction func deleteTransaction(_ sender: UIBarButtonItem) {
