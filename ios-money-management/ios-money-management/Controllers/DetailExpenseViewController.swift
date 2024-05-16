@@ -13,14 +13,16 @@ import UIKit
 class DetailExpenseViewController: UIViewController {
 
     //MARK: properties
-   
+    var transaction:Transaction? = nil
     
     @IBOutlet weak var borderView: UIView!
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        setFrontEnd()
         
+        
+    }
+    func setFrontEnd(){
         //set background for navigation controller
         self.navigationController?.navigationBar.backgroundColor = UIColor(red: 253/255, green: 74/255, blue: 92/255, alpha: 1);
         self.navigationController?.navigationBar.tintColor = UIColor.white
@@ -29,7 +31,6 @@ class DetailExpenseViewController: UIViewController {
         borderView.layer.borderColor = CGColor(red: 241/250, green: 241/250, blue: 250/250, alpha: 1)
         self.tabBarController?.tabBar.isHidden = true
     }
-    
     @IBAction func deleteTransaction(_ sender: UIBarButtonItem) {
         self.showConfirmDialog();
     }

@@ -47,8 +47,6 @@
 		646B64D02BD5B145004049FB /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 646B64CF2BD5B145004049FB /* FirebaseFirestoreSwift */; };
 		646B64D22BD5B145004049FB /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 646B64D12BD5B145004049FB /* FirebaseStorage */; };
 		646B64D42BD667C7004049FB /* ForgotPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 646B64D32BD667C7004049FB /* ForgotPasswordViewController.swift */; };
-		646DAA092BF4CA770076D293 /* IncomeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 646DAA072BF4CA770076D293 /* IncomeCell.swift */; };
-		646DAA0A2BF4CA770076D293 /* IncomeCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 646DAA082BF4CA770076D293 /* IncomeCell.xib */; };
 		646E4C9C2BDFB148004DCCF2 /* TransactionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 646E4C9A2BDFB148004DCCF2 /* TransactionTableViewCell.swift */; };
 		646E4C9D2BDFB148004DCCF2 /* TransactionTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 646E4C9B2BDFB148004DCCF2 /* TransactionTableViewCell.xib */; };
 		6476A9D22BD53384009935A8 /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6476A9D12BD53384009935A8 /* WelcomeViewController.swift */; };
@@ -116,8 +114,6 @@
 		6467B9112BF0772300373C8B /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
 		646B64C32BD5A151004049FB /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		646B64D32BD667C7004049FB /* ForgotPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordViewController.swift; sourceTree = "<group>"; };
-		646DAA072BF4CA770076D293 /* IncomeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IncomeCell.swift; sourceTree = "<group>"; };
-		646DAA082BF4CA770076D293 /* IncomeCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = IncomeCell.xib; sourceTree = "<group>"; };
 		646E4C9A2BDFB148004DCCF2 /* TransactionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionTableViewCell.swift; sourceTree = "<group>"; };
 		646E4C9B2BDFB148004DCCF2 /* TransactionTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TransactionTableViewCell.xib; sourceTree = "<group>"; };
 		6476A9D12BD53384009935A8 /* WelcomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
@@ -250,8 +246,6 @@
 				3F7F7D4E2BEE4F5E00AF4867 /* EditProfileViewController.swift */,
 				3F37FA042BEE7BD900EFB362 /* SettingCell.swift */,
 				644E04792BEE567E004D2AFB /* WelcomeNavigation_Controller.swift */,
-				646DAA072BF4CA770076D293 /* IncomeCell.swift */,
-				646DAA082BF4CA770076D293 /* IncomeCell.xib */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -383,7 +377,6 @@
 				644E04722BED2985004D2AFB /* WalletTableViewCell.xib in Resources */,
 				646E4C9D2BDFB148004DCCF2 /* TransactionTableViewCell.xib in Resources */,
 				3F92F0632BD5375200CCD1D9 /* LaunchScreen.storyboard in Resources */,
-				646DAA0A2BF4CA770076D293 /* IncomeCell.xib in Resources */,
 				646B64C42BD5A151004049FB /* GoogleService-Info.plist in Resources */,
 				3F92F0602BD5375200CCD1D9 /* Assets.xcassets in Resources */,
 				3F92F05B2BD5375100CCD1D9 /* Main.storyboard in Resources */,
@@ -438,7 +431,6 @@
 				6476A9D22BD53384009935A8 /* WelcomeViewController.swift in Sources */,
 				3FC288002BEBCDF100B3C841 /* IncomeImageCell.swift in Sources */,
 				3F92F05E2BD5375100CCD1D9 /* ios_money_management.xcdatamodeld in Sources */,
-				646DAA092BF4CA770076D293 /* IncomeCell.swift in Sources */,
 				3F37FA052BEE7BD900EFB362 /* SettingCell.swift in Sources */,
 				3F9E5FC02BEC39E700E6A36B /* EditWalletViewController.swift in Sources */,
 				64B9EFE62BDD0163007055B8 /* TransactionTableViewController.swift in Sources */,

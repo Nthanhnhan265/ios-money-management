@@ -15,9 +15,19 @@ class Transaction  {
     private var balance: Int
     private let category: Category
     private let create_at:Date
+    private let wallet_id: String
+    public func toString(){
+        print("\(self.id) - \(self.description) - \(self.balance) - \(self.category.getName) - \(self.create_at) || Ví \(wallet_id)")
+    }
     var getID:String{
         get{
             return id
+            
+        }
+    }
+    var getWalletID:String{
+        get{
+            return wallet_id
             
         }
     }
@@ -42,16 +52,17 @@ class Transaction  {
         }
     }
     
-    init(id: String, description: String, balance: Int, category: Category, create_at: Date) {
+    init(id: String, description: String, balance: Int, category: Category, create_at: Date, wallet_id: String) {
         self.id = id
         self.description = description
         self.balance = balance
         self.category = category
         self.create_at = create_at
+        self.wallet_id = wallet_id
     }
-    public static func getAllMyTransactions(WalletID:String) async -> [Transaction]?{
+    public static func getAllMyTransactions(walletID:String) async -> [Transaction]?{
         let db = Firestore.firestore()
-        let walletRef = db.collection("Transactions").document(WalletID).collection("Transaction")
+        let walletRef = db.collection("Transactions").document(walletID).collection("Transaction")
         var myTransactions = [Transaction]()
         
         do {
@@ -64,7 +75,8 @@ class Transaction  {
                         description:  transaction["Description"] as! String,
                         balance: transaction["Balance"] as! Int,
                         category: Category.getCategory(Category_ID: transaction["Category_ID"] as! String)!,
-                        create_at: (transaction["CreateAt"] as? Timestamp)?.dateValue() ?? Date()
+                        create_at: (transaction["CreateAt"] as? Timestamp)?.dateValue() ?? Date(),
+                        wallet_id: walletID
                     )
                 )
             }

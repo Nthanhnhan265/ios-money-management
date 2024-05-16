@@ -287,7 +287,7 @@
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3og-Q0-dqb">
                                         <rect key="frame" x="0.0" y="0.0" width="166.66666666666666" height="62"/>
                                         <state key="normal" title="Button"/>
-                                        <buttonConfiguration key="configuration" style="plain" image="Income" title="Income $5000" imagePadding="10">
+                                        <buttonConfiguration key="configuration" style="plain" image="Income" title="Income" imagePadding="10">
                                             <backgroundConfiguration key="background" cornerRadius="20">
                                                 <color key="backgroundColor" red="0.2941176593" green="0.64705884459999996" blue="0.43921568989999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                             </backgroundConfiguration>
@@ -300,7 +300,7 @@
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="daD-kc-FuI">
                                         <rect key="frame" x="186.66666666666663" y="0.0" width="166.33333333333337" height="62"/>
                                         <state key="normal" title="Button"/>
-                                        <buttonConfiguration key="configuration" style="plain" image="expenses" title="Expenses $5000" imagePadding="10">
+                                        <buttonConfiguration key="configuration" style="plain" image="expenses" title="Expenses" imagePadding="10">
                                             <backgroundConfiguration key="background" cornerRadius="20">
                                                 <color key="backgroundColor" red="0.91372549530000002" green="0.3058823645" blue="0.31764706970000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                             </backgroundConfiguration>
@@ -2526,7 +2526,7 @@
                                         <rect key="frame" x="0.0" y="0.0" width="94.333333333333329" height="94.333333333333329"/>
                                         <subviews>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="user" translatesAutoresizingMaskIntoConstraints="NO" id="w2W-im-Wdz">
-                                                <rect key="frame" x="7" y="7.3333333333333286" width="80" height="80.000000000000014"/>
+                                                <rect key="frame" x="7" y="7.3333333333333286" width="80" height="80"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="80" id="eLh-vh-FKo"/>
                                                     <constraint firstAttribute="height" constant="80" id="mfO-8C-3Tq"/>

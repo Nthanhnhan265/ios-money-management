@@ -8,13 +8,21 @@
 import UIKit
 
 class DetailIncomeViewController: UIViewController {
-    var detailExpense:Transaction?
-    var delegate: TransactionDetailDelegate? 
+//    var detailExpense:Transaction?
+    var transaction:Transaction? = nil
     
     @IBOutlet weak var borderView: UIView!
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        setFrontEnd()
+        //        Lấy userProfile đang nằm trong Tabbar controller
+        if let tabBarController = self.tabBarController as? TabHomeViewController {
+            print(tabBarController.getWalletFromTransaction(wallet_ID: transaction!.getWalletID)?.getName)
+            
+        }
+    }
+    func setFrontEnd(){
         //set background for navigation controller
         self.navigationController?.navigationBar.backgroundColor = UIColor(red: 0/255, green: 168/255, blue: 107/255, alpha: 1);
         self.navigationController?.navigationBar.tintColor = UIColor.white

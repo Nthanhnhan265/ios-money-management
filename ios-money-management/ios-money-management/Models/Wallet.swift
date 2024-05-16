@@ -78,7 +78,7 @@ class Wallet {
                         Name: i["Name"] as! String,
                         Balance:i["Balance"] as! Int,
                         Image: UIImage(named: i["Image"] as! String),
-                        Transaction: Transaction.getAllMyTransactions(WalletID: i.documentID)!
+                        Transaction: Transaction.getAllMyTransactions(walletID: i.documentID)!
                     )
                 )
                 
