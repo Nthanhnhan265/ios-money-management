@@ -67,9 +67,9 @@
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
                 <outlet property="trans_income_balance" destination="k0H-Jh-0DA" id="qfY-yw-bT4"/>
-                <outlet property="trans_income_des" destination="D5A-Eo-HyJ" id="Qi6-OC-3z5"/>
+                <outlet property="trans_income_des" destination="D5A-Eo-HyJ" id="izL-Lj-sk4"/>
                 <outlet property="trans_income_image" destination="fVn-Xj-M6E" id="ESe-QG-rZF"/>
-                <outlet property="trans_income_name" destination="D5A-Eo-HyJ" id="Vwf-Fc-lro"/>
+                <outlet property="trans_income_name" destination="QZW-tW-Na2" id="VCn-yv-AvM"/>
                 <outlet property="trans_income_time" destination="mjc-0O-eQp" id="kq8-q7-nNR"/>
             </connections>
             <point key="canvasLocation" x="1.5267175572519083" y="-4.5774647887323949"/>

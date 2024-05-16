@@ -51,11 +51,11 @@ class TransactionViewController: UIViewController {
                 }
                 // Reload table view on main thread
                 await MainActor.run {
-                    datas.sort{ $0.getCreateAt > $1.getCreateAt }
+                    datas.sort { $0.getCreateAt > $1.getCreateAt }
                     tableview.reloadData()
                 }
             }
-          
+            
             
         }
 
