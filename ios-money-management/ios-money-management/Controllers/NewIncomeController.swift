@@ -38,7 +38,7 @@ class NewIncomeController: UIViewController, UICollectionViewDelegateFlowLayout,
         
         setWalletsExpenses(wallets: wallets)
         
-        
+        setNavbar()
     }
     
     //MARK: set up data in popup button
@@ -96,6 +96,12 @@ class NewIncomeController: UIViewController, UICollectionViewDelegateFlowLayout,
         //        ])
         //        popupWalletButton.showsMenuAsPrimaryAction = true
         //        popupWalletButton.changesSelectionAsPrimaryAction = true
+    }
+    func setNavbar() {
+        //set background for navigation controller
+        self.navigationController?.navigationBar.backgroundColor = UIColor(red: 0/255, green: 180/255, blue: 126/255, alpha: 1);
+        self.navigationController?.navigationBar.tintColor = UIColor.white
+        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
     }
     func setCategoryExpenses() {
         Task {
