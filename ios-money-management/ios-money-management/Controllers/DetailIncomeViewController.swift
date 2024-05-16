@@ -11,16 +11,59 @@ class DetailIncomeViewController: UIViewController {
 //    var detailExpense:Transaction?
     var transaction:Transaction? = nil
     
+    @IBOutlet weak var txt_des: UILabel!
+    @IBOutlet weak var txt_wallet: UILabel!
+    @IBOutlet weak var txt_category: UILabel!
+    @IBOutlet weak var txt_time: UILabel!
+    @IBOutlet weak var txt_balance: UILabel!
     @IBOutlet weak var borderView: UIView!
     override func viewDidLoad() {
         super.viewDidLoad()
 
         setFrontEnd()
+        
+        
+
         //        Lấy userProfile đang nằm trong Tabbar controller
         if let tabBarController = self.tabBarController as? TabHomeViewController {
-            print(tabBarController.getWalletFromTransaction(wallet_ID: transaction!.getWalletID)?.getName)
+            if let transaction = transaction{
+                setBackEnd(wallet: tabBarController.getWalletFromTransaction(wallet_ID: transaction.getWalletID)!, transaction: transaction)
+            }
+            
             
         }
+    }
+    /// Hàm chuyển đồ từ Date sang String
+    func DateToString(_ date:Date) -> String{
+        // Lấy ra 1 biến Date ở thời gian hiện tại
+        let currentDateAndTime = date
+        // Tạo ra 1 biến format
+        let dateFormatter = DateFormatter()
+        
+        // Ngày: 5/9/24
+        dateFormatter.dateStyle = .full
+        
+        // Giờ none
+        dateFormatter.timeStyle = .none
+        
+        // Địa điểm
+        dateFormatter.locale = Locale(identifier: "vi_VN")
+        
+        //09/05/2024
+        // print(dateFormatter.string(from: currentDateAndTime))
+        // Date -> String
+        // print(type(of: dateFormatter.string(from: currentDateAndTime)))
+        
+        
+        return dateFormatter.string(from: currentDateAndTime)
+    }
+    func setBackEnd(wallet:Wallet, transaction:Transaction){
+        txt_des.text = transaction.getDescription
+        txt_wallet.text = wallet.getName
+        txt_category.text = transaction.getCategory.getName
+        txt_time.text = DateToString(transaction.getCreateAt)
+        txt_balance.text = String(transaction.getBalance)
+        
     }
     func setFrontEnd(){
         //set background for navigation controller
@@ -29,6 +72,8 @@ class DetailIncomeViewController: UIViewController {
         self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
         //custom border of UIVIew
         borderView.layer.borderColor = CGColor(red: 241/250, green: 241/250, blue: 250/250, alpha: 1)
+        self.tabBarController?.tabBar.isHidden = true
+
     }
     // Function to display the confirm dialog
     func showConfirmDialog() {
@@ -59,3 +104,5 @@ class DetailIncomeViewController: UIViewController {
 
 
 }
+
+

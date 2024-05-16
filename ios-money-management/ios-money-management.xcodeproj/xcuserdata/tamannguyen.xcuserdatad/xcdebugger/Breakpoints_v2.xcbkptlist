@@ -552,42 +552,10 @@
             filePath = "ios-money-management/Controllers/DetailIncomeViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "20"
-            endingLineNumber = "20"
+            startingLineNumber = "28"
+            endingLineNumber = "28"
             landmarkName = "viewDidLoad()"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "471114E9-4F74-40AC-AF22-E22699B7A24D - 744efc68630c7924"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "ios_money_management.DetailIncomeViewController.viewDidLoad() -&gt; ()"
-                  moduleName = "ios-money-management"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Volumes/DATA/iOS-2024/github/ios-money-management/ios-money-management/ios-money-management/Controllers/DetailIncomeViewController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "20"
-                  endingLineNumber = "20"
-                  offsetFromSymbolStart = "184">
-               </Location>
-               <Location
-                  uuid = "471114E9-4F74-40AC-AF22-E22699B7A24D - 744efc68630c7924"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "ios_money_management.DetailIncomeViewController.viewDidLoad() -&gt; ()"
-                  moduleName = "ios-money-management"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Volumes/DATA/iOS-2024/github/ios-money-management/ios-money-management/ios-money-management/Controllers/DetailIncomeViewController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "20"
-                  endingLineNumber = "20"
-                  offsetFromSymbolStart = "376">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>
