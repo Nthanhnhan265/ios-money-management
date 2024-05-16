@@ -67,7 +67,7 @@ class UserProfile {
             
                     
 
-
+            print("Truy vấn thành công getUserProfine")
             return await UserProfile(UID: UID, Fullname: fullName, Avatar: avatarImage, Wallets: Wallet.getMyWallets(UID: UID)!)
         } catch {
             print("Lỗi truy vấn - getUserProfine: \(error)")

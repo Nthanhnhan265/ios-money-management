@@ -72,7 +72,9 @@
                         </userDefinedRuntimeAttributes>
                     </view>
                 </subviews>
+
                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+
                 <constraints>
                     <constraint firstAttribute="bottom" secondItem="hRk-RG-aWq" secondAttribute="bottom" constant="5" id="68j-W0-VHJ"/>
                     <constraint firstItem="hRk-RG-aWq" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="NEW-x6-1CT"/>

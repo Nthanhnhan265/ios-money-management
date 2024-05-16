@@ -20,19 +20,24 @@ class NewExpenseController: UIViewController, PHPickerViewControllerDelegate, UI
     var selectedImages = [UIImage]()
     var wallets: [Wallet] = []
     var categoryID = ""
-    var walletID = ""
+    var wallet:Wallet? = nil
+    var UID = ""
     
     //MARK: viewDidLoad()
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        //       Lấy UID
+        UID = UserDefaults.standard.string(forKey: "UID") ?? ""
 
         setFrontEnd()
         
         //        Đổ category vào pop up category
         setCategoryExpenses()
         
-        setWalletsExpenses(wallets: wallets)
-      
+
+        setWallets(wallets: wallets)
+
     }
     
     //MARK: setup button
@@ -94,15 +99,19 @@ class NewExpenseController: UIViewController, PHPickerViewControllerDelegate, UI
     @IBAction func btn_expenses_tapped(_ sender: UIButton) {
         if let balanceString = textFieldValue.text,
            let balance = Int(balanceString),
-           let description = textFieldDes.text
+           let description = textFieldDes.text,
+           let wallet = wallet
         {
 //            Gọi hàm tạo giao dịch
             Transaction.addTransaction(
-                    wallet_id: walletID,
-                    balance: balance,
+                wallet_id: wallet.getID,
+                    balance: balance > 0 ? -balance : balance,
                     category_id: categoryID,
                     des: description)
-           
+            
+            //            Trừ tiền khỏi ví
+                        Wallet.set_updateWallet(UID: UID, wallet: Wallet(ID: wallet.getID, Name: wallet.getName, Balance: wallet.getBalance + (balance > 0 ? -balance : balance), Transaction: wallet.getTransactions))
+                       
             
         } else {
             // Xử lý trường hợp UID hoặc walletID không tồn tại
@@ -125,7 +134,7 @@ class NewExpenseController: UIViewController, PHPickerViewControllerDelegate, UI
         popupWalletButton.showsMenuAsPrimaryAction = true
         popupWalletButton.changesSelectionAsPrimaryAction = true
     }
-    func setWalletsExpenses(wallets:[Wallet])  {
+    func setWallets(wallets:[Wallet])  {
         // Tạo các UIAction từ danh sách Wallet
         let actions = wallets.map { wallet in
             UIAction(title: wallet.getName, image: wallet.getImage) { [weak self] action in
@@ -134,7 +143,7 @@ class NewExpenseController: UIViewController, PHPickerViewControllerDelegate, UI
                 // Cập nhật giao diện của popup button (tùy chọn)
                 self.popupWalletButton.setAttributedTitle(NSAttributedString(string: wallet.getName), for: .normal)
                 self.popupCategoryButton.setImage(wallet.getImage, for: .normal) // Đặt lại ảnh
-                self.walletID = wallet.getID
+                self.wallet = wallet
                 // Xử lý khi người dùng chọn một ví
                 // Gọi hàm xử lý đã chọn ví (đã được khai báo ở đâu đó trong ViewController)
                 //                    self.handleWalletSelection(wallet: wallet)

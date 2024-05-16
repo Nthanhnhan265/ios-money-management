@@ -64,16 +64,59 @@ class Transaction  {
                         description:  transaction["Description"] as! String,
                         balance: transaction["Balance"] as! Int,
                         category: Category.getCategory(Category_ID: transaction["Category_ID"] as! String)!,
-                        create_at: Date()
+                        create_at: (transaction["CreateAt"] as? Timestamp)?.dateValue() ?? Date()
                     )
                 )
-                
             }
             
             return myTransactions
         } catch {
             print("Lỗi truy vấn - getMyWallets: \(error)")
             return nil
+        }
+    }
+    /// Hàm chuyển đồ từ Date sang String
+    func DateToString(str_date date:Date) -> String{
+        // Lấy ra 1 biến Date ở thời gian hiện tại
+        let currentDateAndTime = date
+        // Tạo ra 1 biến format
+        let dateFormatter = DateFormatter()
+        
+        // Ngày: 5/9/24
+        dateFormatter.dateStyle = .short
+        
+        // Giờ none
+        dateFormatter.timeStyle = .none
+        
+        // Địa điểm
+        dateFormatter.locale = Locale(identifier: "vi_VN")
+        
+        //09/05/2024
+        // print(dateFormatter.string(from: currentDateAndTime))
+        // Date -> String
+        // print(type(of: dateFormatter.string(from: currentDateAndTime)))
+        
+        
+        return dateFormatter.string(from: currentDateAndTime)
+    }
+    /// Hàm Chuyển đổi từ String sang Date
+    func StringToDate(_ str_date:String) -> Date? {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd/MM/yyyy"
+        dateFormatter.timeZone = TimeZone(identifier: "UTC")
+        dateFormatter.dateStyle = .short
+        dateFormatter.timeStyle = .none
+        dateFormatter.locale = Locale(identifier: "vi_VN")
+        
+        if let rs = dateFormatter.date(from: str_date){
+            
+            
+            return rs
+        }
+        else
+        {
+            print("<<<<<String to Date KHÔNG THÀNH CÔNG - TransactionViewController>>>>>")
+            return Date.now
         }
     }
     public static func addTransaction(wallet_id:String, balance:Int, category_id:String, des:String ){
@@ -100,4 +143,6 @@ class Transaction  {
         }
         
     }
+  
+
 }
