@@ -64,42 +64,57 @@ class HomeViewController: UIViewController {
         
         //debug
         print("Vào HomeViewController - \(UID)")
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        Task{
-            if let userProfile = await UserProfile.getUserProfine(UID: UID){
+//        Lấy userProfile đang nằm trong Tabbar controller
+        if let tabBarController = self.tabBarController as? TabHomeViewController {
+            // Truy cập dữ liệu trong TabBarController
+            if let userProfile = tabBarController.userProfile
+            {
                 setProfile(userProfile: userProfile)
                 txt_balance.text = String(setWallets(wallets: userProfile.getWallets ))
-                
-                
-                // Set transactions
+                //                             Set transactions
                 for wallet in userProfile.getWallets{
                     setTransactions(data: wallet.getTransactions)
                     self.wallets.append(wallet)
                     
                 }
-                // Reload table view on main thread
-                await MainActor.run {
-                    transactions.sort { $0.getCreateAt > $1.getCreateAt }
-                    
-                    table_view.reloadData()
-                }
             }
             
-            
         }
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+//        Task{
+//            if let userProfile = await UserProfile.getUserProfine(UID: UID){
+//                setProfile(userProfile: userProfile)
+//                txt_balance.text = String(setWallets(wallets: userProfile.getWallets ))
+//
+//
+//                // Set transactions
+//                for wallet in userProfile.getWallets{
+//                    setTransactions(data: wallet.getTransactions)
+//                    self.wallets.append(wallet)
+//
+//                }
+//                // Reload table view on main thread
+//                await MainActor.run {
+//                    transactions.sort { $0.getCreateAt > $1.getCreateAt }
+//
+//                    table_view.reloadData()
+//                }
+//            }
+//
+//
+//        }
         
         
         

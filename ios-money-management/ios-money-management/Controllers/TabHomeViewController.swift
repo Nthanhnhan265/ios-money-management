@@ -8,11 +8,13 @@
 import UIKit
 
 class TabHomeViewController: UITabBarController {
-
+    var userProfile:UserProfile? = nil
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        if let userProfile = userProfile{
+            print("TabHomeViewController - \(userProfile.getFullname)")
+            
+        }
       
 
     }

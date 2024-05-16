@@ -27,8 +27,8 @@ class LoginViewController: UIViewController {
         self.navigationItem.title = "Login"
         
         // Set up trước tài khoản và mật khẩu
-//        txt_username.text = "ngthanhnhan265.xb@gmail.com"
-//        txt_password.text = "nhannhan"
+        //        txt_username.text = "ngthanhnhan265.xb@gmail.com"
+        //        txt_password.text = "nhannhan"
         txt_password.text = "admin@gmail.com"
         txt_username.text = "admin@gmail.com"
     }
@@ -63,37 +63,52 @@ class LoginViewController: UIViewController {
                 print("User login with ID: \(userId)")
                 UserDefaults.standard.set(userId, forKey: "UID")
                 
-                
-                
-                
-                
-                
-                //                Lấy màn hình main storyboard
-                let storyBoard = UIStoryboard(name: "Main", bundle: nil)
-                //                Lấy controller TabHomeController
-                let homeViewController = storyBoard.instantiateViewController(withIdentifier: "TabBarHomeController") as! TabHomeViewController
-                
-                //                Cho màn hình Home full màn hình
-                homeViewController.modalPresentationStyle = .fullScreen
-                
-                //
-                self.present(homeViewController, animated: true )
-                
-                //                self.navigationController?.navigationBar.isHidden = true
-                //                 self.navigationController?.pushViewController(homeViewController, animated: true)
-                
-                
-                
-                
-
+                Task{
+                    if let userProfile = await UserProfile.getUserProfine(UID: userId){
+                        //                Lấy màn hình main storyboard
+                        let storyBoard = UIStoryboard(name: "Main", bundle: nil)
+                        //                Lấy controller TabHomeController
+                        let homeViewController = storyBoard.instantiateViewController(withIdentifier: "TabBarHomeController") as! TabHomeViewController
+                        
+                        //                Cho màn hình Home full màn hình
+                        homeViewController.modalPresentationStyle = .fullScreen
+                        homeViewController.userProfile = userProfile
+                        //
+                        self.present(homeViewController, animated: true )
+                        
+                        //                self.navigationController?.navigationBar.isHidden = true
+                        //                 self.navigationController?.pushViewController(homeViewController, animated: true)
+                    }
                     
+                    
+                    
+                    
+                    //                //                Lấy màn hình main storyboard
+                    //                let storyBoard = UIStoryboard(name: "Main", bundle: nil)
+                    //                //                Lấy controller TabHomeController
+                    //                let homeViewController = storyBoard.instantiateViewController(withIdentifier: "TabBarHomeController") as! TabHomeViewController
+                    //
+                    //                //                Cho màn hình Home full màn hình
+                    //                homeViewController.modalPresentationStyle = .fullScreen
+                    //
+                    //                //
+                    //                self.present(homeViewController, animated: true )
+                    //
+                    //                //                self.navigationController?.navigationBar.isHidden = true
+                    //                //                 self.navigationController?.pushViewController(homeViewController, animated: true)
+                    
+                    
+                    
+                    
+                    
+                    
+                }
             }
         }
+        
+        
     }
     
     
 }
- 
-
-
 
