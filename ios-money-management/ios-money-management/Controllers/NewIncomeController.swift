@@ -170,25 +170,86 @@ class NewIncomeController: UIViewController, UICollectionViewDelegateFlowLayout,
     
     @IBAction func NewIncome_Tapped(_ sender: UIButton)  {
         if let balanceString = textFieldValue.text,
-           let balance = Int(balanceString),
-           let description = txt_des.text,
-           let wallet = wallet
-        {
-//            Gọi hàm tạo giao dịch
-            Transaction.addTransaction(
-                wallet_id: wallet.getID,
-                    balance: balance,
-                    category_id: categoryID,
-                    des: description)
-            
-//            Cộng tiền vào ví
-            Wallet.set_updateWallet(UID: UID, wallet: Wallet(ID: wallet.getID, Name: wallet.getName, Balance: wallet.getBalance + balance, Transaction: wallet.getTransactions))
-           
-            
-        } else {
-            // Xử lý trường hợp UID hoặc walletID không tồn tại
-            print("Error: UID or walletID is missing")
-        }
+               let balance = Int(balanceString),
+               let description = txt_des.text,
+               let wallet = wallet
+            {
+                Task {
+                    do {
+                        // Thêm giao dịch mới lên DB và lấy ID của nó
+                        let transactionID = try await Transaction.addTransaction(
+                            wallet_id: wallet.getID,
+                            balance: balance,
+                            category_id: categoryID,
+                            des: description
+                        )
+
+                        // Cập nhật ví trên DB
+                        Wallet.set_updateWallet(UID: UID, wallet: Wallet(ID: wallet.getID, Name: wallet.getName, Balance: wallet.Balance + balance, Transaction: wallet.getTransactions()))
+                        
+
+                        
+                        
+                        
+
+                        // Thêm transaction vào mảng transactions của ví
+                        let newTransaction = await Transaction(id: transactionID, description: description, balance: balance, category: Category.getCategory(Category_ID: categoryID)!, create_at: Date(), wallet_id: wallet.getID) // Tạo transaction mới với ID vừa nhận được
+                        
+                        if let tabBarController = self.tabBarController as? TabHomeViewController {
+                            if let userProfile = tabBarController.userProfile {
+                                if let wallet = userProfile.getWallets.first(where: {$0.getID == wallet.getID}) {
+                                    // Thêm transaction vào wallet
+                                    wallet.addTransaction(transaction: newTransaction)
+                                
+                                    //                        Cập nhật tiền của ví dưới local
+                                    wallet.Balance = wallet.Balance + balance
+                                    
+                                }
+                                
+                            }
+                        }
+
+                    } catch {
+                        // Xử lý lỗi nếu có
+                        print("Error adding transaction: \(error)")
+                    }
+                    navigationController?.popViewController(animated: true)
+                }
+            } else {
+                // Xử lý trường hợp UID hoặc walletID không tồn tại
+                print("Error: UID or walletID is missing")
+            }
+        //        if let balanceString = textFieldValue.text,
+//           let balance = Int(balanceString),
+//           let description = txt_des.text,
+//           let wallet = wallet
+//        {
+////            Gọi hàm tạo giao dịch
+//            Transaction.addTransaction(
+//                wallet_id: wallet.getID,
+//                    balance: balance,
+//                    category_id: categoryID,
+//                    des: description)
+//
+////            Cộng tiền vào ví
+//            Wallet.set_updateWallet(UID: UID, wallet: Wallet(ID: wallet.getID, Name: wallet.getName, Balance: wallet.getBalance + balance, Transaction: wallet.getTransactions()))
+//
+//// Apped transaction vào userProfile
+////            Lấy tabbar
+//            if let tabBarController = self.tabBarController as? TabHomeViewController {
+//                    if let userProfile = tabBarController.userProfile {
+//                        if let wallet = userProfile.getWallets.first(where: {$0.getID == wallet.getID}) {
+//                            // Thêm transaction vào wallet
+//                            wallet.addTransaction(transaction: Transaction(id: <#T##String#>, description: <#T##String#>, balance: <#T##Int#>, category: <#T##Category#>, create_at: <#T##Date#>, wallet_id: <#T##String#>) )
+//                        }
+//                    }
+//                }
+//
+//
+//        } else {
+//            // Xử lý trường hợp UID hoặc walletID không tồn tại
+//            print("Error: UID or walletID is missing")
+//        }
     }
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return selectedImages.count

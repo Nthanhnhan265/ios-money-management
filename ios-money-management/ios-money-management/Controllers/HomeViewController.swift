@@ -10,39 +10,33 @@ import FirebaseCore
 import FirebaseFirestore
 
 class HomeViewController: UIViewController {
+    //    Cấu trúc filter Ví và Thời gian
     struct FilterState {
         var selectedWallet: Wallet?
         var buttonTime:UIButton?
         
     }
-    var currentFilterState = FilterState()
     
-    
-    
-
-    
-    //    MARK: Dữ liệu giả
-
+    //    MARK: Dữ liệu
     var transactions = [Transaction]()
+    var wallets = [Wallet]()
+    var currentFilterState = FilterState()
     
     // MARK: @IBOutlet
     @IBOutlet weak var table_view: UITableView!
     @IBOutlet weak var txt_balance: UILabel!
     @IBOutlet weak var borderAvatar: UIView!
     @IBOutlet weak var avatar: UIImageView!
-    // các button: Today, Week, Month, Year
     @IBOutlet weak var btn_week: UIButton!
     @IBOutlet weak var btn_today: UIButton!
     @IBOutlet weak var btn_year: UIButton!
     @IBOutlet weak var btn_month: UIButton!
-    // Button nhập xuất
     @IBOutlet weak var btn_Expenses: UIButton!
     @IBOutlet weak var btn_income: UIButton!
-    // Pop up button chọn ví
     @IBOutlet weak var menu_wallets: UIButton!
-    // Biến lưu button nào đang active (Today, Week, Month, Year)
     
-    var wallets = [Wallet]()
+    
+    
     
     // MARK: Firestore
     // Tạo một tham chiếu đến cơ sở dữ liệu Firestore
@@ -57,85 +51,39 @@ class HomeViewController: UIViewController {
         
         // Set thiết kế giao diện
         setFrontEnd()
-        btn_income.setTitle("Income \(0.getVNDFormat())", for: .normal)
-        btn_Expenses.setTitle("Income \(0.getVNDFormat())", for: .normal)
+        
         
         // Kết nối table view với các hàm để load dữ liệu
         table_view.dataSource = self
         table_view.delegate = self
         table_view.register(TransactionTableViewCell.nib(), forCellReuseIdentifier: TransactionTableViewCell.identifier)
-        table_view.register(IncomeCell.nib(), forCellReuseIdentifier: IncomeCell.identifier)
+
         
         
         //debug
         print("Vào HomeViewController - \(UID)")
-//        Lấy userProfile đang nằm trong Tabbar controller
+        
+        //        Lấy userProfile đang nằm trong Tabbar controller
         if let tabBarController = self.tabBarController as? TabHomeViewController {
             // Truy cập dữ liệu trong TabBarController
             if let userProfile = tabBarController.userProfile
             {
                 setProfile(userProfile: userProfile)
-                txt_balance.text = String(setWallets(wallets: userProfile.getWallets ))
+                txt_balance.text = String(setWallets(wallets: userProfile.getWallets ).getVNDFormat())
                 //                             Set transactions
                 for wallet in userProfile.getWallets{
-                    setTransactions(data: wallet.getTransactions)
+                    setTransactions(data: wallet.getTransactions())
+                    
+//                    Lấy dữ liệu của userProfile, đọc tất cả các ví -> Đổi vào mảng dữ liệu
                     self.wallets.append(wallet)
                     
                 }
+                transactions.sort { $0.getCreateAt > $1.getCreateAt }
+
             }
             
         }
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-//        Task{
-//            if let userProfile = await UserProfile.getUserProfine(UID: UID){
-//                setProfile(userProfile: userProfile)
-//                txt_balance.text = String(setWallets(wallets: userProfile.getWallets ))
-//
-//
-//                // Set transactions
-//                for wallet in userProfile.getWallets{
-//                    setTransactions(data: wallet.getTransactions)
-//                    self.wallets.append(wallet)
-//
-//                }
-//                // Reload table view on main thread
-//                await MainActor.run {
-//                    transactions.sort { $0.getCreateAt > $1.getCreateAt }
-//
-//                    table_view.reloadData()
-//                }
-//            }
-//
-//
-//        }
-
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
+         
         
     }
     override func viewWillAppear(_ animated: Bool) {
@@ -147,6 +95,32 @@ class HomeViewController: UIViewController {
         self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
         
         self.tabBarController?.tabBar.isHidden = false
+        
+        
+        
+        //        Lấy userProfile đang nằm trong Tabbar controller
+        if let tabBarController = self.tabBarController as? TabHomeViewController {
+            // Truy cập dữ liệu trong TabBarController
+            if let userProfile = tabBarController.userProfile
+            {
+                //        cập nhật số tiền
+                txt_balance.text = String(setWallets(wallets: userProfile.getWallets ).getVNDFormat())
+                
+                //                trả mảng transaction về rỗng
+                transactions = []
+                //                             Set transactions
+                for wallet in userProfile.getWallets{
+                    setTransactions(data: wallet.getTransactions())
+                    wallet.ToString()
+                }
+                transactions.sort { $0.getCreateAt > $1.getCreateAt }
+                
+                
+            }
+            
+        }
+        table_view.reloadData()
+        
         
         
         
@@ -204,20 +178,8 @@ class HomeViewController: UIViewController {
         borderAvatar.layer.masksToBounds = true
         borderAvatar.layer.borderColor = CGColor(red: 173/255, green: 0/255, blue: 255/255, alpha: 1)
         borderAvatar.layer.cornerRadius = borderAvatar.frame.height/2
-        
-        
-        
-        
-        
-        
-        
-        
-        menu_wallets.menu = UIMenu(children: [
-            UIAction(title: "Tổng cộng", handler: { action in
-            }),
-            
-        ])
     }
+/// Set ảnh đại diện
     func setProfile(userProfile:UserProfile) {
         
         
@@ -227,25 +189,23 @@ class HomeViewController: UIViewController {
         
         
     }
+    ///Nạp tất cả transaction được truyền vào vào mảng transactions để đổ lên table view
     func setTransactions(data: [Transaction]) {
+        
         for i in data{
             transactions.append(i)
         }
-        // for i in 10..<30{
-        // if let time = StringToDate("\(i)/05/2024"){
-        // datas.append()
-        // }
-        // }
-        
-        
-        
     }
+    ///Đổ ví vào pop up, đồng thời trả ra total_balance
     func setWallets(wallets: [Wallet]) -> Int{
         // Tổng tiền
         var total_balance = 0
+        
+        //        Cộng tổng tiền của các ví
         for i in wallets{
-            total_balance += i.getBalance
+            total_balance += i.Balance
         }
+        
         
         let optionClosure = {
             // Sử dụng weak self để tránh retain cycle (vòng lặp giữ tham chiếu mạnh), đảm bảo HomeViewController không bị giữ lại trong bộ nhớ khi không cần thiết.
@@ -260,19 +220,15 @@ class HomeViewController: UIViewController {
             else {
                 // (hoặc người dùng chọn "Tổng cộng")
                 if action.title == "Tổng cộng" {
-
-//                     self!.txt_balance.text = String(total_balance)
-//                     //                    Set lại ví đang chọn là nil
-//                     self?.currentFilterState.selectedWallet = nil
-//                     // Gọi hàm cập nhật giao dịch
-//                     self?.updateTransactions()
-//                 }
-                // sẽ thực hiện các xử lý trong khối else.
-                else {
-
+                    
                     self!.txt_balance.text = String(total_balance.getVNDFormat())
+                    //                    Set lại ví đang chọn là nil
+                    self?.currentFilterState.selectedWallet = nil
+                    // Gọi hàm cập nhật giao dịch
+                    self?.updateTransactions()
+                    // sẽ thực hiện các xử lý trong khối else.
                 } else {
-
+                    
                     // Xử lý trường hợp không tìm thấy ví
                     print("Không tìm thấy ví")
                 }
@@ -280,7 +236,7 @@ class HomeViewController: UIViewController {
             }
             
             // Cập nhật txt_balance.text
-            self?.txt_balance.text = String(selectedWallet.getBalance.getVNDFormat())
+            self?.txt_balance.text = String(selectedWallet.Balance.getVNDFormat())
             
             // Bạn có thể thực hiện thêm các hành động khác ở đây (ví dụ: cập nhật giao diện)
             
@@ -314,26 +270,28 @@ class HomeViewController: UIViewController {
         
         //        Nếu có ví được chọn
         if (currentFilterState.selectedWallet != nil){
-            setTransactions(data: currentFilterState.selectedWallet!.getTransactions)
+            //            Lấy transaction của ví hiện tại được chọn
+            setTransactions(data: currentFilterState.selectedWallet!.getTransactions())
         }
         //        Nếu không có ví được chọn: Lấy tất cả giao dịch của các ví
         else{
+            
             for i in wallets{
-                setTransactions(data: i.getTransactions)
+                setTransactions(data: i.getTransactions())
             }
             
         }
         
-//        nếu có sự lựa chọn về thời gian
+        //        nếu có sự lựa chọn về thời gian
         if let btn_time =  currentFilterState.buttonTime{
             switch btn_time{
             case btn_today:
                 // Lấy ngày hiện tại
                 let currentDate = Date()
-
+                
                 // Tính toán ngày 7 ngày trước
                 let sevenDaysAgo = Calendar.current.date(byAdding: .day, value: -1, to: currentDate)!
-
+                
                 // Lọc các giao dịch
                 let filteredTransactions = transactions.filter { transaction in
                     return sevenDaysAgo <= transaction.getCreateAt && transaction.getCreateAt <= currentDate
@@ -342,10 +300,10 @@ class HomeViewController: UIViewController {
             case btn_month:
                 // Lấy ngày hiện tại
                 let currentDate = Date()
-
+                
                 // Tính toán ngày 7 ngày trước
                 let sevenDaysAgo = Calendar.current.date(byAdding: .day, value: -30, to: currentDate)!
-
+                
                 // Lọc các giao dịch
                 let filteredTransactions = transactions.filter { transaction in
                     return sevenDaysAgo <= transaction.getCreateAt && transaction.getCreateAt <= currentDate
@@ -354,10 +312,10 @@ class HomeViewController: UIViewController {
             case btn_week:
                 // Lấy ngày hiện tại
                 let currentDate = Date()
-
+                
                 // Tính toán ngày 7 ngày trước
                 let sevenDaysAgo = Calendar.current.date(byAdding: .day, value: -7, to: currentDate)!
-
+                
                 // Lọc các giao dịch
                 let filteredTransactions = transactions.filter { transaction in
                     return sevenDaysAgo <= transaction.getCreateAt && transaction.getCreateAt <= currentDate
@@ -366,10 +324,10 @@ class HomeViewController: UIViewController {
             case btn_year:
                 // Lấy ngày hiện tại
                 let currentDate = Date()
-
+                
                 // Tính toán ngày 7 ngày trước
                 let sevenDaysAgo = Calendar.current.date(byAdding: .day, value: -365, to: currentDate)!
-
+                
                 // Lọc các giao dịch
                 let filteredTransactions = transactions.filter { transaction in
                     return sevenDaysAgo <= transaction.getCreateAt && transaction.getCreateAt <= currentDate
@@ -478,7 +436,7 @@ class HomeViewController: UIViewController {
     }
     @IBAction func btn_seeAll_tapped(_ sender: UIButton) {
         tabBarController?.selectedIndex = 1 // Chuyển sang tab thứ 2 (index bắt đầu từ 0)
-
+        
     }
     // click btn today
     @IBAction func btn_today_clik(_ sender: UIButton) {
@@ -577,131 +535,85 @@ class HomeViewController: UIViewController {
         updateTransactions()
     }
     
-    // MARK: Querry Database Firestore
-    // func getWallets(UID: String, completion: @escaping (UserProfile?) -> Void) {
-    // let ProfileRef = db.collection("Profile").document(UID)
-    //
-    // ProfileRef.getDocument { (document, error) in
-    // if let document = document, document.exists {
-    // let data = document.data()
-    //
-    // let userProfile = UserProfile(
-    // UID: UID,
-    // Fullname: data?["Fullname"] as? String ?? "",
-    // Avatar: UIImage(named: data?["Avatar"] as? String ?? "")
-    // )
-    //
-    // completion(userProfile) // Truyền UserProfile đến completion handler
-    // } else {
-    // completion(nil) // Truyền nil nếu có lỗi hoặc không có tài liệu
-    // }
-    // }
-    // }
 }
 
 
-extension HomeViewController: UITableViewDataSource,TransactionDetailDelegate,  UITableViewDelegate{
-    func didUpdateTransaction(transaction: Transaction) {
-        print("got data! wow")
-    }
-    
+extension HomeViewController: UITableViewDataSource,  UITableViewDelegate{
     // MARK:     UITableViewDataSource
-
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-       
-            return transactions.count
-  
+        return transactions.count
     }
-    
+    //    Đổ dữ liệu vào cell
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-
-
-       
-            // Màu đỏ
-            if !(self.transactions[indexPath.row].getCategory.getinCome){
-                let cell = tableView.dequeueReusableCell(withIdentifier: TransactionTableViewCell.identifier, for: indexPath) as! TransactionTableViewCell
-                
-                
-                // Đổ dữ liệu lên cell
-                cell.transaction_img.image = self.transactions[indexPath.row].getCategory.getImage
-                cell.transaction_name.text = self.transactions[indexPath.row].getCategory.getName
-                cell.transaction_balance.text = String(self.transactions[indexPath.row].getBalance)
-                cell.transaction_time.text = DateToString(self.transactions[indexPath.row].getCreateAt)
-                cell.transaction_description.text = self.transactions[indexPath.row].getDescription
-                
-                
-                return cell
-            }
-            else{
-                let cell = tableView.dequeueReusableCell(withIdentifier: IncomeCell.identifier, for: indexPath) as! IncomeCell
-                
-                
-                // Đổ dữ liệu lên cell
-                cell.trans_income_image.image = self.transactions[indexPath.row].getCategory.getImage
-                cell.trans_income_name.text = self.transactions[indexPath.row].getCategory.getName
-                cell.trans_income_balance.text = String(self.transactions[indexPath.row].getBalance)
-                cell.trans_income_time.text = DateToString(self.transactions[indexPath.row].getCreateAt)
-                cell.trans_income_des.text = self.transactions[indexPath.row].getDescription
-                
-                return cell
-            }
+        
+        let cell = tableView.dequeueReusableCell(withIdentifier: TransactionTableViewCell.identifier, for: indexPath) as! TransactionTableViewCell
+        
+        
+        // Đổ dữ liệu lên cell
+        cell.transaction_img.image = self.transactions[indexPath.row].getCategory.getImage
+        cell.transaction_name.text = self.transactions[indexPath.row].getCategory.getName
+        cell.transaction_balance.text = String(self.transactions[indexPath.row].getBalance.getVNDFormat())
+        cell.transaction_time.text = DateToString(self.transactions[indexPath.row].getCreateAt)
+        cell.transaction_description.text = self.transactions[indexPath.row].getDescription
+        
+        //        Nếu là thu nhập: Đổi màu chữ qua xanh
+        if (self.transactions[indexPath.row].getBalance > 0 && self.transactions[indexPath.row].getCategory.getinCome){
+            cell.transaction_balance.textColor = .green
+        }
+        else{
+            cell.transaction_balance.textColor = .red
+        }
+        return cell
         
         
         
-
+        
+        
         
     }
     
     // MARK: UITableViewDelegate
     // làm 1 hành động nào đó khi click vào 1 đối tượng
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        // print("Nội dung: ", String(datas[indexPath.row].transactionName))
-        print("Hàng thứ: " + String(indexPath.row))
-        // can sua lai khi gop TransactionTableViewCell va IncomeCell
-
-        //kiem tra xem ep kieu co duoc khong
-        if let cell = tableView.cellForRow(at: indexPath) as? TransactionTableViewCell {
-            let transactionCell = transactions[indexPath.row]
-            //Lấy main.storyboard
-            let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            
-            //kiem tra tag de chuyen man hinh thu nhap (1) hoac chi tieu (0)
-            if cell.tag == 1 {
-                //        Lấy màn hình cần chuyển qua
-                if let view_controller = storyboard.instantiateViewController(withIdentifier: "detail_transaction_Income") as? DetailIncomeViewController  {
-                    //        set title cho navigation
-                    //        view_controller.navigationItem.title = datas[indexPath.row].transactionName
-                    view_controller.delegate = self
-                    //        Đẩy màn hình vào hàng đợi... (chuyển màn hình)
-                    navigationController?.pushViewController(view_controller, animated: true)
-                } else {
-                    fatalError("nil")
-                }
-            }
-            else {
-                //        Lấy màn hình cần chuyển qua
-                if let view_controller = storyboard.instantiateViewController(withIdentifier: "detail_transaction_Expenses") as? DetailExpenseViewController {
-                    //        set title cho navigation
-                    //        view_controller.navigationItem.title = datas[indexPath.row].transactionName
-                    //        Đẩy màn hình vào hàng đợi... (chuyển màn hình)
-                    navigationController?.pushViewController(view_controller, animated: true)
-                }
-               
-            }
-            //
-        }
         
-
+        print("Hàng thứ: " + String(indexPath.row))
+        
+        
         //Lấy main.storyboard
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        // Lấy màn hình cần chuyển qua
-        let view_controller = storyboard.instantiateViewController(withIdentifier: "detail_transaction_Expenses")
-        // set title cho navigation
-        // view_controller.navigationItem.title = datas[indexPath.row].transactionName
-        // Đẩy màn hình vào hàng đợi... (chuyển màn hình)
-        navigationController?.pushViewController(view_controller, animated: true)
-        // self.present(view_controller, animated: true)
+        
+        //        Màn hình màu xanh
+        if (transactions[indexPath.row].getCategory.getinCome){
+//            Lấy màn hình
+            let detail_Income_ViewController = storyboard.instantiateViewController(withIdentifier: "detail_transaction_Income") as! DetailIncomeViewController
+            //        set title cho navigation
+            detail_Income_ViewController.navigationItem.title = "Detail Income Transaction"
+            
+            // Đổ dữ liệu qua màn hình
+            detail_Income_ViewController.transaction = transactions[indexPath.row]
+           
+            
+            // Đẩy màn hình vào hàng đợi... (chuyển màn hình)
+            navigationController?.pushViewController(detail_Income_ViewController, animated: true)
+            
+        }
+//        Màn hình màu đỏ
+        else{
+            let detail_Expense_ViewController = storyboard.instantiateViewController(withIdentifier: "detail_transaction_Expenses") as! DetailExpenseViewController
+            detail_Expense_ViewController.navigationItem.title = "Detail Expenses Transaction"
+            // Lấy màn hình cần chuyển qua
+            detail_Expense_ViewController.transaction = transactions[indexPath.row]
+            // Đẩy màn hình vào hàng đợi... (chuyển màn hình)
+            navigationController?.pushViewController(detail_Expense_ViewController, animated: true)
+            
+        }
 
+       
+        
+        
+        
+        
+        
         
     }
     
@@ -720,7 +632,4 @@ extension Int {
         return "-1";
     }
 }
-//dinh nghia protocol lay du lieu khi edit xong
-protocol TransactionDetailDelegate: AnyObject {
-    func didUpdateTransaction(transaction: Transaction)
-}
+

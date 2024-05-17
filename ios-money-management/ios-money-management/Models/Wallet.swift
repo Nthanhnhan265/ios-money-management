@@ -12,54 +12,61 @@ import UIKit
 import FirebaseCore
 import FirebaseFirestore
 class Wallet {
-    private let ID:String
-    private var Name: String
-    private var Balance: Int
-    private  var Image: UIImage?
-    private var Transactions = [Transaction]()
+    private let id:String
+    private var name: String
+    private var balance: Int
+    private  var image: UIImage?
+    private var transactions = [Transaction]()
+    
     
     init(ID: String, Name: String, Balance: Int, Image: UIImage? = nil, Transaction: [Transaction]) {
-        self.ID = ID
-        self.Name = Name
-        self.Balance = Balance
-        self.Image = Image
-        self.Transactions = Transaction
+        self.id = ID
+        self.name = Name
+        self.balance = Balance
+        self.image = Image
+        self.transactions = Transaction
     }
     var getID:String{
         get{
-            return ID
+            return id
             
         }
     }
     var getImageName:String{
         get{
-            return Image?.imageAsset?.value(forKey: "assetName") as! String
+            return image?.imageAsset?.value(forKey: "assetName") as! String
             
         }
     }
     var getName:String{
         get{
-            return Name
+            return name
         }
     }
-    var getBalance:Int{
+    var Balance:Int{
         get{
-            return Balance
+            return balance
+        }
+        set{
+            balance = newValue
         }
     }
     var getImage:UIImage?{
         get{
-            return Image
-        }
-    }
-    var getTransactions:[Transaction]{
-        get{
-            return Transactions
+            return image
         }
     }
     
+    
+//  MARK: GET SET Transactions cho Wallet
+    func getTransactions() -> [Transaction] {
+            return transactions
+        }
+    func addTransaction(transaction: Transaction) {
+            transactions.append(transaction)
+        }
     public func ToString(){
-        print("Wallet: \(ID) - \(Name) - \(Balance)")
+        print("Wallet: \(id) - \(name) - \(balance)")
     }
     public static func getMyWallets(UID:String) async -> [Wallet]?{
         let db = Firestore.firestore()
@@ -78,7 +85,7 @@ class Wallet {
                         Name: i["Name"] as! String,
                         Balance:i["Balance"] as! Int,
                         Image: UIImage(named: i["Image"] as! String),
-                        Transaction: Transaction.getAllMyTransactions(WalletID: i.documentID)!
+                        Transaction: Transaction.getAllMyTransactions(walletID: i.documentID)!
                     )
                 )
                 
@@ -143,6 +150,7 @@ class Wallet {
         }
     }
     // MARK: Tâm An - Cập nhật ví
+    /// Cập nhật lại thông tin wallet của UID
     static func set_updateWallet(UID:String, wallet: Wallet){
         let db = Firestore.firestore()
         let walletRef = db.collection("Wallets").document(UID)
@@ -152,7 +160,7 @@ class Wallet {
         // Dữ liệu mới của ví
             let walletData: [String: Any] = [
                 "Name": wallet.getName,
-                "Balance": wallet.getBalance,
+                "Balance": wallet.Balance,
                 "ID": wallet.getID,
             ]
 
