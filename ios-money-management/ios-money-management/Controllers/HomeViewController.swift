@@ -72,7 +72,7 @@ class HomeViewController: UIViewController {
                 txt_balance.text = String(setWallets(wallets: userProfile.getWallets ).getVNDFormat())
                 //                             Set transactions
                 for wallet in userProfile.getWallets{
-                    setTransactions(data: wallet.getTransactions)
+                    setTransactions(data: wallet.getTransactions())
                     
 //                    Lấy dữ liệu của userProfile, đọc tất cả các ví -> Đổi vào mảng dữ liệu
                     self.wallets.append(wallet)
@@ -95,6 +95,32 @@ class HomeViewController: UIViewController {
         self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
         
         self.tabBarController?.tabBar.isHidden = false
+        
+        
+        
+        //        Lấy userProfile đang nằm trong Tabbar controller
+        if let tabBarController = self.tabBarController as? TabHomeViewController {
+            // Truy cập dữ liệu trong TabBarController
+            if let userProfile = tabBarController.userProfile
+            {
+                //        cập nhật số tiền
+                txt_balance.text = String(setWallets(wallets: userProfile.getWallets ).getVNDFormat())
+                
+                //                trả mảng transaction về rỗng
+                transactions = []
+                //                             Set transactions
+                for wallet in userProfile.getWallets{
+                    setTransactions(data: wallet.getTransactions())
+                    wallet.ToString()
+                }
+                transactions.sort { $0.getCreateAt > $1.getCreateAt }
+                
+                
+            }
+            
+        }
+        table_view.reloadData()
+        
         
         
         
@@ -177,7 +203,7 @@ class HomeViewController: UIViewController {
         
         //        Cộng tổng tiền của các ví
         for i in wallets{
-            total_balance += i.getBalance
+            total_balance += i.Balance
         }
         
         
@@ -210,7 +236,7 @@ class HomeViewController: UIViewController {
             }
             
             // Cập nhật txt_balance.text
-            self?.txt_balance.text = String(selectedWallet.getBalance.getVNDFormat())
+            self?.txt_balance.text = String(selectedWallet.Balance.getVNDFormat())
             
             // Bạn có thể thực hiện thêm các hành động khác ở đây (ví dụ: cập nhật giao diện)
             
@@ -245,13 +271,13 @@ class HomeViewController: UIViewController {
         //        Nếu có ví được chọn
         if (currentFilterState.selectedWallet != nil){
             //            Lấy transaction của ví hiện tại được chọn
-            setTransactions(data: currentFilterState.selectedWallet!.getTransactions)
+            setTransactions(data: currentFilterState.selectedWallet!.getTransactions())
         }
         //        Nếu không có ví được chọn: Lấy tất cả giao dịch của các ví
         else{
             
             for i in wallets{
-                setTransactions(data: i.getTransactions)
+                setTransactions(data: i.getTransactions())
             }
             
         }

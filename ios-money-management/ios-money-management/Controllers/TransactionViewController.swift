@@ -45,7 +45,7 @@ class TransactionViewController: UIViewController {
                 
                 //                Set transactions
                 for wallet in userProfile.getWallets{
-                    setDataTransaction(transactions: wallet.getTransactions)
+                    setDataTransaction(transactions: wallet.getTransactions())
                     
                     
                 }

@@ -1,29 +1,22 @@
 //
-//  TabHomeViewController.swift
-//  ios-money-management
+// TabHomeViewController.swift
+// ios-money-management
 //
-//  Created by AnNguyen on 27/04/2024.
+// Created by AnNguyen on 27/04/2024.
 //
 
 import UIKit
 
 class TabHomeViewController: UITabBarController {
     var userProfile:UserProfile? = nil
-        
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         if let userProfile = userProfile{
-                        print("TabHomeViewController - \(userProfile.getFullname)")
-            
-           
-            
+            print("TabHomeViewController - \(userProfile.getFullname)")
         }
-        
-        
-    }
-/// Hàm sử dụng để tìm đối tượng wallet từ Wallet_ID
-    public  func getWalletFromTransaction(wallet_ID:String)->Wallet?{
+     }
+    /// Hàm sử dụng để tìm đối tượng wallet từ Wallet_ID
+    public func getWalletFromTransaction(wallet_ID:String)->Wallet?{
         if let userProfile = self.userProfile{
             for wallet in userProfile.getWallets{
                 if wallet.getID == wallet_ID{
@@ -33,8 +26,4 @@ class TabHomeViewController: UITabBarController {
         }
         return nil
     }
-   
-    
-
-   
 }

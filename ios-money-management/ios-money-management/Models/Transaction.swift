@@ -131,28 +131,55 @@ class Transaction  {
             return Date.now
         }
     }
-    public static func addTransaction(wallet_id:String, balance:Int, category_id:String, des:String ){
-        let db = Firestore.firestore()
+    ///Hàm ghi 1 giao dịch mới lên DB trong wallet_id
+    ///Và trả về 1 String là ID của giao dịch mới được khởi tạo
+    public static func addTransaction(wallet_id:String, balance:Int, category_id:String, des:String )async throws -> String{
+            let db = Firestore.firestore()
+            
+            // Tạo một DocumentReference để lấy ID sau khi document được tạo
+            let transactionRef = db.collection("Transactions").document(wallet_id).collection("Transaction").document()
+            
+            let transactionData: [String: Any] = [
+                "Balance": balance,
+                "Category_ID": category_id,
+                "Description": des,
+                "CreateAt": Date()
+            ]
+            // Sử dụng transactionRef để thêm document
+            try await transactionRef.setData(transactionData)
+
+            // Cập nhật lại document với trường ID
+            try await transactionRef.updateData(["ID": transactionRef.documentID])
+            print("Transaction added successfully!")
+
+            return transactionRef.documentID // Trả về ID giao dịch mới
         
-        // Tạo một DocumentReference để lấy ID sau khi document được tạo
-        let transactionRef = db.collection("Transactions").document(wallet_id).collection("Transaction").document()
-        
-        let transactionData: [String: Any] = [
-            "Balance": balance,
-            "Category_ID": category_id,
-            "Description": des,
-            "CreateAt": Date()
-        ]
-        // Sử dụng transactionRef để thêm document
-        transactionRef.setData(transactionData) { error in
-            if let error = error {
-                print("Error adding transaction: \(error)")
-            } else {
-                // Cập nhật lại document với trường ID
-                transactionRef.updateData(["ID": transactionRef.documentID])
-                print("Transaction added successfully!")
-            }
-        }
+
+        //        let db = Firestore.firestore()
+//
+//        // Tạo một DocumentReference để lấy ID sau khi document được tạo
+//        let transactionRef = db.collection("Transactions").document(wallet_id).collection("Transaction").document()
+//
+//        let transactionData: [String: Any] = [
+//            "Balance": balance,
+//            "Category_ID": category_id,
+//            "Description": des,
+//            "CreateAt": Date()
+//        ]
+//        // Sử dụng transactionRef để thêm document
+//        transactionRef.setData(transactionData) { error in
+//            if let error = error {
+//                print("Error adding transaction: \(error)")
+//            } else {
+//                // Cập nhật lại document với trường ID
+//                transactionRef.updateData(["ID": transactionRef.documentID])
+//                print("Transaction added successfully!")
+//
+//            }
+//
+//        }
+//        return transactionRef.documentID // Trả về ID giao dịch mới
+
         
     }
   
