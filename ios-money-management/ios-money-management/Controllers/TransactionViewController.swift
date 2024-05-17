@@ -8,12 +8,12 @@
 import UIKit
 
 class TransactionViewController: UIViewController {
-//    Cấu trúc để chia giao dịch theo ngày
+    //    Cấu trúc để chia giao dịch theo ngày
     struct Section {
         let date: Date
-        let transactions: [Transaction]
+        var transactions: [Transaction]
     }
-//    MARK: Properties
+    //    MARK: Properties
     @IBOutlet weak var tableview: UITableView!
     @IBOutlet weak var popup_time: UIButton!
     @IBOutlet weak var view_rangeTime: UIView!
@@ -21,80 +21,142 @@ class TransactionViewController: UIViewController {
     @IBOutlet weak var view_filter: UIView!
     
     //    Dữ liệu
-    private var datas = [Transaction]()
+    private var transactions = [Transaction]()
     private var wallets = [Wallet]()
     var sections: [Section] = [
-        Section(date: Date(), transactions: [
-        ]),
-        Section(date: Date().addingTimeInterval(-24 * 60 * 60), transactions: [
-        ]),
+        //        Section(date: Date(), transactions: [
+        //        ]),
+        //        Section(date: Date().addingTimeInterval(-24 * 60 * 60), transactions: [
+        //        ]),
     ]
-
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("Vào TransactionViewController")
         
-        //       Lấy UID
+        // Lấy UID
         let UID = UserDefaults.standard.string(forKey: "UID") ?? ""
         
-//        Đọc toàn bộ user profile
-        Task{
-            if let userProfile = await UserProfile.getUserProfine(UID: UID){
-                
-                
-                //                Set transactions
-                for wallet in userProfile.getWallets{
-                    setDataTransaction(transactions: wallet.getTransactions())
-                    
-                    
+        
+        //debug
+        print("Vào TransactionViewController - \(UID)")
+        
+        //        Lấy userProfile đang nằm trong Tabbar controller
+        if let tabBarController = self.tabBarController as? TabHomeViewController {
+            // Truy cập dữ liệu trong TabBarController
+            if let userProfile = tabBarController.userProfile
+            {
+                for wallet in userProfile.getWallets {
+                    setTransactions(data: wallet.getTransactions())
                 }
-                // Reload table view on main thread
-                await MainActor.run {
-                    datas.sort { $0.getCreateAt > $1.getCreateAt }
-                    tableview.reloadData()
-                }
+                //                Sắp xếp mới nhất
+                transactions.sort { $0.getCreateAt > $1.getCreateAt }
+                
+                //                Lọc transactions theo ngày
+                sections = createSections(from: transactions)
             }
             
-            
         }
-
-
+        
+        
+        
         //        Setting cho table view
         tableview.dataSource = self
         tableview.delegate = self
         tableview.register(TransactionTableViewCell.nib(), forCellReuseIdentifier: TransactionTableViewCell.identifier)
-        
-//        setDataTransaction()
-//        setCategory()
-//        setTimeline()
+        //        setDataTransaction()
+        //        setCategory()
+        //        setTimeline()
     }
-    func setTimeline()  {
-        let optionClosure = { (action: UIAction) in
-             print(action.title)
-           }
-
-        popup_time.menu = UIMenu(children: [
-             UIAction(title: "Tháng", state: .on, handler: optionClosure),
-             UIAction(title: "Ngày", handler: optionClosure),
-             UIAction(title: "Năm", handler: optionClosure),
-           ])
+    func createSections(from transactions: [Transaction]) -> [Section] {
+        var sections: [Section] = []
+        var currentSection: Section?
+        
+        for transaction in transactions {
+            let date = Calendar.current.startOfDay(for: transaction.getCreateAt)
+            
+            // Check if currentSection is nil or the date has changed
+            if currentSection == nil || currentSection!.date != date {
+                // If the currentSection has transactions, append it to sections
+                if let section = currentSection, !section.transactions.isEmpty {
+                    sections.append(section)
+                }
+                // Create a new Section for the new date
+                currentSection = Section(date: date, transactions: [])
+            }
+            
+            // Add transaction to the current section
+            currentSection?.transactions.append(transaction)
+        }
+        
+        // Append the last section if it contains transactions
+        if let section = currentSection, !section.transactions.isEmpty {
+            sections.append(section)
+        }
+        
+        return sections
     }
     
+    //    func createSections(from transactions: [Transaction]) -> [Section] {
+    ////        Mảng sẽ return về
+    //        var sections: [Section] = []
+    ////        biến tạm đang nill
+    //        var currentSection: Section?
+    //
+    ////        Duyệt tất cả giao dịch
+    //        for transaction in transactions {
+    ////            lấy ngày của trasaction
+    //            let date = Calendar.current.startOfDay(for: transaction.getCreateAt)
+    //
+    //            // Nếu biến tạm chưa tồn tại hoặc ngày của transaction khác với ngày của biến tạm
+    //            if currentSection == nil || currentSection!.date != date {
+    ////                gán tạo 1 Section mới vào biến tạm
+    ////                Section này có ngày là ngày của giao dịch và mảng rõng
+    //                currentSection = Section(date: date, transactions: [])
+    //
+    ////                Cộng vào biến sẽ return biến tạm này
+    //                sections.append(currentSection!)
+    //            }
+    //
+    //            // Thêm transaction vào section tương ứng
+    //            currentSection?.transactions.append(transaction)
+    //        }
+    //
+    //        return sections
+    //    }
+    
+    func setTimeline()  {
+        let optionClosure = { (action: UIAction) in
+            print(action.title)
+        }
+        
+        popup_time.menu = UIMenu(children: [
+            UIAction(title: "Tháng", state: .on, handler: optionClosure),
+            UIAction(title: "Ngày", handler: optionClosure),
+            UIAction(title: "Năm", handler: optionClosure),
+        ])
+    }
+    ///Nạp tất cả transaction được truyền vào vào mảng transactions để đổ lên table view
+    func setTransactions(data: [Transaction]) {
+        
+        for i in data{
+            transactions.append(i)
+        }
+    }
     @IBAction func btn_rangeTime_Tapped(_ sender: UIBarButtonItem) {
         view_rangeTime.isHidden = !view_rangeTime.isHidden
         
     }
     func setCategory()  {
         let optionClosure = { (action: UIAction) in
-             print(action.title)
-           }
-
+            print(action.title)
+        }
+        
         popup_cate.menu = UIMenu(children: [
-             UIAction(title: "Tổng cộng", state: .on, handler: optionClosure),
-             UIAction(title: "MB Bank", handler: optionClosure),
-             UIAction(title: "Tiền mặt", handler: optionClosure),
-           ])
+            UIAction(title: "Tổng cộng", state: .on, handler: optionClosure),
+            UIAction(title: "MB Bank", handler: optionClosure),
+            UIAction(title: "Tiền mặt", handler: optionClosure),
+        ])
     }
     /// Hàm chuyển đồ từ Date sang String
     func DateToString(_ date:Date) -> String{
@@ -113,16 +175,16 @@ class TransactionViewController: UIViewController {
         dateFormatter.locale = Locale(identifier: "vi_VN")
         
         //09/05/2024
-//        print(dateFormatter.string(from: currentDateAndTime))
-//        Date -> String
-//        print(type(of: dateFormatter.string(from: currentDateAndTime)))
+        //        print(dateFormatter.string(from: currentDateAndTime))
+        //        Date -> String
+        //        print(type(of: dateFormatter.string(from: currentDateAndTime)))
         
         
         return dateFormatter.string(from: currentDateAndTime)
     }
     /// Hàm Chuyển đổi từ String sang Date
     func StringToDate(_ str_date:String) -> Date? {
-       let dateFormatter = DateFormatter()
+        let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "dd/MM/yyyy"
         dateFormatter.timeZone = TimeZone(identifier: "UTC")
         dateFormatter.dateStyle = .short
@@ -131,7 +193,7 @@ class TransactionViewController: UIViewController {
         
         if let rs = dateFormatter.date(from: str_date){
             
-
+            
             return rs
         }
         else
@@ -140,15 +202,8 @@ class TransactionViewController: UIViewController {
             return Date.now
         }
     }
-//    Hàm set dữ liệu giả cho ví
-    func setDataTransaction(transactions: [Transaction]) {
-      
-        for i in transactions{
-            datas.append(i)
-        }
-        
-    }
-
+    
+    
     @IBAction func btn_filter_tapped(_ sender: UIBarButtonItem) {
         view_filter.isHidden = !view_filter.isHidden
     }
@@ -157,54 +212,59 @@ class TransactionViewController: UIViewController {
     
 }
 extension TransactionViewController: UITableViewDataSource, UITableViewDelegate{
-//    UITableViewDataSource
+    //    UITableViewDataSource
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return datas.count
-//        return sections[section].transactions.count
+        return sections[section].transactions.count // Trả về số lượng giao dịch trong section đó
     }
     func numberOfSections(in tableView: UITableView) -> Int {
         return sections.count
     }
-
+    
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//        Màu đỏ
         
-            let cell = tableview.dequeueReusableCell(withIdentifier: TransactionTableViewCell.identifier, for: indexPath) as! TransactionTableViewCell
-            let item = datas[indexPath.row]
-
-    //Bỏ thông tin vào các UI của cell
-            cell.transaction_name.text = self.datas[indexPath.row].getCategory.getName
-            cell.transaction_img.image = self.datas[indexPath.row].getCategory.getImage
-            cell.transaction_description.text = self.datas[indexPath.row].getDescription
-            cell.transaction_balance.text = String(self.datas[indexPath.row].getBalance)
-            cell.transaction_time.text = DateToString(self.datas[indexPath.row].getCreateAt)
-            return cell
-       
+        let cell = tableview.dequeueReusableCell(withIdentifier: TransactionTableViewCell.identifier, for: indexPath) as! TransactionTableViewCell
+        let transaction = sections[indexPath.section].transactions[indexPath.row]
+        
+        //Bỏ thông tin vào các UI của cell
+        cell.transaction_name.text = transaction.getCategory.getName
+        cell.transaction_img.image = transaction.getCategory.getImage
+        cell.transaction_description.text = transaction.getDescription
+        cell.transaction_balance.text = String(transaction.getBalance)
+        cell.transaction_time.text = DateToString(transaction.getCreateAt)
+        
+        
+        //        Nếu là thu nhập: Đổi màu chữ qua xanh
+        if (transaction.getBalance > 0 && transaction.getCategory.getinCome){
+            cell.transaction_balance.textColor = .green
+        }
+        else{
+            cell.transaction_balance.textColor = .red
+        }
+        return cell
         
     }
-//    Hàm set title TODAY, YESTERDAY...
+    //    Hàm set title TODAY, YESTERDAY...
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "dd/MM/yyyy"
-            return dateFormatter.string(from: sections[section].date)
+        dateFormatter.dateFormat = "dd/MM/yyyy"
+        return dateFormatter.string(from: sections[section].date)
     }
-
+    
     
     //  UITableViewDelegate
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print(datas[indexPath.row])
+        print(transactions[indexPath.row])
         
-//        Chuyển màn hình
+        //        Chuyển màn hình
         //Lấy main.storyboard
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         //        Lấy màn hình cần chuyển qua
         let view_controller = storyboard.instantiateViewController(withIdentifier: "detail_transaction")
         //        set title cho navigation
-//        view_controller.navigationItem.title = datas[indexPath.row]
-
+        //        view_controller.navigationItem.title = transactions[indexPath.row]
+        
         //        Đẩy màn hình vào hàng đợi... (chuyển màn hình)
         navigationController?.pushViewController(view_controller, animated: true)
     }
 }
-
