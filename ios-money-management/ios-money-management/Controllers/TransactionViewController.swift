@@ -28,8 +28,8 @@ class TransactionViewController: UIViewController {
         //        Right
         var isIncome: Bool?
         var sort_new: Bool = true
-        var category: Category?
-        var wallet: Wallet?
+        var category_id: String?
+        var wallet_id: String?
     }
     
     var currentFilterState = FilterState()
@@ -41,6 +41,8 @@ class TransactionViewController: UIViewController {
     @IBOutlet weak var filter_right: UIView!
     @IBOutlet weak var filter_opacity: UIView!
     
+    @IBOutlet weak var btn_sortOld: UIButton!
+    @IBOutlet weak var btn_sortNew: UIButton!
     @IBOutlet weak var btnCategory_Expenses: UIButton!
     @IBOutlet weak var btnCategory_Income: UIButton!
     @IBOutlet weak var time_from: UIDatePicker!
@@ -139,6 +141,9 @@ class TransactionViewController: UIViewController {
     func setFrontEnd() {
         time_to.maximumDate = Date()
         time_from.maximumDate = Date()
+        
+        btn_sortNew.backgroundColor = UIColor(red: 118/255, green: 64/255, blue: 246/255, alpha: 1.0)
+        btn_sortNew.layer.cornerRadius = 20
     }
     func createSections(from transactions: [Transaction]) -> [Section] {
         var sections: [Section] = []
@@ -310,12 +315,19 @@ class TransactionViewController: UIViewController {
         //        new lại đối tượng mới
         currentFilterState = FilterState()
         
-        //        xoá giao diện filter
+        //        xoá giao diện filter category
         btnCategory_Expenses.backgroundColor = .white
         btnCategory_Expenses.layer.cornerRadius = 20
         
         btnCategory_Income.backgroundColor = .white
         btnCategory_Income.layer.cornerRadius = 20
+        
+        
+//        reset giao diện filter sort by
+        btn_sortNew.backgroundColor = UIColor(red: 118/255, green: 64/255, blue: 246/255, alpha: 1.0)
+        btn_sortNew.layer.cornerRadius = 20
+
+        btn_sortOld.backgroundColor = .white
         
     }
     @IBAction func btn_submit_right_tapped(_ sender: UIButton) {
@@ -327,6 +339,21 @@ class TransactionViewController: UIViewController {
         
         // Cập nhật table view
         updateTransactions()
+    }
+    
+    @IBAction func btn_sortOld_tapped(_ sender: UIButton) {
+        btn_sortOld.backgroundColor = UIColor(red: 118/255, green: 64/255, blue: 246/255, alpha: 1.0)
+        btn_sortOld.layer.cornerRadius = 20
+        btn_sortNew.backgroundColor = .white
+        
+        currentFilterState.sort_new = false
+    }
+    @IBAction func btn_sortNew_tapped(_ sender: UIButton) {
+        btn_sortNew.backgroundColor = UIColor(red: 118/255, green: 64/255, blue: 246/255, alpha: 1.0)
+        btn_sortNew.layer.cornerRadius = 20
+        btn_sortOld.backgroundColor = .white
+        
+        currentFilterState.sort_new = true
     }
     
     @IBAction func btn_submit_left_tapped(_ sender: UIButton) {
