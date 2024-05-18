@@ -104,10 +104,13 @@ class NewIncomeController: UIViewController, UICollectionViewDelegateFlowLayout,
         self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
     }
     func setCategoryExpenses() {
-        Task {
-            let income = await Category.getIncome()
+//        lấy tab bar controller
+        if let tabBarController = self.tabBarController as? TabHomeViewController {
+//            lấy danh sách income
+            let category_income = tabBarController.category_income
             
-            let actions = income.map { category in
+//            Đổ dữ liệu vào pop up
+            let actions = category_income.map { category in
                 UIAction(title: category.getName, image: category.getImage) { [weak self] action in
                     guard let self = self else { return } // Tránh strong reference cycle
                     self.categoryID = category.getID
@@ -115,12 +118,28 @@ class NewIncomeController: UIViewController, UICollectionViewDelegateFlowLayout,
                     self.popupCategoryButton.setImage(action.image, for: .normal)
                 }
             }
+//            set pop up
+            popupCategoryButton.menu = UIMenu(children: actions)
+            popupCategoryButton.showsMenuAsPrimaryAction = true
             
-            await MainActor.run {
-                popupCategoryButton.menu = UIMenu(children: actions)
-                popupCategoryButton.showsMenuAsPrimaryAction = true
-            }
         }
+//        Task {
+//            let income = await Category.getIncome()
+//
+//            let actions = income.map { category in
+//                UIAction(title: category.getName, image: category.getImage) { [weak self] action in
+//                    guard let self = self else { return } // Tránh strong reference cycle
+//                    self.categoryID = category.getID
+//                    self.popupCategoryButton.setAttributedTitle(NSAttributedString(string: action.title), for: .normal)
+//                    self.popupCategoryButton.setImage(action.image, for: .normal)
+//                }
+//            }
+//
+//            await MainActor.run {
+//                popupCategoryButton.menu = UIMenu(children: actions)
+//                popupCategoryButton.showsMenuAsPrimaryAction = true
+//            }
+//        }
     }
     func setWallets(wallets:[Wallet])  {
         // Tạo các UIAction từ danh sách Wallet

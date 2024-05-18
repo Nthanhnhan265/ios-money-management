@@ -111,7 +111,6 @@ class HomeViewController: UIViewController {
                 //                             Set transactions
                 for wallet in userProfile.getWallets{
                     setTransactions(data: wallet.getTransactions())
-                    wallet.ToString()
                 }
                 transactions.sort { $0.getCreateAt > $1.getCreateAt }
                 

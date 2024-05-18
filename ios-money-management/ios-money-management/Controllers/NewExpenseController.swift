@@ -206,10 +206,13 @@ class NewExpenseController: UIViewController, PHPickerViewControllerDelegate, UI
         popupWalletButton.showsMenuAsPrimaryAction = true
     }
     func setCategoryExpenses() {
-        Task {
-            let expenses = await Category.getExpenses()
+        //        lấy tab bar controller
+        if let tabBarController = self.tabBarController as? TabHomeViewController {
+            //            lấy danh sách income
+            let category_income = tabBarController.category_expenses
             
-            let actions = expenses.map { category in
+            //            Đổ dữ liệu vào pop up
+            let actions = category_income.map { category in
                 UIAction(title: category.getName, image: category.getImage) { [weak self] action in
                     guard let self = self else { return } // Tránh strong reference cycle
                     self.categoryID = category.getID
@@ -217,11 +220,9 @@ class NewExpenseController: UIViewController, PHPickerViewControllerDelegate, UI
                     self.popupCategoryButton.setImage(action.image, for: .normal)
                 }
             }
-            
-            await MainActor.run {
-                popupCategoryButton.menu = UIMenu(children: actions)
-                popupCategoryButton.showsMenuAsPrimaryAction = true
-            }
+            //            set pop up
+            popupCategoryButton.menu = UIMenu(children: actions)
+            popupCategoryButton.showsMenuAsPrimaryAction = true
         }
     }
     //MARK: event
