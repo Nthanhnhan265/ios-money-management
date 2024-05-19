@@ -20,16 +20,16 @@ class TabHomeViewController: UITabBarController {
         Task {
             
              category_income = await Category.getIncome()
-            
-            
-            
-        }
-        Task{
             category_expenses = await Category.getExpenses()
             
+            category_all = category_income + category_expenses
+            
+            
         }
-        category_all = category_income + category_expenses
-     }
+        
+        
+        
+    }
     /// Hàm sử dụng để tìm đối tượng wallet từ Wallet_ID
     public func getWalletFromTransaction(wallet_ID:String)->Wallet?{
         if let userProfile = self.userProfile{

@@ -41,6 +41,7 @@ class TransactionViewController: UIViewController {
     @IBOutlet weak var filter_right: UIView!
     @IBOutlet weak var filter_opacity: UIView!
     
+    @IBOutlet weak var popup_wallet: UIButton!
     @IBOutlet weak var btn_sortOld: UIButton!
     @IBOutlet weak var btn_sortNew: UIButton!
     @IBOutlet weak var btnCategory_Expenses: UIButton!
@@ -50,12 +51,7 @@ class TransactionViewController: UIViewController {
     //    Dữ liệu
     private var transactions = [Transaction]()
     private var wallets = [Wallet]()
-    var sections: [Section] = [
-        //        Section(date: Date(), transactions: [
-        //        ]),
-        //        Section(date: Date().addingTimeInterval(-24 * 60 * 60), transactions: [
-        //        ]),
-    ]
+    var sections: [Section] = []
     
     
     override func viewDidLoad() {
@@ -82,7 +78,6 @@ class TransactionViewController: UIViewController {
                 //                Lọc transactions theo ngày
                 sections = createSections(from: transactions)
             }
-            
         }
         
         
@@ -93,7 +88,8 @@ class TransactionViewController: UIViewController {
         tableview.register(TransactionTableViewCell.nib(), forCellReuseIdentifier: TransactionTableViewCell.identifier)
         
         setFrontEnd()
-        //                setCategory()
+        setCategory()
+        setWallet()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -144,6 +140,7 @@ class TransactionViewController: UIViewController {
         
         btn_sortNew.backgroundColor = UIColor(red: 118/255, green: 64/255, blue: 246/255, alpha: 1.0)
         btn_sortNew.layer.cornerRadius = 20
+        
     }
     func createSections(from transactions: [Transaction]) -> [Section] {
         var sections: [Section] = []
@@ -173,36 +170,6 @@ class TransactionViewController: UIViewController {
         
         return sections
     }
-    
-    //    func createSections(from transactions: [Transaction]) -> [Section] {
-    ////        Mảng sẽ return về
-    //        var sections: [Section] = []
-    ////        biến tạm đang nill
-    //        var currentSection: Section?
-    //
-    ////        Duyệt tất cả giao dịch
-    //        for transaction in transactions {
-    ////            lấy ngày của trasaction
-    //            let date = Calendar.current.startOfDay(for: transaction.getCreateAt)
-    //
-    //            // Nếu biến tạm chưa tồn tại hoặc ngày của transaction khác với ngày của biến tạm
-    //            if currentSection == nil || currentSection!.date != date {
-    ////                gán tạo 1 Section mới vào biến tạm
-    ////                Section này có ngày là ngày của giao dịch và mảng rõng
-    //                currentSection = Section(date: date, transactions: [])
-    //
-    ////                Cộng vào biến sẽ return biến tạm này
-    //                sections.append(currentSection!)
-    //            }
-    //
-    //            // Thêm transaction vào section tương ứng
-    //            currentSection?.transactions.append(transaction)
-    //        }
-    //
-    //        return sections
-    //    }
-    
-    
     ///Nạp tất cả transaction được truyền vào vào mảng transactions để đổ lên table view
     func setTransactions(data: [Transaction]) {
         
@@ -211,18 +178,86 @@ class TransactionViewController: UIViewController {
             i.toString()
         }
     }
-    
-    
-    func setCategory()  {
-        let optionClosure = { (action: UIAction) in
-            print(action.title)
+    func setWallet()  {
+        if let tabBarController = self.tabBarController as? TabHomeViewController {
+            if let wallets = tabBarController.userProfile?.getWallets{
+                //            Đổ dữ liệu vào pop up
+                let actions = wallets.map { wallet in
+                    UIAction(title: wallet.getName, image: wallet.getImage) { [weak self] action in
+                        guard let self = self else { return } // Tránh strong reference cycle
+
+                        self.currentFilterState.wallet_id = wallet.getID
+                        self.popup_wallet.setAttributedTitle(NSAttributedString(string: action.title), for: .normal)
+                        
+                    }
+                    
+                }
+                // Tạo UIAction "Tất cả" và thêm vào đầu danh sách
+                        let allAction = UIAction(title: "Tất cả", state: .on) { [weak self] action in
+                            guard let self = self else { return }
+                            
+                            self.currentFilterState.wallet_id = nil
+                            self.popup_wallet.setAttributedTitle(NSAttributedString(string: action.title), for: .normal)
+
+                        }
+                //            set pop up
+                popup_wallet.menu = UIMenu(children: [allAction] + actions)
+                popup_wallet.showsMenuAsPrimaryAction = true
+                
+            }
         }
+       
+            
+    }
         
-        popup_cate.menu = UIMenu(children: [
-            UIAction(title: "Tổng cộng", state: .on, handler: optionClosure),
-            UIAction(title: "MB Bank", handler: optionClosure),
-            UIAction(title: "Tiền mặt", handler: optionClosure),
-        ])
+    func setCategory()  {
+        //        Lấy userProfile đang nằm trong Tabbar controller
+        if let tabBarController = self.tabBarController as? TabHomeViewController {
+            
+//Khai báo mảng chứa category sẽ đẩy lên pop up
+            var categories:[Category] = []
+//            nếu người dùng không chọn category income/expenses
+            if currentFilterState.isIncome == nil{
+//                Lấy hết
+                categories = tabBarController.category_all
+            }
+            else{
+//                lấy income
+                if currentFilterState.isIncome!{
+                    categories = tabBarController.category_income
+                }
+//                lấy expenses
+                else{
+                    categories = tabBarController.category_expenses
+                }
+            }
+            
+            //            Đổ dữ liệu vào pop up
+            let actions = categories.map { category in
+                UIAction(title: category.getName, image: category.getImage) { [weak self] action in
+                    guard let self = self else { return } // Tránh strong reference cycle
+
+                    self.currentFilterState.category_id = category.getID
+                    self.popup_cate.setAttributedTitle(NSAttributedString(string: action.title), for: .normal)
+                    
+                }
+                
+            }
+            
+            // Tạo UIAction "Tất cả" và thêm vào đầu danh sách
+                    let allAction = UIAction(title: "Tất cả", state: .on) { [weak self] action in
+                        guard let self = self else { return }
+                        
+                        self.currentFilterState.category_id = nil
+                        self.popup_cate.setAttributedTitle(NSAttributedString(string: action.title), for: .normal)
+
+                    }
+            //            set pop up
+            popup_cate.menu = UIMenu(children: [allAction] + actions)
+            popup_cate.showsMenuAsPrimaryAction = true
+            
+            
+        }
     }
     
     /// Hàm Chuyển đổi từ String sang Date
@@ -296,6 +331,9 @@ class TransactionViewController: UIViewController {
         
         //        bật biến filter
         currentFilterState.isIncome = false
+        popup_cate.setAttributedTitle(NSAttributedString(string: "Tất cả"), for: .normal)
+        currentFilterState.category_id = nil
+        setCategory()
     }
     @IBAction func btnCategory_Income_Tapped(_ sender: UIButton) {
         //        Xoá active button expenses
@@ -308,6 +346,10 @@ class TransactionViewController: UIViewController {
         sender.layer.cornerRadius = 20
         //        bật biến filter
         currentFilterState.isIncome = true
+        popup_cate.setAttributedTitle(NSAttributedString(string: "Tất cả"), for: .normal)
+        currentFilterState.category_id = nil
+//        set pop up
+        setCategory()
     }
     
     
@@ -323,11 +365,21 @@ class TransactionViewController: UIViewController {
         btnCategory_Income.layer.cornerRadius = 20
         
         
-//        reset giao diện filter sort by
+        //        reset giao diện filter sort by
         btn_sortNew.backgroundColor = UIColor(red: 118/255, green: 64/255, blue: 246/255, alpha: 1.0)
         btn_sortNew.layer.cornerRadius = 20
-
+        
         btn_sortOld.backgroundColor = .white
+        
+//        Gọi lại hàm set category -> Lấy tất cả category
+            popup_cate.setAttributedTitle(NSAttributedString(string: "Tất cả"), for: .normal)
+        currentFilterState.category_id = nil
+        setCategory()
+        
+        
+        popup_wallet.setAttributedTitle(NSAttributedString(string: "Tất cả"), for: .normal)
+        setWallet()
+
         
     }
     @IBAction func btn_submit_right_tapped(_ sender: UIButton) {
@@ -403,23 +455,23 @@ class TransactionViewController: UIViewController {
     }
     
     func updateTransactions(){
-//        Tạo 1 bản sao của toàn bộ transactions
+        //        Tạo 1 bản sao của toàn bộ transactions
         var filteredTransactions = transactions
         
-//        filter bên trái: Có lựa chọn nào
+        //        filter bên trái: Có lựa chọn nào
         if (currentFilterState.filter_left !=  nil){
             // Lọc các giao dịch theo thời gian
-             filteredTransactions = transactions.filter { transaction in
+            filteredTransactions = transactions.filter { transaction in
                 return (currentFilterState.filter_left?.time_from!)! <= transaction.getCreateAt && transaction.getCreateAt <= (currentFilterState.filter_left?.time_to!)!
             }        }
-
         
-       
-       
-//       Category có sự lựa chọn True False
+        
+        
+        
+        //       Category có sự lựa chọn True False
         if currentFilterState.isIncome != nil{
             
-//            Nếu lựa chọn Income
+            //            Nếu lựa chọn Income
             if currentFilterState.isIncome!{
                 filteredTransactions = filteredTransactions.filter { $0.getCategory.getinCome == true } // Lọc các giao dịch có isIncome = true
             }
@@ -428,7 +480,18 @@ class TransactionViewController: UIViewController {
             }
         }
         
-    
+//        Nếu category được chọn
+        if currentFilterState.category_id != nil{
+            filteredTransactions = filteredTransactions.filter {$0.getCategory.getID == currentFilterState.category_id}
+        }
+        
+//        Nếu wallet được chọn
+        if currentFilterState.wallet_id != nil{
+            filteredTransactions = filteredTransactions.filter{
+                $0.getWalletID == currentFilterState.wallet_id
+            }
+        }
+        
         
         
         
