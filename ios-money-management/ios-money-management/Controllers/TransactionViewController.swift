@@ -109,6 +109,41 @@ class TransactionViewController: UIViewController {
         
         
         
+        // Lấy UID
+        let UID = UserDefaults.standard.string(forKey: "UID") ?? ""
+        
+        
+        //debug
+        print("Vào TransactionViewController - \(UID)")
+        
+        //        Lấy userProfile đang nằm trong Tabbar controller
+        if let tabBarController = self.tabBarController as? TabHomeViewController {
+            // Truy cập dữ liệu trong TabBarController
+            if let userProfile = tabBarController.userProfile
+            {
+                transactions = []
+                for wallet in userProfile.getWallets {
+                    setTransactions(data: wallet.getTransactions())
+                }
+                //                Sắp xếp mới nhất
+                transactions.sort { $0.getCreateAt > $1.getCreateAt }
+                
+                //                Lọc transactions theo ngày
+                sections = createSections(from: transactions)
+            }
+        }
+        
+        
+        
+        //        Setting cho table view
+        tableview.dataSource = self
+        tableview.delegate = self
+        tableview.register(TransactionTableViewCell.nib(), forCellReuseIdentifier: TransactionTableViewCell.identifier)
+        
+        setFrontEnd()
+        setCategory()
+        setWallet()
+        tableview.reloadData()
     }
     /// Hàm chuyển đồ từ Date sang String
     func DateToString(_ date:Date) -> String{
@@ -175,7 +210,6 @@ class TransactionViewController: UIViewController {
         
         for i in data{
             transactions.append(i)
-            i.toString()
         }
     }
     func setWallet()  {

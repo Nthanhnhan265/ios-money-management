@@ -203,7 +203,7 @@ class NewIncomeController: UIViewController, UICollectionViewDelegateFlowLayout,
                             des: description
                         )
 
-                        // Cập nhật ví trên DB
+                        // Cập nhật số dư ví trên DB
                         Wallet.set_updateWallet(UID: UID, wallet: Wallet(ID: wallet.getID, Name: wallet.getName, Balance: wallet.Balance + balance, Transaction: wallet.getTransactions()))
                         
 
@@ -211,8 +211,9 @@ class NewIncomeController: UIViewController, UICollectionViewDelegateFlowLayout,
                         
                         
 
-                        // Thêm transaction vào mảng transactions của ví
-                        let newTransaction = await Transaction(id: transactionID, description: description, balance: balance, category: Category.getCategory(Category_ID: categoryID)!, create_at: Date(), wallet_id: wallet.getID) // Tạo transaction mới với ID vừa nhận được
+                        // Thêm transaction mới tạo vào mảng transactions của ví ở
+                        // Tạo transaction mới với ID vừa nhận được
+                        let newTransaction = await Transaction(id: transactionID, description: description, balance: balance, category: Category.getCategory(Category_ID: categoryID)!, create_at: Date(), wallet_id: wallet.getID)
                         
                         if let tabBarController = self.tabBarController as? TabHomeViewController {
                             if let userProfile = tabBarController.userProfile {
