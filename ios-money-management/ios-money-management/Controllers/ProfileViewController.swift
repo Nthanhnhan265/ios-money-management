@@ -16,23 +16,47 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
         ["setting_name": "Export Data", "setting_icon": "iconExport"],
         ["setting_name": "Logout", "setting_icon": "iconLogout"]
     ]
+    var userProfile:UserProfile?
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        // Lấy UID
+        let UID = UserDefaults.standard.string(forKey: "UID") ?? ""
+        print("Vào ProfileViewController - \(UID)")
+        //        Lấy userProfile đang nằm trong Tabbar controller
+        if let tabBarController = self.tabBarController as? TabHomeViewController {
+            // Truy cập dữ liệu trong TabBarController
+            if let userProfile = tabBarController.userProfile
+            {
+                        self.image.image = userProfile.getAvatar
+                        self.fullname.text = userProfile.getFullname
+                        self.userProfile = userProfile
+            }
+            
+        }
+        
+
+        
+        setFrontEnd()
+        settingTableView.dataSource = self
+        settingTableView.delegate = self
+        
+    }
+    func setFrontEnd(){
         //cau hinh cho avatar
         imageView.layer.borderWidth = 2
         imageView.layer.masksToBounds = true
+        
         //rgba(173, 0, 255, 1)
         imageView.layer.borderColor = CGColor(red: 173/255, green: 0/255, blue: 255/255, alpha: 1)
         imageView.layer.cornerRadius = imageView.frame.height/2
 
         image.layer.cornerRadius = image.frame.height/2
-        settingTableView.dataSource = self
-        settingTableView.delegate = self
+        //settingTableView.dataSource = self
+        //settingTableView.delegate = self
         
         cornerTable.layer.cornerRadius = 16
         cornerTable.layer.masksToBounds = true
-        setUserInfo()
     }
     func setUserInfo () {
         Task{
@@ -56,11 +80,11 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
     //MARK: implementing classes
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print ("selected: \(indexPath.row)")
+//        Lấy main story board
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
         
-//        Chuyển màn hình khi nhấn account wallet
+//        Chuyển màn hình khi nhấn
         if indexPath.row == 0{
-            //Lấy main.storyboard
-            let storyboard = UIStoryboard(name: "Main", bundle: nil)
             //        Lấy màn hình cần chuyển qua
             let view_controller = storyboard.instantiateViewController(withIdentifier: "AccountWallets")
             //        set title cho navigation
@@ -70,6 +94,19 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
             //        self.present(view_controller, animated: true)
             
         }
+        else if indexPath.row == 1{
+            
+            //        Lấy màn hình cần chuyển qua
+            let view_controller = storyboard.instantiateViewController(withIdentifier: "EditProfileViewController") as! EditProfileViewController
+            //        set title cho navigation
+            view_controller.navigationItem.title = "Edit Profile"
+            
+            view_controller.userProfile = userProfile
+            //        Đẩy màn hình vào hàng đợi... (chuyển màn hình)
+            navigationController?.pushViewController(view_controller, animated: true)
+            //        self.present(view_controller, animated: true)
+        }
+        
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

@@ -9,68 +9,79 @@ import UIKit
 
 class DetailWalletViewController: UIViewController {
 
-//    Dữ liệu giả
-    private var datas = [Transaction]()
-    @IBOutlet weak var tableview: UITableView!
 
-    var sections: [Section] = [
-        Section(date: Date(), transactions: [
-//            Transaction(name: "Shopping", img: UIImage(named: "Frame1"), balance: 120000, time: Date(), des: "123"),
-//            Transaction(name: "Shopping", img: UIImage(named: "Frame1"), balance: 120000, time: Date(), des: "") ,
-        ]),
-        Section(date: Date().addingTimeInterval(-24 * 60 * 60), transactions: [
-//            Transaction(name: "Shopping", img: UIImage(named: "Frame1"), balance: 120000, time: Date().addingTimeInterval(-24 * 60 * 60), des: ""),
-//            Transaction(name: "Shopping", img: UIImage(named: "Frame1"), balance: 120000, time: Date().addingTimeInterval(-24 * 60 * 60), des: ""),
-        ]),
-    ]
+    @IBOutlet weak var wallet_balance: UILabel!
+    @IBOutlet weak var wallet_name: UILabel!
+    @IBOutlet weak var wallet_img: UIImageView!
+    @IBOutlet weak var tableview: UITableView!
+    
+    var wallet:Wallet? = nil
+    var transactions:[Transaction] = []
+    var sections: [Section] = []
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        print("Vào DetailWalletViewController")
+        print("Vào DetailWalletViewController - \(wallet?.getName ?? "")")
+//        Đổ dữ liệu lên các UI
+        setFrontEnd()
+//        bỏ các transaction của ví vào mảng -> đẩy lên table view
+        setTransactions(data: (wallet?.getTransactions())!)
+//        sắp xếp lại mảng
+        transactions.sort { $0.getCreateAt > $1.getCreateAt }
         
-//        set dữ liệu cho table
-        //        Setting cho table view
+        //                Lọc transactions theo ngày
+        sections = createSections(from: transactions)
+        
+//        Kết nối
         tableview.dataSource = self
         tableview.delegate = self
         tableview.register(TransactionTableViewCell.nib(), forCellReuseIdentifier: TransactionTableViewCell.identifier)
         
         
-        setDataTransaction()
+        
     }
-    
-
-
-}
-extension DetailWalletViewController: UITableViewDataSource, UITableViewDelegate{
-//    UITableViewDataSource
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        return datas.count
-        return sections[section].transactions.count
-    }
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return sections.count
-    }
-
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableview.dequeueReusableCell(withIdentifier: TransactionTableViewCell.identifier, for: indexPath) as! TransactionTableViewCell
-        let item = datas[indexPath.row]
-
-//Bỏ thông tin vào các UI của cell
-//        cell.transaction_name.text = item.transactionName
-//        cell.transaction_img.image = item.transactionImage
-//        cell.transaction_description.text = item.transactionDes
-//        cell.transaction_balance.text = String(-12345)
-//        cell.transaction_time.text = DateToString(item.transactionTime!)
+    func createSections(from transactions: [Transaction]) -> [Section] {
+        var sections: [Section] = []
+        var currentSection: Section?
+        
+        for transaction in transactions {
+            let date = Calendar.current.startOfDay(for: transaction.getCreateAt)
             
-        return cell
+            // Check if currentSection is nil or the date has changed
+            if currentSection == nil || currentSection!.date != date {
+                // If the currentSection has transactions, append it to sections
+                if let section = currentSection, !section.transactions.isEmpty {
+                    sections.append(section)
+                }
+                // Create a new Section for the new date
+                currentSection = Section(date: date, transactions: [])
+            }
+            
+            // Add transaction to the current section
+            currentSection?.transactions.append(transaction)
+        }
+        
+        // Append the last section if it contains transactions
+        if let section = currentSection, !section.transactions.isEmpty {
+            sections.append(section)
+        }
+        
+        return sections
     }
-//    Hàm set title TODAY, YESTERDAY...
-    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "dd/MM/yyyy"
-            return dateFormatter.string(from: sections[section].date)
+    func setTransactions(data: [Transaction]) {
+        
+        for i in data{
+            transactions.append(i)
+        }
     }
+    func setFrontEnd() {
+//        set ảnh
+        wallet_img.image = wallet?.getImage
+        wallet_name.text = wallet?.getName
+        wallet_balance.text = (wallet?.Balance.getVNDFormat())
+    }
+
     /// Hàm chuyển đồ từ Date sang String
     func DateToString(_ date:Date) -> String{
         //      Lấy ra 1 biến Date ở thời gian hiện tại
@@ -115,35 +126,91 @@ extension DetailWalletViewController: UITableViewDataSource, UITableViewDelegate
             return Date.now
         }
     }
-    //    Hàm set dữ liệu giả cho ví
-        func setDataTransaction() {
-            for i in 10..<30{
-                if let time = StringToDate("\(i)/05/2024"){
-//                    datas.append( Transaction(name: "Shopping", img: UIImage(named: "Frame1"), balance: 120000, time: time, des: ""))
-                }
-            }
-            
-            
+}
+extension DetailWalletViewController: UITableViewDataSource, UITableViewDelegate{
+//    UITableViewDataSource
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return sections[section].transactions.count // Trả về số lượng giao dịch trong section đó
+    }
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return sections.count
+    }
+
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        let cell = tableview.dequeueReusableCell(withIdentifier: TransactionTableViewCell.identifier, for: indexPath) as! TransactionTableViewCell
+        let transaction = sections[indexPath.section].transactions[indexPath.row]
+        
+        //Bỏ thông tin vào các UI của cell
+        cell.transaction_name.text = transaction.getCategory.getName
+        cell.transaction_img.image = transaction.getCategory.getImage
+        cell.transaction_description.text = transaction.getDescription
+        cell.transaction_balance.text = String(transaction.getBalance.getVNDFormat())
+        cell.transaction_time.text = DateToString(transaction.getCreateAt)
+        
+        
+        //        Nếu là thu nhập: Đổi màu chữ qua xanh
+        if (transaction.getBalance > 0 && transaction.getCategory.getinCome){
+            cell.transaction_balance.textColor = .green
         }
+        else{
+            cell.transaction_balance.textColor = .red
+        }
+        return cell
+    }
+    //    Hàm set title TODAY, YESTERDAY...
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd/MM/yyyy"
+        return dateFormatter.string(from: sections[section].date)
+    }
+   
 
     
     //  UITableViewDelegate
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print(datas[indexPath.row])
+        let transaction = sections[indexPath.section].transactions[indexPath.row]
+
         
-//        Chuyển màn hình
+        
         //Lấy main.storyboard
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        //        Lấy màn hình cần chuyển qua
-        let view_controller = storyboard.instantiateViewController(withIdentifier: "detail_transaction")
-        //        set title cho navigation
-//        view_controller.navigationItem.title = datas[indexPath.row]
+        
+        //        Màn hình màu xanh
+        if (transaction.getBalance > 0 && transaction.getCategory.getinCome){
+//            Lấy màn hình
+            let detail_Income_ViewController = storyboard.instantiateViewController(withIdentifier: "detail_transaction_Income") as! DetailIncomeViewController
+            
+            //        set title cho navigation
+            detail_Income_ViewController.navigationItem.title = "Detail Income Transaction"
+            
+            // Đổ dữ liệu qua màn hình
+            detail_Income_ViewController.transaction = transaction
+            
+            // Đẩy màn hình vào hàng đợi... (chuyển màn hình)
+            navigationController?.pushViewController(detail_Income_ViewController, animated: true)
+            
+        }
+//        Màn hình màu đỏ
+        else{
+            let detail_Expense_ViewController = storyboard.instantiateViewController(withIdentifier: "detail_transaction_Expenses") as! DetailExpenseViewController
+            
+            detail_Expense_ViewController.navigationItem.title = "Detail Expenses Transaction"
+            
+            // Lấy màn hình cần chuyển qua
+            detail_Expense_ViewController.transaction = transaction
 
-        //        Đẩy màn hình vào hàng đợi... (chuyển màn hình)
-        navigationController?.pushViewController(view_controller, animated: true)
+            // Đẩy màn hình vào hàng đợi... (chuyển màn hình)
+            navigationController?.pushViewController(detail_Expense_ViewController, animated: true)
+            
+        }
+        
+       
     }
 }
 struct Section {
     let date: Date
-    let transactions: [Transaction]
+    var transactions: [Transaction]
 }

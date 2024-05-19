@@ -559,7 +559,7 @@ extension TransactionViewController: UITableViewDataSource, UITableViewDelegate{
         cell.transaction_name.text = transaction.getCategory.getName
         cell.transaction_img.image = transaction.getCategory.getImage
         cell.transaction_description.text = transaction.getDescription
-        cell.transaction_balance.text = String(transaction.getBalance)
+        cell.transaction_balance.text = String(transaction.getBalance.getVNDFormat())
         cell.transaction_time.text = DateToString(transaction.getCreateAt)
         
         

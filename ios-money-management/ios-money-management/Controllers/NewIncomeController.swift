@@ -9,6 +9,7 @@ import UIKit
 import PhotosUI
 import FirebaseCore
 import FirebaseFirestore
+import FirebaseStorage
 
 class NewIncomeController: UIViewController, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource, PHPickerViewControllerDelegate {
     
@@ -195,12 +196,14 @@ class NewIncomeController: UIViewController, UICollectionViewDelegateFlowLayout,
             {
                 Task {
                     do {
+                        
                         // Thêm giao dịch mới lên DB và lấy ID của nó
                         let transactionID = try await Transaction.addTransaction(
                             wallet_id: wallet.getID,
                             balance: balance,
                             category_id: categoryID,
-                            des: description
+                            des: description,
+                            images: selectedImages
                         )
 
                         // Cập nhật số dư ví trên DB
@@ -213,7 +216,7 @@ class NewIncomeController: UIViewController, UICollectionViewDelegateFlowLayout,
 
                         // Thêm transaction mới tạo vào mảng transactions của ví ở
                         // Tạo transaction mới với ID vừa nhận được
-                        let newTransaction = await Transaction(id: transactionID, description: description, balance: balance, category: Category.getCategory(Category_ID: categoryID)!, create_at: Date(), wallet_id: wallet.getID)
+                        let newTransaction = await Transaction(id: transactionID, description: description, balance: balance, category: Category.getCategory(Category_ID: categoryID)!, create_at: Date(), wallet_id: wallet.getID, imageUrls: [])
                         
                         if let tabBarController = self.tabBarController as? TabHomeViewController {
                             if let userProfile = tabBarController.userProfile {

@@ -65,7 +65,7 @@ class DetailExpenseViewController: UIViewController {
         txt_wallet.text = wallet.getName
         txt_category.text = transaction.getCategory.getName
         txt_time.text = DateToString(transaction.getCreateAt)
-        txt_balance.text = String(transaction.getBalance)
+        txt_balance.text = String(transaction.getBalance.getVNDFormat())
         
     }
     func setFrontEnd(){

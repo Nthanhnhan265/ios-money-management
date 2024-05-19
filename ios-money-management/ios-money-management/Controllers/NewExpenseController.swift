@@ -109,7 +109,8 @@ class NewExpenseController: UIViewController, PHPickerViewControllerDelegate, UI
                             wallet_id: wallet.getID,
                             balance: balance > 0 ? -balance : balance,
                             category_id: categoryID,
-                            des: description
+                            des: description,
+                            images: []
                         )
 
                         // Cập nhật ví trên DB
@@ -121,7 +122,7 @@ class NewExpenseController: UIViewController, PHPickerViewControllerDelegate, UI
                         
 
                         // Thêm transaction vào mảng transactions của ví
-                        let newTransaction = await Transaction(id: transactionID, description: description, balance: balance > 0 ? -balance : balance, category: Category.getCategory(Category_ID: categoryID)!, create_at: Date(), wallet_id: wallet.getID) // Tạo transaction mới với ID vừa nhận được
+                        let newTransaction = await Transaction(id: transactionID, description: description, balance: balance > 0 ? -balance : balance, category: Category.getCategory(Category_ID: categoryID)!, create_at: Date(), wallet_id: wallet.getID, imageUrls: []) // Tạo transaction mới với ID vừa nhận được
                         
                         if let tabBarController = self.tabBarController as? TabHomeViewController {
                             if let userProfile = tabBarController.userProfile {

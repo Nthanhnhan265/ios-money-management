@@ -45,7 +45,8 @@ class AddWalletViewController: UIViewController,UITextViewDelegate, UICollection
     
     
     @IBAction func newWalletTapped(_ sender: UIButton) {
-        if let balance = balanceTextField.text, let name = walletName.text, !name.isEmpty{
+        if let balance = balanceTextField.text,
+            let name = walletName.text, !name.isEmpty{
             let icon = icons[preSelectedButton?.tag ?? 0]
             if let balanceDouble = Double(balance.isEmpty ? "0" : balance) {
                 let UID = UserDefaults.standard.string(forKey: "UID") ?? ""

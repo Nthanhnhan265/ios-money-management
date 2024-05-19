@@ -8,7 +8,7 @@
 import UIKit
 
 class AccountWalletsViewController: UIViewController {
-    private var wallets:[Wallet]?
+    var wallets:[Wallet] = []
     let UID = UserDefaults.standard.string(forKey: "UID")
     
     @IBOutlet weak var tbv_wallets: UITableView!
@@ -17,25 +17,31 @@ class AccountWalletsViewController: UIViewController {
         super.viewDidLoad()
         print("Vào AccountWalletsViewController")
         
-        
-       Wallet.getAllWallets(UID: UID!){
-            arrWallets, totalBalance in
-           if !arrWallets.isEmpty {
-               self.wallets = arrWallets
-               self.totalBalance.text = "$\(totalBalance)"
-               self.tbv_wallets.reloadData()
-           }
+        //        Lấy userProfile đang nằm trong Tabbar controller
+        if let tabBarController = self.tabBarController as? TabHomeViewController {
+            // Truy cập dữ liệu trong TabBarController
+            if let userProfile = tabBarController.userProfile
+            {
+                wallets = userProfile.getWallets
+
+            }
+            
         }
-        self.navigationItem.title = "Wallets"
-//        Kết nối table view với các hàm để load dữ liệu
+        
+//        Tính tổng số tiền
+        var total_balance = 0
+        for i in wallets{
+            total_balance += i.Balance
+            
+        }
+        self.totalBalance.text = String(total_balance.getVNDFormat())
+        
+   
+        
         tbv_wallets.dataSource = self
         tbv_wallets.delegate = self
         tbv_wallets.register(WalletTableViewCell.nib(), forCellReuseIdentifier: WalletTableViewCell.identifier)
-        
-        tabBarController?.tabBar.isHidden = true
-//        setWallets()
-        
-        
+
     }
     //ham duoc goi de reset navbar
     override func viewWillAppear(_ animated: Bool) {
@@ -47,14 +53,7 @@ class AccountWalletsViewController: UIViewController {
         navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.black]
         navigationController?.navigationBar.backgroundColor = .white
     }
-//    Hàm set data giả
-    func setWallets()  {
-//        wallets.append(Wallet(ID: "1", Name: "MBB", Balance: 100000, Image: UIImage(named: "Frame1")))
-//        wallets.append(Wallet(ID: "1", Name: "MBB", Balance: 100000, Image: UIImage(named: "Frame1")))
-//        wallets.append(Wallet(ID: "1", Name: "MBB", Balance: 100000, Image: UIImage(named: "Frame1")))
-//        wallets.append(Wallet(ID: "1", Name: "MBB", Balance: 100000, Image: UIImage(named: "Frame1")))
-//        wallets.append(Wallet(ID: "1", Name: "MBB", Balance: 100000, Image: UIImage(named: "Frame1")))
-    }
+
     
 //    MARK: Add new wallet
     @IBAction func btn_NewWallet_Tapped(_ sender: UIButton) {
@@ -75,29 +74,40 @@ class AccountWalletsViewController: UIViewController {
 extension AccountWalletsViewController: UITableViewDelegate, UITableViewDataSource{
     //    UITableViewDataSource
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if let count = self.wallets?.count {
-            return count
-        }
-        return 0
+        
+        return wallets.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//        Tạo 1 cell từ file xib
+        //        Tạo 1 cell từ file xib
         let cell = tableView.dequeueReusableCell(withIdentifier: WalletTableViewCell.identifier, for: indexPath) as! WalletTableViewCell
         
-//        Đổ dữ liệu vào cell
-        cell.Wallet_name.text = self.wallets![indexPath.row].getName
-        cell.Wallet_img.image = self.wallets![indexPath.row].getImage
-        cell.Wallet_balace.text = "$"+String(self.wallets![indexPath.row].Balance)
+        //        Đổ dữ liệu vào cell
+        cell.Wallet_name.text = self.wallets[indexPath.row].getName
+        cell.Wallet_img.image = self.wallets[indexPath.row].getImage
+        cell.Wallet_balace.text = String(self.wallets[indexPath.row].Balance.getVNDFormat())
         
         return cell
     }
     //    UITableViewDelegate
     //    làm 1 hành động nào đó khi click vào 1 đối tượng
-        func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//            print("Ví \(wallets[indexPath.row].walletName) có \(wallets[indexPath.row].walletBalance) tiền")
-        }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        //Lấy main.storyboard
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
         
+        //            Qua màn hình chi tiết wallet
+        let detail_wallet = storyboard.instantiateViewController(withIdentifier: "DetailWalletViewController") as! DetailWalletViewController
+        
+        //        set title cho navigation
+        detail_wallet.navigationItem.title = "Detail Wallet"
+        
+        // Đổ dữ liệu qua màn hình
+        detail_wallet.wallet = self.wallets[indexPath.row]
+        
+        // Đẩy màn hình vào hàng đợi... (chuyển màn hình)
+        navigationController?.pushViewController(detail_wallet, animated: true)
+    }
+    
     
     
 }

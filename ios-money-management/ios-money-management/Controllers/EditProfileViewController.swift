@@ -12,10 +12,17 @@ class EditProfileViewController: UIViewController, UIImagePickerControllerDelega
     @IBOutlet weak var image: UIImageView!
     @IBOutlet weak var imageView: UIView!
     
+    @IBOutlet weak var txt_name: UITextField!
+    var userProfile:UserProfile?
 
     override func viewDidLoad(){
         super.viewDidLoad()
 
+        
+        
+        setFrontEnd()
+    }
+    func setFrontEnd()  {
         //cau hinh cho avatar
         imageView.layer.borderWidth = 2
         imageView.layer.masksToBounds = true
@@ -23,6 +30,14 @@ class EditProfileViewController: UIViewController, UIImagePickerControllerDelega
         imageView.layer.borderColor = CGColor(red: 173/255, green: 0/255, blue: 255/255, alpha: 1)
         imageView.layer.cornerRadius = imageView.frame.height/2
         image.layer.cornerRadius = image.frame.height/2
+        if let userProfile = self.userProfile{
+            if let avatar = userProfile.getAvatar{
+                image.image = avatar
+            }
+            txt_name.text = userProfile.getFullname
+
+        }
+        
     }
     //nhan de mo uiimagepicker
     @IBAction func imageTapped(_ sender: Any) {
