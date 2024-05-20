@@ -184,8 +184,7 @@ class HomeViewController: UIViewController {
         
         // set avatar
         avatar.image = userProfile.Avatar
-        
-        
+       
         
     }
     ///Nạp tất cả transaction được truyền vào vào mảng transactions để đổ lên table view

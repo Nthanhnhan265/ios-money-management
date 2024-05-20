@@ -29,7 +29,6 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
             if let userProfile = tabBarController.userProfile
             {
                         self.image.image = userProfile.Avatar
-                print(userProfile.Avatar)
                         self.fullname.text = userProfile.Fullname
                         self.userProfile = userProfile
             }
@@ -43,6 +42,7 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
         settingTableView.delegate = self
         
     }
+  
     func setFrontEnd(){
         //cau hinh cho avatar
         imageView.layer.borderWidth = 2
@@ -72,11 +72,25 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
         
     }
     override func viewWillAppear(_ animated: Bool) {
+        print("Load lại ProfileViewController")
         navigationController?.navigationBar.tintColor = .black
         navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.black]
         navigationController?.navigationBar.backgroundColor = UIColor(red: 248/255, green: 248/255, blue: 248/255, alpha: 1)
         
-        tabBarController?.tabBar.isHidden = false 
+        tabBarController?.tabBar.isHidden = false
+        
+        
+        //        Lấy userProfile đang nằm trong Tabbar controller
+        if let tabBarController = self.tabBarController as? TabHomeViewController {
+            // Truy cập dữ liệu trong TabBarController
+            if let userProfile = tabBarController.userProfile
+            {
+                        self.image.image = userProfile.Avatar
+                        self.fullname.text = userProfile.Fullname
+                        self.userProfile = userProfile
+            }
+            
+        }
     }
     //MARK: implementing classes
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

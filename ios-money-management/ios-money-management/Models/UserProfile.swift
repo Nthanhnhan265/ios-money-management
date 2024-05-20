@@ -59,6 +59,7 @@ class UserProfile {
     
     
     //    MARK: Querry Database Firestore
+    /// Hàm cập nhật lại Fullname, avatarURL lên trên Firestore
     public static func updateUserProfile(UID:String, fullname:String, avatarURL: String){
         // Cập nhật thông tin lên Firestore
                 let db = Firestore.firestore()
@@ -96,7 +97,7 @@ class UserProfile {
         let profileData: [String: Any] = [
             "ID": userProfile.getUID,
             "Fullname": userProfile.Fullname,
-            "Avatar": userProfile.Avatar ?? "avatar_default.jpg" // Nếu không có ảnh, lưu chuỗi rỗng
+            "Avatar": userProfile.Avatar ?? "https://firebasestorage.googleapis.com:443/v0/b/moneymanager-885d2.appspot.com/o/images%2Favatar_default.png?alt=media&token=da4b8328-2b7e-4067-b7af-daa8e40d8c9d" // Nếu không có ảnh, lưu chuỗi rỗng
         ]
         
         // 3. Tạo tài liệu mới trong collection "Profile"
@@ -111,18 +112,40 @@ class UserProfile {
     
     
     //------___---___--___-_____---__
+   
     public static func getUserProfine(UID: String) async -> UserProfile? {
         let db = Firestore.firestore()
         let profileRef = db.collection("Profile").document(UID)
         
         do {
-                    let snapshot = try await profileRef.getDocument()
-
-                    guard let data = snapshot.data() else { return nil } // Không tìm thấy hồ sơ
-
+            let snapshot = try await profileRef.getDocument()
             
-                    let fullName = data["Fullname"] as? String ?? ""
-                    let avatarImage = UIImage(named: data["Avatar"] as? String ?? "avatar_default")
+            guard let data = snapshot.data() else { return nil } // Không tìm thấy hồ sơ
+            
+            
+            let fullName = data["Fullname"] as? String ?? ""
+            var avatarImage = UIImage(named: "avatar_default")
+            
+//            Download ảnh từ storage xuống và chuyển thành UIImageView
+            let avatar_url = data["Avatar"] as! String
+            guard let imageUrl = URL(string: avatar_url) else {
+                    print("Download ảnh thất bại")
+                    return nil
+                }
+                
+                do {
+                    // Tải dữ liệu ảnh (Data) từ URL
+                    let (imageData, _) = try await URLSession.shared.data(from: imageUrl)
+
+                    // Chuyển đổi dữ liệu ảnh thành UIImage
+                    if let image = UIImage(data: imageData) {
+                        avatarImage = image
+                    }
+                } catch {
+                    print("Error loading image: \(error.localizedDescription)")
+                    return nil
+                }
+
             
             
             print("Truy vấn thành công getUserProfine")
@@ -131,6 +154,7 @@ class UserProfile {
             print("Lỗi truy vấn - getUserProfine: \(error)")
             return nil
         }
+        
     }
     public func ToString(){
         

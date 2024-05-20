@@ -40,6 +40,7 @@
 		644E04782BEDC1AF004D2AFB /* DetailWalletViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 644E04772BEDC1AF004D2AFB /* DetailWalletViewController.swift */; };
 		644E047A2BEE567E004D2AFB /* WelcomeNavigation_Controller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 644E04792BEE567E004D2AFB /* WelcomeNavigation_Controller.swift */; };
 		644E047C2BEF2A7B004D2AFB /* UserProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 644E047B2BEF2A7B004D2AFB /* UserProfile.swift */; };
+		6464A2602BFB535800B6A4A2 /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = 6464A25F2BFB535800B6A4A2 /* SDWebImage */; };
 		6467B9122BF0772300373C8B /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6467B9112BF0772300373C8B /* Category.swift */; };
 		646B64C42BD5A151004049FB /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 646B64C32BD5A151004049FB /* GoogleService-Info.plist */; };
 		646B64CC2BD5B145004049FB /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 646B64CB2BD5B145004049FB /* FirebaseAuth */; };
@@ -132,6 +133,7 @@
 				646B64D22BD5B145004049FB /* FirebaseStorage in Frameworks */,
 				646B64CE2BD5B145004049FB /* FirebaseFirestore in Frameworks */,
 				646B64D02BD5B145004049FB /* FirebaseFirestoreSwift in Frameworks */,
+				6464A2602BFB535800B6A4A2 /* SDWebImage in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -282,6 +284,7 @@
 				646B64CD2BD5B145004049FB /* FirebaseFirestore */,
 				646B64CF2BD5B145004049FB /* FirebaseFirestoreSwift */,
 				646B64D12BD5B145004049FB /* FirebaseStorage */,
+				6464A25F2BFB535800B6A4A2 /* SDWebImage */,
 			);
 			productName = "ios-money-management";
 			productReference = 3F92F0502BD5375100CCD1D9 /* ios-money-management.app */;
@@ -357,6 +360,7 @@
 			mainGroup = 3F92F0472BD5375000CCD1D9;
 			packageReferences = (
 				646B64CA2BD5B145004049FB /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				6464A25E2BFB535800B6A4A2 /* XCRemoteSwiftPackageReference "SDWebImage" */,
 			);
 			productRefGroup = 3F92F0512BD5375100CCD1D9 /* Products */;
 			projectDirPath = "";
@@ -775,6 +779,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		6464A25E2BFB535800B6A4A2 /* XCRemoteSwiftPackageReference "SDWebImage" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SDWebImage/SDWebImage.git";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
 		646B64CA2BD5B145004049FB /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/firebase/firebase-ios-sdk.git";
@@ -786,6 +798,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		6464A25F2BFB535800B6A4A2 /* SDWebImage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6464A25E2BFB535800B6A4A2 /* XCRemoteSwiftPackageReference "SDWebImage" */;
+			productName = SDWebImage;
+		};
 		646B64CB2BD5B145004049FB /* FirebaseAuth */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 646B64CA2BD5B145004049FB /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;

@@ -46,7 +46,17 @@ class EditProfileViewController: UIViewController, UIImagePickerControllerDelega
                     do {
                         let avatarURL = try await Transaction.uploadImagesToStorage(images: [newImage])
                         if !avatarURL.isEmpty {
+// Hàm cập nhật lại Fullname, avatarURL lên trên Firestore
                             UserProfile.updateUserProfile(UID: userProfile?.getUID ?? "", fullname: newName, avatarURL: avatarURL[0])
+                            
+//                            Cập nhật lại thông tin ở Local
+                            //        Lấy userProfile đang nằm trong Tabbar controller
+                            if let tabBarController = self.tabBarController as? TabHomeViewController {
+                                tabBarController.userProfile?.Fullname = newName
+                                tabBarController.userProfile?.Avatar = newImage
+                                
+                            }
+                            navigationController?.popViewController(animated: true)
                         } else {
                             // Xử lý trường hợp không có URL ảnh
                         }
@@ -55,10 +65,13 @@ class EditProfileViewController: UIViewController, UIImagePickerControllerDelega
                         print("Error updating profile: \(error)")
                     }
                 }
-            } else {
+            }
+        else {
                 // Xử lý trường hợp tên không hợp lệ hoặc không có ảnh mới
                 print("Error: Invalid name or no new image")
-            }    }
+            }
+        
+    }
     
     //nhan de mo uiimagepicker
     @IBAction func imageTapped(_ sender: Any) {
