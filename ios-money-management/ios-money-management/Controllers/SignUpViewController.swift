@@ -86,16 +86,27 @@ class SignUpViewController: UIViewController {
     
     @IBAction func btn_SignUp_Click(_ sender: UIButton) {
         //        kiểm tra xem giá trị văn bản từ txt_email.text có nil hay không. Nếu nil, câu lệnh sẽ thực thi khối mã else.
-        //        guard let name = txt_name.text else {return}
         guard let email = txt_email.text else {return}
         guard let password = txt_password.text else {return}
         
+//        Kiểm tra + Thông báo cho người dùng trường fullname không được để trống
+        if txt_name.text! == ""{
+            let alertController = UIAlertController(title: "Registration error", message: "The full name field cannot be empty", preferredStyle: .alert)
+            alertController.addAction(UIAlertAction(title: "OK", style: .default))
+            present(alertController, animated: true, completion: nil)
+            return // Thoát khỏi hàm nếu không hợp lệ
+        }
         
         
         Auth.auth().createUser(withEmail: email, password: password) { [self] (authResult, error) in
             if let error = error {
                 // Xử lý lỗi đăng ký
-                print("Registration error: \(error.localizedDescription)")
+                // Hiện ra cảnh báo cho người dùng
+                        let alertController = UIAlertController(title: "Registration error", message: error.localizedDescription, preferredStyle: .alert)
+                        alertController.addAction(UIAlertAction(title: "OK", style: .default))
+                        present(alertController, animated: true, completion: nil)
+                        return // Thoát khỏi hàm nếu không hợp lệ
+//                print("Registration error: \(error.localizedDescription)")
             } else if let authResult = authResult {
                 // Đăng ký thành công, lấy ID của người dùng
                 let userId = authResult.user.uid
@@ -105,11 +116,14 @@ class SignUpViewController: UIViewController {
                     let userProfile = UserProfile(UID: userId, fullname: fullname)
                     Task {
                         do {
-//                            Tạo userProfile mới
-                             try await UserProfile.createUserProfile(userProfile: userProfile)
+//                            Tạo userProfile mới trên db
+                           let _ =   try await UserProfile.createUserProfile(userProfile: userProfile)
                             
-//                            Tạo ví mới mặc định cho người dùng
-                            try await Wallet.createNewWallet(UID: userId, balance: 0, image: "cash", name: "Tiền mặt")
+//                            Tạo ví mới mặc định cho người dùng trên DB
+                         let _ =    try await Wallet.createNewWallet(UID: userId, balance: 0, image: "cash", name: "Tiền mặt")
+                            
+//                            Trở ra màn hình
+                            navigationController?.popViewController(animated: true)
                         } catch {
                             print("Tạo userProfile thất bại")
                         }
@@ -122,7 +136,7 @@ class SignUpViewController: UIViewController {
             }
             
         }
-        navigationController?.popViewController(animated: true)
+        
         
     }
 }

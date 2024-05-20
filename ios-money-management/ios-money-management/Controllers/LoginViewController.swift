@@ -30,10 +30,10 @@ class LoginViewController: UIViewController {
         
         //        txt_username.text = "ngthanhnhan265.xb@gmail.com"
         //        txt_password.text = "nhannhan"
-//        txt_password.text = "admin@gmail.com"
-//        txt_username.text = "admin@gmail.com"
-        txt_password.text = "nta@gmail.com"
-        txt_username.text = "nta@gmail.com"
+        txt_password.text = "admin@gmail.com"
+        txt_username.text = "admin@gmail.com"
+//        txt_password.text = "nta@gmail.com"
+//        txt_username.text = "nta@gmail.com"
     }
     
     @IBAction func btn_password_tapped(_ sender: UIButton) {
