@@ -27,6 +27,7 @@ class LoginViewController: UIViewController {
         self.navigationItem.title = "Login"
         
         // Set up trước tài khoản và mật khẩu
+        
         //        txt_username.text = "ngthanhnhan265.xb@gmail.com"
         //        txt_password.text = "nhannhan"
 //        txt_password.text = "admin@gmail.com"
@@ -75,11 +76,14 @@ class LoginViewController: UIViewController {
                         //                Cho màn hình Home full màn hình
                         homeViewController.modalPresentationStyle = .fullScreen
                         homeViewController.userProfile = userProfile
-                        //
-                        self.present(homeViewController, animated: true )
                         
-                        //                self.navigationController?.navigationBar.isHidden = true
-                        //                 self.navigationController?.pushViewController(homeViewController, animated: true)
+
+                       
+                        self.present(homeViewController, animated: true )
+                        //                        Xoá mật khẩu
+                        self.txt_password.text = nil
+                        
+                        
                     }
                     
                     
