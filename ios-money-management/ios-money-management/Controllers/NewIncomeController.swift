@@ -216,7 +216,7 @@ class NewIncomeController: UIViewController, UICollectionViewDelegateFlowLayout,
 
                         // Thêm transaction mới tạo vào mảng transactions của ví ở
                         // Tạo transaction mới với ID vừa nhận được
-                        let newTransaction = await Transaction(id: transactionID, description: description, balance: balance, category: Category.getCategory(Category_ID: categoryID)!, create_at: Date(), wallet_id: wallet.getID, imageUrls: [])
+                        let newTransaction = await Transaction(id: transactionID, description: description, balance: balance, category: Category.getCategory(Category_ID: categoryID)!, create_at: Date(), wallet_id: wallet.getID, images: [])
                         
                         if let tabBarController = self.tabBarController as? TabHomeViewController {
                             if let userProfile = tabBarController.userProfile {
