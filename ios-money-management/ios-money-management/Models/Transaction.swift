@@ -18,7 +18,7 @@ class Transaction  {
     private let category: Category
     private let create_at:Date
     private let wallet_id: String
-    private  var imageUrls: [String]
+    private  var images: [UIImage]?
     public func toString(){
         print("\(self.id) - \(self.description) - \(self.balance) - \(self.category.getName) - \(self.create_at) || Ví \(wallet_id)")
     }
@@ -28,12 +28,12 @@ class Transaction  {
             
         }
     }
-    var image_urls:[String]{
+    var Images:[UIImage]{
         get{
-            return self.imageUrls
+            return self.images!
         }
         set{
-            self.imageUrls = newValue
+            self.images = newValue
         }
     }
     var getWalletID:String{
@@ -63,14 +63,14 @@ class Transaction  {
         }
     }
     
-    init(id: String, description: String, balance: Int, category: Category, create_at: Date, wallet_id: String, imageUrls: [String]) {
+    init(id: String, description: String, balance: Int, category: Category, create_at: Date, wallet_id: String, images: [UIImage]) {
         self.id = id
         self.description = description
         self.balance = balance
         self.category = category
         self.create_at = create_at
         self.wallet_id = wallet_id
-        self.imageUrls = imageUrls
+        self.images = images
     }
     
    public static func uploadImagesToStorage(images: [UIImage]) async throws -> [String] {
@@ -114,7 +114,7 @@ class Transaction  {
                         category: Category.getCategory(Category_ID: transaction["Category_ID"] as! String)!,
                         create_at: (transaction["CreateAt"] as? Timestamp)?.dateValue() ?? Date(),
                         wallet_id: walletID,
-                        imageUrls: []
+                        images: []
                     )
                 )
             }
