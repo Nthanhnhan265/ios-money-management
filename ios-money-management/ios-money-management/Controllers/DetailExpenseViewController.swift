@@ -10,7 +10,9 @@
 
 import UIKit
 
-class DetailExpenseViewController: UIViewController {
+class DetailExpenseViewController: UIViewController, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
+    
+    
 
     //MARK: properties
     var transaction:Transaction? = nil
@@ -21,6 +23,10 @@ class DetailExpenseViewController: UIViewController {
     @IBOutlet weak var txt_time: UILabel!
     @IBOutlet weak var txt_balance: UILabel!
     @IBOutlet weak var borderView: UIView!
+    @IBOutlet weak var imagesCollectionView: UICollectionView!
+    
+    //tao mang 5 tam hinh
+    var arrImgs:[UIImage]? = []
     override func viewDidLoad() {
         super.viewDidLoad()
         setFrontEnd()
@@ -33,8 +39,16 @@ class DetailExpenseViewController: UIViewController {
             
             
         }
-        
-        
+        //them hinh anh
+        arrImgs?.append(UIImage(named: "avatar")!)
+        arrImgs?.append(UIImage(named: "avatar")!)
+        arrImgs?.append(UIImage(named: "avatar")!)
+        arrImgs?.append(UIImage(named: "avatar")!)
+        arrImgs?.append(UIImage(named: "avatar")!)
+         
+   
+        print("## \(String(describing: arrImgs?.count))");
+
     }
     /// Hàm chuyển đồ từ Date sang String
     func DateToString(_ date:Date) -> String{
@@ -103,6 +117,34 @@ class DetailExpenseViewController: UIViewController {
         
         present(alertController, animated: true, completion: nil)
     }
+    
+    //MARK: implements
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return arrImgs?.count ?? 0
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let reuse = "DetailCell"
+        
+        if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuse, for: indexPath) as? DetailExpenseCell {
+            cell.imgView.image = arrImgs?[indexPath.row]
+            cell.cancelButton.addTarget(self, action: #selector(cancelButtonTapped(_ :)), for: .touchUpInside)
+            cell.cancelButton.layer.zPosition = 1
+            cell.tag = indexPath.row
+            return cell 
+        }
+        
+        fatalError("khong the return cell : DetailExpenseViewController")
+    }
+    // Handle cancel button tap
+        @objc func cancelButtonTapped(_ sender: UIButton) {
+            arrImgs?.remove(at: sender.tag)
+            imagesCollectionView.reloadData()
+        }
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: collectionView.frame.size.width / 3 - 10 , height: 128 - 10)
+    }
+    
 
     /*
     // MARK: - Navigation
