@@ -121,6 +121,9 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
             navigationController?.pushViewController(view_controller, animated: true)
             //        self.present(view_controller, animated: true)
         }
+        else if indexPath.row == 2{
+            dismiss(animated: true)
+        }
         
     }
     
