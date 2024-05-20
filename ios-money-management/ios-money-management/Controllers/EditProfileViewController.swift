@@ -31,14 +31,35 @@ class EditProfileViewController: UIViewController, UIImagePickerControllerDelega
         imageView.layer.cornerRadius = imageView.frame.height/2
         image.layer.cornerRadius = image.frame.height/2
         if let userProfile = self.userProfile{
-            if let avatar = userProfile.getAvatar{
+            if let avatar = userProfile.Avatar{
                 image.image = avatar
             }
-            txt_name.text = userProfile.getFullname
+            txt_name.text = userProfile.Fullname
 
         }
         
     }
+    
+    @IBAction func btn_save_tapped(_ sender: UIBarButtonItem) {
+        if let newName = txt_name.text, let newImage = image.image {
+                Task {
+                    do {
+                        let avatarURL = try await Transaction.uploadImagesToStorage(images: [newImage])
+                        if !avatarURL.isEmpty {
+                            UserProfile.updateUserProfile(UID: userProfile?.getUID ?? "", fullname: newName, avatarURL: avatarURL[0])
+                        } else {
+                            // Xử lý trường hợp không có URL ảnh
+                        }
+                    } catch {
+                        // Xử lý lỗi nếu có
+                        print("Error updating profile: \(error)")
+                    }
+                }
+            } else {
+                // Xử lý trường hợp tên không hợp lệ hoặc không có ảnh mới
+                print("Error: Invalid name or no new image")
+            }    }
+    
     //nhan de mo uiimagepicker
     @IBAction func imageTapped(_ sender: Any) {
         let imagePicker = UIImagePickerController()

@@ -33,7 +33,7 @@ class TabHomeViewController: UITabBarController {
     /// Hàm sử dụng để tìm đối tượng wallet từ Wallet_ID
     public func getWalletFromTransaction(wallet_ID:String)->Wallet?{
         if let userProfile = self.userProfile{
-            for wallet in userProfile.getWallets{
+            for wallet in userProfile.Wallets{
                 if wallet.getID == wallet_ID{
                     return wallet
                 }

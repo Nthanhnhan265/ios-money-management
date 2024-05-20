@@ -73,7 +73,7 @@ class Transaction  {
         self.imageUrls = imageUrls
     }
     
-   private static func uploadImagesToStorage(images: [UIImage]) async throws -> [String] {
+   public static func uploadImagesToStorage(images: [UIImage]) async throws -> [String] {
         var imageUrls: [String] = []
         let storageRef = Storage.storage().reference()
 
@@ -198,30 +198,6 @@ class Transaction  {
             return transactionRef.documentID // Trả về ID giao dịch mới
         
 
-        //        let db = Firestore.firestore()
-//
-//        // Tạo một DocumentReference để lấy ID sau khi document được tạo
-//        let transactionRef = db.collection("Transactions").document(wallet_id).collection("Transaction").document()
-//
-//        let transactionData: [String: Any] = [
-//            "Balance": balance,
-//            "Category_ID": category_id,
-//            "Description": des,
-//            "CreateAt": Date()
-//        ]
-//        // Sử dụng transactionRef để thêm document
-//        transactionRef.setData(transactionData) { error in
-//            if let error = error {
-//                print("Error adding transaction: \(error)")
-//            } else {
-//                // Cập nhật lại document với trường ID
-//                transactionRef.updateData(["ID": transactionRef.documentID])
-//                print("Transaction added successfully!")
-//
-//            }
-//
-//        }
-//        return transactionRef.documentID // Trả về ID giao dịch mới
 
         
     }

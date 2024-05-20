@@ -69,9 +69,9 @@ class HomeViewController: UIViewController {
             if let userProfile = tabBarController.userProfile
             {
                 setProfile(userProfile: userProfile)
-                txt_balance.text = String(setWallets(wallets: userProfile.getWallets ).getVNDFormat())
+                txt_balance.text = String(setWallets(wallets: userProfile.Wallets ).getVNDFormat())
                 //                             Set transactions
-                for wallet in userProfile.getWallets{
+                for wallet in userProfile.Wallets{
                     setTransactions(data: wallet.getTransactions())
                     
 //                    Lấy dữ liệu của userProfile, đọc tất cả các ví -> Đổi vào mảng dữ liệu
@@ -104,12 +104,12 @@ class HomeViewController: UIViewController {
             if let userProfile = tabBarController.userProfile
             {
                 //        cập nhật số tiền
-                txt_balance.text = String(setWallets(wallets: userProfile.getWallets ).getVNDFormat())
+                txt_balance.text = String(setWallets(wallets: userProfile.Wallets ).getVNDFormat())
                 
                 //                trả mảng transaction về rỗng
                 transactions = []
                 //                             Set transactions
-                for wallet in userProfile.getWallets{
+                for wallet in userProfile.Wallets{
                     setTransactions(data: wallet.getTransactions())
                 }
                 transactions.sort { $0.getCreateAt > $1.getCreateAt }
@@ -183,7 +183,7 @@ class HomeViewController: UIViewController {
         
         
         // set avatar
-        avatar.image = userProfile.getAvatar
+        avatar.image = userProfile.Avatar
         
         
         

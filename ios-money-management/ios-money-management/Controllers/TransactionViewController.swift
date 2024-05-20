@@ -69,7 +69,7 @@ class TransactionViewController: UIViewController {
             // Truy cập dữ liệu trong TabBarController
             if let userProfile = tabBarController.userProfile
             {
-                for wallet in userProfile.getWallets {
+                for wallet in userProfile.Wallets {
                     setTransactions(data: wallet.getTransactions())
                 }
                 //                Sắp xếp mới nhất
@@ -122,7 +122,7 @@ class TransactionViewController: UIViewController {
             if let userProfile = tabBarController.userProfile
             {
                 transactions = []
-                for wallet in userProfile.getWallets {
+                for wallet in userProfile.Wallets {
                     setTransactions(data: wallet.getTransactions())
                 }
                 //                Sắp xếp mới nhất
@@ -214,7 +214,7 @@ class TransactionViewController: UIViewController {
     }
     func setWallet()  {
         if let tabBarController = self.tabBarController as? TabHomeViewController {
-            if let wallets = tabBarController.userProfile?.getWallets{
+            if let wallets = tabBarController.userProfile?.Wallets{
                 //            Đổ dữ liệu vào pop up
                 let actions = wallets.map { wallet in
                     UIAction(title: wallet.getName, image: wallet.getImage) { [weak self] action in

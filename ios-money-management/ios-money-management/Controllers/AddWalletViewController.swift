@@ -45,24 +45,24 @@ class AddWalletViewController: UIViewController,UITextViewDelegate, UICollection
     
     
     @IBAction func newWalletTapped(_ sender: UIButton) {
-        if let balance = balanceTextField.text,
-            let name = walletName.text, !name.isEmpty{
-            let icon = icons[preSelectedButton?.tag ?? 0]
-            if let balanceDouble = Double(balance.isEmpty ? "0" : balance) {
-                let UID = UserDefaults.standard.string(forKey: "UID") ?? ""
-                
-                let walletDic = [
-                    "Name": name,
-                    "Balance": balanceDouble,
-                    "Image": icon
-                ] as [String : Any]
-                Wallet.createNewWallet(UID, _: walletDic)
-                navigationController?.popViewController(animated: true)
-            }
-        } else {
-            print("error, name is empty")
-        }
-        //        deleteAWallet("siOIdhoJsgZCVlsJsZ4cHjr8cSn2", "ydSWhPZGYCFOBtDkCmRi")
+//        if let balance = balanceTextField.text,
+//            let name = walletName.text, !name.isEmpty{
+//            let icon = icons[preSelectedButton?.tag ?? 0]
+//            if let balanceDouble = Double(balance.isEmpty ? "0" : balance) {
+//                let UID = UserDefaults.standard.string(forKey: "UID") ?? ""
+//
+//                let walletDic = [
+//                    "Name": name,
+//                    "Balance": balanceDouble,
+//                    "Image": icon
+//                ] as [String : Any]
+//                Wallet.createNewWallet(UID, _: walletDic)
+//                navigationController?.popViewController(animated: true)
+//            }
+//        } else {
+//            print("error, name is empty")
+//        }
+//        //        deleteAWallet("siOIdhoJsgZCVlsJsZ4cHjr8cSn2", "ydSWhPZGYCFOBtDkCmRi")
     }
     
     

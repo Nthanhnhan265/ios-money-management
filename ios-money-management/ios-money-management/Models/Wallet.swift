@@ -97,26 +97,30 @@ class Wallet {
         }
     }
     
-    
+   
     
     //tao vi moi
-    static func createNewWallet(_ UID: String, _ walletDictionary:[String:Any])->Void {
+    public static func createNewWallet(UID: String, balance:Int, image: String, name: String)async throws -> String{
         let db = Firestore.firestore()
-        let userRef = db.collection("Profile").document(UID)
-        let walletRef = userRef.collection("Wallets")
-        if walletDictionary.count != 0 {
-            let newWallet = walletRef.addDocument(data: walletDictionary) { error in
-                if let error = error {
-                    print("Error adding wallet: \(error)")
-                    return
-                }
-                
-                print("Wallet created successfully!")
-            }
-            let insertedID = newWallet.documentID;
-            //goi ham updateAWallet va cap nhat id cho vi
-            updateAWallet(UID, insertedID, ["ID":insertedID])
-        }
+
+        // Tạo một DocumentReference để lấy ID sau khi document được tạo
+        let walletRef = db.collection("Wallets").document(UID).collection("Wallet").document()
+        
+        let walletData: [String: Any] = [
+            "Balance": balance,
+            "Image": image,
+            "Name": name
+        ]
+        // Sử dụng transactionRef để thêm document
+        try await walletRef.setData(walletData)
+
+        // Cập nhật lại document với trường ID
+        try await walletRef.updateData(["ID": walletRef.documentID])
+        print("Wallet added successfully!")
+
+        // Trả về ID wallet moisw
+        return walletRef.documentID
+        
     }
     //cap nhat vi
     static func updateAWallet(_ UID: String, _ walletID:String, _ walletDictionary:[String:Any])->Void {

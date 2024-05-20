@@ -28,8 +28,9 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
             // Truy cập dữ liệu trong TabBarController
             if let userProfile = tabBarController.userProfile
             {
-                        self.image.image = userProfile.getAvatar
-                        self.fullname.text = userProfile.getFullname
+                        self.image.image = userProfile.Avatar
+                print(userProfile.Avatar)
+                        self.fullname.text = userProfile.Fullname
                         self.userProfile = userProfile
             }
             
@@ -62,8 +63,8 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
         Task{
             if let UID = UserDefaults.standard.string(forKey: "UID") {
                 if let user =  await UserProfile.getUserProfine(UID: UID){
-                    self.image.image = user.getAvatar
-                    self.fullname.text = user.getFullname
+                    self.image.image = user.Avatar
+                    self.fullname.text = user.Fullname
                     
                 }
             }

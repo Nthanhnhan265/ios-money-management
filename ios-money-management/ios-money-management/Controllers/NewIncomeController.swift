@@ -220,7 +220,7 @@ class NewIncomeController: UIViewController, UICollectionViewDelegateFlowLayout,
                         
                         if let tabBarController = self.tabBarController as? TabHomeViewController {
                             if let userProfile = tabBarController.userProfile {
-                                if let wallet = userProfile.getWallets.first(where: {$0.getID == wallet.getID}) {
+                                if let wallet = userProfile.Wallets.first(where: {$0.getID == wallet.getID}) {
                                     // Thêm transaction vào wallet
                                     wallet.addTransaction(transaction: newTransaction)
                                 

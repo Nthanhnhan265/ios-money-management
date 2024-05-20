@@ -22,7 +22,7 @@ class AccountWalletsViewController: UIViewController {
             // Truy cập dữ liệu trong TabBarController
             if let userProfile = tabBarController.userProfile
             {
-                wallets = userProfile.getWallets
+                wallets = userProfile.Wallets
 
             }
             

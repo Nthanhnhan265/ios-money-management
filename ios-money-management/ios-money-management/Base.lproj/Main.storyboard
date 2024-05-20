@@ -3215,7 +3215,11 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Edit profile" style="editor" id="SnO-3T-SZq">
-                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="UTJ-4u-Iva"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="UTJ-4u-Iva">
+                            <connections>
+                                <action selector="btn_save_tapped:" destination="Vwv-a5-o4J" id="hYq-ze-chh"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="image" destination="18u-zt-5Xv" id="0C8-7U-XDR"/>
