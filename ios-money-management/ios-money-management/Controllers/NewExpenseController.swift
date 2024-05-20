@@ -68,8 +68,6 @@ class NewExpenseController: UIViewController, PHPickerViewControllerDelegate, UI
                
               
         setNavbar()
-        self.setPopupCategoryButton()
-        self.setPopupWalletButton()
         
         //        Xoá navigation bottom
                 self.tabBarController?.tabBar.isHidden = true
@@ -79,24 +77,10 @@ class NewExpenseController: UIViewController, PHPickerViewControllerDelegate, UI
         self.navigationController?.navigationBar.tintColor = UIColor.white
         self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
     }
-    func setPopupCategoryButton() {
-        //thay doi title moi khi chon
-        let optionClosure = {(action: UIAction) in
-            let attributedTitle = NSAttributedString(string: action.title)
-         
-            self.popupCategoryButton.setAttributedTitle(attributedTitle, for: .normal)
-        }
-        //hien thi ra option
-        popupCategoryButton.menu = UIMenu(children: [
-            UIAction(title: "option 1", handler: optionClosure),
-            UIAction(title: "option 2", handler: optionClosure),
-            UIAction(title: "option 3", handler: optionClosure)
-        ])
-        popupCategoryButton.showsMenuAsPrimaryAction = true
-        popupCategoryButton.changesSelectionAsPrimaryAction = true
-    }
+    
     
     @IBAction func btn_expenses_tapped(_ sender: UIButton) {
+        
         if let balanceString = textFieldValue.text,
                let balance = Int(balanceString),
                let description = textFieldDes.text,
@@ -104,16 +88,17 @@ class NewExpenseController: UIViewController, PHPickerViewControllerDelegate, UI
             {
                 Task {
                     do {
+                        
                         // Thêm giao dịch mới lên DB và lấy ID của nó
                         let transactionID = try await Transaction.addTransaction(
                             wallet_id: wallet.getID,
                             balance: balance > 0 ? -balance : balance,
                             category_id: categoryID,
                             des: description,
-                            images: []
+                            images: selectedImages
                         )
 
-                        // Cập nhật ví trên DB
+                        // Cập nhật số dư ví trên DB
                         Wallet.set_updateWallet(UID: UID, wallet: Wallet(ID: wallet.getID, Name: wallet.getName, Balance: wallet.Balance + (balance > 0 ? -balance : balance), Transaction: wallet.getTransactions()))
                         
 
@@ -132,7 +117,7 @@ class NewExpenseController: UIViewController, PHPickerViewControllerDelegate, UI
                                 
                                     //                        Cập nhật tiền của ví dưới local
                                     wallet.Balance = wallet.Balance + (balance > 0 ? -balance : balance)
-                                    
+
                                 }
                                 
                             }
@@ -149,6 +134,63 @@ class NewExpenseController: UIViewController, PHPickerViewControllerDelegate, UI
                 print("Error: UID or walletID is missing")
             }
         
+        
+//        if let balanceString = textFieldValue.text,
+//               let balance = Int(balanceString),
+//               let description = textFieldDes.text,
+//               let wallet = wallet
+//            {
+//                Task {
+//                    do {
+//                        // Thêm giao dịch mới lên DB và lấy ID của nó
+//                        let transactionID = try await Transaction.addTransaction(
+//                            wallet_id: wallet.getID,
+//                            balance: balance > 0 ? -balance : balance,
+//                            category_id: categoryID,
+//                            des: description,
+//                            images: []
+//                        )
+//
+//                        // Cập nhật ví trên DB
+//                        Wallet.set_updateWallet(UID: UID, wallet: Wallet(ID: wallet.getID, Name: wallet.getName, Balance: wallet.Balance + (balance > 0 ? -balance : balance), Transaction: wallet.getTransactions()))
+//
+//
+//
+//
+//
+//
+//                        // Thêm transaction vào mảng transactions của ví
+//                        let newTransaction = await Transaction(id: transactionID, description: description, balance: balance > 0 ? -balance : balance, category: Category.getCategory(Category_ID: categoryID)!, create_at: Date(), wallet_id: wallet.getID, images: []) // Tạo transaction mới với ID vừa nhận được
+//
+//                        if let tabBarController = self.tabBarController as? TabHomeViewController {
+//                            if let userProfile = tabBarController.userProfile {
+//                                if let wallet = userProfile.Wallets.first(where: {$0.getID == wallet.getID}) {
+//                                    // Thêm transaction vào wallet
+//                                    wallet.addTransaction(transaction: newTransaction)
+//
+//                                    //                        Cập nhật tiền của ví dưới local
+//                                    wallet.Balance = wallet.Balance + (balance > 0 ? -balance : balance)
+//
+//                                }
+//
+//                            }
+//                        }
+//
+//                    } catch {
+//                        // Xử lý lỗi nếu có
+//                        print("Error adding transaction: \(error)")
+//                    }
+//                    navigationController?.popViewController(animated: true)
+//                }
+//            } else {
+//                // Xử lý trường hợp UID hoặc walletID không tồn tại
+//                print("Error: UID or walletID is missing")
+//            }
+        
+//        ---------------------------------
+//        ---------------------------------
+//        ---------------------------------
+//        ---------------------------------
 //        if let balanceString = textFieldValue.text,
 //           let balance = Int(balanceString),
 //           let description = textFieldDes.text,
@@ -170,22 +212,7 @@ class NewExpenseController: UIViewController, PHPickerViewControllerDelegate, UI
 //            print("Error: UID or walletID is missing")
 //        }
     }
-    func setPopupWalletButton() {
-        //thay doi title moi khi chon
-        let optionClosure = {(action: UIAction) in
-            let attributedTitle = NSAttributedString(string: action.title)
-         
-            self.popupWalletButton.setAttributedTitle(attributedTitle, for: .normal)
-        }
-        //hien thi ra optionr
-        popupWalletButton.menu = UIMenu(children: [
-            UIAction(title: "option 1", handler: optionClosure),
-            UIAction(title: "option 2", handler: optionClosure),
-            UIAction(title: "option 3", handler: optionClosure)
-        ])
-        popupWalletButton.showsMenuAsPrimaryAction = true
-        popupWalletButton.changesSelectionAsPrimaryAction = true
-    }
+  
     func setWallets(wallets:[Wallet])  {
         // Tạo các UIAction từ danh sách Wallet
         let actions = wallets.map { wallet in
@@ -194,7 +221,7 @@ class NewExpenseController: UIViewController, PHPickerViewControllerDelegate, UI
                 
                 // Cập nhật giao diện của popup button (tùy chọn)
                 self.popupWalletButton.setAttributedTitle(NSAttributedString(string: wallet.getName), for: .normal)
-                self.popupCategoryButton.setImage(wallet.getImage, for: .normal) // Đặt lại ảnh
+                self.popupWalletButton.setImage(wallet.getImage, for: .normal) // Đặt lại ảnh
                 self.wallet = wallet
                 // Xử lý khi người dùng chọn một ví
                 // Gọi hàm xử lý đã chọn ví (đã được khai báo ở đâu đó trong ViewController)

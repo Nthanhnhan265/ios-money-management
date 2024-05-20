@@ -103,6 +103,8 @@ class HomeViewController: UIViewController {
             // Truy cập dữ liệu trong TabBarController
             if let userProfile = tabBarController.userProfile
             {
+                setProfile(userProfile: userProfile)
+
                 //        cập nhật số tiền
                 txt_balance.text = String(setWallets(wallets: userProfile.Wallets ).getVNDFormat())
                 
