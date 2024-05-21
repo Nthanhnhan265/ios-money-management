@@ -56,6 +56,14 @@ class Wallet {
             return image
         }
     }
+    var transactions_get_set:[Transaction]{
+        get{
+            return transactions
+        }
+        set{
+            transactions = newValue
+        }
+    }
     
     
 //  MARK: GET SET Transactions cho Wallet

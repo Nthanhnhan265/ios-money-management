@@ -27,6 +27,7 @@ class DetailExpenseViewController: UIViewController, UICollectionViewDelegateFlo
     
     //tao mang 5 tam hinh
     var arrImgs:[UIImage]? = []
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setFrontEnd()
@@ -40,11 +41,11 @@ class DetailExpenseViewController: UIViewController, UICollectionViewDelegateFlo
             
         }
         //them hinh anh
-        arrImgs?.append(UIImage(named: "avatar")!)
-        arrImgs?.append(UIImage(named: "avatar")!)
-        arrImgs?.append(UIImage(named: "avatar")!)
-        arrImgs?.append(UIImage(named: "avatar")!)
-        arrImgs?.append(UIImage(named: "avatar")!)
+//        arrImgs?.append(UIImage(named: "avatar")!)
+//        arrImgs?.append(UIImage(named: "avatar")!)
+//        arrImgs?.append(UIImage(named: "avatar")!)
+//        arrImgs?.append(UIImage(named: "avatar")!)
+//        arrImgs?.append(UIImage(named: "avatar")!)
          
    
         print("## \(String(describing: arrImgs?.count))");
@@ -75,11 +76,17 @@ class DetailExpenseViewController: UIViewController, UICollectionViewDelegateFlo
         return dateFormatter.string(from: currentDateAndTime)
     }
     func setBackEnd(wallet:Wallet, transaction:Transaction){
+        
         txt_des.text = transaction.getDescription
         txt_wallet.text = wallet.getName
         txt_category.text = transaction.getCategory.getName
         txt_time.text = DateToString(transaction.getCreateAt)
         txt_balance.text = String(transaction.getBalance.getVNDFormat())
+        
+//        Set hình ảnh giao dịch
+        for image in transaction.Images{
+            arrImgs?.append(image)
+        }
         
     }
     func setFrontEnd(){
@@ -103,8 +110,31 @@ class DetailExpenseViewController: UIViewController, UICollectionViewDelegateFlo
         alertController.addAction(cancelAction)
         
         let deleteAction = UIAlertAction(title: "Delete", style: .destructive) { _ in
-            // Perform deletion action here
-            print("transaction deleted")
+            Task{
+                //                Xoá transaction trên db
+                try await Transaction.deleteTransaction(walletID: self.transaction!.getWalletID, transactionID: self.transaction!.getID)
+                //                Xoá transaction ở mảng local
+                if let tabBarController = self.tabBarController as? TabHomeViewController {
+                    if let userProfile = tabBarController.userProfile{
+//                        Tìm được ví chứa giao dịch
+                        let wallet = userProfile.Wallets.first(where: {
+                            $0.getID == self.transaction?.getWalletID
+                        })
+//                        Tìm giao dịch trong ví đó
+                       if let index =  wallet?.getTransactions().firstIndex(where: {
+                            $0.getID == self.transaction?.getID
+                       }){
+                           //                            xoá giao dịch khỏi mảng
+                           wallet?.transactions_get_set.remove(at: index)
+                       }
+                        //                    Cộng trừ tiền lại vào ví
+//                         wallet.balance trung gian = wallet.balance trung gian - (self.transaction.balance)
+                        tabBarController.userProfile?.Wallets.first(where: {$0.getID == self.transaction?.getWalletID})?.Balance = (tabBarController.userProfile?.Wallets.first(where: {$0.getID == self.transaction?.getWalletID})!.Balance)! - self.transaction!.getBalance
+                    }
+                }
+                //                Trở về màn hình trước
+                self.navigationController?.popViewController(animated: true)
+            }
         }
         alertController.addAction(deleteAction)
         
