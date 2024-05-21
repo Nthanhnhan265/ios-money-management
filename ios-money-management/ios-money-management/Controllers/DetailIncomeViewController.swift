@@ -7,7 +7,7 @@
 
 import UIKit
 
-class DetailIncomeViewController: UIViewController {
+class DetailIncomeViewController: UIViewController,  UICollectionViewDelegateFlowLayout, UICollectionViewDataSource  {
 //    var detailExpense:Transaction?
     var transaction:Transaction? = nil
     
@@ -17,12 +17,22 @@ class DetailIncomeViewController: UIViewController {
     @IBOutlet weak var txt_time: UILabel!
     @IBOutlet weak var txt_balance: UILabel!
     @IBOutlet weak var borderView: UIView!
+    //tao mang luu hinh anh 
+    var arrImgs:[UIImage]? = []
+    
+    @IBOutlet weak var imagesCollectionView: UICollectionView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         setFrontEnd()
-        
-        
+        //them hinh anh
+        arrImgs?.append(UIImage(named: "avatar")!)
+        arrImgs?.append(UIImage(named: "avatar")!)
+        arrImgs?.append(UIImage(named: "avatar")!)
+        arrImgs?.append(UIImage(named: "avatar")!)
+        arrImgs?.append(UIImage(named: "avatar")!)
+         
 
         //        Lấy userProfile đang nằm trong Tabbar controller
         if let tabBarController = self.tabBarController as? TabHomeViewController {
@@ -99,6 +109,32 @@ class DetailIncomeViewController: UIViewController {
     }
     @IBAction func deleteTransaction(_ sender: UIBarButtonItem) {
         showConfirmDialog()
+    }
+    //MARK: implements
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return arrImgs?.count ?? 0
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let reuse = "DetailIncomeCell"
+        
+        if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuse, for: indexPath) as? DetailIncomeCell {
+            cell.imgView.image = arrImgs?[indexPath.row]
+            cell.cancelButton.addTarget(self, action: #selector(cancelButtonTapped(_ :)), for: .touchUpInside)
+            cell.cancelButton.layer.zPosition = 1
+            cell.tag = indexPath.row
+            return cell
+        }
+        
+        fatalError("khong the return cell : DetailExpenseViewController")
+    }
+    // Handle cancel button tap
+        @objc func cancelButtonTapped(_ sender: UIButton) {
+            arrImgs?.remove(at: sender.tag)
+            imagesCollectionView.reloadData()
+        }
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: collectionView.frame.size.width / 3 - 10 , height: 128 - 10)
     }
     
 
