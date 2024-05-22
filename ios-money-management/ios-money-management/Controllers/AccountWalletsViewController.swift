@@ -37,15 +37,39 @@ class AccountWalletsViewController: UIViewController {
         self.totalBalance.text = String(total_balance.getVNDFormat())
         
    
-        
+        tabBarController?.tabBar.isHidden = true 
         tbv_wallets.dataSource = self
         tbv_wallets.delegate = self
         tbv_wallets.register(WalletTableViewCell.nib(), forCellReuseIdentifier: WalletTableViewCell.identifier)
 
     }
-    //ham duoc goi de reset navbar
+    //ham duoc goi de reset navbar, load thong tin khac
     override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         setNavbar()
+        print("Vào lai AccountWalletsViewController")
+        
+        //        Lấy userProfile đang nằm trong Tabbar controller
+        if let tabBarController = self.tabBarController as? TabHomeViewController {
+            // Truy cập dữ liệu trong TabBarController
+            if let userProfile = tabBarController.userProfile
+            {
+                wallets = userProfile.Wallets
+
+            }
+            
+        }
+        
+//        Tính tổng số tiền
+        var total_balance = 0
+        for i in wallets{
+            total_balance += i.Balance
+            
+        }
+        self.totalBalance.text = String(total_balance.getVNDFormat())
+
+        tbv_wallets.reloadData()
+
     }
     //Ham set navbar
     func setNavbar() {
@@ -61,7 +85,6 @@ class AccountWalletsViewController: UIViewController {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         //        Lấy màn hình cần chuyển qua
         let view_controller = storyboard.instantiateViewController(withIdentifier: "NewWallet")
-        view_controller.isEditing = false //isEditing = false khi vao man hinh them
         //        set title cho navigation
         view_controller.navigationItem.title = "New Wallet"
         //        Đẩy màn hình vào hàng đợi... (chuyển màn hình)
@@ -85,6 +108,7 @@ extension AccountWalletsViewController: UITableViewDelegate, UITableViewDataSour
         //        Đổ dữ liệu vào cell
         cell.Wallet_name.text = self.wallets[indexPath.row].getName
         cell.Wallet_img.image = self.wallets[indexPath.row].getImage
+        print("set: \(String(describing: wallets[indexPath.row].getImage))")
         cell.Wallet_balace.text = String(self.wallets[indexPath.row].Balance.getVNDFormat())
         
         return cell
