@@ -24,7 +24,8 @@ class DetailExpenseViewController: UIViewController, UICollectionViewDelegateFlo
     @IBOutlet weak var txt_balance: UILabel!
     @IBOutlet weak var borderView: UIView!
     @IBOutlet weak var imagesCollectionView: UICollectionView!
-    
+    var wallets:[Wallet]?
+    var detailTrans:Transaction?
     //tao mang 5 tam hinh
     var arrImgs:[UIImage]? = []
     
@@ -36,8 +37,12 @@ class DetailExpenseViewController: UIViewController, UICollectionViewDelegateFlo
         if let tabBarController = self.tabBarController as? TabHomeViewController {
             if let transaction = transaction{
                 setBackEnd(wallet: tabBarController.getWalletFromTransaction(wallet_ID: transaction.getWalletID)!, transaction: transaction)
+                self.detailTrans = transaction
+
             }
-            
+            if let userprofile = tabBarController.userProfile  {
+                self.wallets = userprofile.Wallets
+            }
             
         }
         //them hinh anh
@@ -84,10 +89,7 @@ class DetailExpenseViewController: UIViewController, UICollectionViewDelegateFlo
         txt_balance.text = String(transaction.getBalance.getVNDFormat())
         
 //        Set hình ảnh giao dịch
-        for image in transaction.Images{
-            arrImgs?.append(image)
-        }
-        
+        arrImgs?.append(contentsOf: transaction.Images)
     }
     func setFrontEnd(){
         //set background for navigation controller
@@ -101,6 +103,22 @@ class DetailExpenseViewController: UIViewController, UICollectionViewDelegateFlo
     @IBAction func deleteTransaction(_ sender: UIBarButtonItem) {
         self.showConfirmDialog();
     }
+    //MARK: events
+    
+    @IBAction func edit_trans_tapped(_ sender: UIButton) {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let detail_ex = storyboard.instantiateViewController(withIdentifier: "Expense") as! NewExpenseController
+        detail_ex.navigationItem.title = "Edit Expense"
+        if let wallets = self.wallets {
+            detail_ex.wallets = wallets
+            detail_ex.selectedWallet = txt_wallet.text
+            detail_ex.detail_trans = self.detailTrans
+        }
+        self.navigationController?.pushViewController(detail_ex, animated: true)
+     
+    }
+    
+    
     
     // Function to display the confirm dialog
     func showConfirmDialog() {
@@ -158,19 +176,13 @@ class DetailExpenseViewController: UIViewController, UICollectionViewDelegateFlo
         
         if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuse, for: indexPath) as? DetailExpenseCell {
             cell.imgView.image = arrImgs?[indexPath.row]
-            cell.cancelButton.addTarget(self, action: #selector(cancelButtonTapped(_ :)), for: .touchUpInside)
-            cell.cancelButton.layer.zPosition = 1
             cell.tag = indexPath.row
             return cell 
         }
         
         fatalError("khong the return cell : DetailExpenseViewController")
     }
-    // Handle cancel button tap
-        @objc func cancelButtonTapped(_ sender: UIButton) {
-            arrImgs?.remove(at: sender.tag)
-            imagesCollectionView.reloadData()
-        }
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: collectionView.frame.size.width / 3 - 10 , height: 128 - 10)
     }

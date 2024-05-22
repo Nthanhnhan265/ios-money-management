@@ -25,7 +25,7 @@ class NewIncomeController: UIViewController, UICollectionViewDelegateFlowLayout,
     var categoryID = ""
     var wallet:Wallet? = nil
     var UID = ""
-    
+    var selectedWallet:String?
     override func viewDidLoad() {
         super.viewDidLoad()
         print("Vào NewIncomeController")
@@ -38,28 +38,12 @@ class NewIncomeController: UIViewController, UICollectionViewDelegateFlowLayout,
         setCategoryExpenses()
         
         setWallets(wallets: wallets)
-        
+        selectedWallet = "new"
         setNavbar()
     }
     
     //MARK: set up data in popup button
-    func setPopupCategoryButton() {
-        //thay doi title moi khi chon
-        let optionClosure = {(action: UIAction) in
-            let attributedTitle = NSAttributedString(string: action.title)
-            
-            self.popupCategoryButton.setAttributedTitle(attributedTitle, for: .normal)
-        }
-        //hien thi ra option
-        popupCategoryButton.menu = UIMenu(children: [
-            UIAction(title: "option 1", handler: optionClosure),
-            UIAction(title: "option 2", handler: optionClosure),
-            UIAction(title: "option 3", handler: optionClosure)
-        ])
-        popupCategoryButton.showsMenuAsPrimaryAction = true
-        popupCategoryButton.changesSelectionAsPrimaryAction = true
-    }
-    
+
     func setPopupWalletButton(wallets:[Wallet]) {
         // Tạo các UIAction từ danh sách Wallet
         let actions = wallets.map { wallet in
@@ -74,9 +58,13 @@ class NewIncomeController: UIViewController, UICollectionViewDelegateFlowLayout,
                 print("Chọn ví: \(wallet.getName)")
             }
         }
-        
         // Tạo UIMenu từ các UIAction
         let menu = UIMenu(children: actions)
+        
+        if let _ = selectedWallet, let action = menu.children.first(where: {$0.title == "new"}) as? UIAction  {
+            action.state = .on
+        }
+      
         
         // Gán UIMenu cho popup button và hiển thị
         popupWalletButton.menu = menu
