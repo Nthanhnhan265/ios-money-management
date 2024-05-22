@@ -429,16 +429,18 @@ class TransactionViewController: UIViewController {
     
     @IBAction func btn_sortOld_tapped(_ sender: UIButton) {
         btn_sortOld.backgroundColor = UIColor(red: 118/255, green: 64/255, blue: 246/255, alpha: 1.0)
+        btn_sortOld.titleLabel?.textColor = .white
         btn_sortOld.layer.cornerRadius = 20
         btn_sortNew.backgroundColor = .white
-        
+        btn_sortNew.titleLabel?.textColor = .black
         currentFilterState.sort_new = false
     }
     @IBAction func btn_sortNew_tapped(_ sender: UIButton) {
         btn_sortNew.backgroundColor = UIColor(red: 118/255, green: 64/255, blue: 246/255, alpha: 1.0)
         btn_sortNew.layer.cornerRadius = 20
+        btn_sortNew.titleLabel?.textColor = .white
         btn_sortOld.backgroundColor = .white
-        
+        btn_sortOld.titleLabel?.textColor = .black
         currentFilterState.sort_new = true
     }
     

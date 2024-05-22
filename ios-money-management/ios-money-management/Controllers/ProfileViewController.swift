@@ -11,9 +11,8 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
     @IBOutlet weak var image: UIImageView!
     @IBOutlet weak var fullname: UILabel!
     var settings:[[String:Any]] = [
-        ["setting_name": "Account", "setting_icon": "iconWallet"],
+        ["setting_name": "Wallet", "setting_icon": "iconWallet"],
         ["setting_name": "Setting", "setting_icon": "iconSetting"],
-        ["setting_name": "Export Data", "setting_icon": "iconExport"],
         ["setting_name": "Logout", "setting_icon": "iconLogout"]
     ]
     var userProfile:UserProfile?

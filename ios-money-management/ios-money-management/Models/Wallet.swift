@@ -37,10 +37,15 @@ class Wallet {
             return image?.imageAsset?.value(forKey: "assetName") as! String
             
         }
+       
+       
     }
     var getName:String{
         get{
             return name
+        }
+        set {
+            self.name = newValue
         }
     }
     var Balance:Int{
@@ -55,6 +60,9 @@ class Wallet {
         get{
             return image
         }
+        set {
+                self.image = newValue
+        }
     }
     var transactions_get_set:[Transaction]{
         get{
@@ -64,6 +72,8 @@ class Wallet {
             transactions = newValue
         }
     }
+    
+
     
     
 //  MARK: GET SET Transactions cho Wallet
@@ -106,7 +116,7 @@ class Wallet {
     }
     
    
-    
+    //MARK: Tam An - Tao vi moi
     //tao vi moi
     public static func createNewWallet(UID: String, balance:Int, image: String, name: String)async throws -> String{
         let db = Firestore.firestore()
@@ -130,36 +140,26 @@ class Wallet {
         return walletRef.documentID
         
     }
-    //cap nhat vi
-    static func updateAWallet(_ UID: String, _ walletID:String, _ walletDictionary:[String:Any])->Void {
-        let db = Firestore.firestore()
-        let userRef = db.collection("Profile").document(UID)
-        let walletDoc = userRef.collection("Wallets").document(walletID)
-        if walletDictionary.count != 0 {
-            walletDoc.updateData(walletDictionary) { error in
-                if let error = error {
-                    print("Error adding wallet: \(error)")
-                    return
-                }
-                print("Wallet updated successfully!")
-            }
-        }
-    }
+
     //xoa vi
-    static func deleteAWallet(_ UID: String, _ walletID:String) {
+    static func deleteAWallet(userID UID: String, walletId walletID:String) {
         let db = Firestore.firestore()
-        let userRef = db.collection("Profile").document(UID)
-        let walletDoc = userRef.collection("Wallets").document(walletID)
-        walletDoc.getDocument { document, error in
+        //xoa giao dich
+        
+        //xoa vi
+        //lay ra tat ca vi cua user
+        let walletRef = db.collection("Wallets").document(UID)
+        let walleDoc = walletRef.collection("Wallet").document(walletID)
+        walleDoc.delete() { error in
             if let error = error {
                 print("Error deleting wallet \(error)")
-                return
+            }else {
+                print("delete wallet successfully");
             }
-            if let document = document, document.exists {
-                walletDoc.delete()
-                print("Wallet deleted successfully")
-            }
+            
+            
         }
+        
     }
     // MARK: Tâm An - Cập nhật ví
     /// Cập nhật lại thông tin wallet của UID
@@ -173,6 +173,7 @@ class Wallet {
             let walletData: [String: Any] = [
                 "Name": wallet.getName,
                 "Balance": wallet.Balance,
+                "Image":wallet.getImageName,
                 "ID": wallet.getID,
             ]
 
