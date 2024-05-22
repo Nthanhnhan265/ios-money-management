@@ -15,6 +15,8 @@ class DetailWalletViewController: UIViewController {
     @IBOutlet weak var wallet_img: UIImageView!
     @IBOutlet weak var tableview: UITableView!
     
+    
+    
     var wallet:Wallet? = nil
     var transactions:[Transaction] = []
     var sections: [Section] = []
@@ -41,6 +43,11 @@ class DetailWalletViewController: UIViewController {
         
         
     }
+    override func viewWillAppear(_ animated: Bool) {
+        setFrontEnd()
+        setNavbar()
+    }
+    
     func createSections(from transactions: [Transaction]) -> [Section] {
         var sections: [Section] = []
         var currentSection: Section?
@@ -80,6 +87,12 @@ class DetailWalletViewController: UIViewController {
         wallet_img.image = wallet?.getImage
         wallet_name.text = wallet?.getName
         wallet_balance.text = (wallet?.Balance.getVNDFormat())
+    }
+    //Ham set navbar
+    func setNavbar() {
+        navigationController?.navigationBar.tintColor = .black
+        navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.black]
+        navigationController?.navigationBar.backgroundColor = .white
     }
 
     /// Hàm chuyển đồ từ Date sang String
@@ -125,6 +138,73 @@ class DetailWalletViewController: UIViewController {
             print("<<<<<String to Date KHÔNG THÀNH CÔNG - TransactionViewController>>>>>")
             return Date.now
         }
+    }
+    
+    //MARK: event
+    //nguoi dung an vao chinh sua vi
+    @IBAction func edit_wallet_tapped(_ sender: UIButton) {
+        //Lấy main.storyboard
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        //qua man hinh de edit wallet (trong AddNewWalletControllor)
+        let edit_wallet = storyboard.instantiateViewController(withIdentifier: "NewWallet") as! AddWalletViewController
+        edit_wallet.detail_wallet = self.wallet
+        edit_wallet.navigationItem.title = "Edit wallet"
+        navigationController?.pushViewController(edit_wallet, animated: true)
+    }
+    //nguoi dung an xoa vi
+    
+    @IBAction func deleteWalletTapped(_ sender: UIBarButtonItem) {
+        showConfirmDialog()
+    }
+    
+    
+    
+    // ham hien thi dialog xac nhan xoa
+    func showConfirmDialog() {
+        let alertController = UIAlertController(title: "Delete wallet", message: "Are you sure you want to delete this wallet?", preferredStyle: .actionSheet)
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        alertController.addAction(cancelAction)
+        
+        let deleteAction = UIAlertAction(title: "Delete", style: .destructive) { _ in
+           
+            
+            
+            
+            if let tabBarController = self.tabBarController as? TabHomeViewController {
+                if let userprofile = tabBarController.userProfile {
+                    
+                    //xoa giao dich o backend
+                    Wallet.deleteAWallet(userID: userprofile.getUID, walletId: self.wallet!.getID)
+                    
+                    
+                    //thuc hien xoa giao dich o front end
+                    if let index = userprofile.Wallets.firstIndex(where: {$0.getID == self.wallet?.getID}) {
+                        print("index of current wallet in array: \(index)")
+                        userprofile.Wallets.remove(at: index)
+                        
+                    }
+                    
+                }
+                
+                
+            }
+            
+            
+            
+            //tro ve
+            self.navigationController?.popViewController(animated: true)
+        }
+        alertController.addAction(deleteAction)
+        
+        // Configure presentation style as custom
+        if let popoverController = alertController.popoverPresentationController {
+            popoverController.sourceView = view
+            popoverController.sourceRect = CGRect(x: view.bounds.midX, y: view.bounds.maxY, width: 0, height: 0)
+            popoverController.permittedArrowDirections = []
+        }
+        
+        present(alertController, animated: true, completion: nil)
     }
 }
 extension DetailWalletViewController: UITableViewDataSource, UITableViewDelegate{
