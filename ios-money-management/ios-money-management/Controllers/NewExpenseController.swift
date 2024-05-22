@@ -15,39 +15,47 @@ class NewExpenseController: UIViewController, PHPickerViewControllerDelegate, UI
     @IBOutlet weak var textFieldValue: UITextField!
     @IBOutlet weak var popupCategoryButton: UIButton!
     @IBOutlet weak var popupWalletButton: UIButton!
-    @IBOutlet weak var textFieldDes: UITextField!
+    @IBOutlet weak var textFieldDescription: UITextField!
     
     var selectedImages = [UIImage]()
     var wallets: [Wallet] = []
     var categoryID = ""
     var wallet:Wallet? = nil
     var UID = ""
-    
+    var selectedWallet:String?
+    var detail_trans:Transaction?
     //MARK: viewDidLoad()
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         //       Lấy UID
         UID = UserDefaults.standard.string(forKey: "UID") ?? ""
-
+        
         setFrontEnd()
         
         //        Đổ category vào pop up category
         setCategoryExpenses()
         
-
         setWallets(wallets: wallets)
-
+        
     }
     
     //MARK: setup button
     func setFrontEnd(){
+        if let detail_trans = self.detail_trans {
+            textFieldValue.text = "\(detail_trans.getBalance * -1 )"
+            textFieldDescription.text = "\(detail_trans.getDescription)"
+            selectedImages.append(contentsOf: detail_trans.Images)
+        }
+        
+        
+        
         //set title cho navigation controller
         self.navigationController?.navigationBar.barTintColor = UIColor.white
         //button custom
         // Thiết lập tiêu đề của nut
-              let attributedTitleCategory = NSAttributedString(string: "Category")
-              popupCategoryButton.setAttributedTitle(attributedTitleCategory, for: .normal)
+        let attributedTitleCategory = NSAttributedString(string: "Category")
+        popupCategoryButton.setAttributedTitle(attributedTitleCategory, for: .normal)
         
         let attributedTitleWallet = NSAttributedString(string: "Wallet")
         popupWalletButton.setAttributedTitle(attributedTitleWallet, for: .normal)
@@ -55,22 +63,22 @@ class NewExpenseController: UIViewController, PHPickerViewControllerDelegate, UI
         textFieldValue.attributedPlaceholder = NSAttributedString(string: "$0",attributes: [.foregroundColor: UIColor.white])
         
         // Thiết lập các thuộc tính cho các nút khác
-                textFieldDes.layer.cornerRadius = 16
-//                textFieldDes.layer.masksToBounds = true
+        textFieldDescription.layer.cornerRadius = 16
+        //                textFieldDes.layer.masksToBounds = true
         
-               popupCategoryButton.layer.borderColor = UIColor(red: 241/255, green: 241/255, blue: 250/255, alpha: 1).cgColor
-               popupCategoryButton.layer.borderWidth = 1
-               popupCategoryButton.layer.cornerRadius = 16
-               
-               popupWalletButton.layer.borderColor = UIColor(red: 241/255, green: 241/255, blue: 250/255, alpha: 1).cgColor
-               popupWalletButton.layer.borderWidth = 1
-               popupWalletButton.layer.cornerRadius = 16
-               
-              
+        popupCategoryButton.layer.borderColor = UIColor(red: 241/255, green: 241/255, blue: 250/255, alpha: 1).cgColor
+        popupCategoryButton.layer.borderWidth = 1
+        popupCategoryButton.layer.cornerRadius = 16
+        
+        popupWalletButton.layer.borderColor = UIColor(red: 241/255, green: 241/255, blue: 250/255, alpha: 1).cgColor
+        popupWalletButton.layer.borderWidth = 1
+        popupWalletButton.layer.cornerRadius = 16
+        
+        
         setNavbar()
         
         //        Xoá navigation bottom
-                self.tabBarController?.tabBar.isHidden = true
+        self.tabBarController?.tabBar.isHidden = true
     }
     func setNavbar() {
         self.navigationController?.navigationBar.backgroundColor = UIColor(red: 255/255, green: 86/255, blue: 92/255, alpha: 1);
@@ -82,137 +90,137 @@ class NewExpenseController: UIViewController, PHPickerViewControllerDelegate, UI
     @IBAction func btn_expenses_tapped(_ sender: UIButton) {
         
         if let balanceString = textFieldValue.text,
-               let balance = Int(balanceString),
-               let description = textFieldDes.text,
-               let wallet = wallet
-            {
-                Task {
-                    do {
-                        
-                        // Thêm giao dịch mới lên DB và lấy ID của nó
-                        let transactionID = try await Transaction.addTransaction(
-                            wallet_id: wallet.getID,
-                            balance: balance > 0 ? -balance : balance,
-                            category_id: categoryID,
-                            des: description,
-                            images: selectedImages
-                        )
-
-                        // Cập nhật số dư ví trên DB
-                        Wallet.set_updateWallet(UID: UID, wallet: Wallet(ID: wallet.getID, Name: wallet.getName, Balance: wallet.Balance + (balance > 0 ? -balance : balance), Image: wallet.getImage, Transaction: wallet.getTransactions()))
-                        
-
-                        
-                        
-                        
-
-                        // Thêm transaction vào mảng transactions của ví
-                        let newTransaction = await Transaction(id: transactionID, description: description, balance: balance > 0 ? -balance : balance, category: Category.getCategory(Category_ID: categoryID)!, create_at: Date(), wallet_id: wallet.getID, images: selectedImages) // Tạo transaction mới với ID vừa nhận được
-                        
-                        if let tabBarController = self.tabBarController as? TabHomeViewController {
-                            if let userProfile = tabBarController.userProfile {
-                                if let wallet = userProfile.Wallets.first(where: {$0.getID == wallet.getID}) {
-                                    // Thêm transaction vào wallet
-                                    wallet.addTransaction(transaction: newTransaction)
+           let balance = Int(balanceString),
+           let description = textFieldDescription.text,
+           let wallet = wallet
+        {
+            Task {
+                do {
+                    
+                    // Thêm giao dịch mới lên DB và lấy ID của nó
+                    let transactionID = try await Transaction.addTransaction(
+                        wallet_id: wallet.getID,
+                        balance: balance > 0 ? -balance : balance,
+                        category_id: categoryID,
+                        des: description,
+                        images: selectedImages
+                    )
+                    
+                    // Cập nhật số dư ví trên DB
+                    Wallet.set_updateWallet(UID: UID, wallet: Wallet(ID: wallet.getID, Name: wallet.getName, Balance: wallet.Balance + (balance > 0 ? -balance : balance), Image: wallet.getImage, Transaction: wallet.getTransactions()))
+                    
+                    
+                    
+                    
+                    
+                    
+                    // Thêm transaction vào mảng transactions của ví
+                    let newTransaction = await Transaction(id: transactionID, description: description, balance: balance > 0 ? -balance : balance, category: Category.getCategory(Category_ID: categoryID)!, create_at: Date(), wallet_id: wallet.getID, images: selectedImages) // Tạo transaction mới với ID vừa nhận được
+                    
+                    if let tabBarController = self.tabBarController as? TabHomeViewController {
+                        if let userProfile = tabBarController.userProfile {
+                            if let wallet = userProfile.Wallets.first(where: {$0.getID == wallet.getID}) {
+                                // Thêm transaction vào wallet
+                                wallet.addTransaction(transaction: newTransaction)
                                 
-                                    //                        Cập nhật tiền của ví dưới local
-                                    wallet.Balance = wallet.Balance + (balance > 0 ? -balance : balance)
-
-                                }
+                                //                        Cập nhật tiền của ví dưới local
+                                wallet.Balance = wallet.Balance + (balance > 0 ? -balance : balance)
                                 
                             }
+                            
                         }
-
-                    } catch {
-                        // Xử lý lỗi nếu có
-                        print("Error adding transaction: \(error)")
                     }
-                    navigationController?.popViewController(animated: true)
+                    
+                } catch {
+                    // Xử lý lỗi nếu có
+                    print("Error adding transaction: \(error)")
                 }
-            } else {
-                // Xử lý trường hợp UID hoặc walletID không tồn tại
-                print("Error: UID or walletID is missing")
+                navigationController?.popViewController(animated: true)
             }
+        } else {
+            // Xử lý trường hợp UID hoặc walletID không tồn tại
+            print("Error: UID or walletID is missing")
+        }
         
         
-//        if let balanceString = textFieldValue.text,
-//               let balance = Int(balanceString),
-//               let description = textFieldDes.text,
-//               let wallet = wallet
-//            {
-//                Task {
-//                    do {
-//                        // Thêm giao dịch mới lên DB và lấy ID của nó
-//                        let transactionID = try await Transaction.addTransaction(
-//                            wallet_id: wallet.getID,
-//                            balance: balance > 0 ? -balance : balance,
-//                            category_id: categoryID,
-//                            des: description,
-//                            images: []
-//                        )
-//
-//                        // Cập nhật ví trên DB
-//                        Wallet.set_updateWallet(UID: UID, wallet: Wallet(ID: wallet.getID, Name: wallet.getName, Balance: wallet.Balance + (balance > 0 ? -balance : balance), Transaction: wallet.getTransactions()))
-//
-//
-//
-//
-//
-//
-//                        // Thêm transaction vào mảng transactions của ví
-//                        let newTransaction = await Transaction(id: transactionID, description: description, balance: balance > 0 ? -balance : balance, category: Category.getCategory(Category_ID: categoryID)!, create_at: Date(), wallet_id: wallet.getID, images: []) // Tạo transaction mới với ID vừa nhận được
-//
-//                        if let tabBarController = self.tabBarController as? TabHomeViewController {
-//                            if let userProfile = tabBarController.userProfile {
-//                                if let wallet = userProfile.Wallets.first(where: {$0.getID == wallet.getID}) {
-//                                    // Thêm transaction vào wallet
-//                                    wallet.addTransaction(transaction: newTransaction)
-//
-//                                    //                        Cập nhật tiền của ví dưới local
-//                                    wallet.Balance = wallet.Balance + (balance > 0 ? -balance : balance)
-//
-//                                }
-//
-//                            }
-//                        }
-//
-//                    } catch {
-//                        // Xử lý lỗi nếu có
-//                        print("Error adding transaction: \(error)")
-//                    }
-//                    navigationController?.popViewController(animated: true)
-//                }
-//            } else {
-//                // Xử lý trường hợp UID hoặc walletID không tồn tại
-//                print("Error: UID or walletID is missing")
-//            }
+        //        if let balanceString = textFieldValue.text,
+        //               let balance = Int(balanceString),
+        //               let description = textFieldDes.text,
+        //               let wallet = wallet
+        //            {
+        //                Task {
+        //                    do {
+        //                        // Thêm giao dịch mới lên DB và lấy ID của nó
+        //                        let transactionID = try await Transaction.addTransaction(
+        //                            wallet_id: wallet.getID,
+        //                            balance: balance > 0 ? -balance : balance,
+        //                            category_id: categoryID,
+        //                            des: description,
+        //                            images: []
+        //                        )
+        //
+        //                        // Cập nhật ví trên DB
+        //                        Wallet.set_updateWallet(UID: UID, wallet: Wallet(ID: wallet.getID, Name: wallet.getName, Balance: wallet.Balance + (balance > 0 ? -balance : balance), Transaction: wallet.getTransactions()))
+        //
+        //
+        //
+        //
+        //
+        //
+        //                        // Thêm transaction vào mảng transactions của ví
+        //                        let newTransaction = await Transaction(id: transactionID, description: description, balance: balance > 0 ? -balance : balance, category: Category.getCategory(Category_ID: categoryID)!, create_at: Date(), wallet_id: wallet.getID, images: []) // Tạo transaction mới với ID vừa nhận được
+        //
+        //                        if let tabBarController = self.tabBarController as? TabHomeViewController {
+        //                            if let userProfile = tabBarController.userProfile {
+        //                                if let wallet = userProfile.Wallets.first(where: {$0.getID == wallet.getID}) {
+        //                                    // Thêm transaction vào wallet
+        //                                    wallet.addTransaction(transaction: newTransaction)
+        //
+        //                                    //                        Cập nhật tiền của ví dưới local
+        //                                    wallet.Balance = wallet.Balance + (balance > 0 ? -balance : balance)
+        //
+        //                                }
+        //
+        //                            }
+        //                        }
+        //
+        //                    } catch {
+        //                        // Xử lý lỗi nếu có
+        //                        print("Error adding transaction: \(error)")
+        //                    }
+        //                    navigationController?.popViewController(animated: true)
+        //                }
+        //            } else {
+        //                // Xử lý trường hợp UID hoặc walletID không tồn tại
+        //                print("Error: UID or walletID is missing")
+        //            }
         
-//        ---------------------------------
-//        ---------------------------------
-//        ---------------------------------
-//        ---------------------------------
-//        if let balanceString = textFieldValue.text,
-//           let balance = Int(balanceString),
-//           let description = textFieldDes.text,
-//           let wallet = wallet
-//        {
-////            Gọi hàm tạo giao dịch
-//            Transaction.addTransaction(
-//                wallet_id: wallet.getID,
-//                    balance: balance > 0 ? -balance : balance,
-//                    category_id: categoryID,
-//                    des: description)
-//
-//            //            Trừ tiền khỏi ví
-//                        Wallet.set_updateWallet(UID: UID, wallet: Wallet(ID: wallet.getID, Name: wallet.getName, Balance: wallet.getBalance + (balance > 0 ? -balance : balance), Transaction: wallet.getTransactions()))
-//
-//
-//        } else {
-//            // Xử lý trường hợp UID hoặc walletID không tồn tại
-//            print("Error: UID or walletID is missing")
-//        }
+        //        ---------------------------------
+        //        ---------------------------------
+        //        ---------------------------------
+        //        ---------------------------------
+        //        if let balanceString = textFieldValue.text,
+        //           let balance = Int(balanceString),
+        //           let description = textFieldDes.text,
+        //           let wallet = wallet
+        //        {
+        ////            Gọi hàm tạo giao dịch
+        //            Transaction.addTransaction(
+        //                wallet_id: wallet.getID,
+        //                    balance: balance > 0 ? -balance : balance,
+        //                    category_id: categoryID,
+        //                    des: description)
+        //
+        //            //            Trừ tiền khỏi ví
+        //                        Wallet.set_updateWallet(UID: UID, wallet: Wallet(ID: wallet.getID, Name: wallet.getName, Balance: wallet.getBalance + (balance > 0 ? -balance : balance), Transaction: wallet.getTransactions()))
+        //
+        //
+        //        } else {
+        //            // Xử lý trường hợp UID hoặc walletID không tồn tại
+        //            print("Error: UID or walletID is missing")
+        //        }
     }
-  
+    
     func setWallets(wallets:[Wallet])  {
         // Tạo các UIAction từ danh sách Wallet
         let actions = wallets.map { wallet in
@@ -230,7 +238,15 @@ class NewExpenseController: UIViewController, PHPickerViewControllerDelegate, UI
         }
         
         // Tạo UIMenu từ các UIAction và gán cho popup button
-        popupWalletButton.menu = UIMenu(children: actions)
+        let menu = UIMenu(children: actions)
+        // hien thi vi da chon
+        if let selectedWallet = self.selectedWallet , let selectedAction = actions.first(where: { $0.title == selectedWallet }) {
+            selectedAction.state = .on
+            self.wallet = wallets.first(where: { $0.getName == selectedWallet }) // Lấy ví tương ứng
+            self.popupWalletButton.setAttributedTitle(NSAttributedString(string: selectedAction.title), for: .normal)
+            self.popupWalletButton.setImage(selectedAction.image, for: .normal) // Đặt lại ảnh
+        }
+        popupWalletButton.menu = menu
         popupWalletButton.showsMenuAsPrimaryAction = true
     }
     func setCategoryExpenses() {
@@ -238,6 +254,7 @@ class NewExpenseController: UIViewController, PHPickerViewControllerDelegate, UI
         if let tabBarController = self.tabBarController as? TabHomeViewController {
             //            lấy danh sách income
             let category_income = tabBarController.category_expenses
+            
             
             //            Đổ dữ liệu vào pop up
             let actions = category_income.map { category in
@@ -249,7 +266,14 @@ class NewExpenseController: UIViewController, PHPickerViewControllerDelegate, UI
                 }
             }
             //            set pop up
-            popupCategoryButton.menu = UIMenu(children: actions)
+            let menu = UIMenu(children: actions)
+            if let detailTrans = detail_trans, let action = menu.children.first(where: {$0.title == detailTrans.getCategory.getName}) as? UIAction{
+                self.popupCategoryButton.setAttributedTitle(NSAttributedString(string: action.title), for: .normal)
+                self.popupCategoryButton.setImage(action.image, for: .normal)
+                action.state = .on
+                
+            }
+            popupCategoryButton.menu = menu
             popupCategoryButton.showsMenuAsPrimaryAction = true
         }
     }
@@ -264,26 +288,26 @@ class NewExpenseController: UIViewController, PHPickerViewControllerDelegate, UI
         self.present(phPickerVC,animated: true)
     }
     
-
-
+    
+    
     //MARK: implement classes
     //sau khi chon xong anh thi thuc hien hanh dong tai day
     func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
         dismiss(animated: true)
         //duyet vong lap hinh anh da chon
-    
+        
         for r in results {
             r.itemProvider.loadObject(ofClass: UIImage.self) { (object, error) in
                 if let image = object as? UIImage {
                     self.selectedImages.append(image)
                     print("Image appended: \(image) \(self.selectedImages.count)")
-                  
+                    
                 }
                 DispatchQueue.main.async {
                     self.collectionImagesView.reloadData()
                     print("Count after appending: \(self.selectedImages.count)")
                 }
-               
+                
             }
         }
     }
@@ -299,7 +323,7 @@ class NewExpenseController: UIViewController, PHPickerViewControllerDelegate, UI
         if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuse, for: indexPath) as? ImageCell {
             //image
             cell.imgView.image = selectedImages[indexPath.row]
-
+            
             //cancel button
             cell.cancelButton.addTarget(self, action: #selector(cancelButtonTapped(_ :)), for: .touchUpInside)
             cell.cancelButton.tag = indexPath.row
@@ -310,17 +334,17 @@ class NewExpenseController: UIViewController, PHPickerViewControllerDelegate, UI
     }
     
     // Handle cancel button tap
-        @objc func cancelButtonTapped(_ sender: UIButton) {
-            selectedImages.remove(at: sender.tag)
-            collectionImagesView.reloadData()
-        }
+    @objc func cancelButtonTapped(_ sender: UIButton) {
+        selectedImages.remove(at: sender.tag)
+        collectionImagesView.reloadData()
+    }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: collectionView.frame.size.width / 3 - 10 , height: 128 - 10)
     }
-   
-   
     
-
+    
+    
+    
 }
 
