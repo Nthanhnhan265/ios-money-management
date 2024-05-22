@@ -64,6 +64,14 @@ class Wallet {
                 self.image = newValue
         }
     }
+    var transactions_get_set:[Transaction]{
+        get{
+            return transactions
+        }
+        set{
+            transactions = newValue
+        }
+    }
     
 
     

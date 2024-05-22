@@ -104,8 +104,30 @@ class Transaction  {
         
         do {
             let snapshot = try await walletRef.getDocuments() // Lấy tất cả documents
+            
+//            Duyệt mảng transaction
             for transaction in snapshot.documents{
-                //                print("Transaction ID: \(transaction.documentID)")
+                var arr_image_transaction:[UIImage] = []
+//                Duyệt ảnh của 1 transaction
+                for image_url in transaction["imageUrls"] as! Array<String>{
+                    guard let imageUrl = URL(string: image_url) else {
+                            print("Download ảnh thất bại")
+                            return nil
+                        }
+                    do {
+                        // Tải dữ liệu ảnh (Data) từ URL
+                        let (imageData, _) = try await URLSession.shared.data(from: imageUrl)
+
+                        // Chuyển đổi dữ liệu ảnh thành UIImage
+                        if let image = UIImage(data: imageData) {
+                            arr_image_transaction.append(image)
+                        }
+                    } catch {
+                        print("Error loading image: \(error.localizedDescription)")
+                        return nil
+                    }
+
+                }
                 await myTransactions.append(
                     Transaction(
                         id: transaction["ID"] as! String,
@@ -114,7 +136,7 @@ class Transaction  {
                         category: Category.getCategory(Category_ID: transaction["Category_ID"] as! String)!,
                         create_at: (transaction["CreateAt"] as? Timestamp)?.dateValue() ?? Date(),
                         wallet_id: walletID,
-                        images: []
+                        images:arr_image_transaction
                     )
                 )
             }
@@ -125,6 +147,32 @@ class Transaction  {
             return nil
         }
     }
+    public static func deleteTransaction(walletID: String, transactionID: String) async throws {
+        let db = Firestore.firestore()
+        
+        // 1. Lấy  giao dịch collection "Transaction"
+        let transactionRef = db.collection("Transactions").document(walletID).collection("Transaction").document(transactionID)
+        
+        // 2. Xóa ảnh khỏi Firebase Storage (nếu có)
+        let transactionData = try await transactionRef.getDocument() // Lấy lại dữ liệu giao dịch
+        if let imageUrls = transactionData.get("imageUrls") as? [String] {
+            print(imageUrls)
+            for imageUrl in imageUrls {
+                try await deleteImageFromStorage(urlString: imageUrl)
+            }
+        }
+        //       Xoá giao dịch
+        try await transactionRef.delete()
+        
+        print("Transaction deleted successfully!")
+    }
+
+        // Hàm xóa ảnh từ Firebase Storage
+        private static func deleteImageFromStorage(urlString: String) async throws {
+            guard let _ = URL(string: urlString) else {return}
+            let storageRef = Storage.storage().reference(forURL: urlString)
+            try await storageRef.delete()
+        }
     /// Hàm chuyển đồ từ Date sang String
     func DateToString(str_date date:Date) -> String{
         // Lấy ra 1 biến Date ở thời gian hiện tại

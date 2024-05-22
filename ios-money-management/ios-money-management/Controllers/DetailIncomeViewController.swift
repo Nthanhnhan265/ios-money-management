@@ -26,12 +26,7 @@ class DetailIncomeViewController: UIViewController,  UICollectionViewDelegateFlo
         super.viewDidLoad()
 
         setFrontEnd()
-        //them hinh anh
-        arrImgs?.append(UIImage(named: "avatar")!)
-        arrImgs?.append(UIImage(named: "avatar")!)
-        arrImgs?.append(UIImage(named: "avatar")!)
-        arrImgs?.append(UIImage(named: "avatar")!)
-        arrImgs?.append(UIImage(named: "avatar")!)
+        
          
 
         //        Lấy userProfile đang nằm trong Tabbar controller
@@ -74,6 +69,10 @@ class DetailIncomeViewController: UIViewController,  UICollectionViewDelegateFlo
         txt_time.text = DateToString(transaction.getCreateAt)
         txt_balance.text = String(transaction.getBalance.getVNDFormat())
         
+        for image in transaction.Images{
+            arrImgs?.append(image)
+        }
+        
     }
     func setFrontEnd(){
         //set background for navigation controller
@@ -92,9 +91,35 @@ class DetailIncomeViewController: UIViewController,  UICollectionViewDelegateFlo
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
         alertController.addAction(cancelAction)
         
+//        Nếu người dùng xác nhận delete
         let deleteAction = UIAlertAction(title: "Delete", style: .destructive) { _ in
             // Perform deletion action here
-            print("transaction deleted")
+            Task{
+//                Xoá transaction trên db
+                try await Transaction.deleteTransaction(walletID: self.transaction!.getWalletID, transactionID: self.transaction!.getID)
+//                Xoá transaction ở mảng local
+                if let tabBarController = self.tabBarController as? TabHomeViewController {
+                    
+                    if let userProfile = tabBarController.userProfile{
+//                        Tìm được ví chứa giao dịch
+                        let wallet = userProfile.Wallets.first(where: {$0.getID == self.transaction?.getWalletID})
+//                        Tìm giao dịch trong ví đó
+                       if let index =  wallet?.getTransactions().firstIndex(where: {$0.getID == self.transaction?.getID})
+                        {
+                           // xoá giao dịch khỏi mảng
+                           wallet?.transactions_get_set.remove(at: index)
+                       }
+                        //                    Cộng trừ tiền lại vào ví:
+//                        wallet.balance trung gian = wallet.balance trung gian - (self.transaction.balance)
+                        tabBarController.userProfile?.Wallets.first(where: {$0.getID == self.transaction?.getWalletID})?.Balance = (tabBarController.userProfile?.Wallets.first(where: {$0.getID == self.transaction?.getWalletID})!.Balance)! - self.transaction!.getBalance
+                    }
+
+                }
+
+//                Trở về màn hình trước
+                self.navigationController?.popViewController(animated: true)
+
+            }
         }
         alertController.addAction(deleteAction)
         
