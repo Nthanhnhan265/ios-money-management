@@ -113,7 +113,7 @@ class SignUpViewController: UIViewController {
                 
                 //                Tạo 1 đối tượng userProfile
                 if let fullname = txt_name.text{
-                    let userProfile = UserProfile(UID: userId, fullname: fullname)
+                    let userProfile = UserProfile(UID: userId, fullname: fullname, avatar: nil)
                     Task {
                         do {
 //                            Tạo userProfile mới trên db

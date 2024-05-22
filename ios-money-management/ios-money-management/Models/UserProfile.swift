@@ -21,7 +21,7 @@ class UserProfile {
     //    MARK: Firestore
     //        Tạo một tham chiếu đến cơ sở dữ liệu Firestore
     
-    init(UID: String, fullname: String, avatar: UIImage? = nil, wallets: [Wallet] = [Wallet]()) {
+    init(UID: String, fullname: String, avatar: UIImage?, wallets: [Wallet] = [Wallet]()) {
         self.UID = UID
         self.fullname = fullname
         self.avatar = avatar

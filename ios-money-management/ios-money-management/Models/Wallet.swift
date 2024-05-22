@@ -19,7 +19,7 @@ class Wallet {
     private var transactions = [Transaction]()
     
     
-    init(ID: String, Name: String, Balance: Int, Image: UIImage? = nil, Transaction: [Transaction]) {
+    init(ID: String, Name: String, Balance: Int, Image: UIImage?, Transaction: [Transaction]) {
         self.id = ID
         self.name = Name
         self.balance = Balance
