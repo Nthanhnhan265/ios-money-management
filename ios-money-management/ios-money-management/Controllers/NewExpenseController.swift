@@ -16,6 +16,9 @@ class NewExpenseController: UIViewController, PHPickerViewControllerDelegate, UI
     @IBOutlet weak var popupCategoryButton: UIButton!
     @IBOutlet weak var popupWalletButton: UIButton!
     @IBOutlet weak var textFieldDescription: UITextField!
+    @IBOutlet weak var datePicker: UIDatePicker!
+    
+    @IBOutlet weak var addImgButton: UIBarButtonItem!
     
     var selectedImages = [UIImage]()
     var wallets: [Wallet] = []
@@ -46,6 +49,7 @@ class NewExpenseController: UIViewController, PHPickerViewControllerDelegate, UI
             textFieldValue.text = "\(detail_trans.getBalance * -1 )"
             textFieldDescription.text = "\(detail_trans.getDescription)"
             selectedImages.append(contentsOf: detail_trans.Images)
+            datePicker.date =  detail_trans.getCreateAt
         }
         
         
@@ -103,7 +107,8 @@ class NewExpenseController: UIViewController, PHPickerViewControllerDelegate, UI
                         balance: balance > 0 ? -balance : balance,
                         category_id: categoryID,
                         des: description,
-                        images: selectedImages
+                        images: selectedImages,
+                        created_at: datePicker.date
                     )
                     
                     // Cập nhật số dư ví trên DB
@@ -115,7 +120,7 @@ class NewExpenseController: UIViewController, PHPickerViewControllerDelegate, UI
                     
                     
                     // Thêm transaction vào mảng transactions của ví
-                    let newTransaction = await Transaction(id: transactionID, description: description, balance: balance > 0 ? -balance : balance, category: Category.getCategory(Category_ID: categoryID)!, create_at: Date(), wallet_id: wallet.getID, images: selectedImages) // Tạo transaction mới với ID vừa nhận được
+                    let newTransaction = await Transaction(id: transactionID, description: description, balance: balance > 0 ? -balance : balance, category: Category.getCategory(Category_ID: categoryID)!, create_at: datePicker.date, wallet_id: wallet.getID, images: selectedImages) // Tạo transaction mới với ID vừa nhận được
                     
                     if let tabBarController = self.tabBarController as? TabHomeViewController {
                         if let userProfile = tabBarController.userProfile {
@@ -281,7 +286,7 @@ class NewExpenseController: UIViewController, PHPickerViewControllerDelegate, UI
     @IBAction func addImageTapped(_ sender: Any) {
         //oject chua thong tin ve cau hinh cua PHPickerViewController
         var phconfig = PHPickerConfiguration()
-        phconfig.selectionLimit = 5
+        phconfig.selectionLimit = 5 - selectedImages.count
         
         let phPickerVC = PHPickerViewController(configuration: phconfig)
         phPickerVC.delegate = self
@@ -310,6 +315,9 @@ class NewExpenseController: UIViewController, PHPickerViewControllerDelegate, UI
                 
             }
         }
+        if results.count >= 5 || results.count + selectedImages.count >= 5 {
+            addImgButton.isEnabled = false
+        }
     }
     
     //phuong thuc tra ve so luong
@@ -327,7 +335,7 @@ class NewExpenseController: UIViewController, PHPickerViewControllerDelegate, UI
             //cancel button
             cell.cancelButton.addTarget(self, action: #selector(cancelButtonTapped(_ :)), for: .touchUpInside)
             cell.cancelButton.tag = indexPath.row
-            
+          
             return cell
         }
         fatalError("khong the return");
@@ -336,6 +344,9 @@ class NewExpenseController: UIViewController, PHPickerViewControllerDelegate, UI
     // Handle cancel button tap
     @objc func cancelButtonTapped(_ sender: UIButton) {
         selectedImages.remove(at: sender.tag)
+        if selectedImages.count < 5 {
+            addImgButton.isEnabled = true
+        }
         collectionImagesView.reloadData()
     }
     

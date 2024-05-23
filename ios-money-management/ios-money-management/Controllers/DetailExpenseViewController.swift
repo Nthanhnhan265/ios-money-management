@@ -113,6 +113,7 @@ class DetailExpenseViewController: UIViewController, UICollectionViewDelegateFlo
             detail_ex.wallets = wallets
             detail_ex.selectedWallet = txt_wallet.text
             detail_ex.detail_trans = self.detailTrans
+            
         }
         self.navigationController?.pushViewController(detail_ex, animated: true)
      

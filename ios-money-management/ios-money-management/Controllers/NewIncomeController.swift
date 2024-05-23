@@ -17,16 +17,22 @@ class NewIncomeController: UIViewController, UICollectionViewDelegateFlowLayout,
     //MARK: properties
     @IBOutlet weak var popupWalletButton: UIButton!
     @IBOutlet weak var textFieldValue: UITextField!
-    @IBOutlet weak var txt_des: UITextField!
+    @IBOutlet weak var textFieldDescription: UITextField!
     @IBOutlet weak var popupCategoryButton: UIButton!
     @IBOutlet weak var collectionImagesView: UICollectionView!
+    
+    @IBOutlet weak var addImgButton: UIBarButtonItem!
+    @IBOutlet weak var datePicker: UIDatePicker!
+    
     var selectedImages = [UIImage]()
     var wallets: [Wallet] = []
     var categoryID = ""
     var wallet:Wallet? = nil
     var UID = ""
     var selectedWallet:String?
+    var detail_trans:Transaction?
     override func viewDidLoad() {
+ 
         super.viewDidLoad()
         print("Vào NewIncomeController")
         //       Lấy UID
@@ -36,9 +42,8 @@ class NewIncomeController: UIViewController, UICollectionViewDelegateFlowLayout,
         
         //        Đổ category vào pop up category
         setCategoryExpenses()
-        
+        print("s: \(wallets.count)")
         setWallets(wallets: wallets)
-        selectedWallet = "new"
         setNavbar()
     }
     
@@ -60,10 +65,10 @@ class NewIncomeController: UIViewController, UICollectionViewDelegateFlowLayout,
         }
         // Tạo UIMenu từ các UIAction
         let menu = UIMenu(children: actions)
-        
-        if let _ = selectedWallet, let action = menu.children.first(where: {$0.title == "new"}) as? UIAction  {
-            action.state = .on
-        }
+        // hien thi vi da chon
+        print("s: \(String(describing: selectedWallet))")
+     
+     
       
         
         // Gán UIMenu cho popup button và hiển thị
@@ -108,7 +113,15 @@ class NewIncomeController: UIViewController, UICollectionViewDelegateFlowLayout,
                 }
             }
 //            set pop up
-            popupCategoryButton.menu = UIMenu(children: actions)
+            let menu = UIMenu(children: actions)
+            if let detailTrans = detail_trans, let action = menu.children.first(where: {$0.title == detailTrans.getCategory.getName}) as? UIAction{
+                self.popupCategoryButton.setAttributedTitle(NSAttributedString(string: action.title), for: .normal)
+                self.popupCategoryButton.setImage(action.image, for: .normal)
+                action.state = .on
+                
+            }
+            
+            popupCategoryButton.menu = menu 
             popupCategoryButton.showsMenuAsPrimaryAction = true
             
         }
@@ -147,14 +160,22 @@ class NewIncomeController: UIViewController, UICollectionViewDelegateFlowLayout,
         }
         
         // Tạo UIMenu từ các UIAction và gán cho popup button
-        popupWalletButton.menu = UIMenu(children: actions)
+        let menu = UIMenu(children: actions)
+        if let selectedWallet = self.selectedWallet , let selectedAction = actions.first(where: { $0.title == selectedWallet }) {
+   
+            selectedAction.state = .on
+            self.wallet = wallets.first(where: { $0.getName == selectedWallet }) // Lấy ví tương ứng
+            self.popupWalletButton.setAttributedTitle(NSAttributedString(string: selectedAction.title), for: .normal)
+            self.popupWalletButton.setImage(selectedAction.image, for: .normal) // Đặt lại ảnh
+        }
+        popupWalletButton.menu = menu
         popupWalletButton.showsMenuAsPrimaryAction = true
     }
     //MARK: events
     
     @IBAction func addImagesTapped(_ sender: Any) {
         var config = PHPickerConfiguration()
-        config.selectionLimit = 5
+        config.selectionLimit =  5 - selectedImages.count
         let phVC = PHPickerViewController(configuration: config)
         phVC.delegate = self
         self.present(phVC, animated: true)
@@ -174,12 +195,15 @@ class NewIncomeController: UIViewController, UICollectionViewDelegateFlowLayout,
                 }
             }
         }
+        if results.count >= 5 || results.count + selectedImages.count >= 5 {
+            addImgButton.isEnabled = false
+        }
     }
     
     @IBAction func NewIncome_Tapped(_ sender: UIButton)  {
         if let balanceString = textFieldValue.text,
                let balance = Int(balanceString),
-               let description = txt_des.text,
+               let description = textFieldDescription.text,
                let wallet = wallet
             {
                 Task {
@@ -191,7 +215,8 @@ class NewIncomeController: UIViewController, UICollectionViewDelegateFlowLayout,
                             balance: balance,
                             category_id: categoryID,
                             des: description,
-                            images: selectedImages
+                            images: selectedImages,
+                            created_at: datePicker.date
                         )
 
                         // Cập nhật số dư ví trên DB
@@ -204,7 +229,7 @@ class NewIncomeController: UIViewController, UICollectionViewDelegateFlowLayout,
 
                         // Thêm transaction mới tạo vào mảng transactions của ví ở local
                         // Tạo transaction mới với ID vừa nhận được
-                        let newTransaction = await Transaction(id: transactionID, description: description, balance: balance, category: Category.getCategory(Category_ID: categoryID)!, create_at: Date(), wallet_id: wallet.getID, images: selectedImages)
+                        let newTransaction = await Transaction(id: transactionID, description: description, balance: balance, category: Category.getCategory(Category_ID: categoryID)!, create_at: datePicker.date, wallet_id: wallet.getID, images: selectedImages)
                         
 //                        Đẩy lên tabbar ở trung gian
                         if let tabBarController = self.tabBarController as? TabHomeViewController {
@@ -279,13 +304,22 @@ class NewIncomeController: UIViewController, UICollectionViewDelegateFlowLayout,
             
             return cell
         }
-        
         fatalError("Khong the return Income ")
-        
-        
-        
     }
     func setFrontEnd()  {
+        
+        
+        
+        if let detail_trans = self.detail_trans {
+            textFieldValue.text = "\(detail_trans.getBalance )"
+            textFieldDescription.text = "\(detail_trans.getDescription)"
+            selectedImages.append(contentsOf: detail_trans.Images)
+            datePicker.date =  detail_trans.getCreateAt
+        }
+        
+        
+        
+        
         // Thiết lập tiêu đề của nut
         let attributedTitleCategory = NSAttributedString(string: "Category")
         popupCategoryButton.setAttributedTitle(attributedTitleCategory, for: .normal)
@@ -316,6 +350,9 @@ class NewIncomeController: UIViewController, UICollectionViewDelegateFlowLayout,
     
     @objc func cancelButtonTapped(_ sender: UIButton) {
         selectedImages.remove(at: sender.tag)
+        if selectedImages.count < 5 {
+            addImgButton.isEnabled = true
+        }
         collectionImagesView.reloadData()
     }
     

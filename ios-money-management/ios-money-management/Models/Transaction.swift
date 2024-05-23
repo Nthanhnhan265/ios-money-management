@@ -219,7 +219,7 @@ class Transaction  {
     }
     ///Hàm ghi 1 giao dịch mới lên DB trong wallet_id
     ///Và trả về 1 String là ID của giao dịch mới được khởi tạo
-    public static func addTransaction(wallet_id:String, balance:Int, category_id:String, des:String, images: [UIImage])async throws -> String{
+    public static func addTransaction(wallet_id:String, balance:Int, category_id:String, des:String, images: [UIImage], created_at:Date )async throws -> String{
             let db = Firestore.firestore()
             
             // Tạo một DocumentReference để lấy ID sau khi document được tạo
@@ -232,7 +232,7 @@ class Transaction  {
                 "Balance": balance,
                 "Category_ID": category_id,
                 "Description": des,
-                "CreateAt": Date(),
+                "CreateAt": created_at,
                 "imageUrls": imageUrls // Lưu mảng URL vào Firestore
 
             ]

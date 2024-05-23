@@ -17,6 +17,9 @@ class DetailIncomeViewController: UIViewController,  UICollectionViewDelegateFlo
     @IBOutlet weak var txt_time: UILabel!
     @IBOutlet weak var txt_balance: UILabel!
     @IBOutlet weak var borderView: UIView!
+    
+    var wallets:[Wallet]?
+    var detailTrans:Transaction?
     //tao mang luu hinh anh 
     var arrImgs:[UIImage]? = []
     
@@ -33,8 +36,11 @@ class DetailIncomeViewController: UIViewController,  UICollectionViewDelegateFlo
         if let tabBarController = self.tabBarController as? TabHomeViewController {
             if let transaction = transaction{
                 setBackEnd(wallet: tabBarController.getWalletFromTransaction(wallet_ID: transaction.getWalletID)!, transaction: transaction)
+                self.detailTrans = transaction
             }
-            
+            if let userprofile = tabBarController.userProfile  {
+                self.wallets = userprofile.Wallets
+            }
             
         }
     }
@@ -88,7 +94,14 @@ class DetailIncomeViewController: UIViewController,  UICollectionViewDelegateFlo
     
     @IBAction func edit_income_tapped(_ sender: UIButton) {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let detail_ex = storyboard.instantiateViewController(withIdentifier: "Income")
+        let detail_ex = storyboard.instantiateViewController(withIdentifier: "Income") as! NewIncomeController
+        detail_ex.navigationItem.title = "Edit Expense"
+        if let wallets = self.wallets {
+            detail_ex.wallets = wallets
+            detail_ex.selectedWallet = txt_wallet.text
+            detail_ex.detail_trans = self.detailTrans
+            
+        }
         self.navigationController?.pushViewController(detail_ex, animated: true)
     }
     
