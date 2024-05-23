@@ -131,10 +131,7 @@ class DetailWalletViewController: UIViewController {
         //        Địa điểm
 //        dateFormatter.locale = Locale(identifier: "vi_VN")
         
-        //09/05/2024
-//        print(dateFormatter.string(from: currentDateAndTime))
-//        Date -> String
-//        print(type(of: dateFormatter.string(from: currentDateAndTime)))
+        
         
         
         return dateFormatter.string(from: currentDateAndTime)
@@ -155,7 +152,7 @@ class DetailWalletViewController: UIViewController {
         }
         else
         {
-            print("<<<<<String to Date KHÔNG THÀNH CÔNG - TransactionViewController>>>>>")
+            print("<<<<<String to Date KHÔNG THÀNH CÔNG - DetailWalletViewController>>>>>")
             return Date.now
         }
     }
@@ -204,7 +201,6 @@ class DetailWalletViewController: UIViewController {
                     
                     //thuc hien xoa giao dich o front end
                     if let index = userprofile.Wallets.firstIndex(where: {$0.getID == self.wallet?.getID}) {
-                        print("index of current wallet in array: \(index)")
                         userprofile.Wallets.remove(at: index)
                         
                     }

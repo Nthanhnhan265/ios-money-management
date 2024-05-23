@@ -86,10 +86,7 @@ class DetailIncomeViewController: UIViewController,  UICollectionViewDelegateFlo
         // Địa điểm
 //        dateFormatter.locale = Locale(identifier: "vi_VN")
         
-        //09/05/2024
-        // print(dateFormatter.string(from: currentDateAndTime))
-        // Date -> String
-        // print(type(of: dateFormatter.string(from: currentDateAndTime)))
+        
         
         
         return dateFormatter.string(from: currentDateAndTime)

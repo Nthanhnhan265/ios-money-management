@@ -170,7 +170,6 @@ class NewIncomeController: UIViewController, UICollectionViewDelegateFlowLayout,
     @IBAction func NewIncome_Tapped(_ sender: UIButton)  {
         // Edit trans
         if selectedWallet != nil{
-            print("edit trans")
             Task{
                 //                Xoá transaction trên db
                 try await Transaction.deleteTransaction(walletID: self.detail_trans!.getWalletID, transactionID: self.detail_trans!.getID)
@@ -251,12 +250,18 @@ class NewIncomeController: UIViewController, UICollectionViewDelegateFlowLayout,
                             } catch {
                                 // Xử lý lỗi nếu có
                                 print("Error adding transaction: \(error)")
+                                let alertController = UIAlertController(title: "Error", message: "\(error).", preferredStyle: .alert)
+                                alertController.addAction(UIAlertAction(title: "OK", style: .default))
+                                self.present(alertController, animated: true, completion: nil)
                             }
                             
                         
                     } else {
                         // Xử lý trường hợp UID hoặc walletID không tồn tại
                         print("Error: UID or walletID is missing")
+                        let alertController = UIAlertController(title: "Error", message: "UID or walletID is missing.", preferredStyle: .alert)
+                        alertController.addAction(UIAlertAction(title: "OK", style: .default))
+                        self.present(alertController, animated: true, completion: nil)
                     }
                
                 navigationController?.popViewController(animated: true)
@@ -267,7 +272,7 @@ class NewIncomeController: UIViewController, UICollectionViewDelegateFlowLayout,
         }
 //        Add trans
         else{
-            print("Add trans")
+            
             if let balanceString = textFieldValue.text,
                    let balance = Int(balanceString),
                    let description = textFieldDescription.text,
@@ -316,12 +321,18 @@ class NewIncomeController: UIViewController, UICollectionViewDelegateFlowLayout,
                         } catch {
                             // Xử lý lỗi nếu có
                             print("Error adding transaction: \(error)")
+                            let alertController = UIAlertController(title: "Error", message: "\(error).", preferredStyle: .alert)
+                            alertController.addAction(UIAlertAction(title: "OK", style: .default))
+                            self.present(alertController, animated: true, completion: nil)
                         }
                         navigationController?.popViewController(animated: true)
                     }
                 } else {
                     // Xử lý trường hợp UID hoặc walletID không tồn tại
                     print("Error: UID or walletID is missing")
+                    let alertController = UIAlertController(title: "Error", message: "UID or walletID is missing.", preferredStyle: .alert)
+                    alertController.addAction(UIAlertAction(title: "OK", style: .default))
+                    self.present(alertController, animated: true, completion: nil)
                 }
         }
         

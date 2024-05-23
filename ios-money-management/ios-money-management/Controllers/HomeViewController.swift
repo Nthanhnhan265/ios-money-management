@@ -142,10 +142,7 @@ class HomeViewController: UIViewController {
         // Địa điểm
 //        dateFormatter.locale = Locale(identifier: "vi_VN")
         
-        //09/05/2024
-        // print(dateFormatter.string(from: currentDateAndTime))
-        // Date -> String
-        // print(type(of: dateFormatter.string(from: currentDateAndTime)))
+        
         
         
         return dateFormatter.string(from: currentDateAndTime)
@@ -166,7 +163,7 @@ class HomeViewController: UIViewController {
         }
         else
         {
-            print("<<<<<String to Date KHÔNG THÀNH CÔNG - TransactionViewController>>>>>")
+            print("<<<<<String to Date KHÔNG THÀNH CÔNG - HomeViewController>>>>>")
             return Date.now
         }
     }
@@ -231,6 +228,9 @@ class HomeViewController: UIViewController {
                     
                     // Xử lý trường hợp không tìm thấy ví
                     print("Không tìm thấy ví")
+                    let alertController = UIAlertController(title: "Message", message: "Wallet not found.", preferredStyle: .alert)
+                    alertController.addAction(UIAlertAction(title: "OK", style: .default))
+                    self!.present(alertController, animated: true, completion: nil)
                 }
                 return
             }
@@ -335,6 +335,9 @@ class HomeViewController: UIViewController {
                 transactions = filteredTransactions
             default:
                 print("Lỗi filter theo button time")
+                let alertController = UIAlertController(title: "Error", message: "Fil failed.", preferredStyle: .alert)
+                alertController.addAction(UIAlertAction(title: "OK", style: .default))
+                self.present(alertController, animated: true, completion: nil)
             }
             
         }
@@ -363,44 +366,7 @@ class HomeViewController: UIViewController {
         
         
         
-        
-        //----
-        // Task {
-        // if let userProfile = await UserProfile.getUserProfine(UID: UserDefaults.standard.string(forKey: "UID") ?? "") {
-        // viewController.wallets = userProfile.getWallets
-        //
-        //
-        // // Chuyển màn hình sau khi đã có dữ liệu và trên main thread
-        // await MainActor.run {
-        // navigationController?.pushViewController(viewController, animated: true)
-        // }
-        // }
-        // }
-        //----
-        // let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        // let view_controller = storyboard.instantiateViewController(withIdentifier: "Income") as! NewIncomeController
-        //
-        //
-        // view_controller.navigationItem.title = "Income"
-        // navigationController?.pushViewController(view_controller, animated: true)
-        
-        
-        //-----
-        // let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        // let viewController = storyboard.instantiateViewController(withIdentifier: "Income") as! NewIncomeController
-        //
-        // // Lấy danh sách wallets từ UserProfile hoặc nguồn dữ liệu khác
-        // Task {
-        // if let userProfile = await UserProfile.getUserProfine(UID: UserDefaults.standard.string(forKey: "userId") ?? "") {
-        // viewController.wallets = userProfile.getWallets
-        // viewController.test = "123123"
-        //
-        //
-        // }
-        // }
-        //
-        // viewController.navigationItem.title = "Income"
-        // navigationController?.pushViewController(viewController, animated: true)
+      
     }
     // click btn week
     @IBAction func btn_week_click(_ sender: UIButton) {

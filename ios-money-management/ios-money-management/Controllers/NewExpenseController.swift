@@ -33,6 +33,7 @@ class NewExpenseController: UIViewController, PHPickerViewControllerDelegate, UI
     //MARK: viewDidLoad()
     override func viewDidLoad() {
         super.viewDidLoad()
+        print("Vào NewExpenseController")
         
         //       Lấy UID
         UID = UserDefaults.standard.string(forKey: "UID") ?? ""
@@ -178,12 +179,18 @@ class NewExpenseController: UIViewController, PHPickerViewControllerDelegate, UI
                     } catch {
                         // Xử lý lỗi nếu có
                         print("Error adding transaction: \(error)")
+                        let alertController = UIAlertController(title: "Error", message: "\(error).", preferredStyle: .alert)
+                        alertController.addAction(UIAlertAction(title: "OK", style: .default))
+                        self.present(alertController, animated: true, completion: nil)
                     }
                     
                     
                 } else {
                     // Xử lý trường hợp UID hoặc walletID không tồn tại
                     print("Error: UID or walletID is missing")
+                    let alertController = UIAlertController(title: "Error", message: "UID or walletID is missing...", preferredStyle: .alert)
+                    alertController.addAction(UIAlertAction(title: "OK", style: .default))
+                    self.present(alertController, animated: true, completion: nil)
                 }
                 
                 navigationController?.popViewController(animated: true)
@@ -243,12 +250,18 @@ class NewExpenseController: UIViewController, PHPickerViewControllerDelegate, UI
                     } catch {
                         // Xử lý lỗi nếu có
                         print("Error adding transaction: \(error)")
+                        let alertController = UIAlertController(title: "Error", message: "\(error).", preferredStyle: .alert)
+                        alertController.addAction(UIAlertAction(title: "OK", style: .default))
+                        self.present(alertController, animated: true, completion: nil)
                     }
                     navigationController?.popViewController(animated: true)
                 }
             } else {
                 // Xử lý trường hợp UID hoặc walletID không tồn tại
                 print("Error: UID or walletID is missing")
+                let alertController = UIAlertController(title: "Error", message: "UID or walletID is missing...", preferredStyle: .alert)
+                alertController.addAction(UIAlertAction(title: "OK", style: .default))
+                self.present(alertController, animated: true, completion: nil)
             }
         }
         

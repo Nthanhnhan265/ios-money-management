@@ -87,11 +87,7 @@ class UserProfile {
         
         let db = Firestore.firestore()
         
-        // 1. Tải ảnh đại diện lên Firebase Storage (nếu có)
-//        var avatarUrl: String?
-//        if let avatarImage = userProfile.getAvatar, let imageData = avatarImage.jpegData(compressionQuality: 0.8) {
-//            avatarUrl = try await uploadImageToStorage(imageData: imageData, fileName: "\(userProfile.getUID)_avatar.jpg")
-//        }
+
         
         // 2. Tạo dictionary chứa dữ liệu hồ sơ
         let profileData: [String: Any] = [

@@ -58,8 +58,11 @@ class LoginViewController: UIViewController {
         
         Auth.auth().signIn(withEmail: email, password: password) { (authResult, error) in
             if let error = error {
-                // Xử lý lỗi đăng nhập
-                print("Registration error: \(error.localizedDescription)")
+                // Hiện ra cảnh báo cho người dùng
+                            let alertController = UIAlertController(title: "Error", message: "\(error.localizedDescription).", preferredStyle: .alert)
+                            alertController.addAction(UIAlertAction(title: "OK", style: .default))
+                self.present(alertController, animated: true, completion: nil)
+                            return // Thoát khỏi hàm nếu không hợp lệ
             } else if let authResult = authResult {
                 // Đăng nhập thành công, lấy ID của người dùng
                 let userId = authResult.user.uid
@@ -88,20 +91,7 @@ class LoginViewController: UIViewController {
                     
                     
                     
-                    
-                    //                //                Lấy màn hình main storyboard
-                    //                let storyBoard = UIStoryboard(name: "Main", bundle: nil)
-                    //                //                Lấy controller TabHomeController
-                    //                let homeViewController = storyBoard.instantiateViewController(withIdentifier: "TabBarHomeController") as! TabHomeViewController
-                    //
-                    //                //                Cho màn hình Home full màn hình
-                    //                homeViewController.modalPresentationStyle = .fullScreen
-                    //
-                    //                //
-                    //                self.present(homeViewController, animated: true )
-                    //
-                    //                //                self.navigationController?.navigationBar.isHidden = true
-                    //                //                 self.navigationController?.pushViewController(homeViewController, animated: true)
+                   
                     
                     
                     
