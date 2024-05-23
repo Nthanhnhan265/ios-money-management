@@ -25,8 +25,7 @@ class NewIncomeController: UIViewController, UICollectionViewDelegateFlowLayout,
     @IBOutlet weak var datePicker: UIDatePicker!
     
     var selectedImages = [UIImage]()
-//    Ảnh cũ của người dùng từ Detail truyền qua
-    var images_old = [UIImage]()
+
 //    Ví của người dùng
     var wallets: [Wallet] = []
     var categoryID = ""

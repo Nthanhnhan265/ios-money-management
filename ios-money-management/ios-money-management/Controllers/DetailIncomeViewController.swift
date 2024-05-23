@@ -127,7 +127,6 @@ class DetailIncomeViewController: UIViewController,  UICollectionViewDelegateFlo
 //            lấy txt wallet truyền sang -> Ví hiện tại của trans
             detail_ex.selectedWallet = txt_wallet.text
             detail_ex.detail_trans = self.detailTrans
-            detail_ex.images_old = self.arrImgs!
 
 //            cái gì đó để trả về dữ liệu
             detail_ex.detailIncome = self
