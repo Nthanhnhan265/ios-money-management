@@ -20,7 +20,7 @@ class DetailWalletViewController: UIViewController {
     var wallet:Wallet? = nil
     var transactions:[Transaction] = []
     var sections: [Section] = []
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -44,8 +44,28 @@ class DetailWalletViewController: UIViewController {
         
     }
     override func viewWillAppear(_ animated: Bool) {
+        
+        
+        print("Vào DetailWalletViewController - \(wallet?.getName ?? "")")
         setFrontEnd()
         setNavbar()
+        transactions = []
+
+//        bỏ các transaction của ví vào mảng -> đẩy lên table view
+        setTransactions(data: (wallet?.getTransactions())!)
+//        sắp xếp lại mảng
+        transactions.sort { $0.getCreateAt > $1.getCreateAt }
+        
+        //                Lọc transactions theo ngày
+        sections = createSections(from: transactions)
+        
+//        Kết nối
+        tableview.dataSource = self
+        tableview.delegate = self
+        tableview.register(TransactionTableViewCell.nib(), forCellReuseIdentifier: TransactionTableViewCell.identifier)
+        
+        tableview.reloadData()
+        
     }
     
     func createSections(from transactions: [Transaction]) -> [Section] {
