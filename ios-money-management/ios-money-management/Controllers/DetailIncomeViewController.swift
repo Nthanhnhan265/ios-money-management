@@ -30,7 +30,7 @@ class DetailIncomeViewController: UIViewController,  UICollectionViewDelegateFlo
         
        
         setFrontEnd()
-        
+        arrImgs = []
          
 
         //        Lấy userProfile đang nằm trong Tabbar controller
@@ -49,7 +49,7 @@ class DetailIncomeViewController: UIViewController,  UICollectionViewDelegateFlo
          
 
       
-        
+        imagesCollectionView.reloadData()
     }
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -104,7 +104,6 @@ class DetailIncomeViewController: UIViewController,  UICollectionViewDelegateFlo
         for image in transaction.Images{
             arrImgs?.append(image)
         }
-        
     }
     func setFrontEnd(){
         //set background for navigation controller

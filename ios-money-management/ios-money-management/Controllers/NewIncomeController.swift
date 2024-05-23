@@ -234,7 +234,6 @@ class NewIncomeController: UIViewController, UICollectionViewDelegateFlowLayout,
                                 detailIncome?.transaction = newTransaction
                                 detailIncome?.arrImgs = selectedImages
                                 
-                                
         //                        Đẩy lên tabbar ở trung gian
                                 if let tabBarController = self.tabBarController as? TabHomeViewController {
                                     if let userProfile = tabBarController.userProfile {
