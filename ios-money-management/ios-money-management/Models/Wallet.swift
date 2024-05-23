@@ -142,22 +142,50 @@ class Wallet {
     }
 
     //xoa vi
-    static func deleteAWallet(userID UID: String, walletId walletID:String) {
+    static func deleteAWallet(userID UID: String, walletId walletID:String) async {
         let db = Firestore.firestore()
-        //xoa giao dich
         
-        //xoa vi
-        //lay ra tat ca vi cua user
-        let walletRef = db.collection("Wallets").document(UID)
-        let walleDoc = walletRef.collection("Wallet").document(walletID)
-        walleDoc.delete() { error in
-            if let error = error {
-                print("Error deleting wallet \(error)")
-            }else {
-                print("delete wallet successfully");
+    //lay ra tat ca giao dich tren db bang walletID
+    //xoa giao dich tren db
+        let walletFromTransactions = db.collection("Transactions").document(walletID)
+        let transactionsDocs = walletFromTransactions.collection("Transaction")
+       //duyet for va xoa tung giao dich ben trong vi
+        do {
+            let snapshot =  try await transactionsDocs.getDocuments()
+            for i in snapshot.documents{
+                print("called")
+               print(i["ID"] as! String)
+                try await Transaction.deleteTransaction(walletID: walletID, transactionID: i["ID"] as! String)
             }
             
-            
+        } catch {
+            print("Lỗi truy vấn - getMyWallets: \(error)")
+        }
+        //xoa vi sau khi xoa xong giao dich ben trong
+        Task {
+            do {
+                try await walletFromTransactions.delete()
+                }
+            catch {
+                print("Error deleting wallet: \(error)")
+                // Xử lý lỗi
+            }
+        }
+        
+    //lay ra tat ca vi cua user
+        let walletRef = db.collection("Wallets").document(UID)
+        let walleDoc = walletRef.collection("Wallet").document(walletID)
+        
+    //xoa vi
+        Task {
+            do {
+                try await walleDoc.delete()
+                print("Wallet deleted successfully")
+                // Thực hiện các hành động sau khi xóa thành công
+            } catch {
+                print("Error deleting wallet: \(error)")
+                // Xử lý lỗi
+            }
         }
         
     }

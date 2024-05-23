@@ -175,8 +175,11 @@ class DetailWalletViewController: UIViewController {
                 if let userprofile = tabBarController.userProfile {
                     
                     //xoa giao dich o backend
-                    Wallet.deleteAWallet(userID: userprofile.getUID, walletId: self.wallet!.getID)
-                    
+                    Task {
+                        await Wallet.deleteAWallet(userID: userprofile.getUID, walletId: self.wallet!.getID)
+                        
+                    }
+       
                     
                     //thuc hien xoa giao dich o front end
                     if let index = userprofile.Wallets.firstIndex(where: {$0.getID == self.wallet?.getID}) {
