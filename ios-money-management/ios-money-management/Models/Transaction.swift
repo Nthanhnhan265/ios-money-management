@@ -187,7 +187,7 @@ class Transaction  {
         dateFormatter.timeStyle = .none
         
         // Địa điểm
-        dateFormatter.locale = Locale(identifier: "vi_VN")
+//        dateFormatter.locale = Locale(identifier: "vi_VN")
         
         //09/05/2024
         // print(dateFormatter.string(from: currentDateAndTime))

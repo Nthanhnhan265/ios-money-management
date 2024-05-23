@@ -140,7 +140,7 @@ class HomeViewController: UIViewController {
         dateFormatter.timeStyle = .none
         
         // Địa điểm
-        dateFormatter.locale = Locale(identifier: "vi_VN")
+//        dateFormatter.locale = Locale(identifier: "vi_VN")
         
         //09/05/2024
         // print(dateFormatter.string(from: currentDateAndTime))
@@ -219,7 +219,7 @@ class HomeViewController: UIViewController {
                     // Nếu không tìm thấy:
             else {
                 // (hoặc người dùng chọn "Tổng cộng")
-                if action.title == "Tổng cộng" {
+                if action.title == "All" {
                     
                     self!.txt_balance.text = String(total_balance.getVNDFormat())
                     //                    Set lại ví đang chọn là nil
@@ -259,7 +259,7 @@ class HomeViewController: UIViewController {
         
         
         menu_wallets.menu = UIMenu(children: [
-            UIAction(title: "Tổng cộng", state: .on, handler: optionClosure),] + walletActions)
+            UIAction(title: "All", state: .on, handler: optionClosure),] + walletActions)
         
         
         return total_balance
