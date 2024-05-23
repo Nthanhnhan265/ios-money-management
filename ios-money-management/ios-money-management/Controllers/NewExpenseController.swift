@@ -97,7 +97,7 @@ class NewExpenseController: UIViewController, PHPickerViewControllerDelegate, UI
     @IBAction func btn_expenses_tapped(_ sender: UIButton) {
         // Edit trans
         if selectedWallet != nil{
-            print("edit trans")
+            
             Task{
                 //                Xoá transaction trên db
                 try await Transaction.deleteTransaction(walletID: self.detail_trans!.getWalletID, transactionID: self.detail_trans!.getID)
@@ -194,7 +194,7 @@ class NewExpenseController: UIViewController, PHPickerViewControllerDelegate, UI
         }
         //        Add trans
         else{
-            print("Add trans")
+            
             if let balanceString = textFieldValue.text,
                let balance = Int(balanceString),
                let description = textFieldDescription.text,
@@ -253,60 +253,6 @@ class NewExpenseController: UIViewController, PHPickerViewControllerDelegate, UI
         }
         
         
-        
-        //        if let balanceString = textFieldValue.text,
-        //           let balance = Int(balanceString),
-        //           let description = textFieldDescription.text,
-        //           let wallet = wallet
-        //        {
-        //            Task {
-        //                do {
-        //
-        //                    // Thêm giao dịch mới lên DB và lấy ID của nó
-        //                    let transactionID = try await Transaction.addTransaction(
-        //                        wallet_id: wallet.getID,
-        //                        balance: balance > 0 ? -balance : balance,
-        //                        category_id: categoryID,
-        //                        des: description,
-        //                        images: selectedImages,
-        //                        created_at: datePicker.date
-        //                    )
-        //
-        //                    // Cập nhật số dư ví trên DB
-        //                    Wallet.set_updateWallet(UID: UID, wallet: Wallet(ID: wallet.getID, Name: wallet.getName, Balance: wallet.Balance + (balance > 0 ? -balance : balance), Image: wallet.getImage, Transaction: wallet.getTransactions()))
-        //
-        //
-        //
-        //
-        //
-        //
-        //                    // Thêm transaction vào mảng transactions của ví
-        //                    let newTransaction = await Transaction(id: transactionID, description: description, balance: balance > 0 ? -balance : balance, category: Category.getCategory(Category_ID: categoryID)!, create_at: datePicker.date, wallet_id: wallet.getID, images: selectedImages) // Tạo transaction mới với ID vừa nhận được
-        //
-        //                    if let tabBarController = self.tabBarController as? TabHomeViewController {
-        //                        if let userProfile = tabBarController.userProfile {
-        //                            if let wallet = userProfile.Wallets.first(where: {$0.getID == wallet.getID}) {
-        //                                // Thêm transaction vào wallet
-        //                                wallet.addTransaction(transaction: newTransaction)
-        //
-        //                                //                        Cập nhật tiền của ví dưới local
-        //                                wallet.Balance = wallet.Balance + (balance > 0 ? -balance : balance)
-        //
-        //                            }
-        //
-        //                        }
-        //                    }
-        //
-        //                } catch {
-        //                    // Xử lý lỗi nếu có
-        //                    print("Error adding transaction: \(error)")
-        //                }
-        //                navigationController?.popViewController(animated: true)
-        //            }
-        //        } else {
-        //            // Xử lý trường hợp UID hoặc walletID không tồn tại
-        //            print("Error: UID or walletID is missing")
-        //        }
         
         
     }
@@ -389,12 +335,10 @@ class NewExpenseController: UIViewController, PHPickerViewControllerDelegate, UI
             r.itemProvider.loadObject(ofClass: UIImage.self) { (object, error) in
                 if let image = object as? UIImage {
                     self.selectedImages.append(image)
-                    print("Image appended: \(image) \(self.selectedImages.count)")
                     
                 }
                 DispatchQueue.main.async {
                     self.collectionImagesView.reloadData()
-                    print("Count after appending: \(self.selectedImages.count)")
                 }
                 
             }
