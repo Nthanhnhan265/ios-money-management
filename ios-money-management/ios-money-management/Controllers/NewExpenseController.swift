@@ -286,7 +286,7 @@ class NewExpenseController: UIViewController, PHPickerViewControllerDelegate, UI
     @IBAction func addImageTapped(_ sender: Any) {
         //oject chua thong tin ve cau hinh cua PHPickerViewController
         var phconfig = PHPickerConfiguration()
-        phconfig.selectionLimit = 5 - selectedImages.count
+        phconfig.selectionLimit = 3 - selectedImages.count
         
         let phPickerVC = PHPickerViewController(configuration: phconfig)
         phPickerVC.delegate = self
@@ -315,7 +315,7 @@ class NewExpenseController: UIViewController, PHPickerViewControllerDelegate, UI
                 
             }
         }
-        if results.count >= 5 || results.count + selectedImages.count >= 5 {
+        if results.count >= 3 || results.count + selectedImages.count >= 3 {
             addImgButton.isEnabled = false
         }
     }
@@ -344,7 +344,7 @@ class NewExpenseController: UIViewController, PHPickerViewControllerDelegate, UI
     // Handle cancel button tap
     @objc func cancelButtonTapped(_ sender: UIButton) {
         selectedImages.remove(at: sender.tag)
-        if selectedImages.count < 5 {
+        if selectedImages.count < 3 {
             addImgButton.isEnabled = true
         }
         collectionImagesView.reloadData()
