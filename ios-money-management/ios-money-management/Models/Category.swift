@@ -44,6 +44,7 @@ class Category{
     }
     public static func getCategory(Category_ID:String) async -> Category?{
         let db = Firestore.firestore()
+
         let categoryRef = db.collection("Category").document(Category_ID)
         
         do{

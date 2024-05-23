@@ -153,8 +153,8 @@ class Wallet {
         do {
             let snapshot =  try await transactionsDocs.getDocuments()
             for i in snapshot.documents{
-                print("called")
-               print(i["ID"] as! String)
+//                print("called")
+//               print(i["ID"] as! String)
                 try await Transaction.deleteTransaction(walletID: walletID, transactionID: i["ID"] as! String)
             }
             

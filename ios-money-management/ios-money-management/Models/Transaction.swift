@@ -156,7 +156,7 @@ class Transaction  {
         // 2. Xóa ảnh khỏi Firebase Storage (nếu có)
         let transactionData = try await transactionRef.getDocument() // Lấy lại dữ liệu giao dịch
         if let imageUrls = transactionData.get("imageUrls") as? [String] {
-            print(imageUrls)
+//            print(imageUrls)
             for imageUrl in imageUrls {
                 try await deleteImageFromStorage(urlString: imageUrl)
             }

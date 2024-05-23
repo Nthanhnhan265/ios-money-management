@@ -170,11 +170,12 @@ class DetailWalletViewController: UIViewController {
            
             
             
-            
+//            Lấy trung gian
             if let tabBarController = self.tabBarController as? TabHomeViewController {
+//                Lấy userProfile trung gian
                 if let userprofile = tabBarController.userProfile {
                     
-                    //xoa giao dich o backend
+                    //xoa giao dich o backend (Da ta bây)
                     Task {
                         await Wallet.deleteAWallet(userID: userprofile.getUID, walletId: self.wallet!.getID)
                         
