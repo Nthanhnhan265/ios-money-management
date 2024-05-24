@@ -20,6 +20,7 @@ class NewExpenseController: UIViewController, PHPickerViewControllerDelegate, UI
     
     @IBOutlet weak var addImgButton: UIBarButtonItem!
     
+    var detailTransScreen:DetailExpenseViewController?
     var selectedImages = [UIImage]()
     var wallets: [Wallet] = []
     var categoryID = ""
@@ -44,7 +45,7 @@ class NewExpenseController: UIViewController, PHPickerViewControllerDelegate, UI
         setCategoryExpenses()
         
         setWallets(wallets: wallets)
-        
+        detailTransScreen?.flag = true
     }
     
     //MARK: setup button
@@ -67,8 +68,8 @@ class NewExpenseController: UIViewController, PHPickerViewControllerDelegate, UI
         
         let attributedTitleWallet = NSAttributedString(string: "Wallet")
         popupWalletButton.setAttributedTitle(attributedTitleWallet, for: .normal)
-        //chinh mau chu cho textfield $0
-        textFieldValue.attributedPlaceholder = NSAttributedString(string: "$0",attributes: [.foregroundColor: UIColor.white])
+        //chinh mau chu cho textfield 0₫
+        textFieldValue.attributedPlaceholder = NSAttributedString(string: "0₫",attributes: [.foregroundColor: UIColor.white])
         
         // Thiết lập các thuộc tính cho các nút khác
         textFieldDescription.layer.cornerRadius = 16

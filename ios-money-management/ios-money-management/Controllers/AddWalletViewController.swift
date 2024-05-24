@@ -34,7 +34,7 @@ class AddWalletViewController: UIViewController,UITextViewDelegate, UICollection
         
         balanceTextField.delegate = self
         walletName.layer.borderColor =  CGColor(red: 241/250, green: 241/250, blue: 250/250, alpha: 1)
-        balanceTextField.attributedPlaceholder = NSAttributedString(string: "$0",attributes: [.foregroundColor: UIColor.white])
+        balanceTextField.attributedPlaceholder = NSAttributedString(string: "0₫ ",attributes: [.foregroundColor: UIColor.white])
         self.tabBarController?.tabBar.isHidden = true
         
         //neu bien detai_wallet ton tai thi load du lieu len, va chon icon da chon

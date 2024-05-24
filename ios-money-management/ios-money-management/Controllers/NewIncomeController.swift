@@ -379,7 +379,7 @@ class NewIncomeController: UIViewController, UICollectionViewDelegateFlowLayout,
         let attributedTitleWallet = NSAttributedString(string: "Wallet")
         popupWalletButton.setAttributedTitle(attributedTitleWallet, for: .normal)
         //chinh mau chu cho textfield $0
-        textFieldValue.attributedPlaceholder = NSAttributedString(string: "$0",attributes: [.foregroundColor: UIColor.white])
+        textFieldValue.attributedPlaceholder = NSAttributedString(string: "0₫",attributes: [.foregroundColor: UIColor.white])
         
         // Thiết lập các thuộc tính cho các nút khác
         popupCategoryButton.layer.borderColor = UIColor(red: 241/255, green: 241/255, blue: 250/255, alpha: 1).cgColor

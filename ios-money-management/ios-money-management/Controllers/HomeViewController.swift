@@ -35,13 +35,13 @@ class HomeViewController: UIViewController {
     @IBOutlet weak var btn_income: UIButton!
     @IBOutlet weak var menu_wallets: UIButton!
     
+    @IBOutlet weak var bgView: UIView!
     
     
     
     // MARK: Firestore
     // Tạo một tham chiếu đến cơ sở dữ liệu Firestore
     private let db = Firestore.firestore()
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -52,13 +52,21 @@ class HomeViewController: UIViewController {
         // Set thiết kế giao diện
         setFrontEnd()
         
-        
         // Kết nối table view với các hàm để load dữ liệu
         table_view.dataSource = self
         table_view.delegate = self
         table_view.register(TransactionTableViewCell.nib(), forCellReuseIdentifier: TransactionTableViewCell.identifier)
-
         
+        if #available(iOS 13.0, *) {
+            //rgba(255, 246, 229, 1)
+            let appearance = UINavigationBarAppearance()
+            appearance.backgroundColor = UIColor(red: 255/255, green: 246/255, blue: 229/255, alpha: 1) // Màu bạn muốn
+            appearance.titleTextAttributes = [.foregroundColor: UIColor.black];
+            navigationController?.navigationBar.standardAppearance = appearance
+            navigationController?.navigationBar.scrollEdgeAppearance = appearance // Cho trường hợp Large Titles
+        } else {
+            navigationController?.navigationBar.barTintColor = .red // Dành cho iOS 12 trở về trước
+        }
         
         //debug
         print("Vào HomeViewController - \(UID)")
@@ -74,29 +82,37 @@ class HomeViewController: UIViewController {
                 for wallet in userProfile.Wallets{
                     setTransactions(data: wallet.getTransactions())
                     
-//                    Lấy dữ liệu của userProfile, đọc tất cả các ví -> Đổi vào mảng dữ liệu
+                    //                    Lấy dữ liệu của userProfile, đọc tất cả các ví -> Đổi vào mảng dữ liệu
                     self.wallets.append(wallet)
                     
                 }
                 transactions.sort { $0.getCreateAt > $1.getCreateAt }
-
+                
             }
             
         }
-         
+        
         
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         print("Load lại HomeViewController")
         // Set lại màu cho nav
-        self.navigationController?.navigationBar.backgroundColor = .white
-        self.navigationController?.navigationBar.tintColor = UIColor.black
-        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
         
         self.tabBarController?.tabBar.isHidden = false
         
-        
+        if #available(iOS 13.0, *) {
+            //rgba(255, 246, 229, 1)
+            let appearance = UINavigationBarAppearance()
+            appearance.backgroundColor = UIColor(red: 255/255, green: 246/255, blue: 229/255, alpha: 1) // Màu bạn muốn
+            appearance.titleTextAttributes = [.foregroundColor: UIColor.black];
+            navigationController?.navigationBar.standardAppearance = appearance
+            navigationController?.navigationBar.scrollEdgeAppearance = appearance // Cho trường hợp Large Titles
+            
+            navigationItem.rightBarButtonItem?.tintColor = .black
+        } else {
+            navigationController?.navigationBar.barTintColor = .red // Dành cho iOS 12 trở về trước
+        }
         
         //        Lấy userProfile đang nằm trong Tabbar controller
         if let tabBarController = self.tabBarController as? TabHomeViewController {
@@ -104,7 +120,7 @@ class HomeViewController: UIViewController {
             if let userProfile = tabBarController.userProfile
             {
                 setProfile(userProfile: userProfile)
-
+                
                 //        cập nhật số tiền
                 txt_balance.text = String(setWallets(wallets: userProfile.Wallets ).getVNDFormat())
                 
@@ -176,14 +192,16 @@ class HomeViewController: UIViewController {
         borderAvatar.layer.masksToBounds = true
         borderAvatar.layer.borderColor = CGColor(red: 173/255, green: 0/255, blue: 255/255, alpha: 1)
         borderAvatar.layer.cornerRadius = borderAvatar.frame.height/2
+        
+        //        UIColor(red:  255/255, green: 246/255, blue: 229/255, alpha: 1 )
     }
-/// Set ảnh đại diện
+    /// Set ảnh đại diện
     func setProfile(userProfile:UserProfile) {
         
         
         // set avatar
         avatar.image = userProfile.Avatar
-       
+        
         
     }
     ///Nạp tất cả transaction được truyền vào vào mảng transactions để đổ lên table view
@@ -269,7 +287,7 @@ class HomeViewController: UIViewController {
         self.transactions = []
         
         //        Nếu có ví được chọn
-        if (currentFilterState.selectedWallet != nil){
+        if (currentFilterState.selectedWallet  != nil){
             //            Lấy transaction của ví hiện tại được chọn
             setTransactions(data: currentFilterState.selectedWallet!.getTransactions())
         }
@@ -353,7 +371,10 @@ class HomeViewController: UIViewController {
         view_controller.wallets = wallets
         navigationController?.pushViewController(view_controller, animated: true)
         
-        
+        let appearance = UINavigationBarAppearance()
+        appearance.backgroundColor = UIColor(red: 255/255, green: 86/255, blue: 92/255, alpha: 1);
+        appearance.titleTextAttributes = [.foregroundColor: UIColor.white]; navigationController?.navigationBar.standardAppearance = appearance
+        navigationController?.navigationBar.scrollEdgeAppearance = appearance
         
         
         
@@ -364,7 +385,11 @@ class HomeViewController: UIViewController {
         viewController.wallets = wallets
         navigationController?.pushViewController(viewController, animated: true)
         
-        
+        let appearance = UINavigationBarAppearance()
+        appearance.backgroundColor = UIColor(red: 0/255, green: 180/255, blue: 126/255, alpha: 1);
+        appearance.titleTextAttributes = [.foregroundColor: UIColor.white];
+        navigationController?.navigationBar.standardAppearance = appearance
+        navigationController?.navigationBar.scrollEdgeAppearance = appearance
         
       
     }
@@ -513,14 +538,14 @@ extension HomeViewController: UITableViewDataSource,  UITableViewDelegate{
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: TransactionTableViewCell.identifier, for: indexPath) as! TransactionTableViewCell
-        
+        let maximumString = 25
         
         // Đổ dữ liệu lên cell
         cell.transaction_img.image = self.transactions[indexPath.row].getCategory.getImage
         cell.transaction_name.text = self.transactions[indexPath.row].getCategory.getName
         cell.transaction_balance.text = String(self.transactions[indexPath.row].getBalance.getVNDFormat())
         cell.transaction_time.text = DateToString(self.transactions[indexPath.row].getCreateAt)
-        cell.transaction_description.text = self.transactions[indexPath.row].getDescription
+        cell.transaction_description.text = self.transactions[indexPath.row].getDescription.getShorterString(max: maximumString)
         
         //        Nếu là thu nhập: Đổi màu chữ qua xanh
         if (self.transactions[indexPath.row].getBalance > 0 && self.transactions[indexPath.row].getCategory.getinCome){
@@ -550,31 +575,43 @@ extension HomeViewController: UITableViewDataSource,  UITableViewDelegate{
         
         //        Màn hình màu xanh
         if (transactions[indexPath.row].getCategory.getinCome){
-//            Lấy màn hình
+            //            Lấy màn hình
             let detail_Income_ViewController = storyboard.instantiateViewController(withIdentifier: "detail_transaction_Income") as! DetailIncomeViewController
             //        set title cho navigation
             detail_Income_ViewController.navigationItem.title = "Detail Income Transaction"
             
             // Đổ dữ liệu qua màn hình
             detail_Income_ViewController.transaction = transactions[indexPath.row]
-           
+            
+            
+            let appearance = UINavigationBarAppearance()
+            appearance.backgroundColor = UIColor(red: 0/255, green: 168/255, blue: 107/255, alpha: 1);
+            appearance.titleTextAttributes = [.foregroundColor: UIColor.white]; navigationController?.navigationBar.standardAppearance = appearance
+            navigationController?.navigationBar.scrollEdgeAppearance = appearance
             
             // Đẩy màn hình vào hàng đợi... (chuyển màn hình)
             navigationController?.pushViewController(detail_Income_ViewController, animated: true)
             
         }
-//        Màn hình màu đỏ
+        //        Màn hình màu đỏ
         else{
             let detail_Expense_ViewController = storyboard.instantiateViewController(withIdentifier: "detail_transaction_Expenses") as! DetailExpenseViewController
             detail_Expense_ViewController.navigationItem.title = "Detail Expenses Transaction"
             // Lấy màn hình cần chuyển qua
             detail_Expense_ViewController.transaction = transactions[indexPath.row]
             // Đẩy màn hình vào hàng đợi... (chuyển màn hình)
+            
+            let appearance = UINavigationBarAppearance()
+            appearance.backgroundColor = UIColor(red: 253/255, green: 74/255, blue: 92/255, alpha: 1);
+            appearance.titleTextAttributes = [.foregroundColor: UIColor.white];
+            navigationController?.navigationBar.standardAppearance = appearance
+            navigationController?.navigationBar.scrollEdgeAppearance = appearance
+            
             navigationController?.pushViewController(detail_Expense_ViewController, animated: true)
             
         }
-
-       
+        
+        
         
         
         
@@ -598,4 +635,20 @@ extension Int {
         return "-1";
     }
 }
-
+extension String {
+    func getShorterString(max maximumOfString: Int) -> String {
+        if maximumOfString > 0 {
+            if self.count > maximumOfString {
+                // String is too long, so truncate it
+                let endIndex = self.index(self.startIndex, offsetBy: maximumOfString)
+                return String(self[..<endIndex]) + "..."
+            } else {
+                // String is already short enough, return it as is
+                return self
+            }
+        } else {
+            // Invalid input, return an error message
+            return "Maximum length must be greater than 0"
+        }
+    }
+}
