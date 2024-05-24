@@ -69,7 +69,8 @@ class DetailIncomeViewController: UIViewController,  UICollectionViewDelegateFlo
         return dateFormatter.string(from: currentDateAndTime)
     }
     func setBackEnd(wallet:Wallet, transaction:Transaction){
-        txt_des.text = transaction.getDescription
+        let maximumString = 185
+        txt_des.text = transaction.getDescription.getShorterString(max: maximumString )
         txt_wallet.text = wallet.getName
         txt_category.text = transaction.getCategory.getName
         txt_time.text = DateToString(transaction.getCreateAt)

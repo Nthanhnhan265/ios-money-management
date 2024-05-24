@@ -16,7 +16,7 @@ class DetailExpenseViewController: UIViewController, UICollectionViewDelegateFlo
 
     //MARK: properties
     var transaction:Transaction? = nil
-    
+    var flag = false
     @IBOutlet weak var txt_des: UILabel!
     @IBOutlet weak var txt_wallet: UILabel!
     @IBOutlet weak var txt_category: UILabel!
@@ -29,8 +29,14 @@ class DetailExpenseViewController: UIViewController, UICollectionViewDelegateFlo
     //tao mang 5 tam hinh
     var arrImgs:[UIImage]? = []
     
+    
+    override func viewWillAppear(_ animated: Bool) {
+        print("s: \(flag)")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        print("s: \(flag)")
         setFrontEnd()
         
         //        Lấy userProfile đang nằm trong Tabbar controller
@@ -81,8 +87,8 @@ class DetailExpenseViewController: UIViewController, UICollectionViewDelegateFlo
         return dateFormatter.string(from: currentDateAndTime)
     }
     func setBackEnd(wallet:Wallet, transaction:Transaction){
-        
-        txt_des.text = transaction.getDescription
+        let maxiumString = 185
+        txt_des.text = transaction.getDescription.getShorterString(max: maxiumString)
         txt_wallet.text = wallet.getName
         txt_category.text = transaction.getCategory.getName
         txt_time.text = DateToString(transaction.getCreateAt)
@@ -113,7 +119,7 @@ class DetailExpenseViewController: UIViewController, UICollectionViewDelegateFlo
             detail_ex.wallets = wallets
             detail_ex.selectedWallet = txt_wallet.text
             detail_ex.detail_trans = self.detailTrans
-            
+            detail_ex.detailTransScreen = self
         }
         self.navigationController?.pushViewController(detail_ex, animated: true)
      

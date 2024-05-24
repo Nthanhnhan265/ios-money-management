@@ -167,36 +167,33 @@ class DetailWalletViewController: UIViewController {
         alertController.addAction(cancelAction)
         
         let deleteAction = UIAlertAction(title: "Delete", style: .destructive) { _ in
-           
-            
-            
-            
-            if let tabBarController = self.tabBarController as? TabHomeViewController {
-                if let userprofile = tabBarController.userProfile {
-                    
-                    //xoa giao dich o backend
-                    Task {
-                        await Wallet.deleteAWallet(userID: userprofile.getUID, walletId: self.wallet!.getID)
-                        
+          
+                if let tabBarController = self.tabBarController as? TabHomeViewController {
+                    if let userprofile = tabBarController.userProfile {
+                        //kiem tra so luong vi co trong tai khoan
+                        if (userprofile.Wallets.count > 1) {
+                            //xoa giao dich o backend
+                            Task {
+                                await Wallet.deleteAWallet(userID: userprofile.getUID, walletId: self.wallet!.getID)
+                            }
+                            //thuc hien xoa giao dich o front end
+                            if let index = userprofile.Wallets.firstIndex(where: {$0.getID == self.wallet?.getID}) {
+                                print("index of current wallet in array: \(index)")
+                                userprofile.Wallets.remove(at: index)
+                                //tro ve
+                                self.navigationController?.popViewController(animated: true)
+                            }
+                        }
+                        //thong bao loi khi nguoi dung chi con <= 1 vi
+                        else {
+                            let alertError = UIAlertController(title: "Error", message: "You must have at least one wallet in your account!", preferredStyle: .actionSheet)
+                            alertError.addAction(UIAlertAction(title: "Ok", style: .cancel,handler: nil))
+                            self.present(alertError, animated: true, completion: nil)
+
+                        }
                     }
-       
-                    
-                    //thuc hien xoa giao dich o front end
-                    if let index = userprofile.Wallets.firstIndex(where: {$0.getID == self.wallet?.getID}) {
-                        print("index of current wallet in array: \(index)")
-                        userprofile.Wallets.remove(at: index)
-                        
-                    }
-                    
                 }
-                
-                
-            }
-            
-            
-            
-            //tro ve
-            self.navigationController?.popViewController(animated: true)
+           
         }
         alertController.addAction(deleteAction)
         
