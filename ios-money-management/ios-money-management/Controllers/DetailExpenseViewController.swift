@@ -30,6 +30,7 @@ class DetailExpenseViewController: UIViewController, UICollectionViewDelegateFlo
     var arrImgs:[UIImage]? = []
     
     override func viewDidLoad() {
+        print("Vào DetailExpenseViewController")
         super.viewDidLoad()
         setFrontEnd()
         
@@ -45,15 +46,10 @@ class DetailExpenseViewController: UIViewController, UICollectionViewDelegateFlo
             }
             
         }
-        //them hinh anh
-//        arrImgs?.append(UIImage(named: "avatar")!)
-//        arrImgs?.append(UIImage(named: "avatar")!)
-//        arrImgs?.append(UIImage(named: "avatar")!)
-//        arrImgs?.append(UIImage(named: "avatar")!)
-//        arrImgs?.append(UIImage(named: "avatar")!)
+
          
    
-        print("## \(String(describing: arrImgs?.count))");
+        
 
     }
     /// Hàm chuyển đồ từ Date sang String
@@ -70,12 +66,9 @@ class DetailExpenseViewController: UIViewController, UICollectionViewDelegateFlo
         dateFormatter.timeStyle = .none
         
         // Địa điểm
-        dateFormatter.locale = Locale(identifier: "vi_VN")
+//        dateFormatter.locale = Locale(identifier: "vi_VN")
         
-        //09/05/2024
-        // print(dateFormatter.string(from: currentDateAndTime))
-        // Date -> String
-        // print(type(of: dateFormatter.string(from: currentDateAndTime)))
+  
         
         
         return dateFormatter.string(from: currentDateAndTime)
@@ -113,7 +106,7 @@ class DetailExpenseViewController: UIViewController, UICollectionViewDelegateFlo
             detail_ex.wallets = wallets
             detail_ex.selectedWallet = txt_wallet.text
             detail_ex.detail_trans = self.detailTrans
-            
+            detail_ex.detailExpenses = self
         }
         self.navigationController?.pushViewController(detail_ex, animated: true)
      

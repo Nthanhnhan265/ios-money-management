@@ -109,12 +109,8 @@ class TransactionViewController: UIViewController {
         
         
         
-        // Lấy UID
-        let UID = UserDefaults.standard.string(forKey: "UID") ?? ""
         
-        
-        //debug
-        print("Vào TransactionViewController - \(UID)")
+             
         
         //        Lấy userProfile đang nằm trong Tabbar controller
         if let tabBarController = self.tabBarController as? TabHomeViewController {
@@ -159,12 +155,9 @@ class TransactionViewController: UIViewController {
         dateFormatter.timeStyle = .none
         
         // Địa điểm
-        dateFormatter.locale = Locale(identifier: "vi_VN")
+//        dateFormatter.locale = Locale(identifier: "vi_VN")
         
-        //09/05/2024
-        // print(dateFormatter.string(from: currentDateAndTime))
-        // Date -> String
-        // print(type(of: dateFormatter.string(from: currentDateAndTime)))
+        
         
         
         return dateFormatter.string(from: currentDateAndTime)
@@ -227,7 +220,7 @@ class TransactionViewController: UIViewController {
                     
                 }
                 // Tạo UIAction "Tất cả" và thêm vào đầu danh sách
-                        let allAction = UIAction(title: "Tất cả", state: .on) { [weak self] action in
+                        let allAction = UIAction(title: "All", state: .on) { [weak self] action in
                             guard let self = self else { return }
                             
                             self.currentFilterState.wallet_id = nil
@@ -279,7 +272,7 @@ class TransactionViewController: UIViewController {
             }
             
             // Tạo UIAction "Tất cả" và thêm vào đầu danh sách
-                    let allAction = UIAction(title: "Tất cả", state: .on) { [weak self] action in
+                    let allAction = UIAction(title: "All", state: .on) { [weak self] action in
                         guard let self = self else { return }
                         
                         self.currentFilterState.category_id = nil
@@ -365,7 +358,7 @@ class TransactionViewController: UIViewController {
         
         //        bật biến filter
         currentFilterState.isIncome = false
-        popup_cate.setAttributedTitle(NSAttributedString(string: "Tất cả"), for: .normal)
+        popup_cate.setAttributedTitle(NSAttributedString(string: "All"), for: .normal)
         currentFilterState.category_id = nil
         setCategory()
     }
@@ -380,7 +373,7 @@ class TransactionViewController: UIViewController {
         sender.layer.cornerRadius = 20
         //        bật biến filter
         currentFilterState.isIncome = true
-        popup_cate.setAttributedTitle(NSAttributedString(string: "Tất cả"), for: .normal)
+        popup_cate.setAttributedTitle(NSAttributedString(string: "All"), for: .normal)
         currentFilterState.category_id = nil
 //        set pop up
         setCategory()
@@ -406,12 +399,12 @@ class TransactionViewController: UIViewController {
         btn_sortOld.backgroundColor = .white
         
 //        Gọi lại hàm set category -> Lấy tất cả category
-            popup_cate.setAttributedTitle(NSAttributedString(string: "Tất cả"), for: .normal)
+            popup_cate.setAttributedTitle(NSAttributedString(string: "All"), for: .normal)
         currentFilterState.category_id = nil
         setCategory()
         
         
-        popup_wallet.setAttributedTitle(NSAttributedString(string: "Tất cả"), for: .normal)
+        popup_wallet.setAttributedTitle(NSAttributedString(string: "All"), for: .normal)
         setWallet()
 
         
@@ -461,6 +454,9 @@ class TransactionViewController: UIViewController {
         } else {
             // Xử lý lỗi nếu không thể tính toán timeToEndOfDay
             print("Error calculating end of day for time_to_selected")
+            let alertController = UIAlertController(title: "Error", message: "Error calculating end of day for time_to_selected.", preferredStyle: .alert)
+            alertController.addAction(UIAlertAction(title: "OK", style: .default))
+            self.present(alertController, animated: true, completion: nil)
         }
         
         

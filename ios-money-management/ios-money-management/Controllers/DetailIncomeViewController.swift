@@ -17,14 +17,40 @@ class DetailIncomeViewController: UIViewController,  UICollectionViewDelegateFlo
     @IBOutlet weak var txt_time: UILabel!
     @IBOutlet weak var txt_balance: UILabel!
     @IBOutlet weak var borderView: UIView!
-    
+ 
     var wallets:[Wallet]?
     var detailTrans:Transaction?
     //tao mang luu hinh anh 
     var arrImgs:[UIImage]? = []
     
     @IBOutlet weak var imagesCollectionView: UICollectionView!
-    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        print("Load lại DetailIncomeViewController")
+        
+       
+        setFrontEnd()
+        arrImgs = []
+         
+
+        //        Lấy userProfile đang nằm trong Tabbar controller
+        if let tabBarController = self.tabBarController as? TabHomeViewController {
+            if let transaction = transaction{
+                setBackEnd(wallet: tabBarController.getWalletFromTransaction(wallet_ID: transaction.getWalletID)!, transaction: transaction)
+                self.detailTrans = transaction
+            }
+            if let userprofile = tabBarController.userProfile  {
+                self.wallets = userprofile.Wallets
+            }
+            
+        }
+        
+        
+         
+
+      
+        imagesCollectionView.reloadData()
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -58,12 +84,9 @@ class DetailIncomeViewController: UIViewController,  UICollectionViewDelegateFlo
         dateFormatter.timeStyle = .none
         
         // Địa điểm
-        dateFormatter.locale = Locale(identifier: "vi_VN")
+//        dateFormatter.locale = Locale(identifier: "vi_VN")
         
-        //09/05/2024
-        // print(dateFormatter.string(from: currentDateAndTime))
-        // Date -> String
-        // print(type(of: dateFormatter.string(from: currentDateAndTime)))
+        
         
         
         return dateFormatter.string(from: currentDateAndTime)
@@ -78,7 +101,6 @@ class DetailIncomeViewController: UIViewController,  UICollectionViewDelegateFlo
         for image in transaction.Images{
             arrImgs?.append(image)
         }
-        
     }
     func setFrontEnd(){
         //set background for navigation controller
@@ -97,11 +119,16 @@ class DetailIncomeViewController: UIViewController,  UICollectionViewDelegateFlo
         let detail_ex = storyboard.instantiateViewController(withIdentifier: "Income") as! NewIncomeController
         detail_ex.navigationItem.title = "Edit Expense"
         if let wallets = self.wallets {
+//            Truyền mảng wallets của người dùng có qua
             detail_ex.wallets = wallets
+//            lấy txt wallet truyền sang -> Ví hiện tại của trans
             detail_ex.selectedWallet = txt_wallet.text
             detail_ex.detail_trans = self.detailTrans
-            
+
+//            cái gì đó để trả về dữ liệu
+            detail_ex.detailIncome = self
         }
+        
         self.navigationController?.pushViewController(detail_ex, animated: true)
     }
     

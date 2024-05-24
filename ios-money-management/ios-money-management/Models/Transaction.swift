@@ -156,7 +156,7 @@ class Transaction  {
         // 2. Xóa ảnh khỏi Firebase Storage (nếu có)
         let transactionData = try await transactionRef.getDocument() // Lấy lại dữ liệu giao dịch
         if let imageUrls = transactionData.get("imageUrls") as? [String] {
-            print(imageUrls)
+//            print(imageUrls)
             for imageUrl in imageUrls {
                 try await deleteImageFromStorage(urlString: imageUrl)
             }
@@ -187,12 +187,8 @@ class Transaction  {
         dateFormatter.timeStyle = .none
         
         // Địa điểm
-        dateFormatter.locale = Locale(identifier: "vi_VN")
+//        dateFormatter.locale = Locale(identifier: "vi_VN")
         
-        //09/05/2024
-        // print(dateFormatter.string(from: currentDateAndTime))
-        // Date -> String
-        // print(type(of: dateFormatter.string(from: currentDateAndTime)))
         
         
         return dateFormatter.string(from: currentDateAndTime)

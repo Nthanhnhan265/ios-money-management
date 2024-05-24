@@ -20,7 +20,7 @@ class DetailWalletViewController: UIViewController {
     var wallet:Wallet? = nil
     var transactions:[Transaction] = []
     var sections: [Section] = []
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -44,8 +44,28 @@ class DetailWalletViewController: UIViewController {
         
     }
     override func viewWillAppear(_ animated: Bool) {
+        
+        
+        print("Vào DetailWalletViewController - \(wallet?.getName ?? "")")
         setFrontEnd()
         setNavbar()
+        transactions = []
+
+//        bỏ các transaction của ví vào mảng -> đẩy lên table view
+        setTransactions(data: (wallet?.getTransactions())!)
+//        sắp xếp lại mảng
+        transactions.sort { $0.getCreateAt > $1.getCreateAt }
+        
+        //                Lọc transactions theo ngày
+        sections = createSections(from: transactions)
+        
+//        Kết nối
+        tableview.dataSource = self
+        tableview.delegate = self
+        tableview.register(TransactionTableViewCell.nib(), forCellReuseIdentifier: TransactionTableViewCell.identifier)
+        
+        tableview.reloadData()
+        
     }
     
     func createSections(from transactions: [Transaction]) -> [Section] {
@@ -109,12 +129,9 @@ class DetailWalletViewController: UIViewController {
         dateFormatter.timeStyle = .none
         
         //        Địa điểm
-        dateFormatter.locale = Locale(identifier: "vi_VN")
+//        dateFormatter.locale = Locale(identifier: "vi_VN")
         
-        //09/05/2024
-//        print(dateFormatter.string(from: currentDateAndTime))
-//        Date -> String
-//        print(type(of: dateFormatter.string(from: currentDateAndTime)))
+        
         
         
         return dateFormatter.string(from: currentDateAndTime)
@@ -135,7 +152,7 @@ class DetailWalletViewController: UIViewController {
         }
         else
         {
-            print("<<<<<String to Date KHÔNG THÀNH CÔNG - TransactionViewController>>>>>")
+            print("<<<<<String to Date KHÔNG THÀNH CÔNG - DetailWalletViewController>>>>>")
             return Date.now
         }
     }
@@ -170,11 +187,12 @@ class DetailWalletViewController: UIViewController {
            
             
             
-            
+//            Lấy trung gian
             if let tabBarController = self.tabBarController as? TabHomeViewController {
+//                Lấy userProfile trung gian
                 if let userprofile = tabBarController.userProfile {
                     
-                    //xoa giao dich o backend
+                    //xoa giao dich o backend (Da ta bây)
                     Task {
                         await Wallet.deleteAWallet(userID: userprofile.getUID, walletId: self.wallet!.getID)
                         
@@ -183,7 +201,6 @@ class DetailWalletViewController: UIViewController {
                     
                     //thuc hien xoa giao dich o front end
                     if let index = userprofile.Wallets.firstIndex(where: {$0.getID == self.wallet?.getID}) {
-                        print("index of current wallet in array: \(index)")
                         userprofile.Wallets.remove(at: index)
                         
                     }

@@ -26,6 +26,7 @@ class AddWalletViewController: UIViewController,UITextViewDelegate, UICollection
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        print("Vào AddWalletViewController")
         
         navigationController?.navigationBar.tintColor = .white
         navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
@@ -77,7 +78,7 @@ class AddWalletViewController: UIViewController,UITextViewDelegate, UICollection
             }
             //neu khong ton tai thi la them vi
             else {
-                print("them vi")
+
                 //        Lấy userProfile (thong tin cua user) đang nằm trong Tabbar controller
                 if let tabBarController = self.tabBarController as? TabHomeViewController {
                     if let userprofile = tabBarController.userProfile {
