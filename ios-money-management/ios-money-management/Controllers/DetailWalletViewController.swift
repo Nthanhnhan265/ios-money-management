@@ -185,31 +185,32 @@ class DetailWalletViewController: UIViewController {
         
         let deleteAction = UIAlertAction(title: "Delete", style: .destructive) { _ in
           
-                if let tabBarController = self.tabBarController as? TabHomeViewController {
-                    if let userprofile = tabBarController.userProfile {
-                        //kiem tra so luong vi co trong tai khoan
-                        if (userprofile.Wallets.count > 1) {
-                            //xoa giao dich o backend
-                            Task {
-                                await Wallet.deleteAWallet(userID: userprofile.getUID, walletId: self.wallet!.getID)
-                            }
-                            //thuc hien xoa giao dich o front end
-                            if let index = userprofile.Wallets.firstIndex(where: {$0.getID == self.wallet?.getID}) {
-                                print("index of current wallet in array: \(index)")
-                                userprofile.Wallets.remove(at: index)
-                                //tro ve
-                                self.navigationController?.popViewController(animated: true)
-                            }
+            if let tabBarController = self.tabBarController as? TabHomeViewController {
+                if let userprofile = tabBarController.userProfile {
+                    //kiem tra so luong vi co trong tai khoan
+                    if (userprofile.Wallets.count > 1) {
+                        //xoa giao dich o backend
+                        Task {
+                            await Wallet.deleteAWallet(userID: userprofile.getUID, walletId: self.wallet!.getID)
                         }
-                        //thong bao loi khi nguoi dung chi con <= 1 vi
-                        else {
-                            let alertError = UIAlertController(title: "Error", message: "You must have at least one wallet in your account!", preferredStyle: .actionSheet)
-                            alertError.addAction(UIAlertAction(title: "Ok", style: .cancel,handler: nil))
-                            self.present(alertError, animated: true, completion: nil)
-
+                        //thuc hien xoa giao dich o front end
+                        if let index = userprofile.Wallets.firstIndex(where: {$0.getID == self.wallet?.getID}) {
+                            print("index of current wallet in array: \(index)")
+                            userprofile.Wallets.remove(at: index)
+                            //tro ve
+                            self.navigationController?.popViewController(animated: true)
                         }
-
                     }
+                    //thong bao loi khi nguoi dung chi con <= 1 vi
+                    else {
+                        let alertError = UIAlertController(title: "Error", message: "You must have at least one wallet in your account!", preferredStyle: .actionSheet)
+                        alertError.addAction(UIAlertAction(title: "Ok", style: .cancel,handler: nil))
+                        self.present(alertError, animated: true, completion: nil)
+                        
+                    }
+                    
+                }
+            }
                 
            
         }
@@ -237,14 +238,14 @@ extension DetailWalletViewController: UITableViewDataSource, UITableViewDelegate
 
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
+        let maximumString = 25
         let cell = tableview.dequeueReusableCell(withIdentifier: TransactionTableViewCell.identifier, for: indexPath) as! TransactionTableViewCell
         let transaction = sections[indexPath.section].transactions[indexPath.row]
         
         //Bỏ thông tin vào các UI của cell
         cell.transaction_name.text = transaction.getCategory.getName
         cell.transaction_img.image = transaction.getCategory.getImage
-        cell.transaction_description.text = transaction.getDescription
+        cell.transaction_description.text = transaction.getDescription.getShorterString(max: maximumString)
         cell.transaction_balance.text = String(transaction.getBalance.getVNDFormat())
         cell.transaction_time.text = DateToString(transaction.getCreateAt)
         
