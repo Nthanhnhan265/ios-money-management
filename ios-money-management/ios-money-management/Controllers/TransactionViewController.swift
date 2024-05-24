@@ -549,14 +549,14 @@ extension TransactionViewController: UITableViewDataSource, UITableViewDelegate{
     
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
+        let maximumString = 25
         let cell = tableview.dequeueReusableCell(withIdentifier: TransactionTableViewCell.identifier, for: indexPath) as! TransactionTableViewCell
         let transaction = sections[indexPath.section].transactions[indexPath.row]
         
         //Bỏ thông tin vào các UI của cell
         cell.transaction_name.text = transaction.getCategory.getName
         cell.transaction_img.image = transaction.getCategory.getImage
-        cell.transaction_description.text = transaction.getDescription
+        cell.transaction_description.text = transaction.getDescription.getShorterString(max: maximumString)
         cell.transaction_balance.text = String(transaction.getBalance.getVNDFormat())
         cell.transaction_time.text = DateToString(transaction.getCreateAt)
         
