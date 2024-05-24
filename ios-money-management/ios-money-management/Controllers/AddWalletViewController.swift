@@ -123,7 +123,9 @@ class AddWalletViewController: UIViewController,UITextViewDelegate, UICollection
                 // Nếu có ký tự không phải số, không cho phép thay đổi
                 return false
             }
-
+                
+         
+        
             // Nếu chỉ có số, cho phép thay đổi
             return true
     }

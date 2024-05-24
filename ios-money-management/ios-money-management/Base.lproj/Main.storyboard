@@ -330,9 +330,6 @@
                             <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SvG-Ti-wHF">
                                 <rect key="frame" x="0.0" y="0.0" width="393" height="300"/>
                                 <subviews>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bg_yellow" translatesAutoresizingMaskIntoConstraints="NO" id="yvc-0h-Rf7">
-                                        <rect key="frame" x="0.0" y="0.0" width="393" height="300"/>
-                                    </imageView>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="ly5-r2-ZRT">
                                         <rect key="frame" x="25" y="194" width="343" height="62"/>
                                         <subviews>
@@ -377,7 +374,6 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
-                                <color key="backgroundColor" red="1" green="0.96470588235294119" blue="0.89803921568627454" alpha="0.17647058823529413" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstItem="ATy-Bb-9a9" firstAttribute="top" secondItem="Cs3-lp-J7e" secondAttribute="bottom" constant="15" id="4zb-bR-5BW"/>
                                     <constraint firstItem="Cs3-lp-J7e" firstAttribute="top" secondItem="SvG-Ti-wHF" secondAttribute="top" constant="110" id="7KC-gR-x2R"/>
@@ -385,12 +381,8 @@
                                     <constraint firstItem="ly5-r2-ZRT" firstAttribute="top" secondItem="ATy-Bb-9a9" secondAttribute="bottom" constant="15" id="CvK-yT-xwe"/>
                                     <constraint firstAttribute="height" constant="300" id="EoQ-2G-Mv4"/>
                                     <constraint firstAttribute="trailing" secondItem="ATy-Bb-9a9" secondAttribute="trailing" constant="25" id="Ja8-cI-WF1"/>
-                                    <constraint firstAttribute="bottom" secondItem="yvc-0h-Rf7" secondAttribute="bottom" id="O77-Rs-xfw"/>
-                                    <constraint firstItem="yvc-0h-Rf7" firstAttribute="top" secondItem="SvG-Ti-wHF" secondAttribute="top" id="ZY8-I3-rBw"/>
-                                    <constraint firstItem="yvc-0h-Rf7" firstAttribute="leading" secondItem="SvG-Ti-wHF" secondAttribute="leading" id="a6U-ei-oQu"/>
                                     <constraint firstItem="Cs3-lp-J7e" firstAttribute="leading" secondItem="SvG-Ti-wHF" secondAttribute="leading" constant="25" id="b7D-am-qsH"/>
                                     <constraint firstAttribute="trailing" secondItem="Cs3-lp-J7e" secondAttribute="trailing" constant="25" id="ffc-p1-QVp"/>
-                                    <constraint firstAttribute="trailing" secondItem="yvc-0h-Rf7" secondAttribute="trailing" id="iYk-ZX-RfY"/>
                                     <constraint firstAttribute="trailing" secondItem="ly5-r2-ZRT" secondAttribute="trailing" constant="25" id="sCB-LF-TFa"/>
                                     <constraint firstItem="ly5-r2-ZRT" firstAttribute="leading" secondItem="SvG-Ti-wHF" secondAttribute="leading" constant="25" id="wPt-1R-pvV"/>
                                 </constraints>
@@ -462,7 +454,6 @@
                         <button key="titleView" opaque="NO" contentMode="scaleToFill" showsMenuAsPrimaryAction="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" changesSelectionAsPrimaryAction="YES" id="qmk-fr-zD7">
                             <rect key="frame" x="111" y="7" width="171" height="30"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <color key="backgroundColor" red="0.99607843139999996" green="0.96470588239999999" blue="0.90196078430000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                             <menu key="menu" id="pUH-iu-Oxo">
                                 <children>
@@ -519,7 +510,7 @@
                                 <rect key="frame" x="0.0" y="364" width="393" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="d8e-XE-CjL" id="UrS-c7-eNU">
-                                    <rect key="frame" x="0.0" y="0.0" width="186" height="44"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="393" height="44"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                             </tableViewCell>
@@ -3584,7 +3575,6 @@
         <image name="Welcome" width="104" height="104"/>
         <image name="avatar" width="512" height="682.66668701171875"/>
         <image name="bell" width="32" height="32"/>
-        <image name="bg_yellow" width="125" height="104"/>
         <image name="bgwallet" width="250" height="142"/>
         <image name="book" width="42.666667938232422" height="42.666667938232422"/>
         <image name="checkbox_true" width="12.25" height="14"/>

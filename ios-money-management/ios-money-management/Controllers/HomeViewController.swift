@@ -57,16 +57,7 @@ class HomeViewController: UIViewController {
         table_view.delegate = self
         table_view.register(TransactionTableViewCell.nib(), forCellReuseIdentifier: TransactionTableViewCell.identifier)
         
-        if #available(iOS 13.0, *) {
-            //rgba(255, 246, 229, 1)
-            let appearance = UINavigationBarAppearance()
-            appearance.backgroundColor = UIColor(red: 255/255, green: 246/255, blue: 229/255, alpha: 1) // Màu bạn muốn
-            appearance.titleTextAttributes = [.foregroundColor: UIColor.black];
-            navigationController?.navigationBar.standardAppearance = appearance
-            navigationController?.navigationBar.scrollEdgeAppearance = appearance // Cho trường hợp Large Titles
-        } else {
-            navigationController?.navigationBar.barTintColor = .red // Dành cho iOS 12 trở về trước
-        }
+        
         
         //debug
         print("Vào HomeViewController - \(UID)")
@@ -98,22 +89,12 @@ class HomeViewController: UIViewController {
         super.viewWillAppear(animated)
         print("Load lại HomeViewController")
         // Set lại màu cho nav
-        
+        navigationController?.navigationBar.tintColor = .black
+        navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.black]
+        navigationController?.navigationBar.backgroundColor = .white
         self.tabBarController?.tabBar.isHidden = false
         
-        if #available(iOS 13.0, *) {
-            //rgba(255, 246, 229, 1)
-            let appearance = UINavigationBarAppearance()
-            appearance.backgroundColor = UIColor(red: 255/255, green: 246/255, blue: 229/255, alpha: 1) // Màu bạn muốn
-            appearance.titleTextAttributes = [.foregroundColor: UIColor.black];
-            navigationController?.navigationBar.standardAppearance = appearance
-            navigationController?.navigationBar.scrollEdgeAppearance = appearance // Cho trường hợp Large Titles
-            
-            navigationItem.rightBarButtonItem?.tintColor = .black
-        } else {
-            navigationController?.navigationBar.barTintColor = .red // Dành cho iOS 12 trở về trước
-        }
-        
+       
         //        Lấy userProfile đang nằm trong Tabbar controller
         if let tabBarController = self.tabBarController as? TabHomeViewController {
             // Truy cập dữ liệu trong TabBarController
@@ -150,7 +131,7 @@ class HomeViewController: UIViewController {
         let dateFormatter = DateFormatter()
         
         // Ngày: 5/9/24
-        dateFormatter.dateStyle = .short
+        dateFormatter.dateStyle = .medium
         
         // Giờ none
         dateFormatter.timeStyle = .none
@@ -168,7 +149,7 @@ class HomeViewController: UIViewController {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "dd/MM/yyyy"
         dateFormatter.timeZone = TimeZone(identifier: "UTC")
-        dateFormatter.dateStyle = .short
+        dateFormatter.dateStyle = .medium
         dateFormatter.timeStyle = .none
         dateFormatter.locale = Locale(identifier: "vi_VN")
         
@@ -371,13 +352,7 @@ class HomeViewController: UIViewController {
         view_controller.wallets = wallets
         navigationController?.pushViewController(view_controller, animated: true)
         
-        let appearance = UINavigationBarAppearance()
-        appearance.backgroundColor = UIColor(red: 255/255, green: 86/255, blue: 92/255, alpha: 1);
-        appearance.titleTextAttributes = [.foregroundColor: UIColor.white]; navigationController?.navigationBar.standardAppearance = appearance
-        navigationController?.navigationBar.scrollEdgeAppearance = appearance
-        
-        
-        
+       
     }
     @IBAction func btn_income_click(_ sender: UIButton) {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
@@ -385,11 +360,7 @@ class HomeViewController: UIViewController {
         viewController.wallets = wallets
         navigationController?.pushViewController(viewController, animated: true)
         
-        let appearance = UINavigationBarAppearance()
-        appearance.backgroundColor = UIColor(red: 0/255, green: 180/255, blue: 126/255, alpha: 1);
-        appearance.titleTextAttributes = [.foregroundColor: UIColor.white];
-        navigationController?.navigationBar.standardAppearance = appearance
-        navigationController?.navigationBar.scrollEdgeAppearance = appearance
+       
         
       
     }
@@ -559,8 +530,6 @@ extension HomeViewController: UITableViewDataSource,  UITableViewDelegate{
         
         
         
-        
-        
     }
     
     // MARK: UITableViewDelegate
@@ -583,12 +552,6 @@ extension HomeViewController: UITableViewDataSource,  UITableViewDelegate{
             // Đổ dữ liệu qua màn hình
             detail_Income_ViewController.transaction = transactions[indexPath.row]
             
-            
-            let appearance = UINavigationBarAppearance()
-            appearance.backgroundColor = UIColor(red: 0/255, green: 168/255, blue: 107/255, alpha: 1);
-            appearance.titleTextAttributes = [.foregroundColor: UIColor.white]; navigationController?.navigationBar.standardAppearance = appearance
-            navigationController?.navigationBar.scrollEdgeAppearance = appearance
-            
             // Đẩy màn hình vào hàng đợi... (chuyển màn hình)
             navigationController?.pushViewController(detail_Income_ViewController, animated: true)
             
@@ -600,12 +563,6 @@ extension HomeViewController: UITableViewDataSource,  UITableViewDelegate{
             // Lấy màn hình cần chuyển qua
             detail_Expense_ViewController.transaction = transactions[indexPath.row]
             // Đẩy màn hình vào hàng đợi... (chuyển màn hình)
-            
-            let appearance = UINavigationBarAppearance()
-            appearance.backgroundColor = UIColor(red: 253/255, green: 74/255, blue: 92/255, alpha: 1);
-            appearance.titleTextAttributes = [.foregroundColor: UIColor.white];
-            navigationController?.navigationBar.standardAppearance = appearance
-            navigationController?.navigationBar.scrollEdgeAppearance = appearance
             
             navigationController?.pushViewController(detail_Expense_ViewController, animated: true)
             

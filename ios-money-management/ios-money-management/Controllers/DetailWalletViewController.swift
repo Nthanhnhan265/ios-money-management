@@ -123,7 +123,7 @@ class DetailWalletViewController: UIViewController {
         let dateFormatter = DateFormatter()
         
         //        Ngày: 5/9/24
-        dateFormatter.dateStyle = .short
+        dateFormatter.dateStyle = .medium
         
         //        Giờ none
         dateFormatter.timeStyle = .none
@@ -141,7 +141,7 @@ class DetailWalletViewController: UIViewController {
        let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "dd/MM/yyyy"
         dateFormatter.timeZone = TimeZone(identifier: "UTC")
-        dateFormatter.dateStyle = .short
+        dateFormatter.dateStyle = .medium
         dateFormatter.timeStyle = .none
         dateFormatter.locale = Locale(identifier: "vi_VN")
         
