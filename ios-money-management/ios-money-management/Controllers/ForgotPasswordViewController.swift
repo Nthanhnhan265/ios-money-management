@@ -28,7 +28,7 @@ class ForgotPasswordViewController: UIViewController {
         Auth.auth().sendPasswordReset(withEmail: email) { (error) in
             if error == nil {
                 // Hiện ra thông báo đã send OTP cho người dùng
-                let alertController = UIAlertController(title: "Thông báo", message: "Đã gửi mail reset mật khẩu, vui lòng kiểm tra lại.", preferredStyle: .alert)
+                let alertController = UIAlertController(title: "Sent", message: "Password reset email has been sent, please check again.", preferredStyle: .alert)
                 alertController.addAction(UIAlertAction(title: "OK", style: .default))
                 self.present(alertController, animated: true, completion: nil)
                 
@@ -38,6 +38,11 @@ class ForgotPasswordViewController: UIViewController {
                 guard let error = error else{return}
 
                 print(error)
+                let alertController = UIAlertController(title: "Error", message: "\(error).", preferredStyle: .alert)
+                alertController.addAction(UIAlertAction(title: "OK", style: .default))
+                self.present(alertController, animated: true, completion: nil)
+                
+                
             }
             
         }

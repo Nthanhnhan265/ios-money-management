@@ -93,7 +93,6 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
     }
     //MARK: implementing classes
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print ("selected: \(indexPath.row)")
 //        Lấy main story board
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         

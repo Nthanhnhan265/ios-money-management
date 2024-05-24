@@ -17,6 +17,7 @@ class EditProfileViewController: UIViewController, UIImagePickerControllerDelega
 
     override func viewDidLoad(){
         super.viewDidLoad()
+        print("Vào EditProfileViewController")
 
         
         
@@ -63,12 +64,18 @@ class EditProfileViewController: UIViewController, UIImagePickerControllerDelega
                     } catch {
                         // Xử lý lỗi nếu có
                         print("Error updating profile: \(error)")
+                        let alertController = UIAlertController(title: "Error", message: "\(error).", preferredStyle: .alert)
+                        alertController.addAction(UIAlertAction(title: "OK", style: .default))
+                        self.present(alertController, animated: true, completion: nil)
                     }
                 }
             }
         else {
                 // Xử lý trường hợp tên không hợp lệ hoặc không có ảnh mới
                 print("Error: Invalid name or no new image")
+            let alertController = UIAlertController(title: "Error", message: "Invalid name or no new image.", preferredStyle: .alert)
+            alertController.addAction(UIAlertAction(title: "OK", style: .default))
+            self.present(alertController, animated: true, completion: nil)
             }
         
     }

@@ -126,6 +126,10 @@ class SignUpViewController: UIViewController {
                             navigationController?.popViewController(animated: true)
                         } catch {
                             print("Tạo userProfile thất bại")
+                            let alertController = UIAlertController(title: "Error", message: "Create user profile failed", preferredStyle: .alert)
+                            alertController.addAction(UIAlertAction(title: "OK", style: .default))
+                            present(alertController, animated: true, completion: nil)
+                            return // Thoát khỏi hàm nếu không hợp lệ
                         }
                     }
                     

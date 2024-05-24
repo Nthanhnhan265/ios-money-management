@@ -108,7 +108,6 @@ extension AccountWalletsViewController: UITableViewDelegate, UITableViewDataSour
         //        Đổ dữ liệu vào cell
         cell.Wallet_name.text = self.wallets[indexPath.row].getName
         cell.Wallet_img.image = self.wallets[indexPath.row].getImage
-        print("set: \(String(describing: wallets[indexPath.row].getImage))")
         cell.Wallet_balace.text = String(self.wallets[indexPath.row].Balance.getVNDFormat())
         
         return cell
