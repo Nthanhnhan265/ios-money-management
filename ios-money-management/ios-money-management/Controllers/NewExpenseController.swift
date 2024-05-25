@@ -118,6 +118,9 @@ class NewExpenseController: UIViewController, PHPickerViewControllerDelegate, UI
                         //                        wallet.balance trung gian = wallet.balance trung gian + (self.transaction.balance)
                         tabBarController.userProfile?.Wallets.first(where: {$0.getID == self.detail_trans?.getWalletID})?.Balance =
                         (tabBarController.userProfile?.Wallets.first(where: {$0.getID == self.detail_trans?.getWalletID})!.Balance)! + self.detail_trans!.getBalance * -1 //DA SUA O DAY: vi(moi) = vi(cu) + detail_Trans (nhung detail_Trans < 0 =>Err: vi moi = viCu(-5) + detail_Trans(-5) = -10)
+                        //                        Cộng trừ tiền trên db
+                                                Wallet.set_updateWallet(UID: userProfile.getUID, wallet: Wallet(ID: wallet!.getID, Name: wallet!.getName, Balance: wallet!.Balance, Image: wallet?.getImage, Transaction: wallet!.transactions_get_set))
+
                     }
                     
                 }
