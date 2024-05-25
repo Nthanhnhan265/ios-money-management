@@ -146,9 +146,9 @@ class DetailIncomeViewController: UIViewController,  UICollectionViewDelegateFlo
         let deleteAction = UIAlertAction(title: "Delete", style: .destructive) { _ in
             // Perform deletion action here
             Task{
-//                Xoá transaction trên db
+//              1:  Xoá transaction trên db
                 try await Transaction.deleteTransaction(walletID: self.transaction!.getWalletID, transactionID: self.transaction!.getID)
-//                Xoá transaction ở mảng local
+//               2: Xoá transaction ở mảng local
                 if let tabBarController = self.tabBarController as? TabHomeViewController {
                     
                     if let userProfile = tabBarController.userProfile{
@@ -160,9 +160,12 @@ class DetailIncomeViewController: UIViewController,  UICollectionViewDelegateFlo
                            // xoá giao dịch khỏi mảng
                            wallet?.transactions_get_set.remove(at: index)
                        }
-                        //                    Cộng trừ tiền lại vào ví:
+                        //                  3:  Cộng trừ tiền lại vào ví ở local
 //                        wallet.balance trung gian = wallet.balance trung gian - (self.transaction.balance)
                         tabBarController.userProfile?.Wallets.first(where: {$0.getID == self.transaction?.getWalletID})?.Balance = (tabBarController.userProfile?.Wallets.first(where: {$0.getID == self.transaction?.getWalletID})!.Balance)! - self.transaction!.getBalance
+                        
+//                        4: Cộng trừ tiền trên db:
+                        Wallet.set_updateWallet(UID: userProfile.getUID, wallet: Wallet(ID: wallet!.getID, Name: wallet!.getName, Balance: wallet!.Balance, Image: wallet?.getImage, Transaction: wallet!.transactions_get_set))
                     }
 
                 }
