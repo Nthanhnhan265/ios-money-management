@@ -116,7 +116,8 @@ class NewExpenseController: UIViewController, PHPickerViewControllerDelegate, UI
                         }
                         //                    Cộng trừ tiền lại vào ví:
                         //                        wallet.balance trung gian = wallet.balance trung gian + (self.transaction.balance)
-                        tabBarController.userProfile?.Wallets.first(where: {$0.getID == self.detail_trans?.getWalletID})?.Balance = (tabBarController.userProfile?.Wallets.first(where: {$0.getID == self.detail_trans?.getWalletID})!.Balance)! + self.detail_trans!.getBalance
+                        tabBarController.userProfile?.Wallets.first(where: {$0.getID == self.detail_trans?.getWalletID})?.Balance =
+                        (tabBarController.userProfile?.Wallets.first(where: {$0.getID == self.detail_trans?.getWalletID})!.Balance)! + self.detail_trans!.getBalance * -1 //DA SUA O DAY: vi(moi) = vi(cu) + detail_Trans (nhung detail_Trans < 0 =>Err: vi moi = viCu(-5) + detail_Trans(-5) = -10)
                     }
                     
                 }
@@ -148,9 +149,9 @@ class NewExpenseController: UIViewController, PHPickerViewControllerDelegate, UI
                         )
                         
                         // Cập nhật số dư ví trên DB
-                        Wallet.set_updateWallet(UID: UID, wallet: Wallet(ID: wallet.getID, Name: wallet.getName ,Balance: wallet.Balance + (balance > 0 ? -balance : balance), Image: wallet.getImage , Transaction: wallet.getTransactions()))
+                        Wallet.set_updateWallet(UID: UID, wallet: Wallet(ID: wallet.getID, Name: wallet.getName ,Balance: wallet.Balance + (balance > 0 ? -balance : balance), Image: wallet.getImage , Transaction: wallet.getTransactions())) //DA SUA O DAY: - thanh + => vi moi(0) + blance(-50) = -50
                         
-                        
+                      
                         
                         
                         
@@ -170,8 +171,7 @@ class NewExpenseController: UIViewController, PHPickerViewControllerDelegate, UI
                                     wallet.addTransaction(transaction: newTransaction)
                                     
                                     //                        Cập nhật tiền của ví dưới local
-                                    wallet.Balance = wallet.Balance + (balance > 0 ? -balance : balance)
-                                    
+                                    wallet.Balance = wallet.Balance + (balance > 0 ? -balance : balance)//DA SUA O DAY: - thanh + => vi moi(0) + blance(-50) = -50
                                 }
                                 
                             }
