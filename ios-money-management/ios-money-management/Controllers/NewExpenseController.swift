@@ -195,7 +195,7 @@ class NewExpenseController: UIViewController, PHPickerViewControllerDelegate, UI
                 }
                 
                 navigationController?.popViewController(animated: true)
-                navigationController?.popViewController(animated: true)
+            
             }
             
             
