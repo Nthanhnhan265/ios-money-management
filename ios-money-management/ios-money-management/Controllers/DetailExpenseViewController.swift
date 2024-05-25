@@ -148,6 +148,9 @@ class DetailExpenseViewController: UIViewController, UICollectionViewDelegateFlo
                         //                    Cộng trừ tiền lại vào ví
 //                         wallet.balance trung gian = wallet.balance trung gian - (self.transaction.balance)
                         tabBarController.userProfile?.Wallets.first(where: {$0.getID == self.transaction?.getWalletID})?.Balance = (tabBarController.userProfile?.Wallets.first(where: {$0.getID == self.transaction?.getWalletID})!.Balance)! - self.transaction!.getBalance
+                        
+//                        Cộng trừ tiền trên db
+                        Wallet.set_updateWallet(UID: userProfile.getUID, wallet: Wallet(ID: wallet!.getID, Name: wallet!.getName, Balance: wallet!.Balance, Image: wallet?.getImage, Transaction: wallet!.transactions_get_set))
                     }
                 }
                 //                Trở về màn hình trước
