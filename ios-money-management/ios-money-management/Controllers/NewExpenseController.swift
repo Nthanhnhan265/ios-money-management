@@ -160,6 +160,9 @@ class NewExpenseController: UIViewController, PHPickerViewControllerDelegate, UI
                         // Tạo transaction mới với ID vừa nhận được
                         let newTransaction = await Transaction(id: transactionID, description: description, balance: (balance > 0 ? -balance : balance), category: Category.getCategory(Category_ID: categoryID)!, create_at: datePicker.date, wallet_id: wallet.getID, images: selectedImages)
                         
+//                        Trả dữ liệu mới về detail
+                        detailExpenses?.transaction = newTransaction
+                        detailExpenses?.arrImgs = selectedImages
                         
                         
                         

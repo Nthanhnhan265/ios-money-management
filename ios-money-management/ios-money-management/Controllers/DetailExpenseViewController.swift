@@ -31,7 +31,31 @@ class DetailExpenseViewController: UIViewController, UICollectionViewDelegateFlo
     
     
     override func viewWillAppear(_ animated: Bool) {
-        print("s: \(flag)")
+        super.viewWillAppear(animated)
+        print("Load lại DetailExpenseViewController")
+        
+       
+        setFrontEnd()
+        arrImgs = []
+         
+
+        //        Lấy userProfile đang nằm trong Tabbar controller
+        if let tabBarController = self.tabBarController as? TabHomeViewController {
+            if let transaction = transaction{
+                setBackEnd(wallet: tabBarController.getWalletFromTransaction(wallet_ID: transaction.getWalletID)!, transaction: transaction)
+                self.detailTrans = transaction
+            }
+            if let userprofile = tabBarController.userProfile  {
+                self.wallets = userprofile.Wallets
+            }
+            
+        }
+        
+        
+         
+
+      
+        imagesCollectionView.reloadData()
     }
     
     override func viewDidLoad() {
