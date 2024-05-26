@@ -129,7 +129,7 @@ class TransactionViewController: UIViewController {
             }
         }
         
-        
+        updateTransactions()
         
         //        Setting cho table view
         tableview.dataSource = self

@@ -92,12 +92,7 @@ class HomeViewController: UIViewController {
         navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.black]
         navigationController?.navigationBar.backgroundColor = .white
         self.tabBarController?.tabBar.isHidden = false
-//        set lại màu mặc định cho các button tiem
-        currentFilterState.buttonTime?.layer.cornerRadius = 0
-        currentFilterState.buttonTime?.clipsToBounds = false
-        currentFilterState.buttonTime?.backgroundColor = UIColor(red: 255/255, green: 255/255, blue: 255/255, alpha: 1.0)
-        currentFilterState.buttonTime?.setTitleColor(UIColor(red: 252/255, green: 172/255, blue: 18/255, alpha: 1.0), for: .normal)
-        currentFilterState.buttonTime = nil
+        
         
 
         //        Lấy userProfile đang nằm trong Tabbar controller
@@ -122,6 +117,11 @@ class HomeViewController: UIViewController {
             }
             
         }
+        //        set lại màu mặc định cho các button tiem
+                if currentFilterState.buttonTime != nil{
+                    updateTransactions()
+                }
+
         table_view.reloadData()
         
         

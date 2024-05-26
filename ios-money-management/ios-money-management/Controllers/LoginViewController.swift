@@ -12,6 +12,8 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var txt_username: UITextField!
     @IBOutlet weak var txt_password: UITextField!
     
+    @IBOutlet weak var view_loading: UIView!
+    @IBOutlet weak var view_opacity: UIView!
     
     
     
@@ -22,7 +24,8 @@ class LoginViewController: UIViewController {
         
         // Debug
         print("Vào LoginViewController")
-        
+        view_opacity.isHidden = true
+        view_loading.isHidden = true
         // set title cho navigation
         self.navigationItem.title = "Login"
         
@@ -68,7 +71,8 @@ class LoginViewController: UIViewController {
                 let userId = authResult.user.uid
                 print("User login with ID: \(userId)")
                 UserDefaults.standard.set(userId, forKey: "UID")
-                
+                self.view_opacity.isHidden = false
+                self.view_loading.isHidden = false
                 Task{
                     //                    Gọi hàm lấy userProfile từ UID
                     if let userProfile = await UserProfile.getUserProfine(UID: userId){
@@ -81,6 +85,10 @@ class LoginViewController: UIViewController {
                         vc.modalPresentationStyle = .fullScreen
                         //                        Gán giá trị controller là userProfile
                         vc.userProfile = userProfile
+                        
+                        self.view_opacity.isHidden = true
+                        self.view_loading.isHidden = true
+                        
                         self.present(vc, animated: true )
                         //                        Xoá mật khẩu
                         self.txt_password.text = nil

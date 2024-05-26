@@ -198,6 +198,24 @@
                                     </button>
                                 </subviews>
                             </stackView>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lZv-02-UzY">
+                                <rect key="frame" x="0.0" y="103" width="393" height="749"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rwb-Kb-J6B">
+                                        <rect key="frame" x="0.0" y="237" width="393" height="201"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <subviews>
+                                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" animating="YES" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="uiW-7f-WBM">
+                                                <rect key="frame" x="187" y="91" width="20" height="20"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            </activityIndicatorView>
+                                        </subviews>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                    </view>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="tertiaryLabelColor"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
@@ -225,11 +243,13 @@
                     <connections>
                         <outlet property="txt_password" destination="gZB-Ev-hlH" id="OUB-SX-42h"/>
                         <outlet property="txt_username" destination="ked-2Y-Dfg" id="z8T-us-2tR"/>
+                        <outlet property="view_loading" destination="rwb-Kb-J6B" id="xDg-Zt-qMf"/>
+                        <outlet property="view_opacity" destination="lZv-02-UzY" id="ws1-2q-LNM"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-512" y="651"/>
+            <point key="canvasLocation" x="-512.2137404580152" y="650.70422535211276"/>
         </scene>
         <!--Home View Controller-->
         <scene sceneID="TzD-8l-Dt4">
@@ -2813,6 +2833,17 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Change Password" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jfy-xw-VP3">
+                                <rect key="frame" x="20" y="306.33333333333331" width="131" height="18"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <color key="textColor" red="0.56862745100000001" green="0.56862745100000001" blue="0.62352941179999999" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="lsj-ou-ufW">
+                                <rect key="frame" x="20" y="335" width="353" height="34"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
+                            </textField>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TRN-U4-Nr5">
                                 <rect key="frame" x="149.33333333333334" y="99" width="94.333333333333343" height="94.333333333333314"/>
                                 <subviews>
@@ -2841,16 +2872,35 @@
                                     <constraint firstAttribute="height" constant="94.329999999999998" id="uLj-Wg-FWf"/>
                                 </constraints>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DVG-oR-wDp">
+                                <rect key="frame" x="348" y="302" width="25" height="25"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="25" id="aDF-Rb-m8M"/>
+                                    <constraint firstAttribute="width" constant="25" id="nS3-ri-2PV"/>
+                                </constraints>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" image="unchecked" title=""/>
+                                <connections>
+                                    <action selector="btn_checkbox_change:" destination="Vwv-a5-o4J" eventType="touchUpInside" id="iOT-N5-SZT"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="TRN-U4-Nr5" firstAttribute="top" secondItem="5Gg-tT-aBn" secondAttribute="bottom" constant="40" id="5HI-PK-232"/>
+                            <constraint firstItem="lsj-ou-ufW" firstAttribute="leading" secondItem="0bb-yO-TGK" secondAttribute="leading" constant="20" id="BES-Hn-vPn"/>
+                            <constraint firstItem="jfy-xw-VP3" firstAttribute="top" secondItem="l3e-1w-hHL" secondAttribute="bottom" constant="20" id="CFh-Ct-f17"/>
                             <constraint firstItem="TRN-U4-Nr5" firstAttribute="centerX" secondItem="0bb-yO-TGK" secondAttribute="centerX" id="CRj-YF-Kgv"/>
+                            <constraint firstItem="DVG-oR-wDp" firstAttribute="top" secondItem="l3e-1w-hHL" secondAttribute="bottom" constant="15.67" id="G8X-ZG-lce"/>
                             <constraint firstItem="Emc-1J-IcD" firstAttribute="top" secondItem="TRN-U4-Nr5" secondAttribute="bottom" constant="25" id="JfT-uX-6Vz"/>
                             <constraint firstAttribute="trailing" secondItem="l3e-1w-hHL" secondAttribute="trailing" constant="20" id="LL8-t8-gfn"/>
+                            <constraint firstAttribute="trailing" secondItem="lsj-ou-ufW" secondAttribute="trailing" constant="20" id="Lgf-kK-sAs"/>
+                            <constraint firstItem="lsj-ou-ufW" firstAttribute="top" secondItem="DVG-oR-wDp" secondAttribute="bottom" constant="8" id="Npd-Lt-skD"/>
                             <constraint firstAttribute="trailing" secondItem="Emc-1J-IcD" secondAttribute="trailing" constant="20" id="R7x-dG-eNk"/>
+                            <constraint firstItem="jfy-xw-VP3" firstAttribute="leading" secondItem="0bb-yO-TGK" secondAttribute="leading" constant="20" id="aYi-Er-hZh"/>
                             <constraint firstItem="Emc-1J-IcD" firstAttribute="leading" secondItem="0bb-yO-TGK" secondAttribute="leading" constant="20" id="kyt-Rx-jhr"/>
                             <constraint firstItem="l3e-1w-hHL" firstAttribute="top" secondItem="Emc-1J-IcD" secondAttribute="bottom" constant="10" id="lvS-7a-39h"/>
+                            <constraint firstAttribute="trailing" secondItem="DVG-oR-wDp" secondAttribute="trailing" constant="20" id="mQf-YP-XGY"/>
                             <constraint firstItem="l3e-1w-hHL" firstAttribute="leading" secondItem="0bb-yO-TGK" secondAttribute="leading" constant="20" id="wdl-Zg-ksj"/>
                         </constraints>
                     </view>
@@ -2862,9 +2912,11 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="btn_checkbox_ChangePassword" destination="DVG-oR-wDp" id="SBS-27-Ygv"/>
                         <outlet property="image" destination="18u-zt-5Xv" id="0C8-7U-XDR"/>
                         <outlet property="imageView" destination="TRN-U4-Nr5" id="GQ9-hq-W2e"/>
                         <outlet property="txt_name" destination="l3e-1w-hHL" id="C5g-Fe-flG"/>
+                        <outlet property="txt_newPassword" destination="lsj-ou-ufW" id="8GG-dS-zbN"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HsG-Tj-t8L" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -2916,6 +2968,7 @@
         <image name="iconwallet" width="32" height="32"/>
         <image name="transaction_active" width="36" height="35"/>
         <image name="trash" catalog="system" width="117" height="128"/>
+        <image name="unchecked" width="21.333333969116211" height="21.333333969116211"/>
         <image name="user" width="32" height="32"/>
         <image name="user-solid" width="12.25" height="14"/>
         <image name="user_active" width="32" height="32"/>
