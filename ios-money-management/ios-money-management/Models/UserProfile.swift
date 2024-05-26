@@ -14,13 +14,13 @@ import SDWebImage
 
 
 class UserProfile {
+//    MARK: Properties
     private let UID: String
     private var fullname: String
     private var avatar: UIImage?
     private var wallets = [Wallet]()
-    //    MARK: Firestore
-    //        Tạo một tham chiếu đến cơ sở dữ liệu Firestore
-    
+
+//    MARK: Constructor
     init(UID: String, fullname: String, avatar: UIImage?, wallets: [Wallet] = [Wallet]()) {
         self.UID = UID
         self.fullname = fullname
@@ -58,12 +58,13 @@ class UserProfile {
     }
     
     
-    //    MARK: Querry Database Firestore
+// MARK: Method
     /// Hàm cập nhật lại Fullname, avatarURL lên trên Firestore
     public static func updateUserProfile(UID:String, fullname:String, avatarURL: String){
-        // Cập nhật thông tin lên Firestore
-                let db = Firestore.firestore()
+//Kết nối DB
+        let db = Firestore.firestore()
                 let profileRef = db.collection("Profile").document(UID)
+//        Cập nhật data
                 profileRef.updateData([
                     "Fullname": fullname,
                     "Avatar": avatarURL
@@ -76,30 +77,25 @@ class UserProfile {
                 }
     }
     
-    // Hàm tải ảnh lên Firebase Storage và trả về URL
-        public static func uploadImageToStorage(imageData: Data, fileName: String) async throws -> String {
-            let storageRef = Storage.storage().reference().child("avatars/\(fileName)")
-            _ = try await storageRef.putDataAsync(imageData)
-            let downloadURL = try await storageRef.downloadURL()
-            return downloadURL.absoluteString
-        }
+    ///Tạo 1 doccument Profile trên DB (Đăng ký)
     public static func createUserProfile(userProfile: UserProfile) async throws -> String {
-        
+//        Kết nối DB
         let db = Firestore.firestore()
         
 
         
-        // 2. Tạo dictionary chứa dữ liệu hồ sơ
+        // Tạo dictionary chứa dữ liệu hồ sơ
         let profileData: [String: Any] = [
             "ID": userProfile.getUID,
             "Fullname": userProfile.Fullname,
-            "Avatar": userProfile.Avatar ?? "https://firebasestorage.googleapis.com:443/v0/b/moneymanager-885d2.appspot.com/o/images%2Favatar_default.png?alt=media&token=da4b8328-2b7e-4067-b7af-daa8e40d8c9d" // Nếu không có ảnh, lưu chuỗi rỗng
+//            Nếu chưa có avatar: Gán avatar mặc định
+            "Avatar": userProfile.Avatar ?? "https://firebasestorage.googleapis.com:443/v0/b/moneymanager-885d2.appspot.com/o/images%2Favatar_default.png?alt=media&token=da4b8328-2b7e-4067-b7af-daa8e40d8c9d"
         ]
         
-        // 3. Tạo tài liệu mới trong collection "Profile"
+        // Tạo tài liệu mới trong collection "Profile"
         let documentRef = db.collection("Profile").document(userProfile.getUID)
         
-        // 4. Ghi dữ liệu vào tài liệu mới
+        // Ghi dữ liệu vào tài liệu mới
         try await documentRef.setData(profileData)
         
         print("User profile created with ID: \(userProfile.getUID)")
@@ -107,23 +103,26 @@ class UserProfile {
     }
     
     
-    //------___---___--___-_____---__
-   
+/// Lấy userProfile bằng UID (Đăng nhập)
     public static func getUserProfine(UID: String) async -> UserProfile? {
         let db = Firestore.firestore()
         let profileRef = db.collection("Profile").document(UID)
         
         do {
+//            Lấy dữ liệu người dùng
             let snapshot = try await profileRef.getDocument()
+//Kiểm tra xem có dữ liệu trong tài liệu hay không.
+            guard let data = snapshot.data() else { return nil }
             
-            guard let data = snapshot.data() else { return nil } // Không tìm thấy hồ sơ
             
-            
+//            Lấy thông tin người dùng
             let fullName = data["Fullname"] as? String ?? ""
+//            Mặc định avatar là defalt
             var avatarImage = UIImage(named: "avatar_default")
             
-//            Download ảnh từ storage xuống và chuyển thành UIImageView
+//            Lấy URL ảnh đại diện từ dữ liệu
             let avatar_url = data["Avatar"] as! String
+//            Kiểm tra tính hợp lệ của URL. Nếu không hợp lệ, in ra thông báo lỗi và trả về nil
             guard let imageUrl = URL(string: avatar_url) else {
                     print("Download ảnh thất bại")
                     return nil
@@ -133,7 +132,7 @@ class UserProfile {
                     // Tải dữ liệu ảnh (Data) từ URL
                     let (imageData, _) = try await URLSession.shared.data(from: imageUrl)
 
-                    // Chuyển đổi dữ liệu ảnh thành UIImage
+//Tạo UIImage từ imageData và gán vào avatarImage
                     if let image = UIImage(data: imageData) {
                         avatarImage = image
                     }

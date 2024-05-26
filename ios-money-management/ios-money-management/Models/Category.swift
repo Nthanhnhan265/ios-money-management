@@ -10,11 +10,14 @@ import UIKit
 import FirebaseCore
 import FirebaseFirestore
 class Category{
+    //    MARK: Properties
+
     private let ID:String
     private let Name:String
     private let Image: UIImage?
     private let inCome: Bool
-    
+    //    MARK: Constructor
+
     init(ID: String, Name: String, Image: UIImage?, inCome: Bool) {
         self.ID = ID
         self.Name = Name
@@ -42,6 +45,8 @@ class Category{
             return Image
         }
     }
+    //    MARK: Method
+//    Lấy 1 đối tượng Category từ ID
     public static func getCategory(Category_ID:String) async -> Category?{
         let db = Firestore.firestore()
 
@@ -60,6 +65,7 @@ class Category{
             
         }
     }
+//    Lấy danh sách category Income
     public static func getIncome() async -> [Category] {
         let db = Firestore.firestore()
         let cateRef = db.collection("Category").whereField("isIncome", isEqualTo: true)
@@ -76,6 +82,7 @@ class Category{
         }
         return income
     }
+    //    Lấy danh sách category Expenses
     public static func getExpenses() async -> [Category] {
         let db = Firestore.firestore()
         let cateRef = db.collection("Category").whereField("isIncome", isEqualTo: false)

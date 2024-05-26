@@ -12,13 +12,14 @@ import UIKit
 import FirebaseCore
 import FirebaseFirestore
 class Wallet {
+//    MARK: Properties
     private let id:String
     private var name: String
     private var balance: Int
     private  var image: UIImage?
     private var transactions = [Transaction]()
     
-    
+//    MARK: Constructor
     init(ID: String, Name: String, Balance: Int, Image: UIImage?, Transaction: [Transaction]) {
         self.id = ID
         self.name = Name
@@ -76,7 +77,7 @@ class Wallet {
 
     
     
-//  MARK: GET SET Transactions cho Wallet
+// MARK: Method
     func getTransactions() -> [Transaction] {
             return transactions
         }
@@ -86,16 +87,17 @@ class Wallet {
     public func ToString(){
         print("Wallet: \(id) - \(name) - \(balance)")
     }
+    
+/// Lấy danh sách ví của người dùng
     public static func getMyWallets(UID:String) async -> [Wallet]?{
         let db = Firestore.firestore()
         let walletRef = db.collection("Wallets").document(UID).collection("Wallet")
         var myWallets = [Wallet]()
         
         do {
-            let snapshot = try await walletRef.getDocuments() // Lấy tất cả documents
+            let snapshot = try await walletRef.getDocuments()
             
             for i in snapshot.documents{
-                //                print("ID VÍ: \(i.documentID)")
                 
                 await myWallets.append(
                     Wallet(
@@ -103,6 +105,7 @@ class Wallet {
                         Name: i["Name"] as! String,
                         Balance:i["Balance"] as! Int,
                         Image: UIImage(named: i["Image"] as! String),
+//                        lấy danh sách transaction của 1 ví
                         Transaction: Transaction.getAllMyTransactions(walletID: i.documentID)!
                     )
                 )
@@ -116,8 +119,7 @@ class Wallet {
     }
     
    
-    //MARK: Tam An - Tao vi moi
-    //tao vi moi
+    ///Tạo ví mới
     public static func createNewWallet(UID: String, balance:Int, image: String, name: String)async throws -> String{
         let db = Firestore.firestore()
 
@@ -189,7 +191,6 @@ class Wallet {
         }
         
     }
-    // MARK: Tâm An - Cập nhật ví
     /// Cập nhật lại thông tin wallet của UID
     static func set_updateWallet(UID:String, wallet: Wallet){
         let db = Firestore.firestore()
@@ -214,54 +215,5 @@ class Wallet {
                 }
             }
 
-    }
-    
-    // lay tat ca du lieu trong vi
-    static func getAllWallets(UID: String, completion: @escaping ([Wallet], _ totalBalnce:Int)->Void ) {
-        let db = Firestore.firestore()
-        let userRef = db.collection("Profile").document(UID)
-        let walletRef = userRef.collection("Wallets")
-        var arrWalletObjects = [Wallet]()
-        
-        walletRef.getDocuments {
-            query, error in
-            if let error = error {
-                print("Error getting documents: \(error)")
-                completion([],0)
-                return
-            }
-            var total:Int = 0
-            if let documents = query?.documents, !documents.isEmpty {
-                for wallet in documents {
-                    let data = wallet.data()
-                    var walletName:String?
-                    var walletBalance:Int?
-                    var walletImage:String?
-                    var walletId:String?
-                    
-                    if let name = data["Name"] as? String {
-                        walletName = name
-                    }
-                    if let balance = data["Balance"] as? Int {
-                        walletBalance = balance
-                        total += balance
-                    }
-                    if let image = data["Image"] as? String {
-                        walletImage = image
-                    }
-                    if let id = data["ID"] as? String {
-                        walletId = id
-                    }
-                    
-                    arrWalletObjects.append(
-                        Wallet(ID: walletId ?? "", Name: walletName ?? "", Balance: walletBalance ?? 0, Image: UIImage(named: walletImage ?? "error"), Transaction: []))
-                    
-                }
-                completion(arrWalletObjects,total)
-            } else {
-                print("document not found")
-                completion([],0)
-            }
-        }
     }
 }

@@ -12,6 +12,7 @@ import FirebaseFirestore
 import FirebaseStorage
 
 class Transaction  {
+//    MARK: Properties
     private let id:String
     private var description:String
     private var balance: Int
@@ -19,9 +20,22 @@ class Transaction  {
     private let create_at:Date
     private let wallet_id: String
     private  var images: [UIImage]?
+    
+
     public func toString(){
         print("\(self.id) - \(self.description) - \(self.balance) - \(self.category.getName) - \(self.create_at) || Ví \(wallet_id)")
     }
+//    MARK: Constructor
+    init(id: String, description: String, balance: Int, category: Category, create_at: Date, wallet_id: String, images: [UIImage]) {
+        self.id = id
+        self.description = description
+        self.balance = balance
+        self.category = category
+        self.create_at = create_at
+        self.wallet_id = wallet_id
+        self.images = images
+    }
+
     var getID:String{
         get{
             return id
@@ -62,64 +76,69 @@ class Transaction  {
             return create_at
         }
     }
+//    MARK: Method
     
-    init(id: String, description: String, balance: Int, category: Category, create_at: Date, wallet_id: String, images: [UIImage]) {
-        self.id = id
-        self.description = description
-        self.balance = balance
-        self.category = category
-        self.create_at = create_at
-        self.wallet_id = wallet_id
-        self.images = images
-    }
-    
-   public static func uploadImagesToStorage(images: [UIImage]) async throws -> [String] {
+///Hàm này có nhiệm vụ tải lên một mảng các ảnh (UIImage) vào Firebase Storage
+    /// Trả về một mảng các URL ([String]) của các ảnh đó sau khi tải lên thành công.
+    /// async throws: Hàm là bất đồng bộ (có thể đợi) và có thể ném ra lỗi.
+    public static func uploadImagesToStorage(images: [UIImage]) async throws -> [String] {
+//       Lưu trữ các URL của ảnh sẽ trả về
         var imageUrls: [String] = []
+//        reference đến root của Firebase Storage.
         let storageRef = Storage.storage().reference()
 
+//        Duyệt danh sách ảnh
         for image in images {
-            // Tạo đường dẫn lưu trữ trên Storage (ví dụ: images/tên_file.jpg)
+//(UUID().uuidString): 1 chuỗi ngẫu nhiên
+//storageRef.child: Tạo 1 ref đến thư mục images trong storage
             let imageRef = storageRef.child("images/\(UUID().uuidString).jpg")
 
-            // Chuyển đổi UIImage thành Data
+//            Chuyển đổi UI Image thành dữ liệu jpg với độ nén là 0.8
+//             guard let: Kiểm tra xem việc chuyển đổi có thành công hay không, nếu không -> else
             guard let imageData = image.jpegData(compressionQuality: 0.8) else {
+                print("Chuyển đổi UI Image thành JPEG data thất bại!!!")
                 throw NSError(domain: "YourAppDomain", code: 1, userInfo: [NSLocalizedDescriptionKey: "Error converting image to data"])
             }
-
-            // Tải ảnh lên Storage
+        //try await: Đợi cho đến khi quá trình tải ảnh lên Storage hoàn tất.
+        //Lấy imageData là ảnh UI Image vừa chuyển đổi ở trên -> lên Storage theo đường dẫn imageRef
             _ = try await imageRef.putDataAsync(imageData)
-
-            // Lấy URL của ảnh
+//Lấy URL của ảnh trên Firebase Storage
             let downloadURL = try await imageRef.downloadURL()
+            
             imageUrls.append(downloadURL.absoluteString)
         }
 
         return imageUrls
     }
 
+    /// Lấy tất cả giao dịch của 1 ví
     public static func getAllMyTransactions(walletID:String) async -> [Transaction]?{
+//        Kết nối đến DB
         let db = Firestore.firestore()
         let walletRef = db.collection("Transactions").document(walletID).collection("Transaction")
+//        Mảng chứa các giao dịch của 1 ví sẽ được trả về
         var myTransactions = [Transaction]()
         
+//        do-catch: xử lý các lỗi có thể xảy ra trong quá trình truy vấn và tải ảnh.
         do {
-            let snapshot = try await walletRef.getDocuments() // Lấy tất cả documents
-            
-//            Duyệt mảng transaction
+//            Lấy tất cả doccument của transaction trong 1 ví
+            let snapshot = try await walletRef.getDocuments()
+//            Duyệt danh sách các giao dịch
             for transaction in snapshot.documents{
+//                Mảng UI Image để gán vào fiel của trans
                 var arr_image_transaction:[UIImage] = []
-//                Duyệt ảnh của 1 transaction
+//                Duyệt danh sách URL
                 for image_url in transaction["imageUrls"] as! Array<String>{
+//                    Tải ảnh xuống
                     guard let imageUrl = URL(string: image_url) else {
                             print("Download ảnh thất bại")
                             return nil
                         }
                     do {
-                        // Tải dữ liệu ảnh (Data) từ URL
                         let (imageData, _) = try await URLSession.shared.data(from: imageUrl)
-
-                        // Chuyển đổi dữ liệu ảnh thành UIImage
+//                        Tạo đối tượng UIImage từ imageData nếu thành công.
                         if let image = UIImage(data: imageData) {
+//                            Nạp vào mảng UI Image
                             arr_image_transaction.append(image)
                         }
                     } catch {
@@ -128,14 +147,19 @@ class Transaction  {
                     }
 
                 }
+//  Hoàn thành tải ảnh
+                
+//Tạo đối tượng Transaction và thêm vào mảng myTransactions:
                 await myTransactions.append(
                     Transaction(
                         id: transaction["ID"] as! String,
                         description:  transaction["Description"] as! String,
                         balance: transaction["Balance"] as! Int,
-                        category: Category.getCategory(Category_ID: transaction["Category_ID"] as! String)!,
+//await => Tìm đối tượng Category từ fiel categoryID
+                        category: Category.getCategory(Category_ID: (transaction["Category_ID"] as! String))!,
                         create_at: (transaction["CreateAt"] as? Timestamp)?.dateValue() ?? Date(),
                         wallet_id: walletID,
+//                        mảng ui image ở trên
                         images:arr_image_transaction
                     )
                 )
@@ -147,30 +171,36 @@ class Transaction  {
             return nil
         }
     }
+    ///  Xóa một giao dịch khỏi Firestore, bao gồm cả việc xóa các hình ảnh liên quan nếu có
     public static func deleteTransaction(walletID: String, transactionID: String) async throws {
+//        Trỏ đến giao dịch cần xoá
         let db = Firestore.firestore()
-        
-        // 1. Lấy  giao dịch collection "Transaction"
         let transactionRef = db.collection("Transactions").document(walletID).collection("Transaction").document(transactionID)
         
-        // 2. Xóa ảnh khỏi Firebase Storage (nếu có)
-        let transactionData = try await transactionRef.getDocument() // Lấy lại dữ liệu giao dịch
+//        Lấy thông tin giao dịch
+        let transactionData = try await transactionRef.getDocument()
+        
+//        Lấy mảng url image của giao dịch
         if let imageUrls = transactionData.get("imageUrls") as? [String] {
-//            print(imageUrls)
+//            Duyệt urls
             for imageUrl in imageUrls {
+//                Xoá ảnh từ URL
                 try await deleteImageFromStorage(urlString: imageUrl)
             }
         }
-        //       Xoá giao dịch
+//        Xoá giao dịch
         try await transactionRef.delete()
         
         print("Transaction deleted successfully!")
     }
 
-        // Hàm xóa ảnh từ Firebase Storage
+        /// Hàm xóa ảnh khỏi Storage từ URL
         private static func deleteImageFromStorage(urlString: String) async throws {
+//            Chuyển đổi chuỗi URL thành đối tượng URL
             guard let _ = URL(string: urlString) else {return}
+//            Kết nối đến ảnh từ url
             let storageRef = Storage.storage().reference(forURL: urlString)
+//            xoá ảnh
             try await storageRef.delete()
         }
     /// Hàm chuyển đồ từ Date sang String
@@ -213,7 +243,7 @@ class Transaction  {
             return Date.now
         }
     }
-    ///Hàm ghi 1 giao dịch mới lên DB trong wallet_id
+    ///Hàm ghi 1 giao dịch mới lên DB trong wallet_id, bao gồm tải ảnh lên Storage
     ///Và trả về 1 String là ID của giao dịch mới được khởi tạo
     public static func addTransaction(wallet_id:String, balance:Int, category_id:String, des:String, images: [UIImage], created_at:Date )async throws -> String{
             let db = Firestore.firestore()
