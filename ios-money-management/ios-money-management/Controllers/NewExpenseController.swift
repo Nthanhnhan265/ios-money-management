@@ -35,7 +35,7 @@ class NewExpenseController: UIViewController, PHPickerViewControllerDelegate, UI
     override func viewDidLoad() {
         super.viewDidLoad()
         print("Vào NewExpenseController")
-        
+        datePicker.maximumDate = Date()
         //       Lấy UID
         UID = UserDefaults.standard.string(forKey: "UID") ?? ""
         

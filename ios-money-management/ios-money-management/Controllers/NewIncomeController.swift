@@ -44,6 +44,7 @@ class NewIncomeController: UIViewController, UICollectionViewDelegateFlowLayout,
  
         super.viewDidLoad()
         print("Vào NewIncomeController")
+        datePicker.maximumDate = Date()
         //       Lấy UID
         UID = UserDefaults.standard.string(forKey: "UID") ?? ""
         //button custom
@@ -296,7 +297,7 @@ class NewIncomeController: UIViewController, UICollectionViewDelegateFlowLayout,
 
                             // Cập nhật số dư ví trên DB
                             Wallet.set_updateWallet(UID: UID, wallet: Wallet(ID: wallet.getID, Name: wallet.getName ,Balance: wallet.Balance + balance, Image: wallet.getImage , Transaction: wallet.getTransactions()))
-]
+
                             
                             
                             
