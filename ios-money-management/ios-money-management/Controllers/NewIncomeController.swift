@@ -296,8 +296,7 @@ class NewIncomeController: UIViewController, UICollectionViewDelegateFlowLayout,
 
                             // Cập nhật số dư ví trên DB
                             Wallet.set_updateWallet(UID: UID, wallet: Wallet(ID: wallet.getID, Name: wallet.getName ,Balance: wallet.Balance + balance, Image: wallet.getImage , Transaction: wallet.getTransactions()))
-                            print("wallet.getID = \(wallet.getID)")
-
+]
                             
                             
                             
