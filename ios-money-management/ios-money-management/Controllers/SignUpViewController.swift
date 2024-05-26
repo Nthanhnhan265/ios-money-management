@@ -15,7 +15,6 @@ class SignUpViewController: UIViewController {
     @IBOutlet weak var txt_email: UITextField!
 
     @IBOutlet weak var btn_SignUp: UIButton!
-    @IBOutlet weak var btn_google: UIButton!
     
     
 //    MARK: Load lần đầu
@@ -41,11 +40,11 @@ class SignUpViewController: UIViewController {
         txt_password.layer.borderWidth = 0.5
         txt_password.layer.cornerRadius = 10.0
         
-        //        Button đăng ký bằng Google
-        btn_google.layer.borderColor = UIColor.black.cgColor
-        btn_google.layer.borderWidth = 0.5
-        btn_google.layer.cornerRadius = 5.0
-        
+//        //        Button đăng ký bằng Google
+//        btn_google.layer.borderColor = UIColor.black.cgColor
+//        btn_google.layer.borderWidth = 0.5
+//        btn_google.layer.cornerRadius = 5.0
+//        
         
         
         

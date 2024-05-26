@@ -27,8 +27,11 @@ class LoginViewController: UIViewController {
         self.navigationItem.title = "Login"
         
         // Set up trước tài khoản và mật khẩu
-        txt_password.text = "admin@gmail.com"
-        txt_username.text = "admin@gmail.com"
+//        txt_password.text = "admin@gmail.com"
+//        txt_username.text = "admin@gmail.com"
+                txt_username.text = "ng.t.ann2003@gmail.com"
+                txt_password.text = "112233"
+
         
     }
     //    MARK: IBAction

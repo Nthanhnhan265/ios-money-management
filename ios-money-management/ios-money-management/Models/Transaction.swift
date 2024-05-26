@@ -93,9 +93,9 @@ class Transaction  {
 //storageRef.child: Tạo 1 ref đến thư mục images trong storage
             let imageRef = storageRef.child("images/\(UUID().uuidString).jpg")
 
-//            Chuyển đổi UI Image thành dữ liệu jpg với độ nén là 0.8
+//            Chuyển đổi UI Image thành dữ liệu jpg với độ nén là xx
 //             guard let: Kiểm tra xem việc chuyển đổi có thành công hay không, nếu không -> else
-            guard let imageData = image.jpegData(compressionQuality: 0.8) else {
+            guard let imageData = image.jpegData(compressionQuality: 0.1) else {
                 print("Chuyển đổi UI Image thành JPEG data thất bại!!!")
                 throw NSError(domain: "YourAppDomain", code: 1, userInfo: [NSLocalizedDescriptionKey: "Error converting image to data"])
             }
