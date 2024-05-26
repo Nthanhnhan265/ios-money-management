@@ -9,20 +9,20 @@ import UIKit
 import Firebase
 
 class ForgotPasswordViewController: UIViewController {
-
+//MARK: @IBOutlet
     @IBOutlet weak var btn_Continue: UIButton!
     @IBOutlet weak var txt_email: UITextField!
+//    MARK: Load lần đầu
     override func viewDidLoad() {
         super.viewDidLoad()
         
-//123
         print("Vào ForgotPasswordViewController")
         
         self.navigationItem.title = "Forgot Password"
-        // Do any additional setup after loading the view.
     }
     
-    
+//    MARK: @IBAction
+//    TA: Gửi mã OTP
     @IBAction func continueTapped(_ sender: Any) {
         guard let email = txt_email.text else{return}
         Auth.auth().sendPasswordReset(withEmail: email) { (error) in
@@ -38,7 +38,7 @@ class ForgotPasswordViewController: UIViewController {
                 guard let error = error else{return}
 
                 print(error)
-                let alertController = UIAlertController(title: "Error", message: "\(error).", preferredStyle: .alert)
+                let alertController = UIAlertController(title: "Error", message: "Error sent OTP.", preferredStyle: .alert)
                 alertController.addAction(UIAlertAction(title: "OK", style: .default))
                 self.present(alertController, animated: true, completion: nil)
                 

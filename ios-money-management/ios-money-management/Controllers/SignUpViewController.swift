@@ -9,16 +9,16 @@ import UIKit
 import FirebaseAuth
 import FirebaseFirestore
 class SignUpViewController: UIViewController {
-    //input
+//MARK: @IBOutlet
     @IBOutlet weak var txt_name: UITextField!
     @IBOutlet weak var txt_password: UITextField!
     @IBOutlet weak var txt_email: UITextField!
-    //    button
+
     @IBOutlet weak var btn_SignUp: UIButton!
     @IBOutlet weak var btn_google: UIButton!
     
     
-    
+//    MARK: Load lần đầu
     override func viewDidLoad() {
         super.viewDidLoad()
         //        Debug
@@ -57,10 +57,10 @@ class SignUpViewController: UIViewController {
         
         
     }
-    
+//    MARK: @IBAction
+///TA: checkbox
     @IBAction func btn_check_tapped(_ sender: UIButton) {
         //        Mac dinh hinh anh
-        
         if sender.isSelected{
             sender.setImage(UIImage(named: "checkbox_false"), for: .normal)
         }
@@ -70,7 +70,7 @@ class SignUpViewController: UIViewController {
         sender.isSelected = !sender.isSelected
         
     }
-    
+/// TA:: Show password
     @IBAction func btn_ShowPassword_tapped(_ sender: UIButton) {
         if sender.isSelected{
             sender.setImage(UIImage(named: "eye-slash-solid"), for: .normal)
@@ -83,8 +83,8 @@ class SignUpViewController: UIViewController {
         txt_password.isSecureTextEntry = !txt_password.isSecureTextEntry
     }
     
-    
-    @IBAction func btn_SignUp_Click(_ sender: UIButton) {
+/// TA: Đăng ký
+    @IBAction func btn_SignUp_tapped(_ sender: UIButton) {
         //        kiểm tra xem giá trị văn bản từ txt_email.text có nil hay không. Nếu nil, câu lệnh sẽ thực thi khối mã else.
         guard let email = txt_email.text else {return}
         guard let password = txt_password.text else {return}
@@ -101,12 +101,13 @@ class SignUpViewController: UIViewController {
         Auth.auth().createUser(withEmail: email, password: password) { [self] (authResult, error) in
             if let error = error {
                 // Xử lý lỗi đăng ký
+                
                 // Hiện ra cảnh báo cho người dùng
-                        let alertController = UIAlertController(title: "Registration error", message: error.localizedDescription, preferredStyle: .alert)
+                        let alertController = UIAlertController(title: "Error", message: "Registration error", preferredStyle: .alert)
                         alertController.addAction(UIAlertAction(title: "OK", style: .default))
                         present(alertController, animated: true, completion: nil)
                         return // Thoát khỏi hàm nếu không hợp lệ
-//                print("Registration error: \(error.localizedDescription)")
+                print("Registration error: \(error.localizedDescription)")
             } else if let authResult = authResult {
                 // Đăng ký thành công, lấy ID của người dùng
                 let userId = authResult.user.uid
@@ -120,7 +121,7 @@ class SignUpViewController: UIViewController {
                            let _ =   try await UserProfile.createUserProfile(userProfile: userProfile)
                             
 //                            Tạo ví mới mặc định cho người dùng trên DB
-                         let _ =    try await Wallet.createNewWallet(UID: userId, balance: 0, image: "cash", name: "Tiền mặt")
+                         let _ =    try await Wallet.createNewWallet(UID: userId, balance: 0, image: "cash", name: "Cash")
                             
 //                            Trở ra màn hình
                             navigationController?.popViewController(animated: true)

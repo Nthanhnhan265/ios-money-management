@@ -253,7 +253,7 @@ class NewIncomeController: UIViewController, UICollectionViewDelegateFlowLayout,
                             } catch {
                                 // Xử lý lỗi nếu có
                                 print("Error adding transaction: \(error)")
-                                let alertController = UIAlertController(title: "Error", message: "\(error).", preferredStyle: .alert)
+                                let alertController = UIAlertController(title: "Error", message: "Error adding transaction.", preferredStyle: .alert)
                                 alertController.addAction(UIAlertAction(title: "OK", style: .default))
                                 self.present(alertController, animated: true, completion: nil)
                             }
@@ -324,7 +324,7 @@ class NewIncomeController: UIViewController, UICollectionViewDelegateFlowLayout,
                         } catch {
                             // Xử lý lỗi nếu có
                             print("Error adding transaction: \(error)")
-                            let alertController = UIAlertController(title: "Error", message: "\(error).", preferredStyle: .alert)
+                            let alertController = UIAlertController(title: "Error", message: "Error adding transaction.", preferredStyle: .alert)
                             alertController.addAction(UIAlertAction(title: "OK", style: .default))
                             self.present(alertController, animated: true, completion: nil)
                         }

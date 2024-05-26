@@ -292,7 +292,7 @@
                                             <color key="baseForegroundColor" red="0.56862747670000002" green="0.56862747670000002" blue="0.61960786580000005" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         </buttonConfiguration>
                                         <connections>
-                                            <action selector="btn_today_clik:" destination="zge-d4-KaM" eventType="touchUpInside" id="H65-Vy-6Dt"/>
+                                            <action selector="btn_today_tapped:" destination="zge-d4-KaM" eventType="touchUpInside" id="dyE-Kd-JAn"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="x57-2B-yWU">
@@ -302,7 +302,7 @@
                                             <color key="baseForegroundColor" red="0.56862747670000002" green="0.56862747670000002" blue="0.61960786580000005" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         </buttonConfiguration>
                                         <connections>
-                                            <action selector="btn_week_click:" destination="zge-d4-KaM" eventType="touchUpInside" id="lFg-bU-Ned"/>
+                                            <action selector="btn_week_tapped:" destination="zge-d4-KaM" eventType="touchUpInside" id="EGA-fj-ohK"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LvK-og-fbY">
@@ -312,7 +312,7 @@
                                             <color key="baseForegroundColor" red="0.56862747670000002" green="0.56862747670000002" blue="0.61960786580000005" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         </buttonConfiguration>
                                         <connections>
-                                            <action selector="btn_month_click:" destination="zge-d4-KaM" eventType="touchUpInside" id="hyT-wX-Ngh"/>
+                                            <action selector="btn_month_tapped:" destination="zge-d4-KaM" eventType="touchUpInside" id="cce-tK-gze"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="f8w-jp-mpT">
@@ -322,7 +322,7 @@
                                             <color key="baseForegroundColor" red="0.56862747670000002" green="0.56862747670000002" blue="0.61960786580000005" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         </buttonConfiguration>
                                         <connections>
-                                            <action selector="btn_year_click:" destination="zge-d4-KaM" eventType="touchUpInside" id="bhH-LE-BXi"/>
+                                            <action selector="btn_year_tapped:" destination="zge-d4-KaM" eventType="touchUpInside" id="dXk-VQ-LXM"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -343,7 +343,7 @@
                                                     <color key="baseForegroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </buttonConfiguration>
                                                 <connections>
-                                                    <action selector="btn_income_click:" destination="zge-d4-KaM" eventType="touchUpInside" id="8YN-B9-PUa"/>
+                                                    <action selector="btn_income_tapped:" destination="zge-d4-KaM" eventType="touchUpInside" id="MOg-Q2-rNU"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="daD-kc-FuI">
@@ -540,11 +540,11 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <pickerView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8G9-OK-XdT">
-                                <rect key="frame" x="-13" y="471" width="394" height="162"/>
+                                <rect key="frame" x="-14" y="471" width="394" height="162"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                             </pickerView>
                             <datePicker contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" translatesAutoresizingMaskIntoConstraints="NO" id="2oW-wa-G6l">
-                                <rect key="frame" x="-25" y="278" width="393" height="113"/>
+                                <rect key="frame" x="-26" y="278" width="393" height="113"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                 <locale key="locale" localeIdentifier="vi"/>
                             </datePicker>
@@ -1073,7 +1073,7 @@
                                     <color key="baseForegroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </buttonConfiguration>
                                 <connections>
-                                    <action selector="btn_SignUp_Click:" destination="hV0-iu-Nsl" eventType="touchUpInside" id="1OE-r4-9Yw"/>
+                                    <action selector="btn_SignUp_tapped:" destination="hV0-iu-Nsl" eventType="touchUpInside" id="3UJ-SB-ovx"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="By signing up, you agree to the Terms of Service and Privacy Policy" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4sh-ST-Xju">
@@ -1097,17 +1097,6 @@
                                     <action selector="btn_ShowPassword_tapped:" destination="hV0-iu-Nsl" eventType="touchUpInside" id="sbT-FN-ot7"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pTo-0j-w4L">
-                                <rect key="frame" x="16" y="576" width="352" height="56"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="56" id="DT8-RL-SJY"/>
-                                </constraints>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" image="flat-color-icons_google" title="Sign Up with Google">
-                                    <fontDescription key="titleFontDescription" type="boldSystem" pointSize="21"/>
-                                    <color key="baseForegroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                </buttonConfiguration>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="t1o-b8-0Ug">
                                 <rect key="frame" x="25" y="407" width="32" height="32"/>
                                 <constraints>
@@ -1120,15 +1109,6 @@
                                     <action selector="btn_check_tapped:" destination="hV0-iu-Nsl" eventType="touchUpInside" id="95t-hu-lNv"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Or with" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cuf-q2-S6G">
-                                <rect key="frame" x="171" y="542" width="50" height="18"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="18" id="NTq-dg-oFR"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="8KO-xY-pKF">
                                 <rect key="frame" x="25" y="244" width="343" height="56"/>
                                 <constraints>
@@ -1149,28 +1129,21 @@
                             <constraint firstItem="6va-gJ-qoq" firstAttribute="top" secondItem="Wrk-ay-GwF" secondAttribute="bottom" constant="61" id="JSL-z4-jtp"/>
                             <constraint firstAttribute="trailing" secondItem="6va-gJ-qoq" secondAttribute="trailing" constant="25" id="KDg-Tp-j2G"/>
                             <constraint firstAttribute="trailing" secondItem="i9a-Af-c2k" secondAttribute="trailing" constant="25" id="MRq-Cm-AJJ"/>
-                            <constraint firstItem="pTo-0j-w4L" firstAttribute="leading" secondItem="R1Y-zz-Jph" secondAttribute="leading" constant="16" id="OKJ-uK-cex"/>
-                            <constraint firstAttribute="trailing" secondItem="pTo-0j-w4L" secondAttribute="trailing" constant="25" id="OMM-pn-EI4"/>
                             <constraint firstItem="hQ9-0G-n5Y" firstAttribute="leading" secondItem="R1Y-zz-Jph" secondAttribute="leading" constant="25" id="QZz-Xv-UhL"/>
                             <constraint firstItem="4sh-ST-Xju" firstAttribute="top" secondItem="hQ9-0G-n5Y" secondAttribute="bottom" constant="25" id="QpN-tl-NnX"/>
-                            <constraint firstItem="pTo-0j-w4L" firstAttribute="top" secondItem="Cuf-q2-S6G" secondAttribute="bottom" constant="16" id="THg-0C-ksC"/>
-                            <constraint firstAttribute="trailing" secondItem="Cuf-q2-S6G" secondAttribute="trailing" constant="172" id="VyP-ze-Vk0"/>
                             <constraint firstItem="hQ9-0G-n5Y" firstAttribute="top" secondItem="8KO-xY-pKF" secondAttribute="bottom" constant="24" id="XXm-lW-c1q"/>
                             <constraint firstItem="4sh-ST-Xju" firstAttribute="leading" secondItem="t1o-b8-0Ug" secondAttribute="trailing" constant="1" id="dfJ-ea-5UK"/>
                             <constraint firstAttribute="trailing" secondItem="4sh-ST-Xju" secondAttribute="trailing" constant="25" id="fp9-ly-8OK"/>
                             <constraint firstItem="t1o-b8-0Ug" firstAttribute="top" secondItem="hQ9-0G-n5Y" secondAttribute="bottom" constant="27" id="ja1-vu-0EO"/>
                             <constraint firstItem="8KO-xY-pKF" firstAttribute="top" secondItem="6va-gJ-qoq" secondAttribute="bottom" constant="24" id="lcl-zD-yBU"/>
-                            <constraint firstItem="Cuf-q2-S6G" firstAttribute="leading" secondItem="R1Y-zz-Jph" secondAttribute="leading" constant="171" id="qWy-Bv-Hva"/>
                             <constraint firstItem="8KO-xY-pKF" firstAttribute="leading" secondItem="R1Y-zz-Jph" secondAttribute="leading" constant="25" id="rb9-kG-A2t"/>
                             <constraint firstAttribute="trailing" secondItem="hQ9-0G-n5Y" secondAttribute="trailing" constant="25" id="uji-9n-KHx"/>
                             <constraint firstAttribute="trailing" secondItem="KrD-T1-Ast" secondAttribute="trailing" constant="34" id="xa6-uq-ltt"/>
-                            <constraint firstItem="Cuf-q2-S6G" firstAttribute="top" secondItem="i9a-Af-c2k" secondAttribute="bottom" constant="16" id="xjH-Ic-nJu"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="A7L-LE-eDq"/>
                     <connections>
                         <outlet property="btn_SignUp" destination="i9a-Af-c2k" id="Z1L-ng-eIx"/>
-                        <outlet property="btn_google" destination="pTo-0j-w4L" id="vCi-Vd-Csz"/>
                         <outlet property="txt_email" destination="8KO-xY-pKF" id="vo7-bS-NPQ"/>
                         <outlet property="txt_name" destination="6va-gJ-qoq" id="SGf-VJ-Q98"/>
                         <outlet property="txt_password" destination="hQ9-0G-n5Y" id="3Dq-WZ-Nm4"/>
@@ -3582,7 +3555,6 @@
         <image name="expenses" width="48" height="48"/>
         <image name="eye-slash-solid" width="17.5" height="14"/>
         <image name="eye-solid" width="15.75" height="14"/>
-        <image name="flat-color-icons_google" width="21.333333969116211" height="21.333333969116211"/>
         <image name="home_active" width="32" height="32"/>
         <image name="iconwallet" width="32" height="32"/>
         <image name="pie-chart_active" width="32" height="32"/>

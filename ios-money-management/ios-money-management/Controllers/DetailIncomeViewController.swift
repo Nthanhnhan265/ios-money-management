@@ -118,7 +118,7 @@ class DetailIncomeViewController: UIViewController,  UICollectionViewDelegateFlo
     @IBAction func edit_income_tapped(_ sender: UIButton) {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let detail_ex = storyboard.instantiateViewController(withIdentifier: "Income") as! NewIncomeController
-        detail_ex.navigationItem.title = "Edit Expense"
+        detail_ex.navigationItem.title = "Edit Income"
         if let wallets = self.wallets {
 //            Truyền mảng wallets của người dùng có qua
             detail_ex.wallets = wallets

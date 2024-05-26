@@ -19,7 +19,7 @@ class NewExpenseController: UIViewController, PHPickerViewControllerDelegate, UI
     @IBOutlet weak var datePicker: UIDatePicker!
     
     @IBOutlet weak var addImgButton: UIBarButtonItem!
-    
+//    MARK: Biến dữ liệu
     var detailTransScreen:DetailExpenseViewController?
     var selectedImages = [UIImage]()
     var wallets: [Wallet] = []
@@ -49,9 +49,12 @@ class NewExpenseController: UIViewController, PHPickerViewControllerDelegate, UI
     }
     
     //MARK: setup button
+    ///Set thiết kế của các UI
     func setFrontEnd(){
         if let detail_trans = self.detail_trans {
-            textFieldValue.text = "\(detail_trans.getBalance * -1 )"
+//            textFieldValue.text = "\(detail_trans.getBalance * -1 )"
+            textFieldValue.text = detail_trans.getBalance > 0 ? "-\(detail_trans.getBalance)" : "\(detail_trans.getBalance)"
+
             textFieldDescription.text = "\(detail_trans.getDescription)"
             selectedImages.append(contentsOf: detail_trans.Images)
             datePicker.date =  detail_trans.getCreateAt
@@ -89,13 +92,15 @@ class NewExpenseController: UIViewController, PHPickerViewControllerDelegate, UI
         //        Xoá navigation bottom
         self.tabBarController?.tabBar.isHidden = true
     }
+    ///Set thiết kế của navbar trên
     func setNavbar() {
         self.navigationController?.navigationBar.backgroundColor = UIColor(red: 255/255, green: 86/255, blue: 92/255, alpha: 1);
         self.navigationController?.navigationBar.tintColor = UIColor.white
         self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
     }
     
-    
+//    MARK:@IBAction
+/// Tạo/Sửa giao dịch mới
     @IBAction func btn_expenses_tapped(_ sender: UIButton) {
         // Edit trans
         if selectedWallet != nil{
@@ -186,7 +191,7 @@ class NewExpenseController: UIViewController, PHPickerViewControllerDelegate, UI
                     } catch {
                         // Xử lý lỗi nếu có
                         print("Error adding transaction: \(error)")
-                        let alertController = UIAlertController(title: "Error", message: "\(error).", preferredStyle: .alert)
+                        let alertController = UIAlertController(title: "Error", message: "Error New Transaction", preferredStyle: .alert)
                         alertController.addAction(UIAlertAction(title: "OK", style: .default))
                         self.present(alertController, animated: true, completion: nil)
                     }
@@ -257,7 +262,7 @@ class NewExpenseController: UIViewController, PHPickerViewControllerDelegate, UI
                     } catch {
                         // Xử lý lỗi nếu có
                         print("Error adding transaction: \(error)")
-                        let alertController = UIAlertController(title: "Error", message: "\(error).", preferredStyle: .alert)
+                        let alertController = UIAlertController(title: "Error", message: "Error New Transaction.", preferredStyle: .alert)
                         alertController.addAction(UIAlertAction(title: "OK", style: .default))
                         self.present(alertController, animated: true, completion: nil)
                     }
@@ -276,6 +281,7 @@ class NewExpenseController: UIViewController, PHPickerViewControllerDelegate, UI
         
         
     }
+    ///lấy mảng wallets đổ vào pop up
     func setWallets(wallets:[Wallet])  {
         // Tạo các UIAction từ danh sách Wallet
         let actions = wallets.map { wallet in
@@ -304,6 +310,7 @@ class NewExpenseController: UIViewController, PHPickerViewControllerDelegate, UI
         popupWalletButton.menu = menu
         popupWalletButton.showsMenuAsPrimaryAction = true
     }
+    /// Lấy category trên db đổ vào pop up
     func setCategoryExpenses() {
         //        lấy tab bar controller
         if let tabBarController = self.tabBarController as? TabHomeViewController {
@@ -332,7 +339,7 @@ class NewExpenseController: UIViewController, PHPickerViewControllerDelegate, UI
             popupCategoryButton.showsMenuAsPrimaryAction = true
         }
     }
-    //MARK: event
+    //MARK: @IBAction
     @IBAction func addImageTapped(_ sender: Any) {
         //oject chua thong tin ve cau hinh cua PHPickerViewController
         var phconfig = PHPickerConfiguration()

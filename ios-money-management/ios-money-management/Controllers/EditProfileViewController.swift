@@ -64,7 +64,7 @@ class EditProfileViewController: UIViewController, UIImagePickerControllerDelega
                     } catch {
                         // Xử lý lỗi nếu có
                         print("Error updating profile: \(error)")
-                        let alertController = UIAlertController(title: "Error", message: "\(error).", preferredStyle: .alert)
+                        let alertController = UIAlertController(title: "Error", message: "Error updating profile.", preferredStyle: .alert)
                         alertController.addAction(UIAlertAction(title: "OK", style: .default))
                         self.present(alertController, animated: true, completion: nil)
                     }

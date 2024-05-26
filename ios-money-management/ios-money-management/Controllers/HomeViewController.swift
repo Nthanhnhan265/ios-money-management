@@ -21,7 +21,8 @@ class HomeViewController: UIViewController {
     var transactions = [Transaction]()
     var wallets = [Wallet]()
     var currentFilterState = FilterState()
-    
+    private let db = Firestore.firestore()
+
     // MARK: @IBOutlet
     @IBOutlet weak var table_view: UITableView!
     @IBOutlet weak var txt_balance: UILabel!
@@ -34,15 +35,12 @@ class HomeViewController: UIViewController {
     @IBOutlet weak var btn_Expenses: UIButton!
     @IBOutlet weak var btn_income: UIButton!
     @IBOutlet weak var menu_wallets: UIButton!
-    
     @IBOutlet weak var bgView: UIView!
     
     
     
-    // MARK: Firestore
-    // Tạo một tham chiếu đến cơ sở dữ liệu Firestore
-    private let db = Firestore.firestore()
     
+//    MARK: Load lần đầu
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -85,6 +83,7 @@ class HomeViewController: UIViewController {
         
         
     }
+//    MARK: Load những lần quay lại
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         print("Load lại HomeViewController")
@@ -164,7 +163,7 @@ class HomeViewController: UIViewController {
             return Date.now
         }
     }
-    // MARK: Func set dữ liệu giả
+    /// Set thiết kế cho UI
     func setFrontEnd() {
         //custom avatar va border
         avatar.layer.cornerRadius = avatar.frame.height/2
@@ -263,6 +262,7 @@ class HomeViewController: UIViewController {
         
         return total_balance
     }
+/// Hàm xử lý khi nhấn today, week, month year, ...
     func updateTransactions() {
         //        Làm rỗng mảng chứa danh sách giao dịch
         self.transactions = []
@@ -334,7 +334,7 @@ class HomeViewController: UIViewController {
                 transactions = filteredTransactions
             default:
                 print("Lỗi filter theo button time")
-                let alertController = UIAlertController(title: "Error", message: "Fil failed.", preferredStyle: .alert)
+                let alertController = UIAlertController(title: "Error", message: "Filter failed.", preferredStyle: .alert)
                 alertController.addAction(UIAlertAction(title: "OK", style: .default))
                 self.present(alertController, animated: true, completion: nil)
             }
@@ -354,7 +354,7 @@ class HomeViewController: UIViewController {
         
        
     }
-    @IBAction func btn_income_click(_ sender: UIButton) {
+    @IBAction func btn_income_tapped(_ sender: UIButton) {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let viewController = storyboard.instantiateViewController(withIdentifier: "Income") as! NewIncomeController
         viewController.wallets = wallets
@@ -365,7 +365,7 @@ class HomeViewController: UIViewController {
       
     }
     // click btn week
-    @IBAction func btn_week_click(_ sender: UIButton) {
+    @IBAction func btn_week_tapped(_ sender: UIButton) {
         //Kiểm tra xem button đang được click có phải là button đang active không
         if currentFilterState.buttonTime == sender {
             //            thực hiện các bước sau để hủy active
@@ -401,7 +401,7 @@ class HomeViewController: UIViewController {
         
     }
     // click btn today
-    @IBAction func btn_today_clik(_ sender: UIButton) {
+    @IBAction func btn_today_tapped(_ sender: UIButton) {
         //Kiểm tra xem button đang được click có phải là button đang active không
         if currentFilterState.buttonTime == sender {
             //            thực hiện các bước sau để hủy active
@@ -433,7 +433,7 @@ class HomeViewController: UIViewController {
         updateTransactions()
     }
     // click btn month
-    @IBAction func btn_month_click(_ sender: UIButton) {
+    @IBAction func btn_month_tapped(_ sender: UIButton) {
         //Kiểm tra xem button đang được click có phải là button đang active không
         if currentFilterState.buttonTime == sender {
             //            thực hiện các bước sau để hủy active
@@ -465,7 +465,7 @@ class HomeViewController: UIViewController {
         updateTransactions()
     }
     // click btn year
-    @IBAction func btn_year_click(_ sender: UIButton) {
+    @IBAction func btn_year_tapped(_ sender: UIButton) {
         //Kiểm tra xem button đang được click có phải là button đang active không
         if currentFilterState.buttonTime == sender {
             //            thực hiện các bước sau để hủy active
