@@ -67,7 +67,7 @@ class LoginViewController: UIViewController {
                 // Đăng nhập thành công, lấy ID của người dùng
                 let userId = authResult.user.uid
                 print("User login with ID: \(userId)")
-                //                UserDefaults.standard.set(userId, forKey: "UID")
+                UserDefaults.standard.set(userId, forKey: "UID")
                 
                 Task{
                     //                    Gọi hàm lấy userProfile từ UID
