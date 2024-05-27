@@ -95,7 +95,7 @@ class Transaction  {
 
 //            Chuyển đổi UI Image thành dữ liệu jpg với độ nén là xx
 //             guard let: Kiểm tra xem việc chuyển đổi có thành công hay không, nếu không -> else
-            guard let imageData = image.jpegData(compressionQuality: 0.1) else {
+            guard let imageData = image.jpegData(compressionQuality: 0.001) else {
                 print("Chuyển đổi UI Image thành JPEG data thất bại!!!")
                 throw NSError(domain: "YourAppDomain", code: 1, userInfo: [NSLocalizedDescriptionKey: "Error converting image to data"])
             }

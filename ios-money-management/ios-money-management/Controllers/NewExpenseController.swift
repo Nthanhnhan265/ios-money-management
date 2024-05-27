@@ -18,6 +18,8 @@ class NewExpenseController: UIViewController, PHPickerViewControllerDelegate, UI
     @IBOutlet weak var textFieldDescription: UITextField!
     @IBOutlet weak var datePicker: UIDatePicker!
     
+    @IBOutlet weak var view_loading: UIActivityIndicatorView!
+    @IBOutlet weak var view_opacity: UIView!
     @IBOutlet weak var addImgButton: UIBarButtonItem!
 //    MARK: Biến dữ liệu
     var detailTransScreen:DetailExpenseViewController?
@@ -35,6 +37,9 @@ class NewExpenseController: UIViewController, PHPickerViewControllerDelegate, UI
     override func viewDidLoad() {
         super.viewDidLoad()
         print("Vào NewExpenseController")
+        view_opacity.isHidden = true
+        view_loading.isHidden = true
+        
         datePicker.maximumDate = Date()
         //       Lấy UID
         UID = UserDefaults.standard.string(forKey: "UID") ?? ""
@@ -104,7 +109,8 @@ class NewExpenseController: UIViewController, PHPickerViewControllerDelegate, UI
     @IBAction func btn_expenses_tapped(_ sender: UIButton) {
         // Edit trans
         if selectedWallet != nil{
-            
+            self.view_opacity.isHidden = false
+            self.view_loading.isHidden = false
             Task{
                 //                Xoá transaction trên db
                 try await Transaction.deleteTransaction(walletID: self.detail_trans!.getWalletID, transactionID: self.detail_trans!.getID)
@@ -204,7 +210,8 @@ class NewExpenseController: UIViewController, PHPickerViewControllerDelegate, UI
                     alertController.addAction(UIAlertAction(title: "OK", style: .default))
                     self.present(alertController, animated: true, completion: nil)
                 }
-                
+                self.view_opacity.isHidden = true
+                self.view_loading.isHidden = true
                 navigationController?.popViewController(animated: true)
             
             }

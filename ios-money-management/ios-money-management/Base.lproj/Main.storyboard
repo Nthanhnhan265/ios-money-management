@@ -434,7 +434,7 @@
                     <navigationItem key="navigationItem" id="MwP-gb-r2Q">
                         <nil key="title"/>
                         <barButtonItem key="leftBarButtonItem" style="plain" id="J5x-5J-Kxt">
-                            <view key="customView" contentMode="scaleToFill" id="sGv-FN-3z4">
+                            <view key="customView" contentMode="scaleToFill" ambiguous="YES" id="sGv-FN-3z4">
                                 <rect key="frame" x="16" y="5.6666666666666679" width="87" height="33"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
@@ -1365,6 +1365,24 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="D4F-fo-Y0K">
+                                <rect key="frame" x="0.0" y="59" width="393" height="793"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="G6m-mG-gTV">
+                                        <rect key="frame" x="0.0" y="296" width="393" height="201"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <subviews>
+                                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" animating="YES" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="hw5-Ur-V1o">
+                                                <rect key="frame" x="186" y="90" width="20" height="20"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            </activityIndicatorView>
+                                        </subviews>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                    </view>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="tertiaryLabelColor"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" red="0.99215686274509807" green="0.23529411764705882" blue="0.29019607843137252" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
@@ -1396,6 +1414,8 @@
                         <outlet property="popupWalletButton" destination="b6V-H7-Fdd" id="syq-oZ-P91"/>
                         <outlet property="textFieldDescription" destination="DXO-Gg-xsX" id="6WI-3n-fnd"/>
                         <outlet property="textFieldValue" destination="LYc-2F-P70" id="IMb-e4-S12"/>
+                        <outlet property="view_loading" destination="hw5-Ur-V1o" id="Jx5-TM-AMC"/>
+                        <outlet property="view_opacity" destination="l7d-0B-IAB" id="SMV-8x-E4d"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8dJ-Tm-tzZ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -1939,6 +1959,24 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="48b-I7-d52">
+                                <rect key="frame" x="0.0" y="59" width="393" height="793"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZHc-dm-AyQ">
+                                        <rect key="frame" x="0.0" y="237" width="393" height="201"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <subviews>
+                                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" animating="YES" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="g8l-Rq-0ih">
+                                                <rect key="frame" x="186" y="90" width="20" height="20"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            </activityIndicatorView>
+                                        </subviews>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                    </view>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="tertiaryLabelColor"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" red="0.0" green="0.6588235294117647" blue="0.41960784313725491" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
@@ -1970,6 +2008,8 @@
                         <outlet property="popupWalletButton" destination="JE3-NA-JFL" id="zAe-PQ-bbq"/>
                         <outlet property="textFieldDescription" destination="gCo-HR-umf" id="hcW-LH-nBe"/>
                         <outlet property="textFieldValue" destination="5mz-6U-8P9" id="VI2-R8-5pO"/>
+                        <outlet property="view_loading" destination="g8l-Rq-0ih" id="mND-aL-wK0"/>
+                        <outlet property="view_opacity" destination="48b-I7-d52" id="z1I-YB-sFr"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="njz-k6-Rg8" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

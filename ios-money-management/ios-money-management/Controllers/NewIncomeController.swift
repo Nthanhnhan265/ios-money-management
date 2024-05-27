@@ -24,6 +24,8 @@ class NewIncomeController: UIViewController, UICollectionViewDelegateFlowLayout,
     @IBOutlet weak var addImgButton: UIBarButtonItem!
     @IBOutlet weak var datePicker: UIDatePicker!
     
+    @IBOutlet weak var view_loading: UIActivityIndicatorView!
+    @IBOutlet weak var view_opacity: UIView!
     var selectedImages = [UIImage]()
 
 //    Ví của người dùng
@@ -44,6 +46,10 @@ class NewIncomeController: UIViewController, UICollectionViewDelegateFlowLayout,
  
         super.viewDidLoad()
         print("Vào NewIncomeController")
+        
+        view_opacity.isHidden = true
+        view_loading.isHidden = true
+
         datePicker.maximumDate = Date()
         //       Lấy UID
         UID = UserDefaults.standard.string(forKey: "UID") ?? ""
@@ -171,6 +177,9 @@ class NewIncomeController: UIViewController, UICollectionViewDelegateFlowLayout,
     @IBAction func NewIncome_Tapped(_ sender: UIButton)  {
         // Edit trans
         if selectedWallet != nil{
+            view_opacity.isHidden = false
+            view_loading.isHidden = false
+
             Task{
                 //                Xoá transaction trên db
                 try await Transaction.deleteTransaction(walletID: self.detail_trans!.getWalletID, transactionID: self.detail_trans!.getID)
@@ -267,7 +276,9 @@ class NewIncomeController: UIViewController, UICollectionViewDelegateFlowLayout,
                         alertController.addAction(UIAlertAction(title: "OK", style: .default))
                         self.present(alertController, animated: true, completion: nil)
                     }
-               
+                view_opacity.isHidden = true
+                view_loading.isHidden = true
+
                 navigationController?.popViewController(animated: true)
 //                navigationController?.popViewController(animated: true)
             }
