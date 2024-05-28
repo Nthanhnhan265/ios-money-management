@@ -19,7 +19,7 @@ class AddWalletViewController: UIViewController,UITextViewDelegate, UICollection
 
     
     var icons:[String] = [
-        "heart","Envelope","money","hospital","basket","book","meal","bank","cash","mbb","bitcoin","salary"
+        "heart","paypal","money","hospital","basket","book","meal","bank","cash","mbb","bitcoin","salary"
     ]//string cac images trong asset
     var preSelectedButton:UIButton?
     
