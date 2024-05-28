@@ -369,7 +369,7 @@
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="daD-kc-FuI">
                                                 <rect key="frame" x="181.66666666666663" y="0.0" width="161.33333333333337" height="62"/>
                                                 <state key="normal" title="Button"/>
-                                                <buttonConfiguration key="configuration" style="plain" image="expenses" title="Expenses" imagePadding="10">
+                                                <buttonConfiguration key="configuration" style="plain" image="expenses" title="Expense" imagePadding="10">
                                                     <backgroundConfiguration key="background" cornerRadius="20">
                                                         <color key="backgroundColor" red="0.91372549530000002" green="0.3058823645" blue="0.31764706970000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                     </backgroundConfiguration>

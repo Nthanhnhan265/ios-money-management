@@ -33,8 +33,8 @@ class LoginViewController: UIViewController {
         self.navigationItem.title = "Login"
         
         // Set up trước tài khoản và mật khẩu
-        txt_username.text = "admin@gmail.com"
-        txt_password.text = "admin@gmail.com"
+//        txt_username.text = "admin@gmail.com"
+//        txt_password.text = "admin@gmail.com"
         
 
 
