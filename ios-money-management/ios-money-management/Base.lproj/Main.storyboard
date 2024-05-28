@@ -1415,7 +1415,7 @@
                         <outlet property="textFieldDescription" destination="DXO-Gg-xsX" id="6WI-3n-fnd"/>
                         <outlet property="textFieldValue" destination="LYc-2F-P70" id="IMb-e4-S12"/>
                         <outlet property="view_loading" destination="hw5-Ur-V1o" id="Jx5-TM-AMC"/>
-                        <outlet property="view_opacity" destination="l7d-0B-IAB" id="SMV-8x-E4d"/>
+                        <outlet property="view_opacity" destination="D4F-fo-Y0K" id="aFk-SH-AhN"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8dJ-Tm-tzZ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

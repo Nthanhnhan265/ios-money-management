@@ -119,7 +119,7 @@ class Wallet {
     }
     
    
-    ///Tạo ví mới
+    ///Tạo ví mới -> Trả ra ID của ví
     public static func createNewWallet(UID: String, balance:Int, image: String, name: String)async throws -> String{
         let db = Firestore.firestore()
 

@@ -24,7 +24,17 @@ class ForgotPasswordViewController: UIViewController {
 //    MARK: @IBAction
 //    TA: Gửi mã OTP
     @IBAction func continueTapped(_ sender: Any) {
+        
         guard let email = txt_email.text else{return}
+        
+        
+//        phương thức này có thể bị lợi dụng để thực hiện tấn công liệt kê email
+//        Auth.auth().fetchSignInMethods(forEmail: email) { (signInMethods, error) in
+//
+//        }
+
+        
+        
         Auth.auth().sendPasswordReset(withEmail: email) { (error) in
             if error == nil {
                 // Hiện ra thông báo đã send OTP cho người dùng

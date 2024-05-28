@@ -10,7 +10,7 @@ import FirebaseCore
 import FirebaseFirestore
 
 class HomeViewController: UIViewController {
-    //    Cấu trúc filter Ví và Thời gian
+    //    Cấu trúc lưu trữ lựa chọn filter Ví và Thời gian
     struct FilterState {
         var selectedWallet: Wallet?
         var buttonTime:UIButton?
@@ -18,8 +18,11 @@ class HomeViewController: UIViewController {
     }
     
     //    MARK: Dữ liệu
+//    dữ liệu hiển thị trên tbv
     var transactions = [Transaction]()
+//    danh sách ví của userProfile
     var wallets = [Wallet]()
+//    biến lưu lựa chọn filtẻ
     var currentFilterState = FilterState()
     private let db = Firestore.firestore()
 
@@ -66,9 +69,14 @@ class HomeViewController: UIViewController {
             if let userProfile = tabBarController.userProfile
             {
                 setProfile(userProfile: userProfile)
+//                Truyền vào hàm setWallets danh sách ví của người dùng
+//                Hàm trả ra total balance
+//                Ép về string và hiển thị lên label
                 txt_balance.text = String(setWallets(wallets: userProfile.Wallets ).getVNDFormat())
+                
                 //                             Set transactions
                 for wallet in userProfile.Wallets{
+//                    Nạp toàn bộ giao dịch của ví vào mảng self.transaction ở trên để hiển thị lên table
                     setTransactions(data: wallet.getTransactions())
                     
                     //                    Lấy dữ liệu của userProfile, đọc tất cả các ví -> Đổi vào mảng dữ liệu
@@ -294,19 +302,21 @@ class HomeViewController: UIViewController {
                 // Lấy ngày hiện tại
                 let currentDate = Date()
                 
-                // Tính toán ngày 7 ngày trước
+                // Tính toán ngày 1 ngày trước
                 let sevenDaysAgo = Calendar.current.date(byAdding: .day, value: -1, to: currentDate)!
                 
                 // Lọc các giao dịch
                 let filteredTransactions = transactions.filter { transaction in
-                    return sevenDaysAgo <= transaction.getCreateAt && transaction.getCreateAt <= currentDate
+//                    sevenDaysAgo <= transaction.getCreateAt && transaction.getCreateAt <= currentDate:
+//                    Kiểm tra ngày tạo của giao dịch có nằm trong khoảng thời gian sevenDaysAgo không
+                    return (sevenDaysAgo <= transaction.getCreateAt) && (transaction.getCreateAt <= currentDate)
                 }
                 transactions = filteredTransactions
             case btn_month:
                 // Lấy ngày hiện tại
                 let currentDate = Date()
                 
-                // Tính toán ngày 7 ngày trước
+                // Tính toán ngày 30 ngày trước
                 let sevenDaysAgo = Calendar.current.date(byAdding: .day, value: -30, to: currentDate)!
                 
                 // Lọc các giao dịch
@@ -330,7 +340,7 @@ class HomeViewController: UIViewController {
                 // Lấy ngày hiện tại
                 let currentDate = Date()
                 
-                // Tính toán ngày 7 ngày trước
+                // Tính toán ngày 365 ngày trước
                 let sevenDaysAgo = Calendar.current.date(byAdding: .day, value: -365, to: currentDate)!
                 
                 // Lọc các giao dịch

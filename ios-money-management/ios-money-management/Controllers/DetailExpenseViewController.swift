@@ -103,6 +103,7 @@ class DetailExpenseViewController: UIViewController, UICollectionViewDelegateFlo
         
         return dateFormatter.string(from: currentDateAndTime)
     }
+    /// Đổ dữ liệu vào label
     func setBackEnd(wallet:Wallet, transaction:Transaction){
         let maxiumString = 185
         txt_des.text = transaction.getDescription.getShorterString(max: maxiumString)
@@ -114,6 +115,7 @@ class DetailExpenseViewController: UIViewController, UICollectionViewDelegateFlo
 //        Set hình ảnh giao dịch
         arrImgs?.append(contentsOf: transaction.Images)
     }
+    /// set thiết kế của các UI
     func setFrontEnd(){
         //set background for navigation controller
         self.navigationController?.navigationBar.backgroundColor = UIColor(red: 253/255, green: 74/255, blue: 92/255, alpha: 1);
@@ -144,7 +146,7 @@ class DetailExpenseViewController: UIViewController, UICollectionViewDelegateFlo
     
     
     
-    // Function to display the confirm dialog
+    /// Function to display the confirm dialog
     func showConfirmDialog() {
         let alertController = UIAlertController(title: "Delete transaction", message: "Are you sure you want to delete this transaction?", preferredStyle: .actionSheet)
         
@@ -153,9 +155,9 @@ class DetailExpenseViewController: UIViewController, UICollectionViewDelegateFlo
         
         let deleteAction = UIAlertAction(title: "Delete", style: .destructive) { _ in
             Task{
-                //                Xoá transaction trên db
+                //           1. Xoá transaction trên db
                 try await Transaction.deleteTransaction(walletID: self.transaction!.getWalletID, transactionID: self.transaction!.getID)
-                //                Xoá transaction ở mảng local
+                //                2. Xoá transaction ở mảng local
                 if let tabBarController = self.tabBarController as? TabHomeViewController {
                     if let userProfile = tabBarController.userProfile{
 //                        Tìm được ví chứa giao dịch
@@ -169,11 +171,11 @@ class DetailExpenseViewController: UIViewController, UICollectionViewDelegateFlo
                            //                            xoá giao dịch khỏi mảng
                            wallet?.transactions_get_set.remove(at: index)
                        }
-                        //                    Cộng trừ tiền lại vào ví
+                        //                    3. Cộng trừ tiền lại vào ví
 //                         wallet.balance trung gian = wallet.balance trung gian - (self.transaction.balance)
                         tabBarController.userProfile?.Wallets.first(where: {$0.getID == self.transaction?.getWalletID})?.Balance = (tabBarController.userProfile?.Wallets.first(where: {$0.getID == self.transaction?.getWalletID})!.Balance)! - self.transaction!.getBalance
                         
-//                        Cộng trừ tiền trên db
+//                        4. Cộng trừ tiền trên db
                         Wallet.set_updateWallet(UID: userProfile.getUID, wallet: Wallet(ID: wallet!.getID, Name: wallet!.getName, Balance: wallet!.Balance, Image: wallet?.getImage, Transaction: wallet!.transactions_get_set))
                     }
                 }

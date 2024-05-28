@@ -77,7 +77,7 @@ class UserProfile {
                 }
     }
     
-    ///Tạo 1 doccument Profile trên DB (Đăng ký)
+    ///Tạo 1 doccument Profile trên DB (Đăng ký) -> Trả ra ID của userProfile
     public static func createUserProfile(userProfile: UserProfile) async throws -> String {
 //        Kết nối DB
         let db = Firestore.firestore()
